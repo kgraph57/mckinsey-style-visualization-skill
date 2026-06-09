@@ -1,0 +1,45 @@
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Competitive benchmark example</title>
+  <desc id="desc">A consulting-style competitive benchmark table with vendors scored across decision criteria.</desc>
+  <rect width="800" height="450" fill="#FFFFFF"/>
+  <rect x="34" y="30" width="732" height="390" rx="12" fill="#F8FAFC" stroke="#D1D5DB"/>
+  <text x="64" y="72" fill="#000000" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="700">Vendor B leads on enterprise readiness</text>
+  <text x="64" y="104" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="15">Benchmark table spec: score vendors against decision criteria</text>
+  <rect x="64" y="138" width="672" height="230" rx="8" fill="#FFFFFF" stroke="#D1D5DB"/>
+  <rect x="64" y="138" width="672" height="44" fill="#1E3A5F"/>
+  <text x="88" y="166" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">Vendor</text>
+  <text x="222" y="166" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">Accuracy</text>
+  <text x="352" y="166" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">Integration</text>
+  <text x="496" y="166" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">Risk</text>
+  <text x="616" y="166" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">Decision</text>
+  <g stroke="#D1D5DB">
+    <line x1="64" y1="226" x2="736" y2="226"/>
+    <line x1="64" y1="270" x2="736" y2="270"/>
+    <line x1="64" y1="314" x2="736" y2="314"/>
+    <line x1="196" y1="138" x2="196" y2="368"/>
+    <line x1="326" y1="138" x2="326" y2="368"/>
+    <line x1="470" y1="138" x2="470" y2="368"/>
+    <line x1="586" y1="138" x2="586" y2="368"/>
+  </g>
+  <rect x="64" y="226" width="672" height="44" fill="#F3F4F6"/>
+  <text x="88" y="210" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14">Vendor A</text>
+  <text x="232" y="210" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">8.7</text>
+  <text x="362" y="210" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">7.9</text>
+  <text x="502" y="210" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">Med</text>
+  <text x="616" y="210" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">Pilot</text>
+  <text x="88" y="254" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">Vendor B</text>
+  <text x="232" y="254" fill="#1E3A8A" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">9.1</text>
+  <text x="362" y="254" fill="#1E3A8A" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">9.4</text>
+  <text x="502" y="254" fill="#1E3A8A" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">Low</text>
+  <text x="616" y="254" fill="#1E3A8A" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">Select</text>
+  <text x="88" y="298" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14">Vendor C</text>
+  <text x="232" y="298" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">8.2</text>
+  <text x="362" y="298" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">8.1</text>
+  <text x="502" y="298" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">High</text>
+  <text x="616" y="298" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">Watch</text>
+  <text x="88" y="342" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14">Vendor D</text>
+  <text x="232" y="342" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">7.6</text>
+  <text x="362" y="342" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">7.0</text>
+  <text x="502" y="342" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">Med</text>
+  <text x="616" y="342" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">Defer</text>
+</svg>

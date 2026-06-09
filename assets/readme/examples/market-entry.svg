@@ -1,0 +1,27 @@
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Market entry comparison example</title>
+  <desc id="desc">A market entry comparison diagram showing mature and emerging markets side by side.</desc>
+  <rect width="800" height="450" fill="#FFFFFF"/>
+  <rect x="34" y="30" width="732" height="390" rx="12" fill="#F8FAFC" stroke="#D1D5DB"/>
+  <text x="64" y="72" fill="#000000" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="700">Japan entry needs sequenced investment</text>
+  <text x="64" y="104" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="15">Contrast diagram spec: compare market readiness and execution burden</text>
+  <line x1="400" y1="142" x2="400" y2="360" stroke="#D1D5DB"/>
+  <g transform="translate(82 150)">
+    <text x="0" y="0" fill="#1E3A8A" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Existing market</text>
+    <text x="0" y="40" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">70%</text>
+    <text x="0" y="72" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="15">enterprise adoption</text>
+    <rect x="0" y="104" width="250" height="14" rx="7" fill="#1E3A8A"/>
+    <rect x="0" y="136" width="210" height="14" rx="7" fill="#D1D5DB"/>
+    <rect x="0" y="168" width="184" height="14" rx="7" fill="#D1D5DB"/>
+  </g>
+  <g transform="translate(448 150)">
+    <text x="0" y="0" fill="#1E3A8A" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">New market</text>
+    <text x="0" y="40" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">15%</text>
+    <text x="0" y="72" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="15">early adoption</text>
+    <rect x="0" y="104" width="72" height="14" rx="7" fill="#1E3A8A"/>
+    <rect x="0" y="136" width="230" height="14" rx="7" fill="#D1D5DB"/>
+    <rect x="0" y="168" width="260" height="14" rx="7" fill="#D1D5DB"/>
+  </g>
+  <rect x="500" y="328" width="194" height="44" rx="8" fill="#FFFFFF" stroke="#D1D5DB"/>
+  <text x="518" y="355" fill="#B91C1C" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">Implication: sequence entry</text>
+</svg>

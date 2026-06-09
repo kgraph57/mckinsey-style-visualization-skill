@@ -1,0 +1,17 @@
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Capacity gap example</title>
+  <desc id="desc">A gap visualization comparing forecast demand to current implementation capacity.</desc>
+  <rect width="800" height="450" fill="#FFFFFF"/>
+  <rect x="34" y="30" width="732" height="390" rx="12" fill="#F8FAFC" stroke="#D1D5DB"/>
+  <text x="64" y="72" fill="#000000" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="700">Capacity covers two-thirds of demand</text>
+  <text x="64" y="104" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="15">Gap visualization spec: quantify the execution constraint</text>
+  <text x="96" y="176" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">Forecast demand</text>
+  <rect x="96" y="198" width="520" height="30" rx="15" fill="#1E3A8A"/>
+  <text x="636" y="220" fill="#1E3A8A" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">18</text>
+  <text x="96" y="280" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">Current capacity</text>
+  <rect x="96" y="302" width="347" height="30" rx="15" fill="#D1D5DB"/>
+  <text x="466" y="324" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">12</text>
+  <rect x="540" y="270" width="174" height="70" rx="8" fill="#FFFFFF" stroke="#D1D5DB"/>
+  <text x="558" y="298" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">6 deployment gap</text>
+  <text x="558" y="320" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="13">67% coverage</text>
+</svg>
