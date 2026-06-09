@@ -43,7 +43,9 @@ strategy, consulting, executive presentations, board slides, visualization, data
 - `SKILL.md` uses a concise discovery description.
 - `references/` files cover style, patterns, templates, and quality scoring.
 - `examples/` includes sample input, expected output, and evaluation.
+- `examples/review-loop/` demonstrates draft, review, revision, and pass criteria.
 - `scripts/validate_skill.py` verifies required marketplace files.
+- `scripts/review_slide_spec.py` provides a lightweight structural review for slide specs.
 - `SECURITY.md` discloses permissions and data handling.
 
 ## Screenshot Checklist

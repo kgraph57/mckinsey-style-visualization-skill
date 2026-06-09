@@ -16,6 +16,7 @@
   - investment scale comparison
   - executive summary strip
 - Add before/after prompt comparisons showing why the skill improves agent output.
+- Expand the iterative review-loop examples across board update, market entry, vendor selection, and investment memo scenarios.
 
 ## Phase 3: Premium Template Pack
 
