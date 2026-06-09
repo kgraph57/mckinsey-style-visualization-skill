@@ -15,9 +15,12 @@ REQUIRED_FILES = [
     "SKILL.md",
     "README.md",
     "MARKETPLACE.md",
+    "MARKETPLACE_TARGETS.md",
     "SUBMISSION.md",
     "DISTRIBUTION.md",
     "COMMERCIALIZATION.md",
+    "LAUNCH.md",
+    "BUYER_BRIEF.md",
     "SECURITY.md",
     "CHANGELOG.md",
     "ROADMAP.md",
@@ -48,6 +51,7 @@ REQUIRED_FILES = [
     "examples/review-loop/investment-memo-draft-v2.md",
     "examples/review-loop/investment-memo-review-v2.md",
     "scripts/review_slide_spec.py",
+    "assets/social/launch-card.svg",
 ]
 
 FORBIDDEN_PATTERNS = [
@@ -144,7 +148,7 @@ def validate_manifest() -> None:
     expected = {
         "name": "strategy-consulting-visualization",
         "display_name": "Strategy Consulting Visualization Skill",
-        "version": "1.2.0",
+        "version": "1.4.0",
         "license": "MIT",
         "entrypoint": "SKILL.md",
     }
@@ -161,6 +165,11 @@ def validate_manifest() -> None:
     for proof_path in proof.values():
         if not (ROOT / proof_path).exists():
             fail(f"manifest proof path does not exist: {proof_path}")
+
+    launch = manifest.get("launch", {})
+    for launch_path in launch.values():
+        if not (ROOT / launch_path).exists():
+            fail(f"manifest launch path does not exist: {launch_path}")
 
 
 def validate_no_stale_or_risky_text() -> None:

@@ -8,7 +8,7 @@ https://github.com/kgraph57/mckinsey-style-visualization-skill
 
 ## Release URL
 
-https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.2.0
+https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.4.0
 
 ## Short Pitch
 
@@ -27,11 +27,17 @@ Agent skill, visualization, strategy, consulting, executive presentations, board
 Submit to SKILL.md and agent-skill directories first. Prioritize places that allow GitHub-based listings:
 
 - SkillsMP
-- SkillShelf
+- SkillHQ
+- SkillsMarket
 - Skill Vault
-- Awesome Skill directories
-- Claude/Codex skill directories when available
+- skill.broker
+- ClaudSkills
+- Skillhound
+- Skiln
+- AgenticSkills
 - GitHub awesome lists for agent skills
+
+See [Marketplace Targets](MARKETPLACE_TARGETS.md) for URLs, priority, and submission angles.
 
 ## Submission Checklist
 

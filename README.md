@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Skill Format](https://img.shields.io/badge/SKILL.md-ready-blue.svg)](SKILL.md)
 [![Validation](https://img.shields.io/badge/Validation-local%20script-green.svg)](scripts/validate_skill.py)
-[![Release](https://img.shields.io/badge/Release-v1.2.0-1E3A8A.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.2.0)
+[![Release](https://img.shields.io/badge/Release-v1.4.0-1E3A8A.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.4.0)
 
 ![Strategy Consulting Visualization Skill overview](assets/readme/skill-overview.svg)
 
@@ -14,11 +14,16 @@
 This repository is now packaged for distribution testing:
 
 - [Marketplace listing draft](MARKETPLACE.md)
+- [Marketplace target list](MARKETPLACE_TARGETS.md)
+- [Launch kit](LAUNCH.md)
 - [Submission copy](SUBMISSION.md)
 - [Distribution kit](DISTRIBUTION.md)
 - [Commercialization plan](COMMERCIALIZATION.md)
+- [Buyer brief](BUYER_BRIEF.md)
 - [Security policy](SECURITY.md)
 - [Roadmap](ROADMAP.md)
+
+![Social launch card](assets/social/launch-card.svg)
 
 ## What You Can Do
 
@@ -333,9 +338,15 @@ sequenceDiagram
 │   └── evaluation-report.md
 ├── marketplace/
 │   └── manifest.json
+├── assets/
+│   ├── readme/
+│   └── social/
 ├── scripts/
 │   └── validate_skill.py
 ├── MARKETPLACE.md
+├── MARKETPLACE_TARGETS.md
+├── LAUNCH.md
+├── BUYER_BRIEF.md
 ├── SECURITY.md
 ├── CHANGELOG.md
 └── ROADMAP.md
@@ -351,6 +362,9 @@ sequenceDiagram
 | Local validation | Ready | [validate_skill.py](scripts/validate_skill.py) |
 | Marketplace metadata | Ready | [manifest.json](marketplace/manifest.json) |
 | Storefront copy | Ready | [MARKETPLACE.md](MARKETPLACE.md) |
+| Launch copy | Ready | [LAUNCH.md](LAUNCH.md) |
+| Listing targets | Ready | [MARKETPLACE_TARGETS.md](MARKETPLACE_TARGETS.md) |
+| Buyer diligence | Ready | [BUYER_BRIEF.md](BUYER_BRIEF.md) |
 | Security posture | Ready | [SECURITY.md](SECURITY.md) |
 | Product roadmap | Ready | [ROADMAP.md](ROADMAP.md) |
 | Release history | Ready | [CHANGELOG.md](CHANGELOG.md) |

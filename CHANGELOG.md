@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- No changes yet.
+
+## 1.4.0 - Launch and Buyer Readiness
+
+- Added launch copy, social-card asset, and a 7-day launch plan.
+- Added marketplace target list with priority, URLs, submission angles, and a listing tracker.
+- Added buyer brief for acquisition-facing diligence and positioning.
+- Updated distribution, submission, marketplace, README, manifest, and validator references for launch readiness.
+
+## 1.3.0 - Distribution and Review Loop Expansion
+
 - Added public reference corpus for studying executive-report patterns without copying source material.
 - Added iterative draft-review-revise loop for polished executive slide specs.
 - Added `scripts/review_slide_spec.py` for lightweight structural review.

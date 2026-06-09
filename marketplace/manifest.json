@@ -2,7 +2,7 @@
   "schema_version": "0.1.0",
   "name": "strategy-consulting-visualization",
   "display_name": "Strategy Consulting Visualization Skill",
-  "version": "1.2.0",
+  "version": "1.4.0",
   "category": "visualization",
   "tags": [
     "strategy",
@@ -32,6 +32,12 @@
     "sample_output": "examples/board-update-slide-spec.md",
     "evaluation": "examples/evaluation-report.md",
     "validation": "scripts/validate_skill.py"
+  },
+  "launch": {
+    "marketplace_targets": "MARKETPLACE_TARGETS.md",
+    "launch_kit": "LAUNCH.md",
+    "buyer_brief": "BUYER_BRIEF.md",
+    "social_card": "assets/social/launch-card.svg"
   },
   "disclaimer": "Independent skill package. Not affiliated with or endorsed by any consulting firm."
 }
