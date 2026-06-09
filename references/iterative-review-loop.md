@@ -79,4 +79,3 @@ If the score is below 18, revise and run the loop again. If a blocking issue rep
 - Prefer one clear implication over many weak observations.
 - Make assumptions more visible instead of hiding weak data.
 - Do not borrow layouts, text, or images from reference sources.
-

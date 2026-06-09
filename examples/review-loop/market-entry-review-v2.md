@@ -20,4 +20,3 @@
 ## Decision
 
 Pass for marketplace proof. Revise again only if the user provides investment cost, ROI, or market-specific evidence.
-
