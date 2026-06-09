@@ -114,10 +114,15 @@ Use these files to run the loop:
 
 - [Public reference corpus](references/public-reference-corpus.md)
 - [Iterative review loop](references/iterative-review-loop.md)
-- [Market entry draft v1](examples/review-loop/market-entry-draft-v1.md)
-- [Review v1](examples/review-loop/market-entry-review-v1.md)
-- [Market entry draft v2](examples/review-loop/market-entry-draft-v2.md)
-- [Review v2](examples/review-loop/market-entry-review-v2.md)
+
+Example loops:
+
+| Scenario | Draft v1 | Review v1 | Draft v2 | Review v2 |
+| --- | --- | --- | --- | --- |
+| Board update | [draft](examples/review-loop/board-update-draft-v1.md) | [review](examples/review-loop/board-update-review-v1.md) | [draft](examples/review-loop/board-update-draft-v2.md) | [review](examples/review-loop/board-update-review-v2.md) |
+| Vendor selection | [draft](examples/review-loop/vendor-selection-draft-v1.md) | [review](examples/review-loop/vendor-selection-review-v1.md) | [draft](examples/review-loop/vendor-selection-draft-v2.md) | [review](examples/review-loop/vendor-selection-review-v2.md) |
+| Investment memo | [draft](examples/review-loop/investment-memo-draft-v1.md) | [review](examples/review-loop/investment-memo-review-v1.md) | [draft](examples/review-loop/investment-memo-draft-v2.md) | [review](examples/review-loop/investment-memo-review-v2.md) |
+| Market entry | [draft](examples/review-loop/market-entry-draft-v1.md) | [review](examples/review-loop/market-entry-review-v1.md) | [draft](examples/review-loop/market-entry-draft-v2.md) | [review](examples/review-loop/market-entry-review-v2.md) |
 
 You can also run a lightweight structural review:
 
