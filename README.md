@@ -7,6 +7,8 @@
 [![Validation](https://img.shields.io/badge/Validation-local%20script-green.svg)](scripts/validate_skill.py)
 [![Release](https://img.shields.io/badge/Release-v1.2.0-1E3A8A.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.2.0)
 
+![Strategy Consulting Visualization Skill overview](assets/readme/skill-overview.svg)
+
 ## What You Can Do
 
 Use this skill when you have messy business notes, metrics, or a strategic question and need a slide-ready consulting visualization direction.
@@ -22,6 +24,14 @@ Use this skill when you have messy business notes, metrics, or a strategic quest
 | Raw deck outline | Executive summary strip | 3-5 decision-ready takeaways with proof points and implications |
 
 The skill mainly creates **slide specs and image-generation prompts**. It does not render final PowerPoint slides by itself. The value is in turning business input into a reproducible visual plan that an agent, designer, or renderer can execute.
+
+## Output Previews
+
+These previews show the kind of artifact the skill helps an agent plan. They are lightweight README visuals, not final PowerPoint exports.
+
+| Board Update Story | Visual Pattern Selection | Slide Spec Output |
+| --- | --- | --- |
+| ![Board update slide spec preview](assets/readme/board-update-preview.svg) | ![Visualization patterns preview](assets/readme/visual-patterns-preview.svg) | ![Slide specification preview](assets/readme/slide-spec-preview.svg) |
 
 ## One-Minute Example
 
