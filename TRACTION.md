@@ -32,7 +32,7 @@ Baseline captured with GitHub repository metadata on 2026-06-09.
 | Date | Channel | URL | Notes |
 | --- | --- | --- | --- |
 | 2026-06-09 | X | https://x.com/kgraph_/status/2064211558461567218 | v1.5.0 launch post |
-| 2026-06-09 | X | https://x.com/kgraph_/status/2064213034009325806 | v1.5.0 Japanese launch post |
+| 2026-06-09 | X | https://x.com/kgraph_/status/2064213710495993900 | v1.5.0 Japanese launch post |
 
 ## Qualified Signals
 
