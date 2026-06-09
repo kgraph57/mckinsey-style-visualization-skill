@@ -49,6 +49,13 @@ python3 scripts/validate_skill.py
 python3 scripts/review_slide_spec.py examples/review-loop/market-entry-draft-v2.md
 ```
 
+## Launch Assets
+
+- Launch copy: `LAUNCH.md`
+- Social card: `assets/social/launch-card.svg`
+- Marketplace targets: `MARKETPLACE_TARGETS.md`
+- Buyer brief: `BUYER_BRIEF.md`
+
 ## Safety Note
 
 Independent package. Not affiliated with, endorsed by, or sponsored by any consulting firm. Public reference sources are used only to study reusable patterns and review criteria.

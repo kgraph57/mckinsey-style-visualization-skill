@@ -65,6 +65,14 @@ Add these assets before submitting to a visual marketplace:
 - Security reports: see `SECURITY.md`
 - Compatibility: best-effort with tools that support the `SKILL.md` convention
 
+## Launch and Diligence Assets
+
+- Marketplace targets: `MARKETPLACE_TARGETS.md`
+- Launch copy and social asset: `LAUNCH.md`
+- Buyer-facing summary: `BUYER_BRIEF.md`
+- Distribution kit: `DISTRIBUTION.md`
+- Commercialization plan: `COMMERCIALIZATION.md`
+
 ## Disclaimer
 
 Independent package. Not affiliated with, endorsed by, or sponsored by any consulting firm.

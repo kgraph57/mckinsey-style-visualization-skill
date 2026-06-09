@@ -1,0 +1,47 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Strategy Consulting Visualization Skill launch card</title>
+  <desc id="desc">A launch card showing raw business notes converting into executive-ready slide specifications.</desc>
+  <rect width="1200" height="630" fill="#F8FAFC"/>
+  <rect x="56" y="48" width="1092" height="534" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+  <text x="92" y="112" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Strategy Consulting Visualization Skill</text>
+  <text x="92" y="168" fill="#111827" font-family="Georgia, 'Times New Roman', serif" font-size="54" font-weight="700">Raw metrics into board-ready slide specs</text>
+  <text x="92" y="214" fill="#475569" font-family="Arial, Helvetica, sans-serif" font-size="22">SKILL.md package for executive visualizations, review loops, and marketplace-ready proof.</text>
+
+  <g transform="translate(92 278)">
+    <rect width="298" height="216" rx="8" fill="#F8FAFC" stroke="#CBD5E1"/>
+    <text x="24" y="42" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Input</text>
+    <text x="24" y="78" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="18">ARR: $10M -> $15M</text>
+    <text x="24" y="112" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="18">Adoption: 18% -> 64%</text>
+    <text x="24" y="146" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="18">Constraint: capacity</text>
+    <text x="24" y="180" fill="#64748B" font-family="Arial, Helvetica, sans-serif" font-size="16">Messy board notes</text>
+  </g>
+
+  <path d="M430 386H510" stroke="#1E3A8A" stroke-width="6" stroke-linecap="round"/>
+  <path d="M510 386L488 368M510 386L488 404" stroke="#1E3A8A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g transform="translate(548 278)">
+    <rect width="398" height="216" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text x="24" y="42" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Output</text>
+    <text x="24" y="76" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">Capacity is now the growth constraint</text>
+    <rect x="24" y="102" width="318" height="22" fill="#DBEAFE"/>
+    <rect x="24" y="142" width="132" height="22" fill="#94A3B8"/>
+    <rect x="156" y="142" width="178" height="22" fill="#1E3A8A"/>
+    <rect x="334" y="142" width="38" height="22" fill="#CBD5E1"/>
+    <text x="24" y="194" fill="#64748B" font-family="Arial, Helvetica, sans-serif" font-size="16">Slide spec, assumptions, review score</text>
+  </g>
+
+  <g transform="translate(982 286)">
+    <circle cx="44" cy="44" r="44" fill="#1E3A8A"/>
+    <text x="44" y="53" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" text-anchor="middle">v1.4</text>
+    <text x="44" y="118" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" text-anchor="middle">Launch</text>
+    <text x="44" y="145" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" text-anchor="middle">Ready</text>
+  </g>
+
+  <rect x="92" y="526" width="104" height="30" rx="4" fill="#E0F2FE"/>
+  <text x="144" y="547" fill="#075985" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" text-anchor="middle">SKILL.md</text>
+  <rect x="212" y="526" width="126" height="30" rx="4" fill="#ECFDF5"/>
+  <text x="275" y="547" fill="#047857" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" text-anchor="middle">Validated</text>
+  <rect x="354" y="526" width="156" height="30" rx="4" fill="#F1F5F9"/>
+  <text x="432" y="547" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" text-anchor="middle">Review Loop</text>
+  <text x="642" y="548" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="17">github.com/kgraph57/mckinsey-style-visualization-skill</text>
+</svg>
