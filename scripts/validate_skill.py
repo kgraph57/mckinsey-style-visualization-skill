@@ -32,6 +32,18 @@ REQUIRED_FILES = [
     "examples/review-loop/market-entry-review-v1.md",
     "examples/review-loop/market-entry-draft-v2.md",
     "examples/review-loop/market-entry-review-v2.md",
+    "examples/review-loop/board-update-draft-v1.md",
+    "examples/review-loop/board-update-review-v1.md",
+    "examples/review-loop/board-update-draft-v2.md",
+    "examples/review-loop/board-update-review-v2.md",
+    "examples/review-loop/vendor-selection-draft-v1.md",
+    "examples/review-loop/vendor-selection-review-v1.md",
+    "examples/review-loop/vendor-selection-draft-v2.md",
+    "examples/review-loop/vendor-selection-review-v2.md",
+    "examples/review-loop/investment-memo-draft-v1.md",
+    "examples/review-loop/investment-memo-review-v1.md",
+    "examples/review-loop/investment-memo-draft-v2.md",
+    "examples/review-loop/investment-memo-review-v2.md",
     "scripts/review_slide_spec.py",
 ]
 

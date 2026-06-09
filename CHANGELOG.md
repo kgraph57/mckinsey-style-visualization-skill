@@ -6,6 +6,7 @@
 - Added iterative draft-review-revise loop for polished executive slide specs.
 - Added `scripts/review_slide_spec.py` for lightweight structural review.
 - Added review-loop examples showing a draft improving from revise to pass.
+- Expanded review-loop examples across board update, vendor selection, investment memo, and market entry scenarios.
 
 ## 1.2.0 - Marketplace Readiness
 
