@@ -7,6 +7,7 @@
 - Added `scripts/review_slide_spec.py` for lightweight structural review.
 - Added review-loop examples showing a draft improving from revise to pass.
 - Expanded review-loop examples across board update, vendor selection, investment memo, and market entry scenarios.
+- Added distribution, submission, and commercialization docs for marketplace testing.
 
 ## 1.2.0 - Marketplace Readiness
 
