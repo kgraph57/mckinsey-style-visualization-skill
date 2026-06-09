@@ -39,6 +39,8 @@ Submit to SKILL.md and agent-skill directories first. Prioritize places that all
 
 See [Marketplace Targets](MARKETPLACE_TARGETS.md) for URLs, priority, and submission angles.
 
+Open a marketplace listing issue with `.github/ISSUE_TEMPLATE/marketplace-listing.md` for each submission.
+
 ## Submission Checklist
 
 - [ ] Use the short pitch above.

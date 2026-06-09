@@ -33,6 +33,8 @@ Create a paid pack only after the free repo receives real usage signals.
 - Users asking for industry-specific packs.
 - First paid purchase or consulting request.
 
+Use [TRACTION.md](TRACTION.md) as the running log.
+
 ## 30-Day Validation Plan
 
 1. Submit to 5 skill marketplaces or directories.

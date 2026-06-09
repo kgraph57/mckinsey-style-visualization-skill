@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Skill Format](https://img.shields.io/badge/SKILL.md-ready-blue.svg)](SKILL.md)
 [![Validation](https://img.shields.io/badge/Validation-local%20script-green.svg)](scripts/validate_skill.py)
-[![Release](https://img.shields.io/badge/Release-v1.4.0-1E3A8A.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.4.0)
+[![Release](https://img.shields.io/badge/Release-v1.5.0-1E3A8A.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.5.0)
 
 ![Strategy Consulting Visualization Skill overview](assets/readme/skill-overview.svg)
 
@@ -20,6 +20,7 @@ This repository is now packaged for distribution testing:
 - [Distribution kit](DISTRIBUTION.md)
 - [Commercialization plan](COMMERCIALIZATION.md)
 - [Buyer brief](BUYER_BRIEF.md)
+- [Traction tracker](TRACTION.md)
 - [Security policy](SECURITY.md)
 - [Roadmap](ROADMAP.md)
 
@@ -341,12 +342,16 @@ sequenceDiagram
 ├── assets/
 │   ├── readme/
 │   └── social/
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   └── PULL_REQUEST_TEMPLATE.md
 ├── scripts/
 │   └── validate_skill.py
 ├── MARKETPLACE.md
 ├── MARKETPLACE_TARGETS.md
 ├── LAUNCH.md
 ├── BUYER_BRIEF.md
+├── TRACTION.md
 ├── SECURITY.md
 ├── CHANGELOG.md
 └── ROADMAP.md
@@ -365,6 +370,8 @@ sequenceDiagram
 | Launch copy | Ready | [LAUNCH.md](LAUNCH.md) |
 | Listing targets | Ready | [MARKETPLACE_TARGETS.md](MARKETPLACE_TARGETS.md) |
 | Buyer diligence | Ready | [BUYER_BRIEF.md](BUYER_BRIEF.md) |
+| Traction tracking | Ready | [TRACTION.md](TRACTION.md) |
+| Inquiry intake | Ready | [.github/ISSUE_TEMPLATE](.github/ISSUE_TEMPLATE) |
 | Security posture | Ready | [SECURITY.md](SECURITY.md) |
 | Product roadmap | Ready | [ROADMAP.md](ROADMAP.md) |
 | Release history | Ready | [CHANGELOG.md](CHANGELOG.md) |
