@@ -5,18 +5,42 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Skill Format](https://img.shields.io/badge/SKILL.md-ready-blue.svg)](SKILL.md)
 [![Validation](https://img.shields.io/badge/Validation-local%20script-green.svg)](scripts/validate_skill.py)
+[![Release](https://img.shields.io/badge/Release-v1.2.0-1E3A8A.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.2.0)
+
+## At a Glance
+
+This skill turns raw business input into a board-ready visualization spec. It is structured as a portable `SKILL.md` package with references, proof examples, marketplace metadata, and local validation.
+
+```mermaid
+flowchart LR
+    A["Raw business notes"] --> B["Strategic question"]
+    B --> C["Insight headline"]
+    C --> D["Visualization pattern"]
+    D --> E["Slide spec"]
+    E --> F["Quality check"]
+    F --> G["Marketplace-ready proof"]
+```
+
+| Layer | What It Does | File |
+| --- | --- | --- |
+| Skill entrypoint | Tells agents when and how to use the skill | [SKILL.md](SKILL.md) |
+| Pattern library | Selects the right executive visual | [visualization-patterns.md](references/visualization-patterns.md) |
+| Style system | Defines palette, typography, layout, and chart rules | [style-system.md](references/style-system.md) |
+| Prompt templates | Converts decisions and data into reproducible specs | [prompt-templates.md](references/prompt-templates.md) |
+| Quality rubric | Scores strategy, data, hierarchy, portability, and safety | [quality-rubric.md](references/quality-rubric.md) |
+| Proof pack | Shows input, expected output, and evaluation | [examples/](examples) |
+| Marketplace layer | Provides listing copy and metadata | [MARKETPLACE.md](MARKETPLACE.md) / [manifest.json](marketplace/manifest.json) |
+| Validation | Checks package structure before publishing | [validate_skill.py](scripts/validate_skill.py) |
 
 ## Why This Exists
 
-Most AI-generated business charts are either generic dashboards or decorative slide art. This skill gives agents a stricter operating system for strategy-consulting visualization:
+Most AI-generated business charts become generic dashboards or decorative slide art. This skill gives agents a stricter operating system for strategy-consulting visualization:
 
 - insight-led headlines instead of descriptive titles
 - pattern selection tied to executive decisions
 - disciplined visual hierarchy, palette, typography, and density
 - explicit data assumptions and source-sensitive caveats
 - reusable slide specs that can be rendered by designers, agents, or presentation tools
-
-The repository is prepared for future skill marketplaces: lightweight `SKILL.md` entrypoint, progressive reference files, validation script, storefront copy, security notes, proof examples, and metadata.
 
 ## What It Produces
 
@@ -31,20 +55,49 @@ Data and assumptions
 Quality check
 ```
 
-It supports common executive visualization patterns:
+The output is meant to be useful before rendering. A consultant, designer, agent, or slide-generation tool should be able to use the spec without reverse-engineering the intent.
 
-- time-series growth charts
-- gap visualizations
-- before/after comparisons
-- market share and adoption views
-- investment and scale infographics
-- timelines
-- contrast diagrams
-- 2x2 strategic frameworks
-- competitive benchmarking tables
-- waterfall charts
-- cover slides
-- executive summary strips
+```mermaid
+flowchart TB
+    subgraph Input["Input"]
+        I1["Metrics"]
+        I2["Business context"]
+        I3["Decision to support"]
+    end
+
+    subgraph Skill["Skill workflow"]
+        S1["Frame the decision"]
+        S2["Choose pattern"]
+        S3["Apply visual system"]
+        S4["Write slide spec"]
+        S5["Score with rubric"]
+    end
+
+    subgraph Output["Output"]
+        O1["Board slide spec"]
+        O2["Image-generation prompt"]
+        O3["Assumptions and caveats"]
+    end
+
+    Input --> Skill --> Output
+```
+
+## Visualization Patterns
+
+| Pattern | Best For | Example Decision |
+| --- | --- | --- |
+| Time-series growth | Momentum, adoption, revenue, usage | Is growth accelerating? |
+| Gap visualization | Current vs. target, leader vs. laggard | How large is the execution gap? |
+| Before-after comparison | Intervention impact | Did the program justify investment? |
+| Market share / adoption | Penetration and composition | Where is the center of gravity? |
+| Investment / scale infographic | Capacity, spend, reach, operating scale | Who has the scale advantage? |
+| Timeline | Rollouts, regulation, milestones | What must happen by when? |
+| Contrast diagram | Region, strategy, or model comparison | Where is the structural difference? |
+| 2x2 strategic framework | Positioning options or competitors | Which position is attractive? |
+| Competitive benchmark table | Multi-criteria vendor or competitor review | Who leads on what matters? |
+| Waterfall chart | Bridge, variance, cumulative change | What drove the delta? |
+| Cover slide | Deck or section opening | What is the argument? |
+| Executive summary strip | Compact board memo takeaway | What should leaders remember? |
 
 ## Install
 
@@ -67,6 +120,8 @@ mkdir -p ~/.claude/skills/strategy-consulting-visualization
 curl -o ~/.claude/skills/strategy-consulting-visualization/SKILL.md https://raw.githubusercontent.com/kgraph57/mckinsey-style-visualization-skill/main/SKILL.md
 ```
 
+Clone the full repository for marketplace-quality behavior. The entrypoint references files in `references/`.
+
 ## Validate
 
 Run the local package check before publishing, listing, or submitting changes:
@@ -79,6 +134,18 @@ Expected output:
 
 ```text
 OK: skill package passed validation
+```
+
+The validator checks the marketplace-critical pieces:
+
+```mermaid
+flowchart LR
+    A["SKILL.md metadata"] --> V["validate_skill.py"]
+    B["Required files"] --> V
+    C["Manifest JSON"] --> V
+    D["Proof examples"] --> V
+    E["Stale URLs and risky claims"] --> V
+    V --> F["Publishable package signal"]
 ```
 
 ## Example Prompt
@@ -98,7 +165,25 @@ See the proof set:
 - [Expected slide spec](examples/board-update-slide-spec.md)
 - [Evaluation report](examples/evaluation-report.md)
 
-## Repository Structure
+## Proof Flow
+
+The proof pack shows how a future marketplace reviewer or buyer can inspect the asset quickly.
+
+```mermaid
+sequenceDiagram
+    participant User as Business input
+    participant Skill as Skill package
+    participant Spec as Slide spec
+    participant Rubric as Quality rubric
+    participant Market as Marketplace reviewer
+
+    User->>Skill: Provide board update notes
+    Skill->>Spec: Generate five structured slide specs
+    Spec->>Rubric: Score strategy, data, hierarchy, portability, safety
+    Rubric->>Market: Provide evidence that the package is reviewable
+```
+
+## Repository Map
 
 ```text
 .
@@ -124,13 +209,17 @@ See the proof set:
 
 ## Marketplace Readiness
 
-- Portable `SKILL.md` entrypoint.
-- Concise discovery frontmatter.
-- Progressive loading through `references/`.
-- No required network access or external tools during normal skill use.
-- Local validation script.
-- Marketplace listing draft in [MARKETPLACE.md](MARKETPLACE.md).
-- Speculative listing metadata in [marketplace/manifest.json](marketplace/manifest.json).
+| Readiness Area | Status | Evidence |
+| --- | --- | --- |
+| Portable entrypoint | Ready | [SKILL.md](SKILL.md) |
+| Progressive loading | Ready | [references/](references) |
+| Proof examples | Ready | [examples/](examples) |
+| Local validation | Ready | [validate_skill.py](scripts/validate_skill.py) |
+| Marketplace metadata | Ready | [manifest.json](marketplace/manifest.json) |
+| Storefront copy | Ready | [MARKETPLACE.md](MARKETPLACE.md) |
+| Security posture | Ready | [SECURITY.md](SECURITY.md) |
+| Product roadmap | Ready | [ROADMAP.md](ROADMAP.md) |
+| Release history | Ready | [CHANGELOG.md](CHANGELOG.md) |
 
 ## Commercial Angle
 
@@ -140,6 +229,15 @@ This package is designed to become:
 - a premium template pack for executive visualization workflows
 - a proof library for agents that create board-ready slide specs
 - a foundation for later renderer or SaaS integration
+
+```mermaid
+flowchart TD
+    A["Open skill package"] --> B["Marketplace listing"]
+    B --> C["Proof gallery"]
+    C --> D["Premium template pack"]
+    D --> E["Renderer integration"]
+    E --> F["SaaS or acquisition path"]
+```
 
 ## Disclaimer
 
