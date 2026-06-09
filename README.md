@@ -33,6 +33,30 @@ These previews show the kind of artifact the skill helps an agent plan. They are
 | --- | --- | --- |
 | ![Board update slide spec preview](assets/readme/board-update-preview.svg) | ![Visualization patterns preview](assets/readme/visual-patterns-preview.svg) | ![Slide specification preview](assets/readme/slide-spec-preview.svg) |
 
+## Example Gallery
+
+The skill can plan many kinds of board-ready strategy visuals. These examples show the visual direction a generated slide spec can describe.
+
+| ARR Waterfall | Competitive Benchmark |
+| --- | --- |
+| ![ARR waterfall example](assets/readme/examples/waterfall.svg) | ![Competitive benchmark table example](assets/readme/examples/benchmark-table.svg) |
+
+| 2x2 Market Map | Strategic Timeline |
+| --- | --- |
+| ![2x2 market map example](assets/readme/examples/two-by-two.svg) | ![Strategic timeline example](assets/readme/examples/timeline.svg) |
+
+| Capacity Gap | Before / After Impact |
+| --- | --- |
+| ![Capacity gap example](assets/readme/examples/gap.svg) | ![Before and after impact example](assets/readme/examples/before-after.svg) |
+
+| Market Adoption | Executive Summary Strip |
+| --- | --- |
+| ![Market adoption example](assets/readme/examples/market-share.svg) | ![Executive summary strip example](assets/readme/examples/executive-strip.svg) |
+
+| Market Entry Comparison |
+| --- |
+| ![Market entry comparison example](assets/readme/examples/market-entry.svg) |
+
 ## One-Minute Example
 
 Give the skill this:

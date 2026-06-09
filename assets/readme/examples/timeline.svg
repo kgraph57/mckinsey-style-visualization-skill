@@ -1,0 +1,32 @@
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Strategic timeline example</title>
+  <desc id="desc">A strategic rollout timeline with milestones and decision gates.</desc>
+  <rect width="800" height="450" fill="#FFFFFF"/>
+  <rect x="34" y="30" width="732" height="390" rx="12" fill="#F8FAFC" stroke="#D1D5DB"/>
+  <text x="64" y="72" fill="#000000" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="700">Capacity comes before target reset</text>
+  <text x="64" y="104" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="15">Timeline spec: decision gates and rollout sequence</text>
+  <line x1="110" y1="245" x2="690" y2="245" stroke="#1E3A8A" stroke-width="5" stroke-linecap="round"/>
+  <g fill="#1E3A8A">
+    <circle cx="130" cy="245" r="14"/>
+    <circle cx="300" cy="245" r="14"/>
+    <circle cx="470" cy="245" r="14"/>
+    <circle cx="640" cy="245" r="14"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="14">
+    <text x="92" y="205" fill="#000000" font-weight="700">Q1</text>
+    <text x="78" y="288" fill="#374151">Approve</text>
+    <text x="66" y="310" fill="#374151">capacity plan</text>
+    <text x="262" y="205" fill="#000000" font-weight="700">Q2</text>
+    <text x="242" y="288" fill="#374151">Hire and</text>
+    <text x="236" y="310" fill="#374151">enable team</text>
+    <text x="432" y="205" fill="#000000" font-weight="700">Q3</text>
+    <text x="420" y="288" fill="#374151">Scale</text>
+    <text x="392" y="310" fill="#374151">deployments</text>
+    <text x="602" y="205" fill="#000000" font-weight="700">Q4</text>
+    <text x="580" y="288" fill="#374151">Raise</text>
+    <text x="560" y="310" fill="#374151">sales target</text>
+  </g>
+  <rect x="542" y="132" width="172" height="56" rx="8" fill="#FFFFFF" stroke="#D1D5DB"/>
+  <text x="560" y="158" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">Decision gate</text>
+  <text x="560" y="178" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="13">Capacity before target</text>
+</svg>

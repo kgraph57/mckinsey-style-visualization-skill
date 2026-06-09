@@ -1,0 +1,19 @@
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Before and after example</title>
+  <desc id="desc">A before and after comparison showing an operational metric improving after a program.</desc>
+  <rect width="800" height="450" fill="#FFFFFF"/>
+  <rect x="34" y="30" width="732" height="390" rx="12" fill="#F8FAFC" stroke="#D1D5DB"/>
+  <text x="64" y="72" fill="#000000" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="700">Enablement program lifts adoption by 46 points</text>
+  <text x="64" y="104" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="15">Before/after spec: show impact and decision implication</text>
+  <line x1="190" y1="336" x2="610" y2="336" stroke="#374151"/>
+  <rect x="240" y="256" width="92" height="80" fill="#6B7280"/>
+  <rect x="468" y="120" width="92" height="216" fill="#1E3A8A"/>
+  <text x="248" y="238" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">18%</text>
+  <text x="476" y="102" fill="#1E3A8A" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">64%</text>
+  <text x="235" y="370" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">Before</text>
+  <text x="468" y="370" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">After</text>
+  <path d="M350 210C390 170 430 158 464 150" stroke="#1E3A8A" stroke-width="4" fill="none"/>
+  <path d="M464 150L446 146M464 150L452 164" stroke="#1E3A8A" stroke-width="4" stroke-linecap="round"/>
+  <rect x="340" y="188" width="124" height="42" rx="8" fill="#FFFFFF" stroke="#D1D5DB"/>
+  <text x="363" y="214" fill="#1E3A8A" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">+46 pts</text>
+</svg>

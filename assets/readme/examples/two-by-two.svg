@@ -1,0 +1,25 @@
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">2x2 market map example</title>
+  <desc id="desc">A strategic 2x2 map plotting vendors by technical capability and enterprise adoption.</desc>
+  <rect width="800" height="450" fill="#FFFFFF"/>
+  <rect x="34" y="30" width="732" height="390" rx="12" fill="#F8FAFC" stroke="#D1D5DB"/>
+  <text x="64" y="72" fill="#000000" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="700">Technical leaders lag in enterprise adoption</text>
+  <text x="64" y="104" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="15">2x2 strategic framework spec: capability vs. adoption</text>
+  <rect x="150" y="140" width="480" height="240" fill="#FFFFFF" stroke="#D1D5DB"/>
+  <line x1="390" y1="140" x2="390" y2="380" stroke="#D1D5DB"/>
+  <line x1="150" y1="260" x2="630" y2="260" stroke="#D1D5DB"/>
+  <text x="305" y="414" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">Enterprise adoption</text>
+  <text x="70" y="274" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14" transform="rotate(-90 70 274)">Technical capability</text>
+  <text x="176" y="168" fill="#6B7280" font-family="Arial, Helvetica, sans-serif" font-size="13">Innovators</text>
+  <text x="492" y="168" fill="#6B7280" font-family="Arial, Helvetica, sans-serif" font-size="13">Leaders</text>
+  <text x="178" y="354" fill="#6B7280" font-family="Arial, Helvetica, sans-serif" font-size="13">Niche</text>
+  <text x="488" y="354" fill="#6B7280" font-family="Arial, Helvetica, sans-serif" font-size="13">Fast followers</text>
+  <circle cx="280" cy="198" r="12" fill="#1E3A8A"/>
+  <text x="298" y="202" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13">Vendor A</text>
+  <circle cx="494" cy="218" r="12" fill="#2563EB"/>
+  <text x="512" y="222" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">Vendor B</text>
+  <circle cx="344" cy="302" r="12" fill="#6B7280"/>
+  <text x="362" y="306" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13">Vendor C</text>
+  <circle cx="548" cy="310" r="12" fill="#B91C1C"/>
+  <text x="566" y="314" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13">Vendor D</text>
+</svg>

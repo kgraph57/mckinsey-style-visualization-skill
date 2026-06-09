@@ -1,0 +1,29 @@
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Executive summary strip example</title>
+  <desc id="desc">An executive summary strip with three decision-ready takeaways.</desc>
+  <rect width="800" height="450" fill="#FFFFFF"/>
+  <rect x="34" y="30" width="732" height="390" rx="12" fill="#1E3A5F"/>
+  <text x="64" y="76" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="27" font-weight="700">Fund capacity before raising targets</text>
+  <text x="64" y="108" fill="#E5E7EB" font-family="Arial, Helvetica, sans-serif" font-size="15">Executive summary strip spec: claim, proof, implication</text>
+  <g transform="translate(64 156)">
+    <rect width="206" height="172" rx="10" fill="#FFFFFF"/>
+    <text x="22" y="40" fill="#1E3A8A" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">1. Growth works</text>
+    <text x="22" y="78" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">$15M</text>
+    <text x="22" y="112" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">Q4 ARR</text>
+    <text x="22" y="140" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="13">Protect enterprise momentum.</text>
+  </g>
+  <g transform="translate(298 156)">
+    <rect width="206" height="172" rx="10" fill="#FFFFFF"/>
+    <text x="22" y="40" fill="#1E3A8A" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">2. Adoption scaled</text>
+    <text x="22" y="78" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">64%</text>
+    <text x="22" y="112" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">AI workflow adoption</text>
+    <text x="22" y="140" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="13">Operating base is emerging.</text>
+  </g>
+  <g transform="translate(532 156)">
+    <rect width="206" height="172" rx="10" fill="#FFFFFF"/>
+    <text x="22" y="40" fill="#1E3A8A" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">3. Capacity blocks</text>
+    <text x="22" y="78" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">12 / 18</text>
+    <text x="22" y="112" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="14">deployment coverage</text>
+    <text x="22" y="140" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="13">Invest before target reset.</text>
+  </g>
+</svg>
