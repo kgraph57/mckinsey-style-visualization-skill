@@ -32,6 +32,7 @@ Use this skill to turn business inputs into executive-ready visualization specs 
 5. Produce a structured slide spec or image-generation prompt using `references/prompt-templates.md`.
 6. Score the output against `references/quality-rubric.md`.
 7. Flag missing data, unverifiable claims, source-sensitive assumptions, or trademark-sensitive wording.
+8. For polished executive work, run the draft through `references/iterative-review-loop.md` until the output reaches the stopping criteria.
 
 ## Output Contract
 
@@ -67,3 +68,5 @@ Do not invent client names, confidential labels, benchmark data, or source citat
 - `references/style-system.md` for palette, typography, spacing, and layout rules.
 - `references/prompt-templates.md` for slide specs and image-generation prompts.
 - `references/quality-rubric.md` for final scoring and marketplace-quality checks.
+- `references/public-reference-corpus.md` for public executive-report sources to study without copying.
+- `references/iterative-review-loop.md` for draft, review, revise, and score cycles.

@@ -95,6 +95,36 @@ Quality check:
 Values reconcile, assumptions are explicit, and the recommendation is tied to the board decision.
 ```
 
+## Iterative Review Loop
+
+For polished executive materials, the package now includes a repeatable review loop:
+
+```mermaid
+flowchart LR
+    A["Public reference scan"] --> B["Original draft"]
+    B --> C["Executive review"]
+    C --> D["Revision"]
+    D --> E["Rubric score"]
+    E --> F{"18+/20 and no blockers?"}
+    F -- "No" --> C
+    F -- "Yes" --> G["Publishable slide spec"]
+```
+
+Use these files to run the loop:
+
+- [Public reference corpus](references/public-reference-corpus.md)
+- [Iterative review loop](references/iterative-review-loop.md)
+- [Market entry draft v1](examples/review-loop/market-entry-draft-v1.md)
+- [Review v1](examples/review-loop/market-entry-review-v1.md)
+- [Market entry draft v2](examples/review-loop/market-entry-draft-v2.md)
+- [Review v2](examples/review-loop/market-entry-review-v2.md)
+
+You can also run a lightweight structural review:
+
+```bash
+python3 scripts/review_slide_spec.py examples/review-loop/market-entry-draft-v2.md
+```
+
 ## At a Glance
 
 This skill turns raw business input into a board-ready visualization spec. It is structured as a portable `SKILL.md` package with references, proof examples, marketplace metadata, and local validation.

@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Added public reference corpus for studying executive-report patterns without copying source material.
+- Added iterative draft-review-revise loop for polished executive slide specs.
+- Added `scripts/review_slide_spec.py` for lightweight structural review.
+- Added review-loop examples showing a draft improving from revise to pass.
+
 ## 1.2.0 - Marketplace Readiness
 
 - Repositioned the package as Strategy Consulting Visualization Skill.

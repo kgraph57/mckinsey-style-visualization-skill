@@ -23,9 +23,16 @@ REQUIRED_FILES = [
     "references/visualization-patterns.md",
     "references/prompt-templates.md",
     "references/quality-rubric.md",
+    "references/public-reference-corpus.md",
+    "references/iterative-review-loop.md",
     "examples/board-update-input.md",
     "examples/board-update-slide-spec.md",
     "examples/evaluation-report.md",
+    "examples/review-loop/market-entry-draft-v1.md",
+    "examples/review-loop/market-entry-review-v1.md",
+    "examples/review-loop/market-entry-draft-v2.md",
+    "examples/review-loop/market-entry-review-v2.md",
+    "scripts/review_slide_spec.py",
 ]
 
 FORBIDDEN_PATTERNS = [
@@ -101,6 +108,8 @@ def validate_skill_frontmatter() -> None:
         "references/style-system.md",
         "references/prompt-templates.md",
         "references/quality-rubric.md",
+        "references/public-reference-corpus.md",
+        "references/iterative-review-loop.md",
     ]:
         if reference not in text:
             fail(f"SKILL.md must reference {reference}")
@@ -146,7 +155,7 @@ def validate_no_stale_or_risky_text() -> None:
             continue
         if path.relative_to(ROOT).parts[:2] == ("docs", "superpowers"):
             continue
-        if path.relative_to(ROOT) == Path("scripts/validate_skill.py"):
+        if path.relative_to(ROOT) in {Path("scripts/validate_skill.py"), Path("scripts/review_slide_spec.py")}:
             continue
         text = path.read_text(encoding="utf-8")
         for pattern in FORBIDDEN_PATTERNS:
