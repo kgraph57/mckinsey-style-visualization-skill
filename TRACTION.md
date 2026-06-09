@@ -13,7 +13,7 @@ Baseline date: 2026-06-09
 | GitHub watchers | 2 | GitHub repository page |
 | Marketplace listings | 0 | `MARKETPLACE_TARGETS.md` |
 | Marketplace installs/saves | 0 | Marketplace dashboards |
-| Social launch posts | 0 | `LAUNCH.md` |
+| Social launch posts | 1 | `LAUNCH.md` |
 | Direct user replies | 0 | Social, issues, discussions |
 | Example requests | 0 | GitHub Issues |
 | Buyer inquiries | 0 | GitHub Issues, email, direct messages |
@@ -25,7 +25,13 @@ Baseline captured with GitHub repository metadata on 2026-06-09.
 
 | Week Starting | Stars | Forks | Watchers | Listings | Installs/Saves | Social Replies | Example Requests | Buyer Inquiries | Paid Customers | Notes |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| 2026-06-09 | 29 | 10 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | Launch kit created |
+| 2026-06-09 | 29 | 10 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | X launch post published |
+
+## Launch Posts
+
+| Date | Channel | URL | Notes |
+| --- | --- | --- | --- |
+| 2026-06-09 | X | https://x.com/kgraph_/status/2064211558461567218 | v1.5.0 launch post |
 
 ## Qualified Signals
 
