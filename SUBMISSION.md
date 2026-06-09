@@ -52,4 +52,3 @@ python3 scripts/review_slide_spec.py examples/review-loop/market-entry-draft-v2.
 ## Safety Note
 
 Independent package. Not affiliated with, endorsed by, or sponsored by any consulting firm. Public reference sources are used only to study reusable patterns and review criteria.
-

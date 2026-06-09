@@ -56,4 +56,3 @@ Create a paid pack only after the free repo receives real usage signals.
 ## Positioning For Buyers
 
 This is not a generic prompt pack. It is a structured skill package for turning business input into executive-ready visualization specs, with validation, proof examples, review loops, and a path toward paid templates or rendering integrations.
-
