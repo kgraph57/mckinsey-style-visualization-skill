@@ -1,6 +1,16 @@
 # Usage Examples
 
-This document provides practical examples of using the McKinsey/BCG Style Visualization skill in Claude Code.
+## Marketplace Proof Set
+
+For marketplace review or buyer diligence, start with this reproducible proof set:
+
+- [Board update input](examples/board-update-input.md)
+- [Expected board update slide spec](examples/board-update-slide-spec.md)
+- [Evaluation report](examples/evaluation-report.md)
+
+These files show the intended workflow: raw business notes become structured executive slide specs, then the output is scored against the quality rubric.
+
+This document provides practical examples of using the Strategy Consulting Visualization Skill.
 
 ## Table of Contents
 
@@ -13,14 +23,14 @@ This document provides practical examples of using the McKinsey/BCG Style Visual
 
 ### Automatic Invocation
 
-Claude will automatically use this skill when you ask for consulting-style visualizations:
+Compatible agents can use this skill when you ask for consulting-style visualizations:
 
 ```
 Create a professional consulting-style chart showing our Q4 revenue growth
 ```
 
 ```
-Generate a McKinsey-style competitive analysis comparing these three companies
+Generate a strategy consulting-style competitive analysis comparing these three companies
 ```
 
 ```
@@ -32,7 +42,7 @@ Build a strategic framework visualization for market positioning
 You can also invoke the skill directly using the slash command:
 
 ```
-/mckinsey-style-visualization Create a timeline showing our product milestones for 2025
+/strategy-consulting-visualization Create a timeline showing our product milestones for 2025
 ```
 
 ## Visualization Type Examples
@@ -306,15 +316,15 @@ Clean, institutional, boardroom-ready aesthetic.
 
 **Workflow:**
 ```
-/mckinsey-style-visualization Create a cover slide for Q4 2025 Business Review
+/strategy-consulting-visualization Create a cover slide for Q4 2025 Business Review
 
-/mckinsey-style-visualization Create a time-series chart showing quarterly revenue from Q1 to Q4
+/strategy-consulting-visualization Create a time-series chart showing quarterly revenue from Q1 to Q4
 
-/mckinsey-style-visualization Create a waterfall chart showing revenue bridge from Q1 ($10M) to Q4 ($14.5M)
+/strategy-consulting-visualization Create a waterfall chart showing revenue bridge from Q1 ($10M) to Q4 ($14.5M)
 
-/mckinsey-style-visualization Create a before/after comparison showing customer satisfaction improvement from 72% to 89%
+/strategy-consulting-visualization Create a before/after comparison showing customer satisfaction improvement from 72% to 89%
 
-/mckinsey-style-visualization Create a gap visualization comparing Q4 target (95%) vs. actual (89%)
+/strategy-consulting-visualization Create a gap visualization comparing Q4 target (95%) vs. actual (89%)
 ```
 
 ---
@@ -331,13 +341,13 @@ Clean, institutional, boardroom-ready aesthetic.
 
 **Workflow:**
 ```
-/mckinsey-style-visualization Create a comparison diagram showing US (mature, $5B market, 70% adoption) vs. Japan (emerging, $500M market, 15% adoption)
+/strategy-consulting-visualization Create a comparison diagram showing US (mature, $5B market, 70% adoption) vs. Japan (emerging, $500M market, 15% adoption)
 
-/mckinsey-style-visualization Create a 2×2 strategic framework positioning our company and 4 competitors on market share vs. technical capability
+/strategy-consulting-visualization Create a 2×2 strategic framework positioning our company and 4 competitors on market share vs. technical capability
 
-/mckinsey-style-visualization Create a timeline showing Japan regulatory approval process from Q1 2026 to Q4 2027
+/strategy-consulting-visualization Create a timeline showing Japan regulatory approval process from Q1 2026 to Q4 2027
 
-/mckinsey-style-visualization Create an investment infographic comparing required investment for US expansion ($2M) vs. Japan entry ($8M)
+/strategy-consulting-visualization Create an investment infographic comparing required investment for US expansion ($2M) vs. Japan entry ($8M)
 ```
 
 ---
@@ -353,11 +363,11 @@ Clean, institutional, boardroom-ready aesthetic.
 
 **Workflow:**
 ```
-/mckinsey-style-visualization Create a competitive benchmarking table comparing 5 GenAI video models across architecture, consistency, prompt adherence, and pricing
+/strategy-consulting-visualization Create a competitive benchmarking table comparing 5 GenAI video models across architecture, consistency, prompt adherence, and pricing
 
-/mckinsey-style-visualization Create a 2×2 framework positioning these models on technical capability vs. ecosystem maturity
+/strategy-consulting-visualization Create a 2×2 framework positioning these models on technical capability vs. ecosystem maturity
 
-/mckinsey-style-visualization Create a before/after comparison showing expected video production time reduction from 40 hours to 8 hours
+/strategy-consulting-visualization Create a before/after comparison showing expected video production time reduction from 40 hours to 8 hours
 ```
 
 ---
@@ -384,11 +394,11 @@ You can customize the standard templates by:
 
 ### Integration with Other Skills
 
-Combine with other Claude Code skills for enhanced workflows:
+Combine with other agent skills for enhanced workflows:
 
 ```
 # Use with design-sensei for accessibility review
-/design-sensei Review this McKinsey-style visualization for accessibility
+/design-sensei Review this strategy consulting-style visualization for accessibility
 
 # Use with paper-presentation-slides for academic context
 /paper-presentation-slides Incorporate this consulting-style chart into an academic presentation

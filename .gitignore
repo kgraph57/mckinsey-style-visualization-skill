@@ -22,3 +22,12 @@ Desktop.ini
 *.tmp
 *.bak
 *.log
+__pycache__/
+*.pyc
+
+# Generated proof assets
+outputs/
+*.png
+*.jpg
+*.jpeg
+*.pdf

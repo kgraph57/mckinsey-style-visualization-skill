@@ -1,6 +1,17 @@
-# Contributing to McKinsey/BCG Style Visualization Skill
+# Contributing to Strategy Consulting Visualization Skill
 
-Thank you for your interest in contributing to this Claude Code Skill! This document provides guidelines for contributing to the project.
+Thank you for your interest in contributing to this Agent Skill. This document provides guidelines for contributing to the project.
+
+## Marketplace Quality Bar
+
+This repository is maintained as a marketplace-ready skill package. Contributions should preserve:
+
+- concise `SKILL.md` frontmatter for agent discovery
+- progressive loading through `references/`
+- explicit data assumptions and source-sensitive caveats
+- non-affiliation language for named consulting firms
+- no hidden automation, install-time scripts, network calls, or credential access
+- validation with `python3 scripts/validate_skill.py`
 
 ## How to Contribute
 
@@ -14,7 +25,7 @@ If you encounter bugs, have feature requests, or find areas for improvement:
    - Steps to reproduce
    - Expected behavior
    - Actual behavior
-   - Claude Code version
+   - Agent tool and version
    - Operating system
 
 ### Suggesting Enhancements
@@ -39,7 +50,7 @@ We welcome suggestions for new visualization types, design improvements, or addi
    git checkout -b feature/your-feature-name
    ```
 4. **Make your changes** following the guidelines below
-5. **Test your changes** thoroughly with Claude Code
+5. **Test your changes** thoroughly with a compatible agent
 6. **Commit your changes** with clear, descriptive messages:
    ```bash
    git commit -m "Add new visualization type: [name]"
@@ -74,10 +85,24 @@ When modifying `SKILL.md`:
    - Add a new entry at the top of the Version History section
    - Use the format: `- **vX.X** (YYYY-MM-DD): Description of changes`
 
-5. **Test with Claude Code:**
-   - Ensure Claude can parse the updated SKILL.md
+5. **Test with Claude Code or another compatible agent:**
+   - Ensure the agent can parse the updated SKILL.md
    - Test that new instructions work as expected
    - Verify automatic skill invocation still works
+
+6. **Keep marketplace safety intact:**
+   - Do not imply endorsement by any consulting firm
+   - Do not add fictional clients, sources, or benchmarks
+   - Move long reusable detail into `references/`
+
+### For Reference Changes
+
+When modifying `references/`:
+
+1. Keep files focused by purpose
+2. Update examples when behavior changes
+3. Keep visual standards consistent with `references/style-system.md`
+4. Run validation before opening a pull request
 
 ### For README.md Changes
 
@@ -128,18 +153,18 @@ When updating the README:
 
 Before submitting a pull request:
 
-1. **Install the modified skill** in Claude Code:
+1. **Install the modified skill** in a local skill directory:
    ```bash
    # Copy your modified version to the skills directory
-   cp -r /path/to/your/fork ~/.claude/skills/mckinsey-style-visualization-test
+   cp -r /path/to/your/fork ~/.claude/skills/strategy-consulting-visualization-test
    ```
 
 2. **Test automatic invocation:**
-   - Ask Claude to create visualizations matching the skill description
-   - Verify Claude loads the skill automatically
+   - Ask the agent to create visualizations matching the skill description
+   - Verify the agent loads the skill automatically
 
 3. **Test manual invocation:**
-   - Use `/mckinsey-style-visualization` command
+   - Use `/strategy-consulting-visualization` command
    - Test with various requests
 
 4. **Test new features:**
@@ -149,7 +174,12 @@ Before submitting a pull request:
 
 5. **Verify quality:**
    - Run through the quality checklist in SKILL.md
-   - Ensure output matches McKinsey/BCG style guidelines
+   - Ensure output matches the strategy consulting visual system
+
+6. **Run package validation:**
+   ```bash
+   python3 scripts/validate_skill.py
+   ```
 
 ## Review Process
 
@@ -177,4 +207,4 @@ By contributing to this project, you agree that your contributions will be licen
 
 ---
 
-Thank you for helping improve this Claude Code Skill! Your contributions make it better for everyone.
+Thank you for helping improve this Agent Skill. Your contributions make it better for everyone.
