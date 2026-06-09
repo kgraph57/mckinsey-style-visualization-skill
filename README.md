@@ -7,6 +7,60 @@
 [![Validation](https://img.shields.io/badge/Validation-local%20script-green.svg)](scripts/validate_skill.py)
 [![Release](https://img.shields.io/badge/Release-v1.2.0-1E3A8A.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.2.0)
 
+## What You Can Do
+
+Use this skill when you have messy business notes, metrics, or a strategic question and need a slide-ready consulting visualization direction.
+
+| Starting Point | Ask For | You Get |
+| --- | --- | --- |
+| Board update metrics | Executive board update story | 5 slide specs: cover, revenue waterfall, adoption trend, capacity gap, recommendation |
+| Revenue bridge data | Waterfall chart | Start value, drivers, end value, labels, assumptions, and visual hierarchy |
+| Competitor or vendor data | Competitive benchmark | Ranked table, 2x2 positioning map, leader highlights, caveats |
+| Market entry notes | Market analysis visual | country contrast, opportunity gap, timeline, investment comparison |
+| Product milestones | Strategy timeline | milestone nodes, decision gates, rollout sequence, risk annotations |
+| KPI before/after data | Impact slide | before/after comparison, delta labels, implication headline |
+| Raw deck outline | Executive summary strip | 3-5 decision-ready takeaways with proof points and implications |
+
+The skill mainly creates **slide specs and image-generation prompts**. It does not render final PowerPoint slides by itself. The value is in turning business input into a reproducible visual plan that an agent, designer, or renderer can execute.
+
+## One-Minute Example
+
+Give the skill this:
+
+```text
+ARR grew from $10M to $15M.
+Enterprise expansion contributed $3M.
+Existing customer expansion contributed $2.5M.
+Churn reduced ARR by $0.5M.
+AI workflow adoption grew from 18% to 64%.
+The board needs to decide whether to invest in implementation capacity.
+```
+
+It returns this kind of output:
+
+```text
+Strategic question:
+Should the board approve implementation capacity investment before raising enterprise targets?
+
+Insight headline:
+Growth momentum is strong, but implementation capacity is now the constraint on enterprise expansion.
+
+Recommended visualization:
+Five-slide board update: cover, ARR waterfall, AI adoption trend, capacity gap, executive recommendation.
+
+Slide spec example:
+Revenue Waterfall
+- Start: Q1 ARR $10.0M
+- Driver: +$3.0M enterprise new customers
+- Driver: +$2.5M existing customer expansion
+- Driver: -$0.5M churn
+- End: Q4 ARR $15.0M
+- Annotation: Net +$5.0M ARR; growth engine is enterprise-led.
+
+Quality check:
+Values reconcile, assumptions are explicit, and the recommendation is tied to the board decision.
+```
+
 ## At a Glance
 
 This skill turns raw business input into a board-ready visualization spec. It is structured as a portable `SKILL.md` package with references, proof examples, marketplace metadata, and local validation.
