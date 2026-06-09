@@ -21,6 +21,7 @@ This repository is now packaged for distribution testing:
 - [Commercialization plan](COMMERCIALIZATION.md)
 - [Buyer brief](BUYER_BRIEF.md)
 - [Traction tracker](TRACTION.md)
+- [Growth playbook](GROWTH.md)
 - [Security policy](SECURITY.md)
 - [Roadmap](ROADMAP.md)
 

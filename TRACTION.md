@@ -2,6 +2,8 @@
 
 Use this file to track demand signals that matter for marketplace listings, premium-pack validation, and eventual acquisition conversations.
 
+Growth target: 1,000 GitHub stars. The operating plan is in `GROWTH.md`; this file logs the results.
+
 ## Baseline
 
 Baseline date: 2026-06-09

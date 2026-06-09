@@ -22,6 +22,7 @@ REQUIRED_FILES = [
     "LAUNCH.md",
     "BUYER_BRIEF.md",
     "TRACTION.md",
+    "GROWTH.md",
     "SECURITY.md",
     "CHANGELOG.md",
     "ROADMAP.md",
