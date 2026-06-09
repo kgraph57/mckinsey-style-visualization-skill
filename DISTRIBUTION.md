@@ -69,4 +69,3 @@ https://github.com/kgraph57/mckinsey-style-visualization-skill
 - Local validation script.
 - Public reference corpus.
 - Security policy and marketplace manifest.
-
