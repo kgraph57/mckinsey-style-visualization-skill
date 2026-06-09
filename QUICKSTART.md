@@ -1,74 +1,59 @@
-# Quick Start Guide
+# Quick Start
 
-Get started with the McKinsey/BCG Style Visualization skill in 5 minutes.
+Get started with Strategy Consulting Visualization Skill in five minutes.
 
-## Installation (Choose One Method)
+## Install
 
-### Option 1: One-Line Install (Recommended)
-
-```bash
-git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/mckinsey-style-visualization
-```
-
-### Option 2: Direct Download
+### Recommended
 
 ```bash
-mkdir -p ~/.claude/skills/mckinsey-style-visualization && curl -o ~/.claude/skills/mckinsey-style-visualization/SKILL.md https://raw.githubusercontent.com/kgraph57/mckinsey-style-visualization-skill/main/SKILL.md
+git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization
 ```
 
-## First Use
+### Direct Download
 
-1. **Open Claude Code**
-2. **Try this prompt:**
-   ```
-   Create a professional McKinsey-style time-series chart showing revenue growth from $10M (Q1) to $15M (Q4)
-   ```
-3. **Or use the slash command:**
-   ```
-   /mckinsey-style-visualization Create a competitive benchmarking table
-   ```
-
-## Common Use Cases
-
-### Executive Presentation
-```
-/mckinsey-style-visualization Create a cover slide for "Q4 2025 Strategic Review"
+```bash
+mkdir -p ~/.claude/skills/strategy-consulting-visualization
+curl -o ~/.claude/skills/strategy-consulting-visualization/SKILL.md https://raw.githubusercontent.com/kgraph57/mckinsey-style-visualization-skill/main/SKILL.md
 ```
 
-### Competitive Analysis
-```
-Create a McKinsey-style 2×2 matrix positioning our competitors on market share vs. innovation
+## Validate the Package
+
+From a cloned copy of the repository:
+
+```bash
+python3 scripts/validate_skill.py
 ```
 
-### Performance Reporting
-```
-Generate a consulting-style before/after comparison showing customer satisfaction improvement from 72% to 89%
+Expected:
+
+```text
+OK: skill package passed validation
 ```
 
-### Market Analysis
-```
-Build a professional gap visualization comparing our market penetration (45%) vs. market leader (78%)
+## First Prompt
+
+```text
+Use the strategy consulting visualization skill to create a waterfall slide spec showing ARR growth from $10M in Q1 to $15M in Q4, with +$3M from enterprise customers, +$2.5M from expansion, and -$0.5M from churn.
 ```
 
-## Key Features
+## Common Requests
 
-- **11 Visualization Types** - From timelines to waterfall charts
-- **Professional Design** - McKinsey/BCG/Bain aesthetic
-- **Ready-to-Use Templates** - Just customize with your data
-- **Automatic Invocation** - Claude knows when to use it
+```text
+Create a board-ready 2x2 market map positioning competitors by technical capability and enterprise adoption.
+```
+
+```text
+Turn these operating metrics into a five-slide executive summary with data assumptions and a quality check.
+```
+
+```text
+Create a competitive benchmarking table for five AI vendors across accuracy, cost, integration maturity, and risk.
+```
 
 ## Next Steps
 
-- 📖 Read [EXAMPLES.md](EXAMPLES.md) for detailed examples
-- 📚 Review [SKILL.md](SKILL.md) for complete documentation
-- 🔧 Check [INSTALLATION.md](INSTALLATION.md) for troubleshooting
-
-## Need Help?
-
-- **Skill not appearing?** Restart Claude Code
-- **Not triggering automatically?** Try `/mckinsey-style-visualization`
-- **Questions?** [Open an issue](https://github.com/kgraph57/mckinsey-style-visualization-skill/issues)
-
----
-
-**Ready to create boardroom-quality visualizations!** 🚀
+- Read [README.md](README.md) for the product overview.
+- Review [EXAMPLES.md](EXAMPLES.md) for usage scenarios.
+- Open [MARKETPLACE.md](MARKETPLACE.md) for listing copy.
+- Inspect [references/quality-rubric.md](references/quality-rubric.md) before publishing proof assets.
