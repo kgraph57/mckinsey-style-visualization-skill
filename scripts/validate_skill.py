@@ -32,6 +32,8 @@ REQUIRED_FILES = [
     "references/quality-rubric.md",
     "references/public-reference-corpus.md",
     "references/iterative-review-loop.md",
+    "references/input-triage.md",
+    "references/document-type-profiles.md",
     "examples/board-update-input.md",
     "examples/board-update-slide-spec.md",
     "examples/evaluation-report.md",
@@ -135,6 +137,8 @@ def validate_skill_frontmatter() -> None:
         "references/quality-rubric.md",
         "references/public-reference-corpus.md",
         "references/iterative-review-loop.md",
+        "references/input-triage.md",
+        "references/document-type-profiles.md",
     ]:
         if reference not in text:
             fail(f"SKILL.md must reference {reference}")
@@ -154,7 +158,7 @@ def validate_manifest() -> None:
     expected = {
         "name": "strategy-consulting-visualization",
         "display_name": "Strategy Consulting Visualization Skill",
-        "version": "1.5.0",
+        "version": "1.6.0",
         "license": "MIT",
         "entrypoint": "SKILL.md",
     }

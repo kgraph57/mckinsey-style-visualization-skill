@@ -4,6 +4,16 @@
 
 - No changes yet.
 
+## 1.6.0 - Universal Visualization
+
+- Generalized the skill beyond board slides to any document type: reports, research summaries, proposals, project status updates, training materials, technical documentation, one-pagers, infographics, policy briefs, and study notes.
+- Added `references/input-triage.md` so any input — numbers, prose, processes, hierarchies, relationships, decision logic, qualitative arguments — maps to a visualization pattern family.
+- Added `references/document-type-profiles.md` with 12 document profiles covering canvas, density, tone, and preferred patterns per deliverable.
+- Expanded `references/visualization-patterns.md` with 16 universal patterns: process flow, funnel, cycle, hierarchy, pyramid, concept map, Gantt/roadmap, heatmap, scatter, distribution, stacked composition, KPI scorecard, decision tree, Sankey-style flow, maturity grid, and annotated map.
+- Added a format-agnostic Universal Visual Spec, a Diagram-as-Code (Mermaid) spec, and nine new pattern starters to `references/prompt-templates.md`.
+- Added multi-canvas guidance (16:9, A4 portrait, vertical infographic, square, inline figure) to `references/style-system.md`.
+- Updated `SKILL.md` workflow with input triage and document-profile steps, and updated manifest and validator for v1.6.0.
+
 ## 1.5.0 - Traction and Inquiry Readiness
 
 - Added `TRACTION.md` for weekly demand-signal tracking and acquisition data-room preparation.

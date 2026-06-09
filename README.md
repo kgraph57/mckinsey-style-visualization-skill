@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Skill Format](https://img.shields.io/badge/SKILL.md-ready-blue.svg)](SKILL.md)
 [![Validation](https://img.shields.io/badge/Validation-local%20script-green.svg)](scripts/validate_skill.py)
-[![Release](https://img.shields.io/badge/Release-v1.5.0-1E3A8A.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.5.0)
+[![Release](https://img.shields.io/badge/Release-v1.6.0-1E3A8A.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.6.0)
 
 ![Strategy Consulting Visualization Skill overview](assets/readme/skill-overview.svg)
 
@@ -39,6 +39,19 @@ Use this skill when you have messy business notes, metrics, or a strategic quest
 | Product milestones | Strategy timeline | milestone nodes, decision gates, rollout sequence, risk annotations |
 | KPI before/after data | Impact slide | before/after comparison, delta labels, implication headline |
 | Raw deck outline | Executive summary strip | 3-5 decision-ready takeaways with proof points and implications |
+| Process description or SOP | Process flow or decision tree | Steps, owners, decision gates, and the bottleneck to fix |
+| Research notes or whitepaper draft | Report figure plan | Numbered figures with sources, distributions, and methodology flow |
+| Lesson or tutorial content | Training visual sequence | One-concept-per-visual flow, concept maps, before/after examples |
+| Any prose, notes, or messy input | "Visualize this" | Input triage to the right pattern, document profile, and visual spec |
+
+### Beyond Board Slides
+
+Since v1.6.0 the skill generalizes to **any document type and any input**:
+
+- **Document profiles** ([document-type-profiles.md](references/document-type-profiles.md)): board decks, internal reports, research whitepapers, sales proposals, project status updates, training materials, technical documentation, one-pagers, infographics, policy briefs, academic summaries, and personal study notes — each with its own canvas, density, and tone.
+- **Input triage** ([input-triage.md](references/input-triage.md)): maps numbers, prose, processes, hierarchies, relationships, decision logic, and qualitative arguments to the right pattern family, even when the request is just "visualize this".
+- **Universal patterns**: process flows, funnels, cycles, hierarchies, pyramids, concept maps, Gantt/roadmaps, heatmaps, scatter plots, distributions, stacked compositions, KPI scorecards, decision trees, Sankey-style flows, maturity grids, and annotated maps.
+- **Multiple canvases**: 16:9 slides, A4 report figures, vertical infographics, square cards, and inline diagram-as-code (Mermaid) figures.
 
 The skill mainly creates **slide specs and image-generation prompts**. It does not render final PowerPoint slides by itself. The value is in turning business input into a reproducible visual plan that an agent, designer, or renderer can execute.
 
@@ -164,6 +177,8 @@ flowchart LR
 | Layer | What It Does | File |
 | --- | --- | --- |
 | Skill entrypoint | Tells agents when and how to use the skill | [SKILL.md](SKILL.md) |
+| Input triage | Maps any input to a pattern family | [input-triage.md](references/input-triage.md) |
+| Document profiles | Adapts format and tone per deliverable | [document-type-profiles.md](references/document-type-profiles.md) |
 | Pattern library | Selects the right executive visual | [visualization-patterns.md](references/visualization-patterns.md) |
 | Style system | Defines palette, typography, layout, and chart rules | [style-system.md](references/style-system.md) |
 | Prompt templates | Converts decisions and data into reproducible specs | [prompt-templates.md](references/prompt-templates.md) |
@@ -224,6 +239,8 @@ flowchart TB
 
 ## Visualization Patterns
 
+Core strategy patterns:
+
 | Pattern | Best For | Example Decision |
 | --- | --- | --- |
 | Time-series growth | Momentum, adoption, revenue, usage | Is growth accelerating? |
@@ -238,6 +255,27 @@ flowchart TB
 | Waterfall chart | Bridge, variance, cumulative change | What drove the delta? |
 | Cover slide | Deck or section opening | What is the argument? |
 | Executive summary strip | Compact board memo takeaway | What should leaders remember? |
+
+Universal patterns for any document:
+
+| Pattern | Best For | Example Question |
+| --- | --- | --- |
+| Process flow | Workflows, SOPs, pipelines | What happens, in what order? |
+| Funnel | Conversion, attrition, staged loss | Where do we lose the most? |
+| Cycle diagram | Loops, feedback systems, habits | What sustains this loop? |
+| Hierarchy / tree | Org charts, taxonomies, breakdowns | How is this organized? |
+| Pyramid | Layered arguments, priorities, maturity | What is the foundation? |
+| Concept / system map | Relationships, architectures, dependencies | How do the parts interact? |
+| Gantt / roadmap | Workstreams, phases, dependencies | Are we on track? |
+| Heatmap matrix | Intensity across two dimensions | Where are the hot spots? |
+| Scatter / correlation | Two continuous variables | Do these move together? |
+| Distribution chart | Spread, concentration, outliers | What is typical, what is extreme? |
+| Stacked composition | Mix shifts across items or time | How is the mix changing? |
+| KPI scorecard | Many metrics at a glance | What needs attention? |
+| Decision tree | Branching logic, eligibility, escalation | Given my case, what do I do? |
+| Flow / allocation | Quantity splits between stages | Where does the volume go? |
+| Checklist / maturity grid | Completion or capability levels | What is the next level? |
+| Annotated map | Geographic concentration | Where is this happening? |
 
 ## Install
 
@@ -329,6 +367,8 @@ sequenceDiagram
 .
 ├── SKILL.md
 ├── references/
+│   ├── input-triage.md
+│   ├── document-type-profiles.md
 │   ├── style-system.md
 │   ├── visualization-patterns.md
 │   ├── prompt-templates.md

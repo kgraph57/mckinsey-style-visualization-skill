@@ -34,6 +34,56 @@ Quality check:
 - Safety:
 ```
 
+## Universal Visual Spec
+
+Use this for any document type beyond slides: reports, proposals, training materials, technical docs, one-pagers, infographics. Pick the canvas from `references/document-type-profiles.md`.
+
+```text
+Reader question:
+[What the reader must decide, understand, or do]
+
+Message headline:
+[One sentence that states the answer or takeaway]
+
+Document profile:
+[Profile from document-type-profiles.md]
+
+Recommended visualization:
+[Pattern name from visualization-patterns.md]
+
+Visual spec:
+- Canvas: [16:9 slide / A4 portrait figure / vertical infographic / inline diagram / flexible]
+- Layout: [geometry: flow direction, grid, levels, axes]
+- Primary visual: [chart or diagram details]
+- Labels: [exact labels and formats; plain language for general readers]
+- Annotations: [one to three takeaways or callouts]
+- Source note: [source or "User-provided content; assumptions noted below"]
+- Render target: [image prompt / SVG / Mermaid / slide tool / designer handoff]
+
+Content and assumptions:
+- [Input content used]
+- [Missing information or assumptions]
+
+Quality check:
+- Message clarity:
+- Content integrity:
+- Visual hierarchy:
+- Portability:
+- Safety:
+```
+
+## Diagram-as-Code Spec
+
+Use when the user works in a repo or wants an editable diagram. Emit Mermaid (default) or another requested format alongside the spec.
+
+```text
+Recommended visualization: [process flow / decision tree / hierarchy / concept map / timeline / Gantt]
+Diagram source format: [mermaid flowchart / sequenceDiagram / gantt / mindmap]
+Diagram source:
+[fenced mermaid block with real labels, direction, and styling kept minimal]
+Notes: [what was simplified and why]
+```
+
 ## Image Generation Prompt
 
 Use this when the user explicitly wants an image-generation prompt.
@@ -100,4 +150,92 @@ Add caveats for estimated or subjective metrics.
 Create a 16:9 executive summary strip with [3-5] insight blocks.
 Each block includes: claim, proof point, implication.
 Use compact typography, vertical dividers, and one blue emphasis per block.
+```
+
+### Process Flow
+
+```text
+Create a [canvas] process flow diagram.
+Steps: [ordered steps with owners]
+Direction: [left-to-right or top-to-bottom]
+Highlight: [bottleneck or decision point] in royal blue.
+Annotation: [what the reader should fix or follow]
+```
+
+### Funnel
+
+```text
+Create a [canvas] funnel visualization.
+Stages: [labels with absolute values]
+Conversion labels: [stage-to-stage rates]
+Annotation: [largest drop and its implication]
+```
+
+### Hierarchy / Tree
+
+```text
+Create a [canvas] hierarchy diagram.
+Root: [top node]
+Levels: [max 3 visible levels with sibling order rationale]
+Highlight: [the node or branch that carries the message]
+```
+
+### Concept / System Map
+
+```text
+Create a [canvas] concept map.
+Nodes: [up to ~12 entities]
+Relationships: [labeled, typed connections]
+Clusters: [spatial groupings]
+Legend: [line styles per relationship type]
+```
+
+### Gantt / Roadmap
+
+```text
+Create a [canvas] roadmap.
+Workstreams: [rows]
+Phases: [bars with start/end]
+Dependencies and gates: [explicit markers]
+Plan vs. actual: [if tracking, show both]
+```
+
+### Heatmap Matrix
+
+```text
+Create a [canvas] heatmap.
+Rows: [dimension 1, sorted meaningfully]
+Columns: [dimension 2]
+Values: [metric and scale]
+Use a single-hue blue ramp; label the extremes with actual values.
+Annotation: [the hot spot that matters]
+```
+
+### KPI Scorecard
+
+```text
+Create a [canvas] KPI scorecard.
+Groups: [metric themes]
+Per metric: value, trend, target, status.
+Reserve color for status against target only.
+Annotation: [the one metric demanding action]
+```
+
+### Decision Tree
+
+```text
+Create a [canvas] decision tree.
+Root question: [yes/no or small-choice question]
+Branches: [each labeled with the answer]
+Leaves: [concrete actions only]
+Highlight: [the most common path]
+```
+
+### Infographic Block
+
+```text
+Create a vertical [4:5 or 9:16] explainer infographic.
+Sections top to bottom: [hook number or claim, 2-4 supporting blocks, takeaway]
+Plain language labels; numbers rounded for general readers.
+Keep the strategy-consulting palette but increase type size and whitespace.
 ```

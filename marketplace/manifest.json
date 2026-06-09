@@ -2,7 +2,7 @@
   "schema_version": "0.1.0",
   "name": "strategy-consulting-visualization",
   "display_name": "Strategy Consulting Visualization Skill",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "category": "visualization",
   "tags": [
     "strategy",
@@ -11,7 +11,12 @@
     "data-visualization",
     "board-slides",
     "competitive-benchmarking",
-    "waterfall-charts"
+    "waterfall-charts",
+    "reports",
+    "infographics",
+    "process-diagrams",
+    "technical-diagrams",
+    "training-materials"
   ],
   "license": "MIT",
   "entrypoint": "SKILL.md",

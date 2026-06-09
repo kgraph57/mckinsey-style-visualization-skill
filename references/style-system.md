@@ -38,6 +38,20 @@ Create analytical, executive-ready visuals with institutional restraint. The vis
 - Data labels: sans-serif, medium or semibold, aligned to chart geometry.
 - Japanese text: prefer sans-serif only and increase size by 10-20% for legibility.
 
+## Canvas Formats
+
+The default canvas is a 16:9 landscape slide, but the system adapts to other deliverables. Pick the canvas from the document profile in `references/document-type-profiles.md`.
+
+| Canvas | Use For | Adjustments |
+| --- | --- | --- |
+| 16:9 landscape | Slides, decks, steering materials | Default rules apply |
+| A4 / Letter portrait | Reports, memos, whitepapers, one-pagers | Smaller headlines, numbered figures, figures sized to text column |
+| Vertical 4:5 or 9:16 | Infographics, public explainers | Larger type, lower density, top-to-bottom narrative |
+| Square 1:1 | Compact summaries, social-format cards | One message, one visual, one annotation |
+| Inline figure | Technical docs, README diagrams | Flexible width, diagram-as-code friendly, no decorative framing |
+
+Across all canvases the constants are: insight-led headline, honest scales, restrained palette, direct labels, and explicit assumptions.
+
 ## Layout
 
 - Default canvas: 16:9 landscape.
