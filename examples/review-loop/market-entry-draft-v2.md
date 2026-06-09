@@ -42,4 +42,3 @@ Market entry contrast diagram plus implementation decision gate.
 - Visual hierarchy: two primary numbers, contrast bars, and decision box.
 - Portability: renderer can build the diagram from the spec.
 - Safety: no copied source material or affiliation claims.
-

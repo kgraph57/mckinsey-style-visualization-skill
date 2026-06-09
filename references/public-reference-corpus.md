@@ -36,4 +36,3 @@ Never extract:
 ## Reference Notes
 
 Use this corpus to improve the skill's standards, not to imitate a firm. Public references are learning material for pattern recognition. Final outputs must be original, source-aware, and non-affiliated.
-

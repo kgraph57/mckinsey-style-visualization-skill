@@ -29,4 +29,3 @@ Market entry comparison.
 ## Quality check
 
 Needs a clearer recommendation and stronger visual hierarchy.
-
