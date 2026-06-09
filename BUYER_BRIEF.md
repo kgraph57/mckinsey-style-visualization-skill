@@ -52,6 +52,8 @@ This asset is ready for distribution testing, not yet a revenue-backed business.
 | Commercial pull | 3+ requests for PPTX/PDF/rendered examples |
 | Revenue | First 10 paid template-pack customers |
 
+Track progress in [TRACTION.md](TRACTION.md).
+
 ## Monetization Paths
 
 | Path | Description | First Test |

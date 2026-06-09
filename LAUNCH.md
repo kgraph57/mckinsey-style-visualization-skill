@@ -116,6 +116,8 @@ Track these weekly:
 | Replies requesting PPTX/PDF | Premium pack signal |
 | Direct messages | Sales and acquisition signal |
 
+Record the weekly numbers in [TRACTION.md](TRACTION.md).
+
 ## Launch Claims To Avoid
 
 - Do not claim affiliation with any consulting firm.

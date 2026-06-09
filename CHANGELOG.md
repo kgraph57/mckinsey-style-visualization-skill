@@ -4,6 +4,14 @@
 
 - No changes yet.
 
+## 1.5.0 - Traction and Inquiry Readiness
+
+- Added `TRACTION.md` for weekly demand-signal tracking and acquisition data-room preparation.
+- Added marketplace listing, example request, buyer inquiry, and bug report issue templates.
+- Added pull request template with validation and marketplace-readiness checks.
+- Linked traction tracking from README, launch, distribution, buyer, and commercialization docs.
+- Updated manifest and validator for v1.5.0 operations readiness.
+
 ## 1.4.0 - Launch and Buyer Readiness
 
 - Added launch copy, social-card asset, and a 7-day launch plan.
