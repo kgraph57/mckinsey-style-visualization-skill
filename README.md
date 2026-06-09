@@ -9,6 +9,17 @@
 
 ![Strategy Consulting Visualization Skill overview](assets/readme/skill-overview.svg)
 
+## Distribution Status
+
+This repository is now packaged for distribution testing:
+
+- [Marketplace listing draft](MARKETPLACE.md)
+- [Submission copy](SUBMISSION.md)
+- [Distribution kit](DISTRIBUTION.md)
+- [Commercialization plan](COMMERCIALIZATION.md)
+- [Security policy](SECURITY.md)
+- [Roadmap](ROADMAP.md)
+
 ## What You Can Do
 
 Use this skill when you have messy business notes, metrics, or a strategic question and need a slide-ready consulting visualization direction.
