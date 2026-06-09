@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_FILES = [
     "SKILL.md",
     "README.md",
+    "README.ja.md",
     "MARKETPLACE.md",
     "MARKETPLACE_TARGETS.md",
     "SUBMISSION.md",
@@ -55,6 +56,16 @@ REQUIRED_FILES = [
     "examples/review-loop/investment-memo-draft-v2.md",
     "examples/review-loop/investment-memo-review-v2.md",
     "scripts/review_slide_spec.py",
+    "scripts/render_slide_spec.py",
+    "examples/render-specs/arr-waterfall.json",
+    "examples/render-specs/capacity-gap.json",
+    "examples/render-specs/adoption-before-after.json",
+    "examples/render-specs/adoption-trend.json",
+    "examples/render-specs/vendor-benchmark.json",
+    "examples/render-specs/executive-summary.json",
+    "examples/render-specs/onboarding-flow.json",
+    "assets/rendered/arr-waterfall.svg",
+    "assets/readme/hero-before-after.svg",
     "assets/social/launch-card.svg",
     ".github/ISSUE_TEMPLATE/marketplace-listing.md",
     ".github/ISSUE_TEMPLATE/example-request.md",
@@ -159,7 +170,7 @@ def validate_manifest() -> None:
     expected = {
         "name": "strategy-consulting-visualization",
         "display_name": "Strategy Consulting Visualization Skill",
-        "version": "1.6.0",
+        "version": "1.7.0",
         "license": "MIT",
         "entrypoint": "SKILL.md",
     }

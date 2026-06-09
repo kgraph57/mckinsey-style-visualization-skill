@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1640 740" width="1640" height="740" role="img" aria-label="Raw notes turned into a board-ready slide">
+  <rect width="1640" height="740" fill="#F3F4F6"/>
+  <text x="60" y="58" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="bold" fill="#000000">Messy notes in. Board-ready slide out.</text>
+  <text x="60" y="84" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#6B7280">python3 scripts/render_slide_spec.py spec.json — or let your agent write the spec for you</text>
+  <rect x="60" y="140" width="400" height="470" rx="8" fill="#FFFFFF" stroke="#D1D5DB"/>
+  <rect x="60" y="140" width="400" height="44" rx="8" fill="#374151"/>
+  <rect x="60" y="168" width="400" height="16" fill="#374151"/>
+  <text x="80" y="168" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF" letter-spacing="1">RAW NOTES</text>
+<text x="80" y="250" font-family="Menlo, Consolas, monospace" font-size="16" fill="#374151">ARR grew from $10M to $15M.</text>
+<text x="80" y="280" font-family="Menlo, Consolas, monospace" font-size="16" fill="#374151">Enterprise expansion</text>
+<text x="80" y="310" font-family="Menlo, Consolas, monospace" font-size="16" fill="#374151">contributed $3M.</text>
+<text x="80" y="340" font-family="Menlo, Consolas, monospace" font-size="16" fill="#374151">Existing customer expansion</text>
+<text x="80" y="370" font-family="Menlo, Consolas, monospace" font-size="16" fill="#374151">contributed $2.5M.</text>
+<text x="80" y="400" font-family="Menlo, Consolas, monospace" font-size="16" fill="#374151">Churn reduced ARR by $0.5M.</text>
+<text x="80" y="430" font-family="Menlo, Consolas, monospace" font-size="16" fill="#374151">AI adoption grew 18% -> 64%.</text>
+<text x="80" y="460" font-family="Menlo, Consolas, monospace" font-size="16" fill="#374151">Board needs to decide on</text>
+<text x="80" y="490" font-family="Menlo, Consolas, monospace" font-size="16" fill="#374151">implementation capacity</text>
+<text x="80" y="520" font-family="Menlo, Consolas, monospace" font-size="16" fill="#374151">investment.</text>
+  <path d="M 480 365 L 530 365 M 518 351 L 538 365 L 518 379" stroke="#1E3A8A" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="556" y="88" width="1008" height="570" fill="#FFFFFF" stroke="#D1D5DB"/>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" x="560" y="92" width="1000" height="562" role="img" aria-label="Enterprise acquisition and expansion added $5.5M ARR, more than offsetting $0.5M churn">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <rect x="80.0" y="52.0" width="56.0" height="5.0" fill="#1E3A8A" stroke="none"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">Enterprise acquisition and expansion added $5.5M ARR, more than</text>
+  <text x="80.0" y="136.0" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">offsetting $0.5M churn</text>
+  <text x="80.0" y="178.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="17" fill="#6B7280" font-weight="normal" text-anchor="start">ARR bridge, Q1 to Q4</text>
+  <line x1="80.0" y1="560.0" x2="1200.0" y2="560.0" stroke="#374151"/>
+  <rect x="137.0" y="368.6" width="110.0" height="191.4" fill="#1E3A8A" stroke="none"/>
+  <text x="192.0" y="358.6" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#000000" font-weight="bold" text-anchor="middle">$10M</text>
+  <text x="192.0" y="582.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#374151" font-weight="normal" text-anchor="middle">Q1 ARR</text>
+  <rect x="361.0" y="311.2" width="110.0" height="57.4" fill="#2563EB" stroke="none"/>
+  <text x="416.0" y="301.2" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#000000" font-weight="bold" text-anchor="middle">+$3M</text>
+  <text x="416.0" y="582.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#374151" font-weight="normal" text-anchor="middle">Enterprise new</text>
+  <text x="416.0" y="598.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#374151" font-weight="normal" text-anchor="middle">customers</text>
+  <line x1="247.0" y1="368.6" x2="361.0" y2="368.6" stroke="#D1D5DB" stroke-dasharray="4 3"/>
+  <rect x="585.0" y="263.4" width="110.0" height="47.8" fill="#2563EB" stroke="none"/>
+  <text x="640.0" y="253.4" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#000000" font-weight="bold" text-anchor="middle">+$2.5M</text>
+  <text x="640.0" y="582.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#374151" font-weight="normal" text-anchor="middle">Existing</text>
+  <text x="640.0" y="598.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#374151" font-weight="normal" text-anchor="middle">customer</text>
+  <line x1="471.0" y1="311.2" x2="585.0" y2="311.2" stroke="#D1D5DB" stroke-dasharray="4 3"/>
+  <rect x="809.0" y="263.4" width="110.0" height="9.6" fill="#B91C1C" stroke="none"/>
+  <text x="864.0" y="253.4" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#000000" font-weight="bold" text-anchor="middle">−$0.5M</text>
+  <text x="864.0" y="582.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#374151" font-weight="normal" text-anchor="middle">Churn</text>
+  <line x1="695.0" y1="263.4" x2="809.0" y2="263.4" stroke="#D1D5DB" stroke-dasharray="4 3"/>
+  <line x1="919.0" y1="273.0" x2="1033.0" y2="273.0" stroke="#D1D5DB" stroke-dasharray="4 3"/>
+  <rect x="1033.0" y="273.0" width="110.0" height="287.0" fill="#1E3A8A" stroke="none"/>
+  <text x="1088.0" y="263.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#000000" font-weight="bold" text-anchor="middle">$15M</text>
+  <text x="1088.0" y="582.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#374151" font-weight="normal" text-anchor="middle">Q4 ARR</text>
+  <rect x="80.0" y="612.0" width="4.0" height="40.0" fill="#1E3A8A" stroke="none"/>
+  <text x="96.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#1E3A8A" font-weight="600" text-anchor="start">Net +$5.0M ARR; the growth engine is enterprise-led.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="start">Source: user-provided internal ARR metrics.</text>
+</svg>
+
+  <text x="1560" y="690" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#6B7280" text-anchor="end">Rendered with scripts/render_slide_spec.py — no design tools, no dependencies</text>
+</svg>

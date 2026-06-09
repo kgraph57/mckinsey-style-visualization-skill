@@ -1,0 +1,23 @@
+{
+  "pattern": "summary_strip",
+  "headline": "Growth is strong, adoption is proven, and capacity is now the binding constraint",
+  "subline": "Board takeaways for the Q4 decision",
+  "blocks": [
+    {
+      "claim": "Growth engine is enterprise-led",
+      "proof": "ARR grew $10M to $15M; enterprise added $3.0M of the $5.5M gross gain.",
+      "implication": "Protect enterprise momentum before raising targets."
+    },
+    {
+      "claim": "Adoption has crossed majority",
+      "proof": "AI workflow adoption rose from 18% to 64% of accounts in four quarters.",
+      "implication": "The operating model scales; replication risk is low."
+    },
+    {
+      "claim": "Capacity is the constraint",
+      "proof": "Onboarding capacity covers 60% of signed enterprise commitments.",
+      "implication": "Approve capacity investment this quarter."
+    }
+  ],
+  "source": "Source: user-provided Q1-Q4 operating metrics."
+}

@@ -1,0 +1,14 @@
+{
+  "pattern": "before_after",
+  "headline": "The AI workflow program lifted adoption 46 points and cut onboarding time nearly in half",
+  "subline": "Key metrics before and after program rollout",
+  "before_label": "Before",
+  "after_label": "After",
+  "pairs": [
+    {"label": "AI workflow adoption", "before": 18, "after": 64, "unit": "%"},
+    {"label": "Onboarding time", "before": 42, "after": 23, "unit": " days"},
+    {"label": "Tickets per account", "before": 9, "after": 4, "unit": ""}
+  ],
+  "annotation": "Adoption gains justify extending the program to the enterprise tier.",
+  "source": "Source: user-provided program metrics."
+}

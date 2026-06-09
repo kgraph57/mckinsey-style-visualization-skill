@@ -2,7 +2,7 @@
   "schema_version": "0.1.0",
   "name": "strategy-consulting-visualization",
   "display_name": "Strategy Consulting Visualization Skill",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "category": "visualization",
   "tags": [
     "strategy",
@@ -35,6 +35,8 @@
   "proof": {
     "sample_input": "examples/board-update-input.md",
     "sample_output": "examples/board-update-slide-spec.md",
+    "rendered_output": "assets/rendered/arr-waterfall.svg",
+    "renderer": "scripts/render_slide_spec.py",
     "evaluation": "examples/evaluation-report.md",
     "validation": "scripts/validate_skill.py"
   },

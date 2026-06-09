@@ -70,10 +70,10 @@ Priority order of product work that drives stars:
 
 ## Conversion Checklist (Repo Side)
 
-- [ ] Hero before/after image above the fold in README
-- [ ] 30-second quickstart with copy-paste install + prompt
-- [ ] `README.ja.md`
-- [ ] Renderer script with sample output committed
+- [x] Hero before/after image above the fold in README
+- [x] 30-second quickstart with copy-paste install + prompt
+- [x] `README.ja.md`
+- [x] Renderer script with sample output committed (`scripts/render_slide_spec.py`, 7 patterns)
 - [ ] GitHub Discussions enabled for community outputs
 - [ ] Social preview image set in repo settings (use `assets/social/launch-card.svg` exported to PNG)
 - [ ] Star history chart in README once growth starts (star-history.com)

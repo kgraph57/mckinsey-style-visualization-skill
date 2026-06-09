@@ -4,6 +4,15 @@
 
 - No changes yet.
 
+## 1.7.0 - Renderer and Hero Demo
+
+- Added `scripts/render_slide_spec.py`: renders spec JSON into styled SVG slides for seven patterns (waterfall, gap, before_after, time_series, benchmark_table, summary_strip, process_flow) using only the Python standard library.
+- Added seven sample render specs in `examples/render-specs/` and their committed SVG outputs in `assets/rendered/`.
+- Added a hero before/after image to the README showing raw notes turning into a rendered board slide.
+- Added `README.ja.md` with a Japanese quickstart and rendered gallery.
+- Added a 30-second quickstart and rendered output gallery to the README.
+- Referenced optional rendering in the `SKILL.md` workflow; updated manifest, validator, and growth checklist for v1.7.0.
+
 ## 1.6.0 - Universal Visualization
 
 - Generalized the skill beyond board slides to any document type: reports, research summaries, proposals, project status updates, training materials, technical documentation, one-pagers, infographics, policy briefs, and study notes.

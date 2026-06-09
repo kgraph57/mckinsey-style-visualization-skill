@@ -1,11 +1,15 @@
 # Strategy Consulting Visualization Skill
 
-> Marketplace-ready Agent Skill for executive strategy visualizations, board slides, competitive benchmarks, investment memos, market maps, timelines, waterfall charts, and data-backed slide specifications.
+English | [日本語](README.ja.md)
+
+> Marketplace-ready Agent Skill that turns messy notes, metrics, and prose into executive-ready visualizations — board slides, reports, proposals, training materials, technical diagrams, and infographics — with a built-in renderer that produces real SVG slides.
+
+![Messy notes in, board-ready slide out](assets/readme/hero-before-after.svg)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Skill Format](https://img.shields.io/badge/SKILL.md-ready-blue.svg)](SKILL.md)
 [![Validation](https://img.shields.io/badge/Validation-local%20script-green.svg)](scripts/validate_skill.py)
-[![Release](https://img.shields.io/badge/Release-v1.6.0-1E3A8A.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.6.0)
+[![Release](https://img.shields.io/badge/Release-v1.7.0-1E3A8A.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.7.0)
 
 ![Strategy Consulting Visualization Skill overview](assets/readme/skill-overview.svg)
 
@@ -26,6 +30,50 @@ This repository is now packaged for distribution testing:
 - [Roadmap](ROADMAP.md)
 
 ![Social launch card](assets/social/launch-card.svg)
+
+## 30-Second Quickstart
+
+Install the skill:
+
+```bash
+git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization
+```
+
+Render your first slide — no dependencies beyond Python 3:
+
+```bash
+python3 scripts/render_slide_spec.py examples/render-specs/arr-waterfall.json -o slide.svg
+```
+
+Or ask your agent:
+
+```text
+Use the strategy consulting visualization skill to turn these notes into a board slide spec:
+ARR grew from $10M to $15M. Enterprise added $3M, expansion $2.5M, churn -$0.5M.
+The board must decide on implementation capacity investment.
+```
+
+## Rendered Output Gallery
+
+These are actual outputs of `scripts/render_slide_spec.py`, committed as-is. Spec JSON files live in [examples/render-specs/](examples/render-specs).
+
+| ARR Waterfall | Capacity Gap |
+| --- | --- |
+| ![Rendered ARR waterfall](assets/rendered/arr-waterfall.svg) | ![Rendered capacity gap](assets/rendered/capacity-gap.svg) |
+
+| Before / After | Process Flow |
+| --- | --- |
+| ![Rendered before-after](assets/rendered/adoption-before-after.svg) | ![Rendered process flow](assets/rendered/onboarding-flow.svg) |
+
+| Benchmark Table | Executive Summary Strip |
+| --- | --- |
+| ![Rendered benchmark table](assets/rendered/vendor-benchmark.svg) | ![Rendered executive summary](assets/rendered/executive-summary.svg) |
+
+| Adoption Trend |
+| --- |
+| ![Rendered adoption trend](assets/rendered/adoption-trend.svg) |
+
+Supported render patterns: `waterfall`, `gap`, `before_after`, `time_series`, `benchmark_table`, `summary_strip`, `process_flow`. Other patterns ship as slide specs and image-generation prompts.
 
 ## What You Can Do
 
@@ -54,7 +102,7 @@ Since v1.6.0 the skill generalizes to **any document type and any input**:
 - **Universal patterns**: process flows, funnels, cycles, hierarchies, pyramids, concept maps, Gantt/roadmaps, heatmaps, scatter plots, distributions, stacked compositions, KPI scorecards, decision trees, Sankey-style flows, maturity grids, and annotated maps.
 - **Multiple canvases**: 16:9 slides, A4 report figures, vertical infographics, square cards, and inline diagram-as-code (Mermaid) figures.
 
-The skill mainly creates **slide specs and image-generation prompts**. It does not render final PowerPoint slides by itself. The value is in turning business input into a reproducible visual plan that an agent, designer, or renderer can execute.
+The skill creates **slide specs, image-generation prompts, and rendered SVG slides** (via `scripts/render_slide_spec.py` for seven patterns). The value is in turning business input into a reproducible visual plan that an agent, designer, or renderer can execute.
 
 ## Output Previews
 
@@ -184,6 +232,7 @@ flowchart LR
 | Style system | Defines palette, typography, layout, and chart rules | [style-system.md](references/style-system.md) |
 | Prompt templates | Converts decisions and data into reproducible specs | [prompt-templates.md](references/prompt-templates.md) |
 | Quality rubric | Scores strategy, data, hierarchy, portability, and safety | [quality-rubric.md](references/quality-rubric.md) |
+| Renderer | Turns spec JSON into styled SVG slides | [render_slide_spec.py](scripts/render_slide_spec.py) |
 | Proof pack | Shows input, expected output, and evaluation | [examples/](examples) |
 | Marketplace layer | Provides listing copy and metadata | [MARKETPLACE.md](MARKETPLACE.md) / [manifest.json](marketplace/manifest.json) |
 | Validation | Checks package structure before publishing | [validate_skill.py](scripts/validate_skill.py) |
@@ -387,6 +436,8 @@ sequenceDiagram
 │   ├── ISSUE_TEMPLATE/
 │   └── PULL_REQUEST_TEMPLATE.md
 ├── scripts/
+│   ├── render_slide_spec.py
+│   ├── review_slide_spec.py
 │   └── validate_skill.py
 ├── MARKETPLACE.md
 ├── MARKETPLACE_TARGETS.md
