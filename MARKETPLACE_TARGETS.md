@@ -29,7 +29,7 @@ Use these values unless a marketplace has stricter limits.
 | Field | Copy |
 | --- | --- |
 | Title | Strategy Consulting Visualization Skill |
-| Short description | Turn raw business metrics into board-ready strategy visualization specs. |
+| Short description | Turn messy notes into board-ready visuals: 28 patterns, 12 document profiles, and an SVG renderer. |
 | Category | Agent skills, data visualization, executive presentations, strategy |
 | Tags | `SKILL.md`, `agent-skills`, `strategy`, `consulting`, `data-visualization`, `executive-presentations`, `board-slides`, `waterfall-chart`, `benchmark-table`, `investment-memo` |
 | Repository | https://github.com/kgraph57/mckinsey-style-visualization-skill |
