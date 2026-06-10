@@ -9,7 +9,7 @@ English | [日本語](README.ja.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Skill Format](https://img.shields.io/badge/SKILL.md-ready-blue.svg)](SKILL.md)
 [![Validation](https://img.shields.io/badge/Validation-local%20script-green.svg)](scripts/validate_skill.py)
-[![Release](https://img.shields.io/badge/Release-v1.7.0-1E3A8A.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.7.0)
+[![Release](https://img.shields.io/badge/Release-v1.8.0-1E3A8A.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.8.0)
 
 ![Strategy Consulting Visualization Skill overview](assets/readme/skill-overview.svg)
 
@@ -73,7 +73,23 @@ These are actual outputs of `scripts/render_slide_spec.py`, committed as-is. Spe
 | --- |
 | ![Rendered adoption trend](assets/rendered/adoption-trend.svg) |
 
-Supported render patterns: `waterfall`, `gap`, `before_after`, `time_series`, `benchmark_table`, `summary_strip`, `process_flow`. Other patterns ship as slide specs and image-generation prompts.
+Supported render patterns: `waterfall`, `gap`, `before_after`, `time_series`, `benchmark_table`, `summary_strip`, `process_flow`, `funnel`, `heatmap`, `gantt`, `kpi_scorecard`, `two_by_two`. Other patterns ship as slide specs and image-generation prompts.
+
+## By Role
+
+The [persona playbook](references/persona-playbook.md) gives every role a copy-paste prompt and a rendered example:
+
+| Role | Ask For | Rendered Example |
+| --- | --- | --- |
+| Sales | Pipeline QBR, proposal visuals | ![Sales funnel](assets/rendered/sales-pipeline-funnel.svg) |
+| Project manager / PMO | Roadmap with critical path | ![PMO gantt](assets/rendered/pmo-rollout-gantt.svg) |
+| Marketing | Channel x segment performance | ![Marketing heatmap](assets/rendered/marketing-channel-heatmap.svg) |
+| HR / People ops | Talent scorecard | ![HR scorecard](assets/rendered/hr-talent-scorecard.svg) |
+| Product manager | Effort vs. impact prioritization | ![Product 2x2](assets/rendered/product-priority-two-by-two.svg) |
+| Engineer / Tech lead | Incident postmortem flow | ![Incident flow](assets/rendered/eng-incident-flow.svg) |
+| Researcher / Clinician | Study outcome summary | ![Research before-after](assets/rendered/research-outcomes-before-after.svg) |
+
+Finance and executive examples live in the gallery above. Japanese business formats (稟議書, 週報, 学会抄録, 提案書) have dedicated profiles in [document-type-profiles.md](references/document-type-profiles.md).
 
 ## What You Can Do
 

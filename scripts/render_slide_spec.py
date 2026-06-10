@@ -359,6 +359,181 @@ def render_process_flow(spec: dict) -> list[str]:
     return parts
 
 
+def _lerp_color(start: str, end: str, t: float) -> str:
+    s = [int(start[i : i + 2], 16) for i in (1, 3, 5)]
+    e = [int(end[i : i + 2], 16) for i in (1, 3, 5)]
+    return "#" + "".join(f"{round(s[i] + (e[i] - s[i]) * t):02X}" for i in range(3))
+
+
+def render_funnel(spec: dict) -> list[str]:
+    unit = spec.get("unit", "")
+    stages = spec["stages"]
+    top_value = max(s["value"] for s in stages) or 1
+    row_h = (CHART_BOTTOM - CHART_TOP) / len(stages)
+    bar_h = min(row_h * 0.66, 60.0)
+    span = W - ML - MR - 330
+    cx = ML + 210 + span / 2
+
+    parts: list[str] = []
+    for i, stage in enumerate(stages):
+        y = CHART_TOP + row_h * i + (row_h - bar_h) / 2
+        bw = max(span * stage["value"] / top_value, 6)
+        parts.append(rect_el(cx - bw / 2, y, bw, bar_h, BLUE))
+        label_lines = wrap(stage["label"], 24)[:2]
+        ly = y + bar_h / 2 + 5 - (len(label_lines) - 1) * 8.5
+        for line in label_lines:
+            parts.append(text_el(ML, ly, line, size=15, fill=GREY_DARK))
+            ly += 17
+        value_text = fmt(stage["value"], unit)
+        if bw > 110:
+            parts.append(text_el(cx, y + bar_h / 2 + 6, value_text, size=16, fill="#FFFFFF", weight="bold", anchor="middle"))
+        else:
+            parts.append(text_el(cx + bw / 2 + 10, y + bar_h / 2 + 6, value_text, size=16, weight="bold"))
+        if i > 0:
+            conversion = stage["value"] / stages[i - 1]["value"] * 100
+            parts.append(
+                text_el(cx + span / 2 + 28, CHART_TOP + row_h * i + 5, f"↓ {conversion:.0f}%", size=15, fill=BLUE2, weight="600")
+            )
+    return parts
+
+
+def render_heatmap(spec: dict) -> list[str]:
+    unit = spec.get("unit", "")
+    rows, columns, values = spec["rows"], spec["columns"], spec["values"]
+    flat = [v for row in values for v in row]
+    vmin, vmax = min(flat), max(flat)
+    label_w = 210.0
+    cell_w = (W - ML - MR - label_w) / len(columns)
+    cell_h = min(72.0, (CHART_BOTTOM - CHART_TOP - 30) / len(rows))
+
+    parts: list[str] = []
+    for j, column in enumerate(columns):
+        cx = ML + label_w + cell_w * j + cell_w / 2
+        parts.append(text_el(cx, CHART_TOP + 12, column, size=14, fill=GREY_MED, weight="600", anchor="middle"))
+    for i, row_label in enumerate(rows):
+        y = CHART_TOP + 26 + cell_h * i
+        label_lines = wrap(row_label, 24)[:2]
+        ly = y + cell_h / 2 + 5 - (len(label_lines) - 1) * 8.5
+        for line in label_lines:
+            parts.append(text_el(ML, ly, line, size=14, fill=GREY_DARK))
+            ly += 17
+        for j, value in enumerate(values[i]):
+            t = (value - vmin) / (vmax - vmin) if vmax > vmin else 0.5
+            x = ML + label_w + cell_w * j
+            parts.append(rect_el(x + 2, y + 2, cell_w - 4, cell_h - 4, _lerp_color("#EFF3FB", BLUE, t)))
+            text_fill = "#FFFFFF" if t > 0.55 else GREY_DARK
+            parts.append(
+                text_el(x + cell_w / 2, y + cell_h / 2 + 5, fmt(value, unit), size=14, fill=text_fill, weight="600", anchor="middle")
+            )
+    return parts
+
+
+def render_gantt(spec: dict) -> list[str]:
+    periods = spec["periods"]
+    bars = spec["bars"]
+    gates = spec.get("gates", [])
+    label_w = 250.0
+    col_w = (W - ML - MR - label_w) / len(periods)
+    grid_top = CHART_TOP + 14
+    row_h = min(56.0, (CHART_BOTTOM - grid_top - (26 if gates else 0)) / len(bars))
+    grid_bottom = grid_top + row_h * len(bars)
+
+    parts: list[str] = []
+    for j, period in enumerate(periods):
+        x = ML + label_w + col_w * j
+        parts.append(text_el(x + col_w / 2, CHART_TOP, period, size=13, fill=GREY_MED, weight="600", anchor="middle"))
+        parts.append(line_el(x, grid_top, x, grid_bottom, GREY_BORDER))
+    parts.append(line_el(W - MR, grid_top, W - MR, grid_bottom, GREY_BORDER))
+    parts.append(line_el(ML, grid_top, W - MR, grid_top, GREY_DARK))
+    for i, bar in enumerate(bars):
+        y = grid_top + row_h * i
+        label_lines = wrap(bar["label"], 28)[:2]
+        ly = y + row_h / 2 + 5 - (len(label_lines) - 1) * 8.5
+        for line in label_lines:
+            parts.append(text_el(ML, ly, line, size=14, fill=GREY_DARK))
+            ly += 17
+        bx = ML + label_w + col_w * bar["start"] + 3
+        bw = col_w * (bar["end"] - bar["start"] + 1) - 6
+        hot = bar.get("highlight")
+        parts.append(rect_el(bx, y + (row_h - 24) / 2, bw, 24, BLUE if hot else GREY_FILL, "none" if hot else GREY_BORDER))
+        note = bar.get("note", "")
+        if note:
+            parts.append(text_el(bx + bw + 10, y + row_h / 2 + 5, note, size=12, fill=GREY_MED))
+        parts.append(line_el(ML, y + row_h, W - MR, y + row_h, GREY_BORDER))
+    for gate in gates:
+        gx = ML + label_w + col_w * (gate["period"] + 1)
+        gy = grid_bottom + 12
+        parts.append(f'<path d="M {gx:.1f} {gy - 8:.1f} L {gx + 8:.1f} {gy:.1f} L {gx:.1f} {gy + 8:.1f} L {gx - 8:.1f} {gy:.1f} Z" fill="{BLUE}"/>')
+        parts.append(text_el(gx, gy + 24, gate["label"], size=12, fill=BLUE, weight="600", anchor="middle"))
+    return parts
+
+
+def render_kpi_scorecard(spec: dict) -> list[str]:
+    metrics = spec["metrics"]
+    cols = spec.get("columns", 3)
+    gap = 24.0
+    card_w = (W - ML - MR - gap * (cols - 1)) / cols
+    n_rows = -(-len(metrics) // cols)
+    card_h = min(150.0, (CHART_BOTTOM - CHART_TOP) / n_rows - 14)
+    status_fill = {"good": BLUE, "watch": GREY_MED, "risk": RED}
+
+    parts: list[str] = []
+    for i, metric in enumerate(metrics):
+        x = ML + (i % cols) * (card_w + gap)
+        y = CHART_TOP + (i // cols) * (card_h + 18)
+        parts.append(rect_el(x, y, card_w, card_h, "#FFFFFF", GREY_BORDER))
+        parts.append(rect_el(x, y, 5, card_h, status_fill.get(metric.get("status", "watch"), GREY_MED)))
+        parts.append(text_el(x + 24, y + 30, metric["label"], size=14, fill=GREY_MED, weight="600"))
+        parts.append(text_el(x + 24, y + 72, str(metric["value"]), size=32, weight="bold"))
+        trend = metric.get("trend", "")
+        if trend:
+            trend_fill = RED if metric.get("status") == "risk" else BLUE2
+            parts.append(text_el(x + card_w - 18, y + 72, trend, size=14, fill=trend_fill, weight="600", anchor="end"))
+        target = metric.get("target", "")
+        if target:
+            parts.append(text_el(x + 24, y + card_h - 16, f"Target: {target}", size=12, fill=GREY_MED))
+    return parts
+
+
+def render_two_by_two(spec: dict) -> list[str]:
+    plot_x = ML + 50
+    plot_w = W - MR - plot_x - 50
+    plot_y, plot_h = CHART_TOP, float(CHART_BOTTOM - CHART_TOP)
+    mid_x, mid_y = plot_x + plot_w / 2, plot_y + plot_h / 2
+    x_axis, y_axis = spec["x_axis"], spec["y_axis"]
+    quadrants = spec.get("quadrants", [])
+
+    parts = [
+        rect_el(plot_x, plot_y, plot_w, plot_h, "#FFFFFF", GREY_BORDER),
+        line_el(mid_x, plot_y, mid_x, plot_y + plot_h, GREY_BORDER),
+        line_el(plot_x, mid_y, plot_x + plot_w, mid_y, GREY_BORDER),
+    ]
+    corners = [
+        (plot_x + 14, plot_y + 24, "start"),
+        (plot_x + plot_w - 14, plot_y + 24, "end"),
+        (plot_x + 14, plot_y + plot_h - 12, "start"),
+        (plot_x + plot_w - 14, plot_y + plot_h - 12, "end"),
+    ]
+    for (qx, qy, anchor), label in zip(corners, quadrants):
+        parts.append(text_el(qx, qy, label.upper(), size=12, fill=GREY_MED, weight="600", anchor=anchor))
+    parts.append(text_el(mid_x, plot_y + plot_h + 30, x_axis["label"], size=14, fill=GREY_DARK, weight="600", anchor="middle"))
+    parts.append(text_el(plot_x, plot_y + plot_h + 30, x_axis.get("low", "Low"), size=12, fill=GREY_MED))
+    parts.append(text_el(plot_x + plot_w, plot_y + plot_h + 30, x_axis.get("high", "High"), size=12, fill=GREY_MED, anchor="end"))
+    parts.append(text_el(plot_x - 12, plot_y + 10, y_axis.get("high", "High"), size=12, fill=GREY_MED, anchor="end"))
+    parts.append(text_el(plot_x - 12, plot_y + plot_h, y_axis.get("low", "Low"), size=12, fill=GREY_MED, anchor="end"))
+    parts.append(text_el(ML, plot_y - 14, y_axis["label"], size=14, fill=GREY_DARK, weight="600"))
+    for point in spec["points"]:
+        px = plot_x + plot_w * point["x"] / 100
+        py = plot_y + plot_h * (1 - point["y"] / 100)
+        emphasis = point.get("emphasis")
+        radius = 9 if emphasis else 7
+        parts.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="{radius}" fill="{BLUE if emphasis else GREY_MED}"/>')
+        parts.append(
+            text_el(px + radius + 6, py + 5, point["label"], size=14, fill=BLACK if emphasis else GREY_DARK, weight="600" if emphasis else "normal")
+        )
+    return parts
+
+
 RENDERERS = {
     "waterfall": render_waterfall,
     "gap": render_gap,
@@ -367,6 +542,11 @@ RENDERERS = {
     "benchmark_table": render_benchmark_table,
     "summary_strip": render_summary_strip,
     "process_flow": render_process_flow,
+    "funnel": render_funnel,
+    "heatmap": render_heatmap,
+    "gantt": render_gantt,
+    "kpi_scorecard": render_kpi_scorecard,
+    "two_by_two": render_two_by_two,
 }
 
 

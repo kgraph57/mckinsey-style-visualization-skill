@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="ERP rollout slips two months unless data migration starts before vendor sign-off">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <rect x="80.0" y="52.0" width="56.0" height="5.0" fill="#1E3A8A" stroke="none"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">ERP rollout slips two months unless data migration starts before</text>
+  <text x="80.0" y="136.0" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">vendor sign-off</text>
+  <text x="80.0" y="178.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="17" fill="#6B7280" font-weight="normal" text-anchor="start">Rollout plan by workstream, January to August</text>
+  <text x="384.4" y="210.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#6B7280" font-weight="600" text-anchor="middle">Jan</text>
+  <line x1="330.0" y1="224.0" x2="330.0" y2="534.0" stroke="#D1D5DB"/>
+  <text x="493.1" y="210.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#6B7280" font-weight="600" text-anchor="middle">Feb</text>
+  <line x1="438.8" y1="224.0" x2="438.8" y2="534.0" stroke="#D1D5DB"/>
+  <text x="601.9" y="210.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#6B7280" font-weight="600" text-anchor="middle">Mar</text>
+  <line x1="547.5" y1="224.0" x2="547.5" y2="534.0" stroke="#D1D5DB"/>
+  <text x="710.6" y="210.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#6B7280" font-weight="600" text-anchor="middle">Apr</text>
+  <line x1="656.2" y1="224.0" x2="656.2" y2="534.0" stroke="#D1D5DB"/>
+  <text x="819.4" y="210.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#6B7280" font-weight="600" text-anchor="middle">May</text>
+  <line x1="765.0" y1="224.0" x2="765.0" y2="534.0" stroke="#D1D5DB"/>
+  <text x="928.1" y="210.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#6B7280" font-weight="600" text-anchor="middle">Jun</text>
+  <line x1="873.8" y1="224.0" x2="873.8" y2="534.0" stroke="#D1D5DB"/>
+  <text x="1036.9" y="210.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#6B7280" font-weight="600" text-anchor="middle">Jul</text>
+  <line x1="982.5" y1="224.0" x2="982.5" y2="534.0" stroke="#D1D5DB"/>
+  <text x="1145.6" y="210.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#6B7280" font-weight="600" text-anchor="middle">Aug</text>
+  <line x1="1091.2" y1="224.0" x2="1091.2" y2="534.0" stroke="#D1D5DB"/>
+  <line x1="1200.0" y1="224.0" x2="1200.0" y2="534.0" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="224.0" x2="1200.0" y2="224.0" stroke="#374151"/>
+  <text x="80.0" y="254.8" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start">Vendor selection</text>
+  <rect x="333.0" y="237.8" width="211.5" height="24.0" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="275.7" x2="1200.0" y2="275.7" stroke="#D1D5DB"/>
+  <text x="80.0" y="306.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start">Contract and sign-off</text>
+  <rect x="550.5" y="289.5" width="102.8" height="24.0" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="327.3" x2="1200.0" y2="327.3" stroke="#D1D5DB"/>
+  <text x="80.0" y="358.2" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start">Data migration</text>
+  <rect x="659.2" y="341.2" width="320.2" height="24.0" fill="#1E3A8A" stroke="none"/>
+  <text x="989.5" y="358.2" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="start">critical path</text>
+  <line x1="80.0" y1="379.0" x2="1200.0" y2="379.0" stroke="#D1D5DB"/>
+  <text x="80.0" y="409.8" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start">Integration build</text>
+  <rect x="768.0" y="392.8" width="320.2" height="24.0" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="430.7" x2="1200.0" y2="430.7" stroke="#D1D5DB"/>
+  <text x="80.0" y="461.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start">Training</text>
+  <rect x="985.5" y="444.5" width="211.5" height="24.0" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="482.3" x2="1200.0" y2="482.3" stroke="#D1D5DB"/>
+  <text x="80.0" y="513.2" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start">Go-live preparation</text>
+  <rect x="1094.2" y="496.2" width="102.8" height="24.0" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="534.0" x2="1200.0" y2="534.0" stroke="#D1D5DB"/>
+  <path d="M 656.2 538.0 L 664.2 546.0 L 656.2 554.0 L 648.2 546.0 Z" fill="#1E3A8A"/>
+  <text x="656.2" y="570.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#1E3A8A" font-weight="600" text-anchor="middle">Sign-off</text>
+  <path d="M 1091.2 538.0 L 1099.2 546.0 L 1091.2 554.0 L 1083.2 546.0 Z" fill="#1E3A8A"/>
+  <text x="1091.2" y="570.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#1E3A8A" font-weight="600" text-anchor="middle">Go / no-go</text>
+  <rect x="80.0" y="612.0" width="4.0" height="40.0" fill="#1E3A8A" stroke="none"/>
+  <text x="96.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#1E3A8A" font-weight="600" text-anchor="start">Starting migration prep in parallel with sign-off recovers six weeks on the critical path.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="start">Source: user-provided project plan, PMO baseline v3.</text>
+</svg>

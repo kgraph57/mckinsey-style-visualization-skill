@@ -1,0 +1,30 @@
+{
+  "pattern": "process_flow",
+  "headline": "Detection to mitigation took 62 minutes; 47 of them were spent finding the owner",
+  "subline": "Incident INC-2114 response timeline",
+  "steps": [
+    {
+      "label": "Alert fired",
+      "detail": "Monitoring; minute 0"
+    },
+    {
+      "label": "Triage",
+      "detail": "On-call; 9 min"
+    },
+    {
+      "label": "Owner search",
+      "detail": "47 min across 3 teams"
+    },
+    {
+      "label": "Mitigation",
+      "detail": "Rollback; 6 min"
+    },
+    {
+      "label": "Postmortem",
+      "detail": "Async; next day"
+    }
+  ],
+  "highlight": 2,
+  "annotation": "Ownership lookup dominates time to mitigate; auto-route alerts from the service catalog.",
+  "source": "Source: user-provided incident timeline."
+}

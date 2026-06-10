@@ -1,0 +1,14 @@
+{
+  "pattern": "before_after",
+  "headline": "The intervention group improved on all three endpoints; confirm with the full cohort",
+  "subline": "Pilot study outcomes, baseline vs. 12 weeks (n=48)",
+  "before_label": "Baseline",
+  "after_label": "12 weeks",
+  "pairs": [
+    {"label": "Median HbA1c (%)", "before": 8.2, "after": 7.1, "unit": ""},
+    {"label": "30-day readmission (%)", "before": 18, "after": 11, "unit": "%"},
+    {"label": "Patient-reported score", "before": 54, "after": 71, "unit": ""}
+  ],
+  "annotation": "Directionally positive across endpoints; effect sizes need validation before any clinical claim.",
+  "source": "Source: user-provided pilot data; illustrative example, not medical guidance."
+}

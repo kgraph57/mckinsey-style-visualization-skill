@@ -1,0 +1,18 @@
+{
+  "pattern": "two_by_two",
+  "headline": "Two features deliver high impact at low effort; ship them before the platform rewrite",
+  "subline": "Feature candidates by implementation effort and customer impact",
+  "x_axis": {"label": "Implementation effort", "low": "Low", "high": "High"},
+  "y_axis": {"label": "Customer impact", "low": "Low", "high": "High"},
+  "quadrants": ["Quick wins", "Big bets", "Low priority", "Money pits"],
+  "points": [
+    {"label": "SSO integration", "x": 20, "y": 82, "emphasis": true},
+    {"label": "Bulk export", "x": 28, "y": 72, "emphasis": true},
+    {"label": "Mobile app", "x": 80, "y": 78},
+    {"label": "Custom dashboards", "x": 56, "y": 52},
+    {"label": "Dark mode", "x": 16, "y": 24},
+    {"label": "Legacy migration", "x": 84, "y": 28}
+  ],
+  "annotation": "SSO and bulk export unblock enterprise deals this quarter; mobile app moves to the H2 big-bet review.",
+  "source": "Source: user-provided effort estimates and customer interview tallies."
+}

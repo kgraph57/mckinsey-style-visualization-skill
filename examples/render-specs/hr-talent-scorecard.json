@@ -1,0 +1,16 @@
+{
+  "pattern": "kpi_scorecard",
+  "headline": "Hiring is on plan, but engineering attrition has crossed the risk threshold",
+  "subline": "Talent metrics, current quarter vs. target",
+  "columns": 3,
+  "metrics": [
+    {"label": "OFFERS ACCEPTED", "value": "38", "target": "40", "trend": "+5 vs LQ", "status": "good"},
+    {"label": "TIME TO HIRE", "value": "46 days", "target": "45 days", "trend": "+3 days", "status": "watch"},
+    {"label": "ENG ATTRITION (ANN.)", "value": "14.8%", "target": "<10%", "trend": "+4.2 pts", "status": "risk"},
+    {"label": "OVERALL ATTRITION", "value": "8.9%", "target": "<9%", "trend": "-0.4 pts", "status": "good"},
+    {"label": "ENGAGEMENT SCORE", "value": "7.4/10", "target": "8.0", "trend": "-0.3", "status": "watch"},
+    {"label": "INTERNAL MOBILITY", "value": "12%", "target": "10%", "trend": "+3 pts", "status": "good"}
+  ],
+  "annotation": "Engineering attrition needs a dedicated retention plan; every other metric is within range.",
+  "source": "Source: user-provided HRIS export."
+}

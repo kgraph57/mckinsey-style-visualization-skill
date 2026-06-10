@@ -33,7 +33,7 @@ Use this skill to turn any content into professional visualization specs with st
 5. Select the visualization pattern from `references/visualization-patterns.md`.
 6. Apply the visual system in `references/style-system.md`, using the canvas from the document profile.
 7. Produce a structured spec, diagram-as-code source, or image-generation prompt using `references/prompt-templates.md`.
-   When the environment allows running scripts, optionally render supported patterns (waterfall, gap, before_after, time_series, benchmark_table, summary_strip, process_flow) to SVG with `python3 scripts/render_slide_spec.py <spec.json>`; spec examples are in `examples/render-specs/`.
+   When the environment allows running scripts, optionally render supported patterns (waterfall, gap, before_after, time_series, benchmark_table, summary_strip, process_flow, funnel, heatmap, gantt, kpi_scorecard, two_by_two) to SVG with `python3 scripts/render_slide_spec.py <spec.json>`; spec examples are in `examples/render-specs/`.
 8. Score the output against `references/quality-rubric.md`.
 9. Flag missing data, unverifiable claims, source-sensitive assumptions, or trademark-sensitive wording.
 10. For polished executive work, run the draft through `references/iterative-review-loop.md` until the output reaches the stopping criteria.
@@ -68,6 +68,7 @@ Do not invent client names, confidential labels, benchmark data, or source citat
 
 ## Reference Files
 
+- `references/persona-playbook.md` for role-based entry points (sales, marketing, product, PMO, HR, engineering, research, finance, executive) with prompts and example specs.
 - `references/input-triage.md` for mapping any input — numbers, prose, processes, ideas — to a pattern family.
 - `references/document-type-profiles.md` for adapting format, density, and tone to slides, reports, proposals, training materials, technical docs, and infographics.
 - `references/visualization-patterns.md` for pattern selection and use cases.

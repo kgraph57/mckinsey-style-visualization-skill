@@ -69,6 +69,19 @@ Conservative claims, explicit methods, no decorative emphasis. Visuals for struc
 
 The lightest profile: speed over polish. Concept maps, hierarchies, and checklists that aid recall. Style rules relax, but accuracy rules never do.
 
+## Japanese Business Document Profiles
+
+Japanese workplaces use document formats with conventions of their own. Apply these on top of the base profiles; use sans-serif type for Japanese text and increase sizes 10-20% per the style system.
+
+| Profile | Base Profile | Key Conventions |
+| --- | --- | --- |
+| 稟議書 (ringi approval request) | Internal report / memo | A4 portrait, one page preferred. Lead with the request and amount, then background, options considered, risks, and approval line. One compact visual (cost comparison or gap) beats many. |
+| 週報・月報 (weekly/monthly report) | Internal report / memo | Fixed recurring structure: progress vs. plan, issues, next actions. Use the same KPI scorecard or gantt layout every period so deltas are instantly visible. |
+| 役員会・経営会議資料 (board/executive meeting) | Board / executive deck | Often A4 landscape or 16:9. One decision per page, conclusion first (結論ファースト). Appendix carries detail; the body stays at one message per visual. |
+| 学会抄録・抄読会 (conference abstract / journal club) | Academic / clinical summary | Methods and limitations stated explicitly. Before-after and distribution patterns; no claims beyond the cited study. Keep the original study's units and population visible. |
+| 社内勉強会資料 (internal study session) | Training / education material | Lower formality, one concept per slide, concrete examples. Concept maps and process flows; encourage questions with an explicit "discussion" slide. |
+| 提案書 (client proposal) | Sales proposal / pitch | Customer's issue first, proposal second, evidence third. Contrast and before-after patterns; pricing on its own page with assumptions itemized. |
+
 ## Adapting the Output Contract
 
 The output contract in `SKILL.md` generalizes across profiles:

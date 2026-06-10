@@ -1,0 +1,16 @@
+{
+  "pattern": "heatmap",
+  "headline": "Paid search wins SMB volume, but enterprise leads come from events and referrals",
+  "subline": "Qualified leads by channel and segment, last quarter",
+  "unit": "",
+  "rows": ["Paid search", "Events", "Referral", "Content / SEO"],
+  "columns": ["SMB", "Mid-market", "Enterprise"],
+  "values": [
+    [140, 52, 8],
+    [36, 48, 61],
+    [22, 39, 57],
+    [88, 41, 12]
+  ],
+  "annotation": "Shift incremental budget from paid search to events for the enterprise push; keep paid search for SMB.",
+  "source": "Source: user-provided marketing attribution data."
+}

@@ -53,7 +53,23 @@ python3 scripts/render_slide_spec.py examples/render-specs/arr-waterfall.json -o
 | --- | --- |
 | ![ベンチマーク表](assets/rendered/vendor-benchmark.svg) | ![サマリーストリップ](assets/rendered/executive-summary.svg) |
 
-すべて `scripts/render_slide_spec.py` の出力そのままです。スペック JSON は [examples/render-specs/](examples/render-specs) にあります。
+すべて `scripts/render_slide_spec.py` の出力そのままです。スペック JSON は [examples/render-specs/](examples/render-specs) にあります。対応パターンは12種:ウォーターフォール、ギャップ、ビフォーアフター、時系列、ベンチマーク表、サマリーストリップ、プロセスフロー、ファネル、ヒートマップ、ガント、KPIスコアカード、2x2。
+
+## 職種別の使い方
+
+[ペルソナ・プレイブック](references/persona-playbook.md)に、職種ごとのコピペ用プロンプトと実例があります。
+
+| 職種 | 作れるもの | 実例 |
+| --- | --- | --- |
+| 営業 | パイプラインQBR、提案書ビジュアル | [ファネル](assets/rendered/sales-pipeline-funnel.svg) |
+| PM/PMO | クリティカルパス付きロードマップ | [ガント](assets/rendered/pmo-rollout-gantt.svg) |
+| マーケター | チャネル×セグメント分析 | [ヒートマップ](assets/rendered/marketing-channel-heatmap.svg) |
+| 人事 | タレントスコアカード | [スコアカード](assets/rendered/hr-talent-scorecard.svg) |
+| プロダクトマネージャー | 工数×インパクトの優先順位付け | [2x2](assets/rendered/product-priority-two-by-two.svg) |
+| エンジニア | 障害ポストモーテムのフロー | [プロセスフロー](assets/rendered/eng-incident-flow.svg) |
+| 研究職・医療職 | 研究アウトカムのサマリー | [ビフォーアフター](assets/rendered/research-outcomes-before-after.svg) |
+
+日本特有のビジネス文書(稟議書・週報・月報・学会抄録・抄読会・社内勉強会・提案書)のプロファイルも[document-type-profiles.md](references/document-type-profiles.md)に用意しています。
 
 ## 仕組み
 

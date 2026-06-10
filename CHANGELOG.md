@@ -4,6 +4,14 @@
 
 - No changes yet.
 
+## 1.8.0 - Persona Packs and Renderer Expansion
+
+- Added `references/persona-playbook.md`: role-based entry points for sales, marketing, product, PMO, HR, engineering, research, finance, and executives with copy-paste prompts and rendered examples.
+- Expanded the renderer from 7 to 12 patterns: added `funnel`, `heatmap`, `gantt`, `kpi_scorecard`, and `two_by_two`.
+- Added 7 persona render specs and their committed SVG outputs (sales funnel, marketing heatmap, product 2x2, PMO gantt, HR scorecard, incident flow, research before-after).
+- Added Japanese business document profiles (稟議書, 週報・月報, 役員会資料, 学会抄録・抄読会, 社内勉強会, 提案書) to `references/document-type-profiles.md`.
+- Added "By Role" sections to README and README.ja.md; updated manifest and validator for v1.8.0.
+
 ## 1.7.0 - Renderer and Hero Demo
 
 - Added `scripts/render_slide_spec.py`: renders spec JSON into styled SVG slides for seven patterns (waterfall, gap, before_after, time_series, benchmark_table, summary_strip, process_flow) using only the Python standard library.
