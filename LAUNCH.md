@@ -139,6 +139,69 @@ Secondary: `assets/social/launch-card.svg`.
 
 Alt text: Strategy Consulting Visualization Skill turns raw notes into a rendered, board-ready SVG slide with one command, plus specs for reports, proposals, and infographics.
 
+### X Thread (JP, 7 posts)
+
+Post 1 is the hook with the hero image; the repo link goes in the last post only. Image files referenced below are the committed SVGs exported to PNG.
+
+```text
+1/ (画像: hero-before-after)
+「雑なメモ → 役員会に出せるスライド」を1コマンドでやるClaude Skillを作りました。
+
+AIにありがちな"それっぽいだけのグラフ"ではなく、コンサルの作法(結論ファーストの見出し・正直な軸・抑えた配色)で描画します。
+
+何ができるか、ツリーで説明します🧵
+
+2/ (画像: arr-waterfall)
+仕組みはシンプル。
+メモや数値を渡す → スキルが「問い → 見出し → パターン選択 → スペックJSON」まで設計 → 付属レンダラーがSVGスライドを描画。
+
+Python標準ライブラリのみ、依存ゼロ。
+python3 scripts/render_slide_spec.py spec.json
+
+3/ (画像4枚: sales-pipeline-funnel, pmo-rollout-gantt, marketing-channel-heatmap, hr-talent-scorecard)
+職種別パックがあります。
+
+営業:パイプラインのファネル
+PMO:クリティカルパス入りガント
+マーケ:チャネル×セグメントのヒートマップ
+人事:タレントスコアカード
+
+すべてコピペ用プロンプト付き。
+
+4/ (画像4枚: product-priority-two-by-two, eng-incident-flow, research-outcomes-before-after, executive-summary)
+さらに:
+
+PdM:工数×インパクトの2x2
+エンジニア:障害ポストモーテムのフロー
+研究・医療:過大主張しないアウトカム比較
+経営者:取締役会向けサマリー
+
+レンダリング12パターン、設計レベルでは28パターン。
+
+5/
+入力は何でもOKです。
+数値データ、議事録、プロセスの説明、ただの文章 — 「入力トリアージ」が入力の種類を最適なパターンに対応付けます。
+
+稟議書・週報・学会抄録・提案書など、日本のビジネス文書プロファイルも入っています。
+
+6/
+こだわりは"正直さ"です。
+
+・数値を捏造しない(足りないデータは明示)
+・軸を誇張しない
+・出典と仮定を必ず書く
+
+見た目より先に、意思決定に使える資料であること。
+
+7/
+オープンソース(MIT)です。インストールは1行:
+
+git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization
+
+リポジトリはこちら。スターしてもらえると励みになります⭐
+https://github.com/kgraph57/mckinsey-style-visualization-skill
+```
+
 ## Persona Content Calendar
 
 Nine weekly posts, one role each. Format: role-targeted hook + the rendered example image + repo link. Post JP and EN versions; the rendered SVGs convert to PNG with any SVG tool.
