@@ -8,7 +8,7 @@ https://github.com/kgraph57/mckinsey-style-visualization-skill
 
 ## Release URL
 
-https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.4.0
+https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.8.0
 
 ## Short Pitch
 

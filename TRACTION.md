@@ -28,6 +28,7 @@ Baseline captured with GitHub repository metadata on 2026-06-09.
 | Week Starting | Stars | Forks | Watchers | Listings | Installs/Saves | Social Replies | Example Requests | Buyer Inquiries | Paid Customers | Notes |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
 | 2026-06-09 | 29 | 10 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | English and Japanese X launch posts published |
+| 2026-06-10 | 32 | 10 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | Shipped v1.6.0-v1.8.0: universal patterns, SVG renderer, persona packs, Japanese README |
 
 ## Launch Posts
 

@@ -229,11 +229,33 @@ def validate_no_stale_or_risky_text() -> None:
                 fail(f"forbidden text {pattern!r} found in {path.relative_to(ROOT)}")
 
 
+def validate_renderer() -> None:
+    import importlib.util
+
+    module_path = ROOT / "scripts" / "render_slide_spec.py"
+    spec_loader = importlib.util.spec_from_file_location("render_slide_spec", module_path)
+    module = importlib.util.module_from_spec(spec_loader)
+    spec_loader.loader.exec_module(module)
+
+    for spec_path in sorted((ROOT / "examples" / "render-specs").glob("*.json")):
+        try:
+            slide_spec = json.loads(spec_path.read_text(encoding="utf-8"))
+            svg = module.render(slide_spec)
+        except Exception as exc:  # noqa: BLE001 - any render failure should fail validation
+            fail(f"renderer failed on {spec_path.relative_to(ROOT)}: {exc}")
+        if "<svg" not in svg:
+            fail(f"renderer produced invalid output for {spec_path.relative_to(ROOT)}")
+        rendered_path = ROOT / "assets" / "rendered" / f"{spec_path.stem}.svg"
+        if not rendered_path.exists():
+            fail(f"missing committed render for {spec_path.relative_to(ROOT)}: {rendered_path.relative_to(ROOT)}")
+
+
 def main() -> None:
     validate_required_files()
     validate_skill_frontmatter()
     validate_manifest()
     validate_no_stale_or_risky_text()
+    validate_renderer()
     print("OK: skill package passed validation")
 
 

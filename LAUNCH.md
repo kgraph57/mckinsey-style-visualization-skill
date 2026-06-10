@@ -8,18 +8,19 @@ Get the skill in front of agent users who create business, strategy, board, inve
 
 Primary outcome: marketplace listings, GitHub stars, forks, saves, replies, and inbound requests for rendered slide examples or paid templates.
 
-## Release Copy (v1.7.0)
+## Release Copy (v1.8.0)
 
 Attach the hero image (`assets/readme/hero-before-after.svg` exported to PNG) to every post. The image carries the message; the text supports it.
 
 ### Short Post
 
 ```text
-I released Strategy Consulting Visualization Skill v1.7.0.
+I released Strategy Consulting Visualization Skill v1.8.0.
 
 Messy notes in, board-ready slide out. It now renders actual SVG slides —
-not just specs — for waterfalls, gaps, before/after, time series,
-benchmark tables, summary strips, and process flows.
+not just specs — across 12 patterns: waterfalls, funnels, gantts,
+heatmaps, scorecards, 2x2s, benchmark tables, and more, with role packs
+for sales, PMO, HR, engineering, and research.
 
 One command, zero dependencies:
 python3 scripts/render_slide_spec.py spec.json
@@ -34,11 +35,11 @@ https://github.com/kgraph57/mckinsey-style-visualization-skill
 ### X Version (EN)
 
 ```text
-v1.7.0: the skill now RENDERS slides, not just specs.
+v1.8.0: the skill now RENDERS slides — and has packs for every role.
 
 Messy notes -> consulting-style SVG slide, one command, zero deps.
 
-- 7 rendered patterns (waterfall, gap, benchmark, flow...)
+- 12 rendered patterns (waterfall, funnel, gantt, heatmap...)
 - 28 visualization patterns total
 - works for reports, proposals, docs, infographics too
 - input triage: feed it anything
@@ -49,11 +50,11 @@ https://github.com/kgraph57/mckinsey-style-visualization-skill
 ### X Version (JP)
 
 ```text
-v1.7.0をリリース。スペック生成だけじゃなく、実際にスライドを描画できるようになりました。
+v1.8.0をリリース。実際にスライドを描画でき、職種別パックも揃いました。
 
 雑なメモ → コンサル風SVGスライド。1コマンド、依存ライブラリゼロ。
 
-- ウォーターフォール等7パターンをレンダリング
+- ウォーターフォール・ファネル・ガント等12パターンをレンダリング
 - 可視化パターンは全28種
 - 役員会資料だけでなくレポート・提案書・研修資料・図解にも対応
 - 数値でも文章でもプロセスでも、何を投げてもOK
@@ -72,9 +73,9 @@ dashboards, so I built a SKILL.md package that gives agents a stricter
 operating system: insight-led headlines, honest scales, restrained
 palette, explicit assumptions.
 
-v1.7.0 adds a renderer — spec JSON to styled SVG slide, Python stdlib
-only — plus input triage so it can visualize anything: metrics, prose,
-processes, hierarchies, decision logic.
+Recent releases added a renderer — spec JSON to styled SVG slide,
+Python stdlib only — input triage so it can visualize anything, and
+role packs for sales, PMO, HR, engineering, and research.
 
 What it does NOT do: render PPTX, invent data, or imply affiliation
 with any consulting firm. Scope and caveats are in the README.
@@ -94,13 +95,13 @@ types readers want next.
 ### LinkedIn Version
 
 ```text
-I published Strategy Consulting Visualization Skill v1.7.0.
+I published Strategy Consulting Visualization Skill v1.8.0.
 
 The skill helps AI agents turn raw input into executive-ready visuals.
-New in this release: an SVG renderer (spec JSON to finished slide, no
-dependencies), a Japanese README, and generalization beyond board
-slides to reports, proposals, training materials, technical diagrams,
-and infographics.
+New in recent releases: an SVG renderer (spec JSON to finished slide,
+no dependencies), role-based packs with rendered examples for nine
+business roles, Japanese document profiles, and generalization beyond
+board slides to reports, proposals, training materials, and diagrams.
 
 Use cases include board updates, vendor selection, investment memos,
 capacity gaps, process bottleneck analysis, and competitive benchmarks.
@@ -121,8 +122,9 @@ instead of a generic chart prompt.
 What is included:
 - portable SKILL.md entrypoint
 - input triage: maps numbers, prose, processes to the right pattern
-- 28 visualization patterns, 12 document-type profiles
-- SVG renderer for 7 patterns (Python stdlib only)
+- 28 visualization patterns, 18 document-type profiles
+- SVG renderer for 12 patterns (Python stdlib only)
+- persona playbook for 9 business roles
 - style system, prompt templates, quality rubric
 - draft -> review -> revise examples and local validation
 
@@ -136,6 +138,24 @@ Primary: `assets/readme/hero-before-after.svg` exported to PNG (messy notes -> r
 Secondary: `assets/social/launch-card.svg`.
 
 Alt text: Strategy Consulting Visualization Skill turns raw notes into a rendered, board-ready SVG slide with one command, plus specs for reports, proposals, and infographics.
+
+## Persona Content Calendar
+
+Nine weekly posts, one role each. Format: role-targeted hook + the rendered example image + repo link. Post JP and EN versions; the rendered SVGs convert to PNG with any SVG tool.
+
+| Week | Role | Hook (JP) | Asset |
+| --- | --- | --- | --- |
+| 1 | 営業 | CRMのエクスポートを貼るだけでQBRのファネルができます | `assets/rendered/sales-pipeline-funnel.svg` |
+| 2 | PM/PMO | クリティカルパス入りのロードマップ、ガント図を手で描くのは今日で終わり | `assets/rendered/pmo-rollout-gantt.svg` |
+| 3 | マーケター | チャネル×セグメントのヒートマップで予算再配分の議論が5分で終わる | `assets/rendered/marketing-channel-heatmap.svg` |
+| 4 | 人事 | 経営会議に出すタレントスコアカード、メトリクスを箇条書きで渡すだけ | `assets/rendered/hr-talent-scorecard.svg` |
+| 5 | PdM | 機能の優先順位、工数×インパクトの2x2に自動でマッピング | `assets/rendered/product-priority-two-by-two.svg` |
+| 6 | エンジニア | ポストモーテムのタイムライン、ボトルネックを強調したフロー図に | `assets/rendered/eng-incident-flow.svg` |
+| 7 | 研究職・医療職 | 抄読会のアウトカム比較、過大な主張をしないビフォーアフターに | `assets/rendered/research-outcomes-before-after.svg` |
+| 8 | 財務 | 予実差異のウォーターフォール、数字が必ず合う形で | `assets/rendered/arr-waterfall.svg` |
+| 9 | 経営者 | 取締役会の3つのメッセージ、サマリーストリップ1枚に | `assets/rendered/executive-summary.svg` |
+
+Each post doubles as a Zenn/Qiita article seed: expand the hook into a 5-minute walkthrough (input -> spec -> rendered slide).
 
 ## 7-Day Launch Plan
 
