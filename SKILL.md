@@ -1,7 +1,6 @@
 ---
 name: strategy-consulting-visualization
 description: Use when turning any content into clear, professional visualizations - board slides, reports, proposals, research summaries, training materials, technical diagrams, infographics, process flows, timelines, benchmarks, waterfall charts, or data-backed visual specs for any audience.
-license: MIT
 ---
 
 # Strategy Consulting Visualization
@@ -36,7 +35,8 @@ Use this skill to turn any content into professional visualization specs with st
    When the environment allows running scripts, optionally render supported patterns (waterfall, gap, before_after, time_series, benchmark_table, summary_strip, process_flow, funnel, heatmap, gantt, kpi_scorecard, two_by_two) to SVG with `python3 scripts/render_slide_spec.py <spec.json>`; spec examples are in `examples/render-specs/`.
 8. Score the output against `references/quality-rubric.md`.
 9. Flag missing data, unverifiable claims, source-sensitive assumptions, or trademark-sensitive wording.
-10. For polished executive work, run the draft through `references/iterative-review-loop.md` until the output reaches the stopping criteria.
+10. For public, high-stakes, cross-functional, or broad-audience work, run `references/expert-review-loop.md` to remove blind spots, overclaims, jargon, accessibility issues, and cultural assumptions.
+11. For polished executive work, run the draft through `references/iterative-review-loop.md` until the output reaches the stopping criteria.
 
 ## Output Contract
 
@@ -48,6 +48,7 @@ Return a concise deliverable with:
 - `Slide spec` (or figure, page, or diagram spec matching the document profile)
 - `Data and assumptions`
 - `Quality check`
+- `Expert review notes` when the output is public, high-stakes, cross-functional, or broad-audience
 
 When the user requests a batch, deck, or multi-figure document, repeat the contract per visual and add a brief flow summary explaining how the visuals build the argument.
 
@@ -75,5 +76,6 @@ Do not invent client names, confidential labels, benchmark data, or source citat
 - `references/style-system.md` for palette, typography, spacing, and layout rules.
 - `references/prompt-templates.md` for slide specs and image-generation prompts.
 - `references/quality-rubric.md` for final scoring and marketplace-quality checks.
+- `references/expert-review-loop.md` for challenging assumptions, overclaims, accessibility, localization, and audience-fit risks.
 - `references/public-reference-corpus.md` for public executive-report sources to study without copying.
 - `references/iterative-review-loop.md` for draft, review, revise, and score cycles.

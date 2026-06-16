@@ -28,12 +28,14 @@ REQUIRED_FILES = [
     "CHANGELOG.md",
     "ROADMAP.md",
     "marketplace/manifest.json",
+    ".github/workflows/ci.yml",
     "references/style-system.md",
     "references/visualization-patterns.md",
     "references/prompt-templates.md",
     "references/quality-rubric.md",
     "references/public-reference-corpus.md",
     "references/iterative-review-loop.md",
+    "references/expert-review-loop.md",
     "references/input-triage.md",
     "references/document-type-profiles.md",
     "references/persona-playbook.md",
@@ -144,6 +146,10 @@ def validate_required_files() -> None:
 def validate_skill_frontmatter() -> None:
     text = read_text("SKILL.md")
     fields = parse_frontmatter(text)
+    allowed_fields = {"name", "description"}
+    extra_fields = sorted(set(fields) - allowed_fields)
+    if extra_fields:
+        fail(f"SKILL.md frontmatter has unsupported fields: {', '.join(extra_fields)}")
 
     if fields.get("name") != "strategy-consulting-visualization":
         fail("SKILL.md frontmatter name must be strategy-consulting-visualization")
@@ -154,9 +160,6 @@ def validate_skill_frontmatter() -> None:
     if len(description) > 500:
         fail("SKILL.md description must be 500 characters or fewer")
 
-    if fields.get("license") != "MIT":
-        fail("SKILL.md license must be MIT")
-
     for reference in [
         "references/visualization-patterns.md",
         "references/style-system.md",
@@ -164,6 +167,7 @@ def validate_skill_frontmatter() -> None:
         "references/quality-rubric.md",
         "references/public-reference-corpus.md",
         "references/iterative-review-loop.md",
+        "references/expert-review-loop.md",
         "references/input-triage.md",
         "references/document-type-profiles.md",
     ]:
@@ -248,6 +252,12 @@ def validate_renderer() -> None:
         rendered_path = ROOT / "assets" / "rendered" / f"{spec_path.stem}.svg"
         if not rendered_path.exists():
             fail(f"missing committed render for {spec_path.relative_to(ROOT)}: {rendered_path.relative_to(ROOT)}")
+        committed_svg = rendered_path.read_text(encoding="utf-8")
+        if svg != committed_svg:
+            fail(
+                "stale committed render for "
+                f"{spec_path.relative_to(ROOT)}: regenerate {rendered_path.relative_to(ROOT)}"
+            )
 
 
 def main() -> None:

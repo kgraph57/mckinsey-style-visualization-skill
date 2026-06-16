@@ -2,9 +2,22 @@
 
 [English](README.md) | 日本語
 
+[![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
+
 > 雑なメモ・数値・文章を、役員会レベルのビジュアライゼーションに変える Agent Skill。スライドだけでなく、レポート・提案書・研修資料・技術ドキュメント・インフォグラフィックまで対応します。
 
 ![雑なメモから役員会スライドへ](assets/readme/hero-before-after.svg)
+
+## スターする理由
+
+これは単なるプロンプト集ではなく、エージェントが再利用できるビジュアライゼーションのOSとして作っています。
+
+- **雑な入力から役員会向けスペックへ**: メモ、数値、文章、プロセス説明を意思決定向けの可視化仕様に変換
+- **実際に描画できる証拠**: 依存ライブラリ不要の Python レンダラーと、12パターンの SVG 出力を同梱
+- **ポータブルな skill パッケージ**: `SKILL.md` は短く保ち、詳細は必要な reference だけ読む構造
+- **安全な公開ポジショニング**: コンサルティング領域のカテゴリ表現を使い、特定ファームとの非提携を明記
+- **バイアスに強いレビュー**: 仮定、過剰主張、アクセシビリティ、翻訳・文化差のリスクを専門家レンズで点検
+- **品質ゲート付き**: テストと validation で、壊れた spec、古い SVG、危険な表現、パッケージ drift を検知
 
 ## できること
 
@@ -39,6 +52,19 @@ python3 scripts/render_slide_spec.py examples/render-specs/arr-waterfall.json -o
 - 取締役会は実装キャパシティへの投資を判断する必要がある
 ```
 
+何を頼めばいいか迷ったら、この形で使えます:
+
+```text
+このスキルを使って。まず読者と意思決定を特定し、いちばんシンプルで役に立つ可視化を選んで。
+仮定を疑い、言い過ぎを避け、専門家レビュー notes も付けて。
+素材:
+[メモ、数値、文章、プロセスを貼る]
+```
+
+## バイアスに強いレビュー
+
+[expert-review-loop.md](references/expert-review-loop.md) には、研究方法、経営、財務、プロダクト、データ可視化、アクセシビリティ、異文化、法務・セキュリティの観点を入れています。儀式を増やすためではなく、根拠の薄い断定、内輪用語、色だけに依存した意味、文化的な決めつけ、隠れた仮定を削るためのものです。
+
 ## レンダリング例
 
 | ARRウォーターフォール | キャパシティギャップ |
@@ -54,6 +80,18 @@ python3 scripts/render_slide_spec.py examples/render-specs/arr-waterfall.json -o
 | ![ベンチマーク表](assets/rendered/vendor-benchmark.svg) | ![サマリーストリップ](assets/rendered/executive-summary.svg) |
 
 すべて `scripts/render_slide_spec.py` の出力そのままです。スペック JSON は [examples/render-specs/](examples/render-specs) にあります。対応パターンは12種:ウォーターフォール、ギャップ、ビフォーアフター、時系列、ベンチマーク表、サマリーストリップ、プロセスフロー、ファネル、ヒートマップ、ガント、KPIスコアカード、2x2。
+
+## 出力例を共有する
+
+雑なメモから使えるスライドに変わったら、あとで見返せるようにスターして、[GitHub Discussions](https://github.com/kgraph57/mckinsey-style-visualization-skill/discussions) で出力例を共有してください。実例が増えるほど、パターン集とレビュー観点を強くできます。
+
+歓迎する共有:
+
+- 元のメモと、生成された SVG またはスライドスペック
+- もっと良い可視化パターンが必要な業務シナリオ
+- 壊れた出力、わかりにくい出力、言い切りすぎた出力
+
+リクエストは [Example request issue template](https://github.com/kgraph57/mckinsey-style-visualization-skill/issues/new?template=example_request.md) から送れます。
 
 ## 職種別の使い方
 
@@ -104,8 +142,11 @@ flowchart LR
 ## 検証
 
 ```bash
+python3 -m unittest discover -s tests
 python3 scripts/validate_skill.py
 ```
+
+validator は必須ファイル、manifest、危険な提携表現、全サンプル spec のレンダリング、コミット済み SVG との一致を確認します。
 
 ## 免責事項
 

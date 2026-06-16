@@ -11,6 +11,7 @@ This repository is maintained as a marketplace-ready skill package. Contribution
 - explicit data assumptions and source-sensitive caveats
 - non-affiliation language for named consulting firms
 - no hidden automation, install-time scripts, network calls, or credential access
+- renderer tests with `python3 -m unittest discover -s tests`
 - validation with `python3 scripts/validate_skill.py`
 
 ## How to Contribute
@@ -50,7 +51,11 @@ We welcome suggestions for new visualization types, design improvements, or addi
    git checkout -b feature/your-feature-name
    ```
 4. **Make your changes** following the guidelines below
-5. **Test your changes** thoroughly with a compatible agent
+5. **Test your changes** with the local suite and, when relevant, a compatible agent
+   ```bash
+   python3 -m unittest discover -s tests
+   python3 scripts/validate_skill.py
+   ```
 6. **Commit your changes** with clear, descriptive messages:
    ```bash
    git commit -m "Add new visualization type: [name]"

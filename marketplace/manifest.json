@@ -47,6 +47,7 @@
     "social_card": "assets/social/launch-card.svg"
   },
   "operations": {
+    "ci": ".github/workflows/ci.yml",
     "traction_tracker": "TRACTION.md",
     "issue_templates": ".github/ISSUE_TEMPLATE",
     "pull_request_template": ".github/PULL_REQUEST_TEMPLATE.md"

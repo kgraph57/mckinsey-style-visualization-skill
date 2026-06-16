@@ -7,29 +7,23 @@ English | [日本語](README.ja.md)
 ![Messy notes in, board-ready slide out](assets/readme/hero-before-after.svg)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
 [![Skill Format](https://img.shields.io/badge/SKILL.md-ready-blue.svg)](SKILL.md)
 [![Validation](https://img.shields.io/badge/Validation-local%20script-green.svg)](scripts/validate_skill.py)
 [![Release](https://img.shields.io/badge/Release-v1.8.0-1E3A8A.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.8.0)
 
 ![Strategy Consulting Visualization Skill overview](assets/readme/skill-overview.svg)
 
-## Distribution Status
+## Why Star This Repo
 
-This repository is now packaged for distribution testing:
+This is built to be a reusable visualization operating system for agents, not a prompt dump.
 
-- [Marketplace listing draft](MARKETPLACE.md)
-- [Marketplace target list](MARKETPLACE_TARGETS.md)
-- [Launch kit](LAUNCH.md)
-- [Submission copy](SUBMISSION.md)
-- [Distribution kit](DISTRIBUTION.md)
-- [Commercialization plan](COMMERCIALIZATION.md)
-- [Buyer brief](BUYER_BRIEF.md)
-- [Traction tracker](TRACTION.md)
-- [Growth playbook](GROWTH.md)
-- [Security policy](SECURITY.md)
-- [Roadmap](ROADMAP.md)
-
-![Social launch card](assets/social/launch-card.svg)
+- **Messy input to executive spec**: turns notes, metrics, prose, or process descriptions into decision-ready visual specs.
+- **Real rendered proof**: includes a dependency-free Python renderer and committed SVG outputs for 12 patterns.
+- **Portable skill package**: `SKILL.md` stays concise while references load only when needed.
+- **Marketplace-safe positioning**: uses strategy-consulting category language with explicit non-affiliation disclaimers.
+- **Bias-resistant review**: expert lenses challenge assumptions, overclaims, accessibility, and localization risks.
+- **Quality gates included**: local tests and validation catch broken specs, stale renders, risky claims, and package drift.
 
 ## 30-Second Quickstart
 
@@ -53,6 +47,36 @@ ARR grew from $10M to $15M. Enterprise added $3M, expansion $2.5M, churn -$0.5M.
 The board must decide on implementation capacity investment.
 ```
 
+If you are not sure what to ask, use this:
+
+```text
+Use the strategy consulting visualization skill. First identify the reader and decision, then choose the simplest useful visual. Challenge assumptions, avoid overclaiming, and include expert review notes.
+Here is the raw material:
+[paste notes, metrics, prose, or process]
+```
+
+## Bias-Resistant Review
+
+The skill includes an [expert review loop](references/expert-review-loop.md) that acts like a panel of research, executive, finance, product, visualization, accessibility, cross-cultural, and legal/security reviewers. It is not about adding ceremony; it removes unsupported certainty, insider jargon, color-only meaning, cultural shorthand, and hidden assumptions before the visual is treated as publishable.
+
+## Distribution Package
+
+This repository is packaged for distribution testing and buyer review:
+
+- [Marketplace listing draft](MARKETPLACE.md)
+- [Marketplace target list](MARKETPLACE_TARGETS.md)
+- [Launch kit](LAUNCH.md)
+- [Submission copy](SUBMISSION.md)
+- [Distribution kit](DISTRIBUTION.md)
+- [Commercialization plan](COMMERCIALIZATION.md)
+- [Buyer brief](BUYER_BRIEF.md)
+- [Traction tracker](TRACTION.md)
+- [Growth playbook](GROWTH.md)
+- [Security policy](SECURITY.md)
+- [Roadmap](ROADMAP.md)
+
+![Social launch card](assets/social/launch-card.svg)
+
 ## Rendered Output Gallery
 
 These are actual outputs of `scripts/render_slide_spec.py`, committed as-is. Spec JSON files live in [examples/render-specs/](examples/render-specs).
@@ -74,6 +98,18 @@ These are actual outputs of `scripts/render_slide_spec.py`, committed as-is. Spe
 | ![Rendered adoption trend](assets/rendered/adoption-trend.svg) |
 
 Supported render patterns: `waterfall`, `gap`, `before_after`, `time_series`, `benchmark_table`, `summary_strip`, `process_flow`, `funnel`, `heatmap`, `gantt`, `kpi_scorecard`, `two_by_two`. Other patterns ship as slide specs and image-generation prompts.
+
+## Share Your Output
+
+If this helps you turn rough notes into a useful slide, star the repo so you can find it again and share the result in [GitHub Discussions](https://github.com/kgraph57/mckinsey-style-visualization-skill/discussions). Good community examples are the fastest way to improve the pattern library.
+
+Useful contributions:
+
+- A messy input and the rendered SVG or slide spec it produced.
+- A business scenario that needs a clearer visual pattern.
+- A broken, confusing, or overconfident output that should become a regression test.
+
+For requests, use the [Example request issue template](https://github.com/kgraph57/mckinsey-style-visualization-skill/issues/new?template=example_request.md).
 
 ## By Role
 
@@ -118,7 +154,7 @@ Since v1.6.0 the skill generalizes to **any document type and any input**:
 - **Universal patterns**: process flows, funnels, cycles, hierarchies, pyramids, concept maps, Gantt/roadmaps, heatmaps, scatter plots, distributions, stacked compositions, KPI scorecards, decision trees, Sankey-style flows, maturity grids, and annotated maps.
 - **Multiple canvases**: 16:9 slides, A4 report figures, vertical infographics, square cards, and inline diagram-as-code (Mermaid) figures.
 
-The skill creates **slide specs, image-generation prompts, and rendered SVG slides** (via `scripts/render_slide_spec.py` for seven patterns). The value is in turning business input into a reproducible visual plan that an agent, designer, or renderer can execute.
+The skill creates **slide specs, image-generation prompts, and rendered SVG slides** (via `scripts/render_slide_spec.py` for 12 patterns). The value is in turning business input into a reproducible visual plan that an agent, designer, or renderer can execute.
 
 ## Output Previews
 
@@ -248,6 +284,7 @@ flowchart LR
 | Style system | Defines palette, typography, layout, and chart rules | [style-system.md](references/style-system.md) |
 | Prompt templates | Converts decisions and data into reproducible specs | [prompt-templates.md](references/prompt-templates.md) |
 | Quality rubric | Scores strategy, data, hierarchy, portability, and safety | [quality-rubric.md](references/quality-rubric.md) |
+| Expert review loop | Challenges assumptions, overclaims, reader fit, accessibility, and localization | [expert-review-loop.md](references/expert-review-loop.md) |
 | Renderer | Turns spec JSON into styled SVG slides | [render_slide_spec.py](scripts/render_slide_spec.py) |
 | Proof pack | Shows input, expected output, and evaluation | [examples/](examples) |
 | Marketplace layer | Provides listing copy and metadata | [MARKETPLACE.md](MARKETPLACE.md) / [manifest.json](marketplace/manifest.json) |
@@ -371,6 +408,7 @@ Clone the full repository for marketplace-quality behavior. The entrypoint refer
 Run the local package check before publishing, listing, or submitting changes:
 
 ```bash
+python3 -m unittest discover -s tests
 python3 scripts/validate_skill.py
 ```
 
@@ -387,7 +425,7 @@ flowchart LR
     A["SKILL.md metadata"] --> V["validate_skill.py"]
     B["Required files"] --> V
     C["Manifest JSON"] --> V
-    D["Proof examples"] --> V
+    D["Proof examples and rendered SVG parity"] --> V
     E["Stale URLs and risky claims"] --> V
     V --> F["Publishable package signal"]
 ```

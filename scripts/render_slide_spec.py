@@ -5,7 +5,8 @@ Implements the visual system in references/style-system.md for a subset of
 patterns from references/visualization-patterns.md:
 
     waterfall, gap, before_after, time_series, benchmark_table,
-    summary_strip, process_flow
+    summary_strip, process_flow, funnel, heatmap, gantt, kpi_scorecard,
+    two_by_two
 
 Usage:
     python3 scripts/render_slide_spec.py examples/render-specs/arr-waterfall.json -o out.svg
@@ -35,6 +36,10 @@ RED = "#B91C1C"
 
 SERIF = "Georgia, 'Times New Roman', serif"
 SANS = "'Helvetica Neue', Helvetica, Arial, sans-serif"
+
+
+class RenderSpecError(ValueError):
+    """Raised when a slide spec is structurally invalid."""
 
 
 def esc(value: object) -> str:
@@ -390,9 +395,10 @@ def render_funnel(spec: dict) -> list[str]:
         else:
             parts.append(text_el(cx + bw / 2 + 10, y + bar_h / 2 + 6, value_text, size=16, weight="bold"))
         if i > 0:
-            conversion = stage["value"] / stages[i - 1]["value"] * 100
+            previous_value = stages[i - 1]["value"]
+            conversion = "n/a" if previous_value == 0 else f"{stage['value'] / previous_value * 100:.0f}%"
             parts.append(
-                text_el(cx + span / 2 + 28, CHART_TOP + row_h * i + 5, f"↓ {conversion:.0f}%", size=15, fill=BLUE2, weight="600")
+                text_el(cx + span / 2 + 28, CHART_TOP + row_h * i + 5, f"↓ {conversion}", size=15, fill=BLUE2, weight="600")
             )
     return parts
 
@@ -550,11 +556,85 @@ RENDERERS = {
 }
 
 
-def render(spec: dict) -> str:
+def _as_sequence(spec: dict, key: str) -> list:
+    value = spec.get(key)
+    if not isinstance(value, list) or not value:
+        raise RenderSpecError(f"{key} must be a non-empty list")
+    return value
+
+
+def _validate_time_series(spec: dict) -> None:
+    labels = _as_sequence(spec, "x_labels")
+    series = _as_sequence(spec, "series")
+    first_series = series[0]
+    if not isinstance(first_series, dict):
+        raise RenderSpecError("series[0] must be an object")
+    values = first_series.get("values")
+    if not isinstance(values, list) or not values:
+        raise RenderSpecError("series[0].values must be a non-empty list")
+    if len(labels) != len(values):
+        raise RenderSpecError(f"x_labels must contain {len(values)} labels; found {len(labels)}")
+
+
+def _validate_funnel(spec: dict) -> None:
+    stages = _as_sequence(spec, "stages")
+    for index, stage in enumerate(stages):
+        if not isinstance(stage, dict):
+            raise RenderSpecError(f"stages[{index}] must be an object")
+        if "label" not in stage or "value" not in stage:
+            raise RenderSpecError(f"stages[{index}] must include label and value")
+        if not isinstance(stage["value"], (int, float)):
+            raise RenderSpecError(f"stages[{index}].value must be numeric")
+
+
+def _validate_benchmark_table(spec: dict) -> None:
+    columns = _as_sequence(spec, "columns")
+    rows = _as_sequence(spec, "rows")
+    for index, row in enumerate(rows):
+        if not isinstance(row, dict):
+            raise RenderSpecError(f"rows[{index}] must be an object")
+        values = row.get("values")
+        if not isinstance(values, list):
+            raise RenderSpecError(f"rows[{index}].values must be a list")
+        if len(values) != len(columns):
+            raise RenderSpecError(f"rows[{index}].values must contain {len(columns)} values; found {len(values)}")
+
+
+def _validate_heatmap(spec: dict) -> None:
+    rows = _as_sequence(spec, "rows")
+    columns = _as_sequence(spec, "columns")
+    values = _as_sequence(spec, "values")
+    if len(values) != len(rows):
+        raise RenderSpecError(f"values must contain {len(rows)} rows; found {len(values)}")
+    for row_index, row_values in enumerate(values):
+        if not isinstance(row_values, list):
+            raise RenderSpecError(f"values[{row_index}] must be a list")
+        if len(row_values) != len(columns):
+            raise RenderSpecError(f"values[{row_index}] must contain {len(columns)} cells; found {len(row_values)}")
+        for col_index, value in enumerate(row_values):
+            if not isinstance(value, (int, float)):
+                raise RenderSpecError(f"values[{row_index}][{col_index}] must be numeric")
+
+
+def validate_spec(spec: dict) -> None:
     pattern = spec.get("pattern", "")
     if pattern not in RENDERERS:
         supported = ", ".join(sorted(RENDERERS))
-        raise SystemExit(f"ERROR: unsupported pattern {pattern!r}. Supported: {supported}")
+        raise RenderSpecError(f"unsupported pattern {pattern!r}. Supported: {supported}")
+
+    if pattern == "time_series":
+        _validate_time_series(spec)
+    elif pattern == "funnel":
+        _validate_funnel(spec)
+    elif pattern == "benchmark_table":
+        _validate_benchmark_table(spec)
+    elif pattern == "heatmap":
+        _validate_heatmap(spec)
+
+
+def render(spec: dict) -> str:
+    validate_spec(spec)
+    pattern = spec.get("pattern", "")
     body = header(spec) + RENDERERS[pattern](spec) + footer(spec)
     content = "\n  ".join(body)
     return (
@@ -579,8 +659,14 @@ def main() -> None:
         print(f"ERROR: cannot read spec: {exc}", file=sys.stderr)
         raise SystemExit(1)
 
+    try:
+        svg = render(spec)
+    except (RenderSpecError, KeyError, TypeError, ValueError) as exc:
+        print(f"ERROR: invalid spec: {exc}", file=sys.stderr)
+        raise SystemExit(1)
+
     output_path = Path(args.output) if args.output else spec_path.with_suffix(".svg")
-    output_path.write_text(render(spec), encoding="utf-8")
+    output_path.write_text(svg, encoding="utf-8")
     print(f"OK: rendered {spec.get('pattern')} slide to {output_path}")
 
 
