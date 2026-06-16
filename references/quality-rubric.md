@@ -43,3 +43,13 @@ Score each output out of 20 before presenting it as marketplace-quality work.
 - 14-16: Usable draft; revise before publishing as proof.
 - 10-13: Internal draft only.
 - 0-9: Restart from the strategic question.
+
+## Blocking Gates
+
+Even with a passing score, revise before publishing if any of these are true:
+
+- The visual uses universal or guaranteed language beyond the evidence.
+- The primary reader or decision is not named.
+- The recommendation would change under a plausible missing-data scenario that is not disclosed.
+- The meaning depends on color alone, tiny labels, cultural shorthand, or insider jargon.
+- The output implies professional verification, legal/medical/financial advice, or affiliation that does not exist.

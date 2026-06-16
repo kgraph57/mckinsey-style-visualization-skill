@@ -48,9 +48,46 @@ SAFETY_RISKS = [
     "in partnership with bain",
 ]
 
+OVERCONFIDENT_CLAIMS = [
+    "always",
+    "guaranteed",
+    "best option",
+    "all users",
+    "everyone",
+    "no risk",
+    "will definitely",
+]
+
+READER_FIT_TERMS = [
+    "reader",
+    "audience",
+    "stakeholder",
+    "leader",
+    "executive",
+    "board",
+    "operator",
+]
+
+ACCESSIBILITY_TERMS = [
+    "accessibility",
+    "contrast",
+    "color",
+    "colour",
+    "reading order",
+    "alt text",
+    "plain language",
+    "jargon",
+    "localization",
+    "localisation",
+]
+
 
 def section_present(text: str, section: str) -> bool:
-    return bool(re.search(rf"^##\s+{re.escape(section)}\s*$", text, re.IGNORECASE | re.MULTILINE))
+    heading_pattern = rf"^##\s+{re.escape(section)}\s*$"
+    bold_label_pattern = rf"^\*\*{re.escape(section)}:\*\*"
+    return bool(re.search(heading_pattern, text, re.IGNORECASE | re.MULTILINE)) or bool(
+        re.search(bold_label_pattern, text, re.IGNORECASE | re.MULTILINE)
+    )
 
 
 def contains_number(text: str) -> bool:
@@ -109,6 +146,15 @@ def score_spec(text: str) -> tuple[int, list[str], dict[str, int]]:
         scores["marketplace_safety"] += 1
     else:
         issues.append("Marketplace safety could improve: add originality or source-awareness language.")
+
+    if any(claim in lower for claim in OVERCONFIDENT_CLAIMS):
+        issues.append("Overconfident universal claim: scope the wording to the evidence or show what would change the conclusion.")
+
+    if not any(term in lower for term in READER_FIT_TERMS):
+        issues.append("Reader fit is unclear: name the primary audience and the decision, task, or misunderstanding to resolve.")
+
+    if not any(term in lower for term in ACCESSIBILITY_TERMS):
+        issues.append("Accessibility is underspecified: check contrast, color independence, reading order, and jargon/localization risk.")
 
     total = sum(scores.values())
     return total, issues, scores

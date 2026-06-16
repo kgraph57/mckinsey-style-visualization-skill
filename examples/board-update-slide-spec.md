@@ -116,3 +116,10 @@
 - Investment size and hiring plan are not provided.
 
 **Quality check:** Recommendation is clear, but the next version needs cost and ROI data.
+
+## Expert Review Notes
+
+- **Assumption challenged:** Forecast demand of 18 deployments is user-provided and should not be treated as a verified market forecast.
+- **Reader fit:** The board can see the decision and constraint quickly, but CFO review needs cost, payback period, and downside case before approval.
+- **Accessibility/localization:** Use direct labels and do not rely on blue/red color alone; avoid internal shorthand such as "AI workflow" without a definition in external versions.
+- **Counterpoint:** If implementation capacity can be improved through process redesign rather than investment, the recommendation should shift from spending approval to operating-model redesign.

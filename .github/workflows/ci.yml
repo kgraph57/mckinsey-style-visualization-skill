@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate skill package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Run unit tests
+        run: python3 -m unittest discover -s tests
+
+      - name: Validate package
+        run: python3 scripts/validate_skill.py
+
+      - name: Compile Python scripts
+        run: python3 -m py_compile scripts/render_slide_spec.py scripts/validate_skill.py scripts/review_slide_spec.py tests/test_render_slide_spec.py tests/test_review_slide_spec.py tests/test_validate_skill.py
+
+      - name: Check whitespace
+        run: git diff --check

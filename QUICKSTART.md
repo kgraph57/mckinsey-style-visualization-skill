@@ -22,6 +22,7 @@ curl -o ~/.claude/skills/strategy-consulting-visualization/SKILL.md https://raw.
 From a cloned copy of the repository:
 
 ```bash
+python3 -m unittest discover -s tests
 python3 scripts/validate_skill.py
 ```
 
@@ -35,6 +36,14 @@ OK: skill package passed validation
 
 ```text
 Use the strategy consulting visualization skill to create a waterfall slide spec showing ARR growth from $10M in Q1 to $15M in Q4, with +$3M from enterprise customers, +$2.5M from expansion, and -$0.5M from churn.
+```
+
+If the input is vague, use this safer prompt:
+
+```text
+Use the strategy consulting visualization skill. First identify the reader and decision, then choose the simplest useful visual. Challenge assumptions, avoid overclaiming, and include expert review notes.
+Here is the raw material:
+[paste notes, metrics, prose, or process]
 ```
 
 ## Common Requests
@@ -55,5 +64,6 @@ Create a competitive benchmarking table for five AI vendors across accuracy, cos
 
 - Read [README.md](README.md) for the product overview.
 - Review [EXAMPLES.md](EXAMPLES.md) for usage scenarios.
+- Use [references/expert-review-loop.md](references/expert-review-loop.md) before publishing public or high-stakes visuals.
 - Open [MARKETPLACE.md](MARKETPLACE.md) for listing copy.
 - Inspect [references/quality-rubric.md](references/quality-rubric.md) before publishing proof assets.

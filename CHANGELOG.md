@@ -2,7 +2,15 @@
 
 ## Unreleased
 
-- No changes yet.
+- Added `unittest` coverage for renderer errors, SVG escaping, zero-value funnel conversions, and stale committed SVG detection.
+- Added `references/expert-review-loop.md` and bias/usability warnings so public outputs challenge assumptions, overclaims, reader fit, accessibility, and localization risk.
+- Added expert review notes to the board-update proof example and safer first-use prompts to README, README.ja.md, and QUICKSTART.md.
+- Improved `scripts/review_slide_spec.py` so it recognizes both `## Section` headings and bold-label proof examples such as `**Strategic question:**`.
+- Added GitHub Actions CI for unit tests, package validation, Python compile checks, and whitespace checks; exposed it in README badges and marketplace operations metadata.
+- Hardened `scripts/render_slide_spec.py` with structured `RenderSpecError` failures, time-series label validation, benchmark/heatmap shape validation, and safe `n/a` funnel conversions when the prior stage is zero.
+- Strengthened `scripts/validate_skill.py` so committed rendered SVG examples must match fresh renderer output.
+- Aligned `SKILL.md` frontmatter with portable skill discovery by keeping only `name` and `description`; license remains in `LICENSE` and `marketplace/manifest.json`.
+- Refined README positioning for star conversion and corrected stale renderer pattern counts from 7 to 12.
 
 ## 1.8.0 - Persona Packs and Renderer Expansion
 

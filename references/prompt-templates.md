@@ -32,6 +32,12 @@ Quality check:
 - Visual hierarchy:
 - Portability:
 - Safety:
+
+Expert review notes:
+- Assumption challenged: [most fragile assumption and how it is labeled]
+- Reader fit: [primary audience and likely misunderstanding]
+- Accessibility/localization: [color, label, jargon, or translation check]
+- Counterpoint: [what would change the recommendation]
 ```
 
 ## Universal Visual Spec
@@ -70,6 +76,12 @@ Quality check:
 - Visual hierarchy:
 - Portability:
 - Safety:
+
+Expert review notes:
+- Assumption challenged: [most fragile assumption and how it is labeled]
+- Reader fit: [primary audience and likely misunderstanding]
+- Accessibility/localization: [color, label, jargon, or translation check]
+- Counterpoint: [what would change the recommendation]
 ```
 
 ## Diagram-as-Code Spec
