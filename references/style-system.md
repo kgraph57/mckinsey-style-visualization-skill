@@ -30,6 +30,26 @@ Create analytical, executive-ready visuals with institutional restraint. The vis
 | Secondary text | `#E5E7EB` |
 | Premium accent, sparingly | `#D4AF37` |
 
+## Emphasis Hierarchy
+
+Emphasis has a ranked strength order. Apply it deliberately, never on a whim — undisciplined highlighting is the most common cause of cluttered, low-hierarchy slides. Memorize the order as **fill > line > text**: a filled shape outranks a bordered one, and a border outranks styled text. Pick rungs from the top down only as far as the message needs, and reserve the strongest rung for the single element that carries the takeaway.
+
+| Rung | Technique | Tokens | Use for |
+| --- | --- | --- | --- |
+| 1 (strongest) | Solid fill, reversed text | fill `#1E3A8A`, text `#FFFFFF` | The one box that states the conclusion or focus zone |
+| 2 | Tinted fill, accent text | fill `#F3F4F6` or light blue, text `#1E3A8A` | A secondary highlighted block or grouping |
+| 3 | Outline only | border `#1E3A8A`, fill `#FFFFFF`, text `#1E3A8A` | A called-out item that should not dominate |
+| 4 | Accent-colored text | text `#2563EB` | Keywords and key numbers inline |
+| 5 | Bold text | text `#000000`, bold | Sub-labels and minor headings |
+| Baseline | Body | text `#000000`, regular | Everything else |
+
+Discipline rules:
+
+- Cap strong emphasis (rungs 1-2) at one element per visual, two only when the message genuinely has two anchors. If everything is emphasized, nothing is.
+- Do not stack rungs on the same element. A solid fill already wins; adding colored and bold text on top only adds noise.
+- Keep each rung's meaning consistent across a deck so the reader learns the code instead of re-decoding every slide.
+- The red risk accent (`#B91C1C`) is orthogonal to this ladder. It marks negative variance or risk, not strength of emphasis, so it never substitutes for a rung.
+
 ## Typography
 
 - Content headline: serif, bold, 24-36 pt equivalent.

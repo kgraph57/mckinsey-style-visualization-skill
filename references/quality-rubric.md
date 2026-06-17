@@ -18,8 +18,8 @@ Score each output out of 20 before presenting it as marketplace-quality work.
 
 ## Visual Hierarchy: 0-4
 
-- 4: The eye lands on the headline, key number, and implication in the right order.
-- 2: The layout is understandable but has weak hierarchy or crowded labels.
+- 4: The eye lands on the headline, key number, and implication in the right order, and emphasis follows the strength ladder in `references/style-system.md` with at most one or two strong-emphasis elements.
+- 2: The layout is understandable but has weak hierarchy, crowded labels, or emphasis applied on a whim rather than by rank.
 - 1: The visual requires too much interpretation.
 - 0: The hierarchy is incoherent.
 

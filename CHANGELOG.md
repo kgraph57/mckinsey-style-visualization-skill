@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added an `Emphasis Hierarchy` section to `references/style-system.md`: a ranked fill > line > text strength ladder mapped to existing palette tokens, with discipline rules against undisciplined highlighting; reinforced it in the `references/quality-rubric.md` Visual Hierarchy axis.
 - Added `unittest` coverage for renderer errors, SVG escaping, zero-value funnel conversions, and stale committed SVG detection.
 - Added `references/expert-review-loop.md` and bias/usability warnings so public outputs challenge assumptions, overclaims, reader fit, accessibility, and localization risk.
 - Added expert review notes to the board-update proof example and safer first-use prompts to README, README.ja.md, and QUICKSTART.md.
