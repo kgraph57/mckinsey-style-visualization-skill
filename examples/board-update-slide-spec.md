@@ -10,7 +10,7 @@
 
 **Slide spec:**
 - Canvas: 16:9 landscape.
-- Background: deep navy `#1E3A5F`.
+- Background: navy `#15296B` (single navy across the system).
 - Title: "Q4 Board Update: Scaling Enterprise Growth Without Breaking Delivery".
 - Subtitle: "Decision focus: implementation capacity before sales target expansion".
 - Metadata: "Prepared for Board Review | Q4".

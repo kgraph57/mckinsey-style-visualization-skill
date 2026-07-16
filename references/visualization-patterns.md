@@ -2,45 +2,64 @@
 
 Use the pattern that best supports the decision, not the one that looks most impressive. If the input is not an obvious chart request, start with `references/input-triage.md` to map it to a pattern family.
 
+## Step 0 — Name the Comparison Before Picking a Pattern
+
+Every quantitative chart encodes one of five basic comparison types (Zelazny's discipline). Name the comparison first; only then pick a pattern. This prevents choosing a chart shape before understanding what is actually being compared.
+
+| Comparison Type | You Are Saying | Pattern Families |
+| --- | --- | --- |
+| Component (share of a whole) | "X is n% of the total" | Market share / adoption, Stacked composition |
+| Item (ranking) | "A is bigger / better than B" | Gap visualization, Benchmark table, Investment / scale |
+| Time series | "X is rising / falling / flat" | Time-series growth, Before-after, Waterfall, Small multiples, Gantt |
+| Frequency distribution | "Most cases fall in this range" | Distribution chart, Heatmap matrix |
+| Correlation | "X moves (or does not move) with Y" | Scatter / correlation, 2x2 framework |
+
+Qualitative structures (process, hierarchy, cycle, decision logic) skip this table and go straight to the structural patterns below.
+
+## Rendering Support
+
+The bundled renderer (`scripts/render_slide_spec.py`) turns specs into SVG for the patterns marked **✓ SVG** below (16:9 canvas only). Patterns marked *spec-only* produce a structured spec or an image-generation prompt — not a rendered file. Say which you are delivering; never imply a spec-only pattern will render.
+
 ## Core Strategy Patterns
 
-| Pattern | Use When | Strategic Question |
-| --- | --- | --- |
-| Time-series growth | Showing adoption, revenue, usage, or performance over time | Is momentum accelerating or stalling? |
-| Gap visualization | Comparing current vs. target or leader vs. laggard | How large is the gap and why does it matter? |
-| Before-after comparison | Demonstrating intervention impact | What changed and is it enough to justify action? |
-| Market share / adoption | Showing penetration or composition | Where is the center of gravity? |
-| Investment / scale infographic | Comparing operating scale, investment, or capacity | Who has the scale advantage? |
-| Timeline | Showing sequence, milestones, regulation, or rollout | What must happen, and when? |
-| Contrast diagram | Comparing regions, strategies, or operating models | Where are the structural differences? |
-| 2x2 strategic framework | Positioning players or options across two drivers | Which position is attractive or exposed? |
-| Competitive benchmark table | Comparing multiple players across criteria | Who leads on the dimensions that matter? |
-| Waterfall chart | Explaining bridge, variance, or cumulative change | What drives the delta? |
-| Cover slide | Opening a deck or section | What is this argument about? |
-| Executive summary strip | Compressing 3-5 takeaways into a decision memo visual | What should the executive remember? |
+| Pattern | Renderer | Use When | Strategic Question |
+| --- | --- | --- | --- |
+| Time-series growth | ✓ SVG | Showing adoption, revenue, usage, or performance over time | Is momentum accelerating or stalling? |
+| Gap visualization | ✓ SVG | Comparing current vs. target or leader vs. laggard | How large is the gap and why does it matter? |
+| Before-after comparison | ✓ SVG | Demonstrating intervention impact | What changed and is it enough to justify action? |
+| Market share / adoption | spec-only | Showing penetration or composition | Where is the center of gravity? |
+| Investment / scale infographic | spec-only | Comparing operating scale, investment, or capacity | Who has the scale advantage? |
+| Timeline | spec-only | Showing sequence, milestones, regulation, or rollout | What must happen, and when? |
+| Contrast diagram | spec-only | Comparing regions, strategies, or operating models | Where are the structural differences? |
+| 2x2 strategic framework | ✓ SVG | Positioning players or options across two drivers | Which position is attractive or exposed? |
+| Competitive benchmark table | ✓ SVG | Comparing multiple players across criteria | Who leads on the dimensions that matter? |
+| Waterfall chart | ✓ SVG | Explaining bridge, variance, or cumulative change | What drives the delta? |
+| Cover slide | ✓ SVG | Opening a deck or section | What is this argument about? |
+| Executive summary strip | ✓ SVG | Compressing 3-5 takeaways into a decision memo visual | What should the executive remember? |
 
 ## Universal Patterns
 
 These patterns extend the skill beyond board slides to reports, proposals, training materials, technical docs, and explainers. They follow the same style system and quality rubric.
 
-| Pattern | Use When | Reader Question |
-| --- | --- | --- |
-| Process flow | Showing steps, handoffs, or a workflow | What happens, in what order, and who owns each step? |
-| Funnel | Showing staged conversion or attrition | Where do we lose the most, stage by stage? |
-| Cycle diagram | Showing recurring loops or feedback systems | What sustains or breaks this loop? |
-| Hierarchy / tree | Showing org structures, taxonomies, or breakdowns | How is this organized, and where does X sit? |
-| Pyramid | Showing layered arguments, priorities, or maturity levels | What is the foundation and what sits on top? |
-| Concept / system map | Showing how entities, ideas, or components relate | How do the parts interact? |
-| Gantt / roadmap | Showing workstreams, phases, and dependencies over time | Are we on track, and what blocks what? |
-| Heatmap matrix | Showing intensity across two categorical dimensions | Where are the hot spots? |
-| Scatter / correlation | Showing relationship between two continuous variables | Do these move together, and who are the outliers? |
-| Distribution chart | Showing spread, concentration, and outliers | What is typical, and what is extreme? |
-| Stacked composition | Showing how composition shifts across items or time | What is the mix, and how is it changing? |
-| KPI scorecard | Showing many metrics with status at a glance | What is healthy and what needs attention? |
-| Decision tree | Showing branching logic, eligibility, or escalation rules | Given my situation, what do I do? |
-| Flow / allocation (Sankey-style) | Showing how a quantity splits and flows between stages | Where does the volume actually go? |
-| Checklist / maturity grid | Showing completion or capability levels against a standard | What is done, and what is the next level? |
-| Annotated map | Showing geographic concentration or coverage | Where is this happening? |
+| Pattern | Renderer | Use When | Reader Question |
+| --- | --- | --- | --- |
+| Process flow | ✓ SVG | Showing steps, handoffs, or a workflow | What happens, in what order, and who owns each step? |
+| Funnel | ✓ SVG | Showing staged conversion or attrition | Where do we lose the most, stage by stage? |
+| Cycle diagram | spec-only | Showing recurring loops or feedback systems | What sustains or breaks this loop? |
+| Hierarchy / tree | spec-only | Showing org structures, taxonomies, or breakdowns | How is this organized, and where does X sit? |
+| Pyramid | spec-only | Showing layered arguments, priorities, or maturity levels | What is the foundation and what sits on top? |
+| Concept / system map | spec-only | Showing how entities, ideas, or components relate | How do the parts interact? |
+| Gantt / roadmap | ✓ SVG | Showing workstreams, phases, and dependencies over time | Are we on track, and what blocks what? |
+| Heatmap matrix | ✓ SVG | Showing intensity across two categorical dimensions | Where are the hot spots? |
+| Scatter / correlation | ✓ SVG | Showing relationship between two continuous variables | Do these move together, and who are the outliers? |
+| Distribution chart | ✓ SVG | Showing spread, concentration, and outliers | What is typical, and what is extreme? |
+| Small multiples | ✓ SVG | Comparing one metric's trend across many segments on a shared scale | Does the pattern hold everywhere, or only in some segments? |
+| Stacked composition | spec-only | Showing how composition shifts across items or time | What is the mix, and how is it changing? |
+| KPI scorecard | ✓ SVG | Showing many metrics with status at a glance | What is healthy and what needs attention? |
+| Decision tree | spec-only | Showing branching logic, eligibility, or escalation rules | Given my situation, what do I do? |
+| Flow / allocation (Sankey-style) | spec-only | Showing how a quantity splits and flows between stages | Where does the volume actually go? |
+| Checklist / maturity grid | spec-only | Showing completion or capability levels against a standard | What is done, and what is the next level? |
+| Annotated map | spec-only | Showing geographic concentration or coverage | Where is this happening? |
 
 ## Pattern Notes
 
@@ -124,7 +143,7 @@ Show plan vs. actual when tracking, not just plan. Mark dependencies and decisio
 
 ### Heatmap Matrix
 
-Use a single-hue intensity ramp, label the extremes with actual values, and order rows and columns by a meaningful sort so the pattern is visible.
+Use a single-hue intensity ramp for non-negative intensity data. When values carry sign (variance, YoY change, deviation from target), use a diverging ramp anchored at zero — blue for positive, red for negative, neutral at zero — so the sign is visible in the color, not only in a minus sign. The renderer switches automatically when the data spans zero. Label the extremes with actual values and order rows and columns by a meaningful sort so the pattern is visible.
 
 ### Scatter / Correlation
 
@@ -133,6 +152,10 @@ Label outliers and the quadrant or trend that carries the message. State correla
 ### Distribution Chart
 
 Show the shape (histogram or summary bands) plus the marker that matters: median, target, or threshold. Note sample size.
+
+### Small Multiples
+
+Use one shared scale across all panels — per-panel scales silently exaggerate flat segments. Highlight at most one or two panels; the value of the pattern is the honest side-by-side density, not per-panel decoration. This is the analytical, high-density counterpart to one-message slides.
 
 ### Stacked Composition
 

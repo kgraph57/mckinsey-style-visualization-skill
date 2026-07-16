@@ -9,10 +9,12 @@ Strategic question:
 [Decision the slide supports]
 
 Insight headline:
-[One sentence that states the answer or tension]
+[One sentence stating a single proposition — one answer or one tension. Never
+join several claims with "and"; when three things are true, the headline
+states the governing thought and the body blocks carry the three proofs.]
 
 Recommended visualization:
-[Pattern name from visualization-patterns.md]
+[Pattern name from visualization-patterns.md — say whether it is renderer-supported or spec-only]
 
 Slide spec:
 - Canvas: 16:9 landscape
@@ -102,7 +104,7 @@ Use this when the user explicitly wants an image-generation prompt.
 
 ```text
 Create an executive-ready strategy consulting visualization in landscape 16:9 format.
-Use a white background, black text, royal blue (#1E3A8A) primary accents, and restrained grey hierarchy.
+Use a white background, black text, navy (#15296B) primary accents, and restrained grey hierarchy.
 Headline in bold serif font: "[Insight headline]"
 Visualization type: [pattern]
 Data: [exact values, labels, and units]

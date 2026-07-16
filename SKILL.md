@@ -28,12 +28,12 @@ Use this skill to turn any content into professional visualization specs with st
 1. Identify the decision, question, or job the visual should support for its reader.
 2. If the input is not an obvious chart request, triage it with `references/input-triage.md` to map any input type to a pattern family.
 3. Pick the document profile from `references/document-type-profiles.md` to set canvas, density, and tone.
-4. Convert the request into an insight-led headline that answers the reader's question.
-5. Select the visualization pattern from `references/visualization-patterns.md`.
+4. Convert the request into an insight-led headline that answers the reader's question. The headline must be a single proposition — one answer or one tension, never several claims joined by "and".
+5. Select the visualization pattern from `references/visualization-patterns.md`, starting from the comparison-type gate at the top of that file.
 6. Apply the visual system in `references/style-system.md`, using the canvas from the document profile.
 7. Produce a structured spec, diagram-as-code source, or image-generation prompt using `references/prompt-templates.md`.
-   When the environment allows running scripts, optionally render supported patterns (waterfall, gap, before_after, time_series, benchmark_table, summary_strip, process_flow, funnel, heatmap, gantt, kpi_scorecard, two_by_two) to SVG with `python3 scripts/render_slide_spec.py <spec.json>`; spec examples are in `examples/render-specs/`.
-8. Score the output against `references/quality-rubric.md`.
+   When the environment allows running scripts, render supported patterns to SVG with `python3 scripts/render_slide_spec.py <spec.json>`. Sixteen patterns render (cover, waterfall, gap, before_after, time_series, benchmark_table, summary_strip, process_flow, funnel, heatmap, gantt, kpi_scorecard, two_by_two, scatter, distribution, small_multiples), on a 16:9 canvas only; every other pattern and canvas is spec-only. Tell the user which they are getting — never imply a spec-only pattern will render. Spec examples are in `examples/render-specs/`.
+8. Score the output against `references/quality-rubric.md`. For decks, also run its deck-level headline check.
 9. Flag missing data, unverifiable claims, source-sensitive assumptions, or trademark-sensitive wording.
 10. For public, high-stakes, cross-functional, or broad-audience work, run `references/expert-review-loop.md` to remove blind spots, overclaims, jargon, accessibility issues, and cultural assumptions.
 11. For polished executive work, run the draft through `references/iterative-review-loop.md` until the output reaches the stopping criteria.
@@ -54,8 +54,8 @@ When the user requests a batch, deck, or multi-figure document, repeat the contr
 
 ## Default Visual Standards
 
-- Landscape 16:9 unless the document profile or the user gives another delivery format (A4 report figures, vertical infographics, inline diagrams).
-- White content slides with black text, royal blue accents, and grey hierarchy.
+- Landscape 16:9 unless the document profile or the user gives another delivery format (A4 report figures, vertical infographics, inline diagrams — spec-only; the renderer outputs 16:9).
+- White content slides with black text, a single navy accent (`#15296B`), and grey hierarchy.
 - Navy cover slides only when opening a deck or section.
 - Serif headlines and sans-serif labels for English outputs.
 - High information density with clear hierarchy; no decorative clutter.

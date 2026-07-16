@@ -1,27 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Growth is strong, adoption is proven, and capacity is now the binding constraint">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Capacity, not demand, is now the binding constraint on Q4 growth">
   <rect width="1280" height="720" fill="#FFFFFF"/>
-  <rect x="80.0" y="52.0" width="56.0" height="5.0" fill="#1E3A8A" stroke="none"/>
-  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">Growth is strong, adoption is proven, and capacity is now the</text>
-  <text x="80.0" y="136.0" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">binding constraint</text>
-  <text x="80.0" y="178.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="17" fill="#6B7280" font-weight="normal" text-anchor="start">Board takeaways for the Q4 decision</text>
-  <rect x="80.0" y="254.0" width="28.0" height="4.0" fill="#1E3A8A" stroke="none"/>
-  <text x="80.0" y="278.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="17" fill="#000000" font-weight="bold" text-anchor="start">Growth engine is enterprise-led</text>
-  <text x="80.0" y="309.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">ARR grew $10M to $15M; enterprise added $3.0M</text>
-  <text x="80.0" y="328.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">of the $5.5M gross gain.</text>
-  <text x="80.0" y="357.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#1E3A8A" font-weight="600" text-anchor="start">Protect enterprise momentum before raising</text>
-  <text x="80.0" y="376.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#1E3A8A" font-weight="600" text-anchor="start">targets.</text>
-  <line x1="453.3" y1="220.0" x2="453.3" y2="490.0" stroke="#D1D5DB"/>
-  <rect x="471.3" y="254.0" width="28.0" height="4.0" fill="#1E3A8A" stroke="none"/>
-  <text x="471.3" y="278.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="17" fill="#000000" font-weight="bold" text-anchor="start">Adoption has crossed majority</text>
-  <text x="471.3" y="309.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">AI workflow adoption rose from 18% to 64% of</text>
-  <text x="471.3" y="328.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">accounts in four quarters.</text>
-  <text x="471.3" y="357.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#1E3A8A" font-weight="600" text-anchor="start">The operating model scales; replication risk</text>
-  <text x="471.3" y="376.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#1E3A8A" font-weight="600" text-anchor="start">is low.</text>
-  <line x1="826.7" y1="220.0" x2="826.7" y2="490.0" stroke="#D1D5DB"/>
-  <rect x="844.7" y="254.0" width="28.0" height="4.0" fill="#1E3A8A" stroke="none"/>
-  <text x="844.7" y="278.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="17" fill="#000000" font-weight="bold" text-anchor="start">Capacity is the constraint</text>
-  <text x="844.7" y="309.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">Onboarding capacity covers 60% of signed</text>
-  <text x="844.7" y="328.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">enterprise commitments.</text>
-  <text x="844.7" y="357.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#1E3A8A" font-weight="600" text-anchor="start">Approve capacity investment this quarter.</text>
-  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="start">Source: user-provided Q1-Q4 operating metrics.</text>
+  <rect x="80.0" y="52.0" width="56.0" height="5.0" fill="#15296B" stroke="none"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">Capacity, not demand, is now the binding constraint on Q4 growth</text>
+  <text x="80.0" y="138.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="17" fill="#6B7280" font-weight="normal" text-anchor="start">Board takeaways for the Q4 decision</text>
+  <text x="1200.0" y="40.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="11" fill="#6B7280" font-weight="600" text-anchor="end">FOR INTERNAL DISCUSSION ONLY</text>
+  <text x="80.0" y="276.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="17" fill="#000000" font-weight="bold" text-anchor="start">Growth engine is enterprise-led</text>
+  <text x="80.0" y="307.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">ARR grew $10M to $15M; enterprise added $3.0M</text>
+  <text x="80.0" y="326.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">of the $5.5M gross gain.</text>
+  <text x="80.0" y="355.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#15296B" font-weight="600" text-anchor="start">Protect enterprise momentum before raising</text>
+  <text x="80.0" y="374.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#15296B" font-weight="600" text-anchor="start">targets.</text>
+  <line x1="453.3" y1="218.0" x2="453.3" y2="488.0" stroke="#D1D5DB"/>
+  <text x="471.3" y="276.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="17" fill="#000000" font-weight="bold" text-anchor="start">Adoption has crossed majority</text>
+  <text x="471.3" y="307.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">AI workflow adoption rose from 18% to 64% of</text>
+  <text x="471.3" y="326.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">accounts in four quarters.</text>
+  <text x="471.3" y="355.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#15296B" font-weight="600" text-anchor="start">The operating model scales; replication risk</text>
+  <text x="471.3" y="374.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#15296B" font-weight="600" text-anchor="start">is low.</text>
+  <line x1="826.7" y1="218.0" x2="826.7" y2="488.0" stroke="#D1D5DB"/>
+  <text x="844.7" y="276.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="17" fill="#000000" font-weight="bold" text-anchor="start">Capacity is the constraint</text>
+  <text x="844.7" y="307.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">Onboarding capacity covers 60% of signed</text>
+  <text x="844.7" y="326.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">enterprise commitments.</text>
+  <text x="844.7" y="355.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#15296B" font-weight="600" text-anchor="start">Approve capacity investment this quarter.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="start">Source: user-provided Q1-Q4 operating metrics.</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="end">2</text>
 </svg>

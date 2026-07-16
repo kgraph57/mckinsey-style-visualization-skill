@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+### Design-panel review fixes (five-perspective external design review)
+
+- **Waterfall integrity**: bars now scale to the full cumulative range with a zero floor, so negative-running bridges (large churn, impairments) stay inside the chart band instead of drawing past the canvas; the zero baseline carries an explicit "0" tick; negative currency renders `-$4`, not `$-4`.
+- **CJK text support**: `wrap()` measures fullwidth characters as double width and breaks CJK runs per character, so Japanese headlines and labels wrap instead of overflowing the 1280px canvas; unbreakable ASCII tokens (URLs, cert codes) hard-break instead of overflowing.
+- **No silent truncation**: clamped text now ends with an ellipsis (…) and keeps the full string in an SVG `<title>` element; benchmark-table row labels and cell values wrap instead of colliding across columns.
+- **Palette re-derived**: single navy `#15296B` across content accents and cover backgrounds (replaces the two unrelated navies `#1E3A8A`/`#1E3A5F`, both Tailwind-default-adjacent); the new primary accent stays distinguishable from dark-grey text in greyscale print (relative-luminance ratio ≥ 1.5, asserted in tests); removed the gold-on-navy premium accent as a self-violation of the anti-pattern list.
+- **Heatmap honesty and accessibility**: signed data automatically switches to a diverging ramp anchored at zero (blue positive, red negative); cell text color is chosen by measured WCAG contrast, keeping every tone ≥ 4.5:1 (asserted across the full ramp in tests).
+- **Data-ink discipline**: removed the decorative annotation accent bar and per-block kicker bars (the headline kicker is now the single sanctioned motif); before/after legend swatches replaced with direct labels on the first pair; zero ticks added to zero-based charts.
+- **Renderer scope honesty**: pattern tables in `references/visualization-patterns.md` now mark each pattern ✓ SVG or spec-only; SKILL.md, README, and the rubric say plainly that 16 patterns render on a 16:9 canvas and everything else is spec-only.
+- **Four new rendered patterns**: `scatter`, `distribution`, `small_multiples` (shared-scale sparkline grid — the high-density counterpart to one-message slides), and `cover` (navy title slide), with example specs, committed SVGs, and validation.
+- **Slide furniture**: optional `page_number`, `classification`, and `footnotes` spec fields render as standard board-deck furniture.
+- **Message discipline**: added a comparison-type gate (component / item / time series / distribution / correlation) ahead of pattern selection; headline rule tightened to a single proposition (the flagship executive-summary example was itself violating it and has been rewritten); added a deck-level headline pyramid check to the rubric.
+- **Rubric**: new "Data-Ink and Graphical Integrity" axis (Lie Factor, decoration test, marked baselines, visible truncation); total now 24 points with rescaled thresholds.
+- **Style-system as source of truth**: documented design tokens (8px grid, margins, chart band, fixed type scale) that match the renderer constants; named the full font stacks including Japanese fallbacks; added a Japanese typography section (leading, per-character wrapping, line-break etiquette).
+
 - Added an `Emphasis Hierarchy` section to `references/style-system.md`: a ranked fill > line > text strength ladder mapped to existing palette tokens, with discipline rules against undisciplined highlighting; reinforced it in the `references/quality-rubric.md` Visual Hierarchy axis.
 - Added `unittest` coverage for renderer errors, SVG escaping, zero-value funnel conversions, and stale committed SVG detection.
 - Added `references/expert-review-loop.md` and bias/usability warnings so public outputs challenge assumptions, overclaims, reader fit, accessibility, and localization risk.

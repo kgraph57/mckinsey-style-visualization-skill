@@ -10,7 +10,7 @@ English | [日本語](README.ja.md)
 [![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
 [![Skill Format](https://img.shields.io/badge/SKILL.md-ready-blue.svg)](SKILL.md)
 [![Validation](https://img.shields.io/badge/Validation-local%20script-green.svg)](scripts/validate_skill.py)
-[![Release](https://img.shields.io/badge/Release-v1.8.0-1E3A8A.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.8.0)
+[![Release](https://img.shields.io/badge/Release-v1.8.0-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.8.0)
 
 ![Strategy Consulting Visualization Skill overview](assets/readme/skill-overview.svg)
 
@@ -19,7 +19,7 @@ English | [日本語](README.ja.md)
 This is built to be a reusable visualization operating system for agents, not a prompt dump.
 
 - **Messy input to executive spec**: turns notes, metrics, prose, or process descriptions into decision-ready visual specs.
-- **Real rendered proof**: includes a dependency-free Python renderer and committed SVG outputs for 12 patterns.
+- **Real rendered proof**: includes a dependency-free Python renderer with SVG output for 16 patterns (16:9 canvas). The remaining catalog patterns are spec-only by design — the docs say which is which.
 - **Portable skill package**: `SKILL.md` stays concise while references load only when needed.
 - **Marketplace-safe positioning**: uses strategy-consulting category language with explicit non-affiliation disclaimers.
 - **Bias-resistant review**: expert lenses challenge assumptions, overclaims, accessibility, and localization risks.
@@ -154,7 +154,7 @@ Since v1.6.0 the skill generalizes to **any document type and any input**:
 - **Universal patterns**: process flows, funnels, cycles, hierarchies, pyramids, concept maps, Gantt/roadmaps, heatmaps, scatter plots, distributions, stacked compositions, KPI scorecards, decision trees, Sankey-style flows, maturity grids, and annotated maps.
 - **Multiple canvases**: 16:9 slides, A4 report figures, vertical infographics, square cards, and inline diagram-as-code (Mermaid) figures.
 
-The skill creates **slide specs, image-generation prompts, and rendered SVG slides** (via `scripts/render_slide_spec.py` for 12 patterns). The value is in turning business input into a reproducible visual plan that an agent, designer, or renderer can execute.
+The skill creates **slide specs, image-generation prompts, and rendered SVG slides** (via `scripts/render_slide_spec.py` for 16 patterns on a 16:9 canvas; other patterns and canvases are spec-only and labeled as such). The value is in turning business input into a reproducible visual plan that an agent, designer, or renderer can execute.
 
 ## Output Previews
 

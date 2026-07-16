@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Most deals close below $50k; the tail funds the roadmap">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <rect x="80.0" y="52.0" width="56.0" height="5.0" fill="#15296B" stroke="none"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">Most deals close below $50k; the tail funds the roadmap</text>
+  <text x="80.0" y="138.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="17" fill="#6B7280" font-weight="normal" text-anchor="start">Closed-won deals by contract size, trailing 12 months</text>
+  <line x1="80.0" y1="560.0" x2="1200.0" y2="560.0" stroke="#374151"/>
+  <text x="70.0" y="564.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="11" fill="#6B7280" font-weight="normal" text-anchor="end">0</text>
+  <rect x="100.2" y="319.1" width="183.7" height="240.9" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <text x="192.0" y="311.1" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="middle">48</text>
+  <text x="192.0" y="580.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#374151" font-weight="normal" text-anchor="middle"><title>&lt;$25k</title>&lt;$25k</text>
+  <rect x="324.2" y="253.9" width="183.7" height="306.1" fill="#15296B" stroke="none"/>
+  <text x="416.0" y="245.9" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#000000" font-weight="bold" text-anchor="middle">61</text>
+  <text x="416.0" y="580.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#374151" font-weight="normal" text-anchor="middle"><title>$25-50k</title>$25-50k</text>
+  <rect x="548.2" y="424.5" width="183.7" height="135.5" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <text x="640.0" y="416.5" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="middle">27</text>
+  <text x="640.0" y="580.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#374151" font-weight="normal" text-anchor="middle"><title>$50-100k</title>$50-100k</text>
+  <rect x="772.2" y="499.8" width="183.7" height="60.2" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <text x="864.0" y="491.8" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="middle">12</text>
+  <text x="864.0" y="580.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#374151" font-weight="normal" text-anchor="middle"><title>$100-250k</title>$100-250k</text>
+  <rect x="996.2" y="534.9" width="183.7" height="25.1" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <text x="1088.0" y="526.9" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="middle">5</text>
+  <text x="1088.0" y="580.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#374151" font-weight="normal" text-anchor="middle"><title>$250k+</title>$250k+</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="16" fill="#15296B" font-weight="600" text-anchor="start"><title>The $25-50k band is the volume engine; staff onboarding for it first.</title>The $25-50k band is the volume engine; staff onboarding for it first.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="start">Source: user-provided CRM export.</text>
+</svg>
