@@ -2,7 +2,7 @@
   "schema_version": "0.1.0",
   "name": "strategy-consulting-visualization",
   "display_name": "Strategy Consulting Visualization Skill",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "category": "visualization",
   "tags": [
     "strategy",

@@ -8,6 +8,94 @@ Get the skill in front of agent users who create business, strategy, board, inve
 
 Primary outcome: marketplace listings, GitHub stars, forks, saves, replies, and inbound requests for rendered slide examples or paid templates.
 
+## Release Copy (v1.9.0)
+
+Attach `assets/readme/demo.gif` to every post — the animated deck carries the message. For platforms that need stills, use the gallery SVGs exported to PNG.
+
+### Show HN (Hacker News)
+
+```text
+Title: Show HN: Turn messy notes into board-ready slides – SVG, animated HTML, PDF (zero deps)
+
+I built an agent skill + renderer that turns raw notes and metrics into
+consulting-style slides. Everything is Python 3 stdlib — no installs, no
+API keys, no network calls.
+
+- 16 chart patterns render to real SVG (waterfall, 2x2, heatmap, small
+  multiples, scatter...); the gallery in the README is committed renderer
+  output, and CI fails if it drifts from the code.
+- One command bundles slides into a self-contained animated HTML deck:
+  staggered reveals, keyboard nav, and a print stylesheet so the browser
+  exports it straight to PDF. SVGs also drop into PowerPoint/Keynote.
+- Japanese business documents are first-class: CJK-aware wrapping,
+  dedicated profiles for board papers and approval documents.
+- The part I enjoyed most: I ran the whole visual system through a
+  five-perspective design review (Tufte's data-ink rules, an ex-McKinsey
+  chart lens, Swiss grid typography, FT data journalism, modern design
+  engineering), and they found real bugs — waterfalls drawing off-canvas
+  on negative bridges, palette colors that collapse in greyscale print,
+  WCAG contrast failures. v1.9.0 ships every fix, with the integrity
+  rules (Lie Factor, contrast, greyscale separation) asserted in tests
+  instead of promised in prose.
+
+https://github.com/kgraph57/mckinsey-style-visualization-skill
+```
+
+### X Version (EN)
+
+```text
+Messy notes in. Board-ready slides out.
+
+v1.9.0 of my strategy-visualization skill:
+- 16 patterns render to real SVG (CI-verified gallery)
+- 1 command -> animated HTML deck -> print -> PDF
+- SVGs drop into PowerPoint / Keynote
+- Japanese business docs supported (CJK wrapping that actually works)
+- reviewed & hardened by a 5-perspective design panel (Tufte, ex-McKinsey, Swiss grid, FT, design engineering)
+
+Zero dependencies. Zero API keys.
+https://github.com/kgraph57/mckinsey-style-visualization-skill
+```
+
+### X Version (JP)
+
+```text
+雑なメモを入れると、役員会スライドが出てくる。
+
+v1.9.0の目玉:
+- 16パターンを本物のSVGスライドに描画（ギャラリーはCIが鮮度検証）
+- 1コマンドでアニメ付きHTMLデッキ → ブラウザ印刷でそのままPDF
+- SVGはPowerPoint/Keynoteに直接挿入OK
+- 日本語対応が本物（CJK折返し・稟議書/役員会資料プロファイル）
+- Tufte・元McKinsey・スイス派・FT・デザインエンジニアの5視点パネルに酷評させて全部修正
+
+依存ゼロ・APIキー不要。
+https://github.com/kgraph57/mckinsey-style-visualization-skill
+```
+
+### Reddit (r/ClaudeAI or r/LocalLLaMA)
+
+```text
+Title: I made my agent's charts survive a design audit — 5-perspective panel review, then fixed everything (open source, zero deps)
+
+Most AI-generated charts look fine until someone checks the numbers. I
+wanted charts I could defend, so after building a slide renderer for my
+agent, I convened a brutal five-perspective design review — Tufte
+data-ink rules, an ex-McKinsey chart discipline lens, Swiss grid
+typography, FT-style data journalism, and modern design engineering.
+
+They tore it apart (5.8/10 average): waterfalls drew off-canvas on
+negative bridges, the palette collapsed in greyscale print, Japanese
+text overflowed the canvas, heatmap text failed WCAG contrast.
+
+v1.9.0 ships every fix, with the integrity rules asserted in the test
+suite. It renders 16 chart patterns to SVG, bundles them into animated
+HTML decks (print -> PDF), and the whole thing is Python stdlib.
+
+The full panel transcripts and fix list are in the changelog. Repo:
+https://github.com/kgraph57/mckinsey-style-visualization-skill
+```
+
 ## Release Copy (v1.8.0)
 
 Attach the hero image (`assets/readme/hero-before-after.svg` exported to PNG) to every post. The image carries the message; the text supports it.

@@ -1,6 +1,6 @@
 {
   "pattern": "summary_strip",
-  "headline": "Growth is strong, adoption is proven, and capacity is now the binding constraint",
+  "headline": "Capacity, not demand, is now the binding constraint on Q4 growth",
   "subline": "Board takeaways for the Q4 decision",
   "blocks": [
     {
@@ -19,5 +19,7 @@
       "implication": "Approve capacity investment this quarter."
     }
   ],
-  "source": "Source: user-provided Q1-Q4 operating metrics."
+  "source": "Source: user-provided Q1-Q4 operating metrics.",
+  "page_number": 2,
+  "classification": "For internal discussion only"
 }

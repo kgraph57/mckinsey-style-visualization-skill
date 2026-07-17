@@ -1,0 +1,11 @@
+{
+  "title": "FY26 Growth Review — demo deck",
+  "slides": [
+    "render-specs/board-deck-cover.json",
+    "render-specs/executive-summary.json",
+    "render-specs/arr-waterfall.json",
+    "render-specs/segment-adoption-multiples.json",
+    "render-specs/pricing-retention-scatter.json",
+    "render-specs/product-priority-two-by-two.json"
+  ]
+}

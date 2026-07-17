@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Price level does not explain churn; onboarding depth does">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <rect x="80.0" y="52.0" width="56.0" height="5.0" fill="#15296B" stroke="none"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">Price level does not explain churn; onboarding depth does</text>
+  <text x="80.0" y="138.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="17" fill="#6B7280" font-weight="normal" text-anchor="start">Accounts by contract price and 12-month retention</text>
+  <line x1="130.0" y1="560.0" x2="1150.0" y2="560.0" stroke="#374151"/>
+  <line x1="130.0" y1="208.0" x2="130.0" y2="560.0" stroke="#374151"/>
+  <text x="640.0" y="594.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="600" text-anchor="middle">Contract price ($k / yr)</text>
+  <text x="80.0" y="194.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="600" text-anchor="start">12-month retention (%)</text>
+  <text x="130.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="11" fill="#6B7280" font-weight="normal" text-anchor="start">$12k</text>
+  <text x="1150.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="11" fill="#6B7280" font-weight="normal" text-anchor="end">$60k</text>
+  <text x="122.0" y="218.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="11" fill="#6B7280" font-weight="normal" text-anchor="end">92%</text>
+  <text x="122.0" y="560.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="11" fill="#6B7280" font-weight="normal" text-anchor="end">55%</text>
+  <circle cx="310.3" cy="232.3" r="9" fill="#15296B"/>
+  <text x="325.3" y="237.3" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#000000" font-weight="600" text-anchor="start"><title>Guided onboarding</title>Guided onboarding</text>
+  <circle cx="804.9" cy="248.7" r="9" fill="#15296B"/>
+  <text x="819.9" y="253.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#000000" font-weight="600" text-anchor="start"><title>Guided, enterprise</title>Guided, enterprise</text>
+  <circle cx="383.5" cy="486.5" r="7" fill="#6B7280"/>
+  <text x="396.5" y="491.5" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#374151" font-weight="normal" text-anchor="start"><title>Self-serve</title>Self-serve</text>
+  <circle cx="676.6" cy="511.1" r="7" fill="#6B7280"/>
+  <text x="689.6" y="516.1" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#374151" font-weight="normal" text-anchor="start"><title>Self-serve, mid</title>Self-serve, mid</text>
+  <circle cx="1079.7" cy="265.1" r="7" fill="#6B7280"/>
+  <text x="1092.7" y="270.1" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#374151" font-weight="normal" text-anchor="start"><title>White-glove</title>White-glove</text>
+  <circle cx="200.3" cy="535.7" r="7" fill="#6B7280"/>
+  <text x="213.3" y="540.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#374151" font-weight="normal" text-anchor="start"><title>Starter</title>Starter</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="16" fill="#15296B" font-weight="600" text-anchor="start"><title>Retention clusters by onboarding model, not by price band.</title>Retention clusters by onboarding model, not by price band.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="start">Source: user-provided account cohort data.</text>
+</svg>

@@ -54,7 +54,7 @@ You can also invoke the skill directly using the slash command:
 **Prompt:**
 ```
 Create a professional consulting-style time-series growth chart in landscape 16:9 format.
-White background, black text, royal blue (#1E3A8A) line chart.
+White background, black text, navy (#15296B) line chart.
 Serif headline in bold: "AI Adoption Accelerates: From Experimentation to Enterprise Scale"
 X-axis: 2023, 2024, 2025
 Y-axis: Adoption Rate (%) with gridlines every 20%
@@ -76,7 +76,7 @@ Clean, minimal, institutional aesthetic. No gradients, no decorative elements.
 Create a professional consulting-style gap visualization in landscape 16:9 format.
 White background, black text. Serif headline in bold: "The AI Maturity Gap: Most Organizations Stuck in Pilot Phase"
 Two horizontal bars:
-- Top bar (royal blue #1E3A8A): 90% - "Organizations using AI"
+- Top bar (navy #15296B): 90% - "Organizations using AI"
 - Bottom bar (light grey #D1D5DB): 1% - "Organizations with mature AI operations"
 Extreme contrast in bar lengths to emphasize gap.
 Large percentage labels on right side of each bar.
@@ -98,7 +98,7 @@ Create a professional consulting-style before/after comparison chart in landscap
 White background, black text. Serif headline in bold: "AI-Assisted Training Drives 58% Improvement in Diagnostic Accuracy"
 Two vertical bars side by side:
 - Left bar (grey #6B7280): 50% - labeled "Before Training"
-- Right bar (royal blue #1E3A8A): 78.8% - labeled "After Training"
+- Right bar (navy #15296B): 78.8% - labeled "After Training"
 Curved arrow between bars with improvement metric: "+28.8 points"
 Y-axis with clear scale from 0 to 100%
 Annotation box: "RCT study with 200 physicians, 20-hour training program"
@@ -117,7 +117,7 @@ Clean, minimal, institutional aesthetic. No gradients, no decorative elements.
 ```
 Create a professional consulting-style market share visualization in landscape 16:9 format.
 White background, black text. Serif headline in bold: "Three-Quarters of US Medical Schools Have Adopted AI Curriculum"
-Left side: Donut chart with 77% in royal blue (#1E3A8A), 23% in light grey (#D1D5DB)
+Left side: Donut chart with 77% in navy (#15296B), 23% in light grey (#D1D5DB)
 Center of donut: "77%" in large text
 Right side: Key statistics in large text:
 - "77% Adopted AI curriculum"
@@ -166,7 +166,7 @@ Clean, minimal, institutional aesthetic. No gradients, no decorative elements.
 ```
 Create a professional consulting-style timeline visualization in landscape 16:9 format.
 White background, black text. Serif headline in bold: "2025: The Year AI Integration Became Standard in Medical Education"
-Horizontal timeline with three circular nodes in royal blue (#1E3A8A)
+Horizontal timeline with three circular nodes in navy (#15296B)
 Event 1: Icon above, "AAMC Guidelines" above line, "July 2025" below line
 Event 2: Icon above, "Stanford Curriculum Launch" above line, "September 2025" below line
 Event 3: Icon above, "AMA Certification" above line, "November 2025" below line
@@ -248,7 +248,7 @@ Rows:
 - Runway Gen-3 | Diffusion | 8.1/10 | 8.9/10 | 8.5/10
 - Pika 2.0 | Hybrid | 7.8/10 | 8.2/10 | 8.0/10
 - Luma Dream | Transformer | 7.5/10 | 7.9/10 | 7.7/10
-Color coding: Top scores in royal blue (#1E3A8A), others in black
+Color coding: Top scores in navy (#15296B), others in black
 Numeric alignment, clear hierarchy
 Clean, minimal, institutional aesthetic. No gradients, no decorative elements.
 ```
@@ -266,11 +266,11 @@ Clean, minimal, institutional aesthetic. No gradients, no decorative elements.
 Create a professional consulting-style waterfall chart in landscape 16:9 format.
 White background, black text. Serif headline in bold: "Q4 Revenue Growth Driven by Enterprise Expansion"
 Horizontal bars showing incremental changes:
-- Starting bar: "Q1 Revenue: $10M" (royal blue #1E3A8A)
-- Positive bar: "+$3M New Customers" (royal blue #1E3A8A)
-- Positive bar: "+$2M Expansion" (royal blue #1E3A8A)
+- Starting bar: "Q1 Revenue: $10M" (navy #15296B)
+- Positive bar: "+$3M New Customers" (navy #15296B)
+- Positive bar: "+$2M Expansion" (navy #15296B)
 - Negative bar: "-$0.5M Churn" (grey #6B7280)
-- Ending bar: "Q4 Revenue: $14.5M" (royal blue #1E3A8A)
+- Ending bar: "Q4 Revenue: $14.5M" (navy #15296B)
 Connecting lines between bars in light grey
 Clear labels for each step
 Y-axis from $0 to $15M
@@ -288,11 +288,11 @@ Clean, minimal, institutional aesthetic. No gradients, no decorative elements.
 **Prompt:**
 ```
 Create a professional consulting-style cover slide in landscape 16:9 format.
-Deep navy blue background (#1E3A5F) with subtle gradient to (#2C4A6F).
+Navy background (#15296B), flat — no gradient.
 Large serif font title in white (#FFFFFF), centered: "The Future of AI in Healthcare"
 Subtitle in smaller sans-serif font, light grey (#E5E7EB): "Strategic Implications for 2026"
 Metadata at bottom in small text: "February 2026 | Executive Board Review | Confidential"
-Optional subtle gold accent (#D4AF37) as thin horizontal line above title
+Thin white kicker line above title (no gold/metallic accents)
 Minimal graphics — focus on elegant typography
 Clean, institutional, boardroom-ready aesthetic.
 ```

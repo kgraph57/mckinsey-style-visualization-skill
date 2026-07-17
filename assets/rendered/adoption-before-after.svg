@@ -1,33 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="The AI workflow program lifted adoption 46 points and cut onboarding time nearly in half">
   <rect width="1280" height="720" fill="#FFFFFF"/>
-  <rect x="80.0" y="52.0" width="56.0" height="5.0" fill="#1E3A8A" stroke="none"/>
-  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">The AI workflow program lifted adoption 46 points and cut</text>
-  <text x="80.0" y="136.0" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">onboarding time nearly in half</text>
-  <text x="80.0" y="178.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="17" fill="#6B7280" font-weight="normal" text-anchor="start">Key metrics before and after program rollout</text>
+  <rect x="80.0" y="52.0" width="56.0" height="5.0" fill="#15296B" stroke="none"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">The AI workflow program lifted adoption 46 points and cut</text>
+  <text x="80.0" y="136.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">onboarding time nearly in half</text>
+  <text x="80.0" y="178.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="17" fill="#6B7280" font-weight="normal" text-anchor="start">Key metrics before and after program rollout</text>
   <line x1="80.0" y1="560.0" x2="1200.0" y2="560.0" stroke="#374151"/>
-  <rect x="186.7" y="474.4" width="72.0" height="85.6" fill="#F3F4F6" stroke="#D1D5DB"/>
-  <rect x="274.7" y="255.7" width="72.0" height="304.3" fill="#1E3A8A" stroke="none"/>
-  <text x="222.7" y="466.4" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="middle">18%</text>
-  <text x="310.7" y="247.7" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#000000" font-weight="bold" text-anchor="middle">64%</text>
-  <text x="266.7" y="223.7" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#2563EB" font-weight="bold" text-anchor="middle">+46%</text>
-  <text x="266.7" y="584.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="middle">AI workflow adoption</text>
-  <rect x="560.0" y="360.3" width="72.0" height="199.7" fill="#F3F4F6" stroke="#D1D5DB"/>
-  <rect x="648.0" y="450.6" width="72.0" height="109.4" fill="#1E3A8A" stroke="none"/>
-  <text x="596.0" y="352.3" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="middle">42 days</text>
-  <text x="684.0" y="442.6" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#000000" font-weight="bold" text-anchor="middle">23 days</text>
-  <text x="640.0" y="328.3" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#2563EB" font-weight="bold" text-anchor="middle">−19 days</text>
-  <text x="640.0" y="584.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="middle">Onboarding time</text>
-  <rect x="933.3" y="517.2" width="72.0" height="42.8" fill="#F3F4F6" stroke="#D1D5DB"/>
-  <rect x="1021.3" y="541.0" width="72.0" height="19.0" fill="#1E3A8A" stroke="none"/>
-  <text x="969.3" y="509.2" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="middle">9</text>
-  <text x="1057.3" y="533.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#000000" font-weight="bold" text-anchor="middle">4</text>
-  <text x="1013.3" y="485.2" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#2563EB" font-weight="bold" text-anchor="middle">−5</text>
-  <text x="1013.3" y="584.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="middle">Tickets per account</text>
-  <rect x="970.0" y="183.0" width="14.0" height="14.0" fill="#F3F4F6" stroke="#D1D5DB"/>
-  <text x="990.0" y="194.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">Before</text>
-  <rect x="1080.0" y="183.0" width="14.0" height="14.0" fill="#1E3A8A" stroke="none"/>
-  <text x="1100.0" y="194.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#374151" font-weight="normal" text-anchor="start">After</text>
-  <rect x="80.0" y="612.0" width="4.0" height="40.0" fill="#1E3A8A" stroke="none"/>
-  <text x="96.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#1E3A8A" font-weight="600" text-anchor="start">Adoption gains justify extending the program to the enterprise tier.</text>
-  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="start">Source: user-provided program metrics.</text>
+  <text x="70.0" y="564.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="11" fill="#6B7280" font-weight="normal" text-anchor="end">0</text>
+  <rect x="186.7" y="473.9" width="72.0" height="86.1" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <rect x="274.7" y="253.9" width="72.0" height="306.1" fill="#15296B" stroke="none"/>
+  <text x="222.7" y="465.9" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="middle">18%</text>
+  <text x="310.7" y="245.9" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#000000" font-weight="bold" text-anchor="middle">64%</text>
+  <text x="266.7" y="201.9" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#2563EB" font-weight="bold" text-anchor="middle">+46%</text>
+  <text x="222.7" y="449.9" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="middle">Before</text>
+  <text x="310.7" y="229.9" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#374151" font-weight="600" text-anchor="middle">After</text>
+  <text x="266.7" y="584.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="middle"><title>AI workflow adoption</title>AI workflow adoption</text>
+  <rect x="560.0" y="359.1" width="72.0" height="200.9" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <rect x="648.0" y="450.0" width="72.0" height="110.0" fill="#15296B" stroke="none"/>
+  <text x="596.0" y="351.1" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="middle">42 days</text>
+  <text x="684.0" y="442.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#000000" font-weight="bold" text-anchor="middle">23 days</text>
+  <text x="640.0" y="327.1" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#2563EB" font-weight="bold" text-anchor="middle">−19 days</text>
+  <text x="640.0" y="584.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="middle"><title>Onboarding time</title>Onboarding time</text>
+  <rect x="933.3" y="517.0" width="72.0" height="43.0" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <rect x="1021.3" y="540.9" width="72.0" height="19.1" fill="#15296B" stroke="none"/>
+  <text x="969.3" y="509.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="middle">9</text>
+  <text x="1057.3" y="532.9" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#000000" font-weight="bold" text-anchor="middle">4</text>
+  <text x="1013.3" y="485.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#2563EB" font-weight="bold" text-anchor="middle">−5</text>
+  <text x="1013.3" y="584.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="middle"><title>Tickets per account</title>Tickets per account</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="16" fill="#15296B" font-weight="600" text-anchor="start"><title>Adoption gains justify extending the program to the enterprise tier.</title>Adoption gains justify extending the program to the enterprise tier.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="start">Source: user-provided program metrics.</text>
 </svg>

@@ -1,41 +1,40 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Paid search wins SMB volume, but enterprise leads come from events and referrals">
   <rect width="1280" height="720" fill="#FFFFFF"/>
-  <rect x="80.0" y="52.0" width="56.0" height="5.0" fill="#1E3A8A" stroke="none"/>
-  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">Paid search wins SMB volume, but enterprise leads come from</text>
-  <text x="80.0" y="136.0" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">events and referrals</text>
-  <text x="80.0" y="178.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="17" fill="#6B7280" font-weight="normal" text-anchor="start">Qualified leads by channel and segment, last quarter</text>
-  <text x="441.7" y="222.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#6B7280" font-weight="600" text-anchor="middle">SMB</text>
-  <text x="745.0" y="222.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#6B7280" font-weight="600" text-anchor="middle">Mid-market</text>
-  <text x="1048.3" y="222.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#6B7280" font-weight="600" text-anchor="middle">Enterprise</text>
-  <text x="80.0" y="277.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start">Paid search</text>
-  <rect x="292.0" y="238.0" width="299.3" height="68.0" fill="#1E3A8A" stroke="none"/>
-  <text x="441.7" y="277.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#FFFFFF" font-weight="600" text-anchor="middle">140</text>
-  <rect x="595.3" y="238.0" width="299.3" height="68.0" fill="#A9B5D5" stroke="none"/>
-  <text x="745.0" y="277.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="600" text-anchor="middle">52</text>
-  <rect x="898.7" y="238.0" width="299.3" height="68.0" fill="#EFF3FB" stroke="none"/>
-  <text x="1048.3" y="277.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="600" text-anchor="middle">8</text>
-  <text x="80.0" y="349.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start">Events</text>
-  <rect x="292.0" y="310.0" width="299.3" height="68.0" fill="#C3CCE3" stroke="none"/>
-  <text x="441.7" y="349.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="600" text-anchor="middle">36</text>
-  <rect x="595.3" y="310.0" width="299.3" height="68.0" fill="#B0BBD9" stroke="none"/>
-  <text x="745.0" y="349.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="600" text-anchor="middle">48</text>
-  <rect x="898.7" y="310.0" width="299.3" height="68.0" fill="#9BA9CE" stroke="none"/>
-  <text x="1048.3" y="349.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="600" text-anchor="middle">61</text>
-  <text x="80.0" y="421.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start">Referral</text>
-  <rect x="292.0" y="382.0" width="299.3" height="68.0" fill="#D9DFEF" stroke="none"/>
-  <text x="441.7" y="421.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="600" text-anchor="middle">22</text>
-  <rect x="595.3" y="382.0" width="299.3" height="68.0" fill="#BEC8E0" stroke="none"/>
-  <text x="745.0" y="421.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="600" text-anchor="middle">39</text>
-  <rect x="898.7" y="382.0" width="299.3" height="68.0" fill="#A1AED1" stroke="none"/>
-  <text x="1048.3" y="421.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="600" text-anchor="middle">57</text>
-  <text x="80.0" y="493.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start">Content / SEO</text>
-  <rect x="292.0" y="454.0" width="299.3" height="68.0" fill="#7083B7" stroke="none"/>
-  <text x="441.7" y="493.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#FFFFFF" font-weight="600" text-anchor="middle">88</text>
-  <rect x="595.3" y="454.0" width="299.3" height="68.0" fill="#BBC5DF" stroke="none"/>
-  <text x="745.0" y="493.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="600" text-anchor="middle">41</text>
-  <rect x="898.7" y="454.0" width="299.3" height="68.0" fill="#E9EDF8" stroke="none"/>
-  <text x="1048.3" y="493.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#374151" font-weight="600" text-anchor="middle">12</text>
-  <rect x="80.0" y="612.0" width="4.0" height="40.0" fill="#1E3A8A" stroke="none"/>
-  <text x="96.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#1E3A8A" font-weight="600" text-anchor="start">Shift incremental budget from paid search to events for the enterprise push; keep paid search for SMB.</text>
-  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="start">Source: user-provided marketing attribution data.</text>
+  <rect x="80.0" y="52.0" width="56.0" height="5.0" fill="#15296B" stroke="none"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">Paid search wins SMB volume, but enterprise leads come from</text>
+  <text x="80.0" y="136.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">events and referrals</text>
+  <text x="80.0" y="178.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="17" fill="#6B7280" font-weight="normal" text-anchor="start">Qualified leads by channel and segment, last quarter</text>
+  <text x="441.7" y="220.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="600" text-anchor="middle">SMB</text>
+  <text x="745.0" y="220.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="600" text-anchor="middle">Mid-market</text>
+  <text x="1048.3" y="220.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="600" text-anchor="middle">Enterprise</text>
+  <text x="80.0" y="275.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start"><title>Paid search</title>Paid search</text>
+  <rect x="292.0" y="236.0" width="299.3" height="68.0" fill="#15296B" stroke="none"/>
+  <text x="441.7" y="275.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#FFFFFF" font-weight="600" text-anchor="middle">140</text>
+  <rect x="595.3" y="236.0" width="299.3" height="68.0" fill="#A6B0CB" stroke="none"/>
+  <text x="745.0" y="275.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#000000" font-weight="600" text-anchor="middle">52</text>
+  <rect x="898.7" y="236.0" width="299.3" height="68.0" fill="#EFF3FB" stroke="none"/>
+  <text x="1048.3" y="275.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#000000" font-weight="600" text-anchor="middle">8</text>
+  <text x="80.0" y="347.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start"><title>Events</title>Events</text>
+  <rect x="292.0" y="308.0" width="299.3" height="68.0" fill="#C1C8DC" stroke="none"/>
+  <text x="441.7" y="347.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#000000" font-weight="600" text-anchor="middle">36</text>
+  <rect x="595.3" y="308.0" width="299.3" height="68.0" fill="#ADB6CF" stroke="none"/>
+  <text x="745.0" y="347.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#000000" font-weight="600" text-anchor="middle">48</text>
+  <rect x="898.7" y="308.0" width="299.3" height="68.0" fill="#97A2C1" stroke="none"/>
+  <text x="1048.3" y="347.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#000000" font-weight="600" text-anchor="middle">61</text>
+  <text x="80.0" y="419.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start"><title>Referral</title>Referral</text>
+  <rect x="292.0" y="380.0" width="299.3" height="68.0" fill="#D8DEEC" stroke="none"/>
+  <text x="441.7" y="419.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#000000" font-weight="600" text-anchor="middle">22</text>
+  <rect x="595.3" y="380.0" width="299.3" height="68.0" fill="#BCC4D9" stroke="none"/>
+  <text x="745.0" y="419.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#000000" font-weight="600" text-anchor="middle">39</text>
+  <rect x="898.7" y="380.0" width="299.3" height="68.0" fill="#9EA8C6" stroke="none"/>
+  <text x="1048.3" y="419.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#000000" font-weight="600" text-anchor="middle">57</text>
+  <text x="80.0" y="491.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start"><title>Content / SEO</title>Content / SEO</text>
+  <rect x="292.0" y="452.0" width="299.3" height="68.0" fill="#6B79A4" stroke="none"/>
+  <text x="441.7" y="491.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#000000" font-weight="600" text-anchor="middle">88</text>
+  <rect x="595.3" y="452.0" width="299.3" height="68.0" fill="#B8C0D7" stroke="none"/>
+  <text x="745.0" y="491.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#000000" font-weight="600" text-anchor="middle">41</text>
+  <rect x="898.7" y="452.0" width="299.3" height="68.0" fill="#E8EDF7" stroke="none"/>
+  <text x="1048.3" y="491.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#000000" font-weight="600" text-anchor="middle">12</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="16" fill="#15296B" font-weight="600" text-anchor="start"><title>Shift incremental budget from paid search to events for the enterprise push; keep paid search for SMB.</title>Shift incremental budget from paid search to events for the enterprise push; keep paid search for SMB.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="start">Source: user-provided marketing attribution data.</text>
 </svg>

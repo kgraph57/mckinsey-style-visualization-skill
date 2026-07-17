@@ -1,0 +1,49 @@
+{
+  "pattern": "scatter",
+  "headline": "Price level does not explain churn; onboarding depth does",
+  "subline": "Accounts by contract price and 12-month retention",
+  "x_axis": {
+    "label": "Contract price ($k / yr)",
+    "unit": "$k"
+  },
+  "y_axis": {
+    "label": "12-month retention (%)",
+    "unit": "%"
+  },
+  "points": [
+    {
+      "x": 18,
+      "y": 92,
+      "label": "Guided onboarding",
+      "emphasis": true
+    },
+    {
+      "x": 45,
+      "y": 90,
+      "label": "Guided, enterprise",
+      "emphasis": true
+    },
+    {
+      "x": 22,
+      "y": 61,
+      "label": "Self-serve"
+    },
+    {
+      "x": 38,
+      "y": 58,
+      "label": "Self-serve, mid"
+    },
+    {
+      "x": 60,
+      "y": 88,
+      "label": "White-glove"
+    },
+    {
+      "x": 12,
+      "y": 55,
+      "label": "Starter"
+    }
+  ],
+  "annotation": "Retention clusters by onboarding model, not by price band.",
+  "source": "Source: user-provided account cohort data."
+}
