@@ -197,7 +197,7 @@ def validate_manifest() -> None:
     expected = {
         "name": "strategy-consulting-visualization",
         "display_name": "Strategy Consulting Visualization Skill",
-        "version": "1.8.0",
+        "version": "1.9.0",
         "license": "MIT",
         "entrypoint": "SKILL.md",
     }
