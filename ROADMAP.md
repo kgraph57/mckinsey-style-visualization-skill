@@ -1,5 +1,11 @@
 # Roadmap
 
+## Next Up
+
+- **Native PPTX export**: optional `scripts/export_pptx.py` that writes OOXML directly (stdlib zip + XML) embedding the SVG slides with `svgBlip` plus an optional raster fallback. Ship only with a verification path (LibreOffice round-trip in CI) so the exporter can never claim more than it renders.
+- **Video export**: turn the HTML deck into a short mp4/GIF via a headless browser recipe for social sharing.
+- **A4 / vertical canvas rendering**: extend the renderer beyond 16:9 so report and infographic profiles render natively (currently spec-only, disclosed).
+
 ## Phase 1: Marketplace Readiness
 
 - Keep `SKILL.md` portable and concise.

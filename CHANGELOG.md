@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.9.0 - 2026-07-17 - Design-Panel Review Hardening
+
 ### Animated HTML decks and README relaunch
 
 - Added `scripts/build_html_deck.py` (stdlib-only): combines slide specs into a single self-contained HTML deck — staggered element reveals with `prefers-reduced-motion` support, keyboard/click navigation, progress bar, deep links, and a print stylesheet that exports one slide per page to PDF. No external requests; SVGs, styles, and scripts are inline.

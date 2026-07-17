@@ -8,7 +8,34 @@ https://github.com/kgraph57/mckinsey-style-visualization-skill
 
 ## Release URL
 
-https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.8.0
+https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.9.0
+
+## Awesome-List Submission Kit
+
+Ready-to-submit entries for community lists. House rule: a human reviews every outbound PR diff before it is opened, one list per PR, and the PR body discloses AI assistance.
+
+Candidate lists (verify each list's contribution rules first):
+
+- awesome-claude-code (skills / workflows section)
+- awesome-claude-skills style lists
+- awesome-ai-agents (tools section)
+- awesome-dataviz (generators section)
+
+One-line entry (adapt to each list's format):
+
+```text
+[Strategy Consulting Visualization Skill](https://github.com/kgraph57/mckinsey-style-visualization-skill) - Turn messy notes into board-ready slides: 16 chart patterns rendered to SVG, animated HTML decks with PDF export, Japanese business documents supported. Python stdlib only.
+```
+
+PR body template:
+
+```text
+Adds Strategy Consulting Visualization Skill: an agent skill + renderer
+that turns raw notes/metrics into consulting-grade slides (SVG, animated
+HTML deck, PDF via print). Zero dependencies, CI-verified example gallery,
+MIT licensed. Disclosure: the project is developed with AI assistance and
+every release is validated by tests and a package validator.
+```
 
 ## Short Pitch
 
