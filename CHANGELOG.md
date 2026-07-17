@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+### Animated HTML decks and README relaunch
+
+- Added `scripts/build_html_deck.py` (stdlib-only): combines slide specs into a single self-contained HTML deck — staggered element reveals with `prefers-reduced-motion` support, keyboard/click navigation, progress bar, deep links, and a print stylesheet that exports one slide per page to PDF. No external requests; SVGs, styles, and scripts are inline.
+- Committed a six-slide demo deck (`examples/demo-deck.json` → `examples/demo-deck.html`) and an animated README demo (`assets/readme/demo.gif`) generated from real renderer output.
+- Added a committed Japanese board-summary example (`jp-board-summary`) proving CJK wrapping, classification markers, and page furniture in a rendered slide.
+- Extended `scripts/validate_skill.py`: the committed demo deck must match a fresh build from its manifest (same drift protection the rendered SVGs already have), plus required-file coverage for the new assets.
+- Added `tests/test_build_html_deck.py` (deck structure, self-containment, animation caps, static background rule); suite now 28 tests.
+- Rewrote README.md and README.ja.md around show-don't-tell: animated hero GIF, verified gallery, 60-second start, HTML-deck/PDF/PowerPoint export paths, the five-perspective design-panel story, and honest 16-rendered/12-spec-only framing; commercial documents moved into a collapsed details section.
+
 ## 1.9.0 - 2026-07-17 - Design-Panel Review Hardening
 
 Fixes and additions from an independent, five-perspective design review (Edward Tufte; Gene Zelazny; Vignelli × Müller-Brockmann; Alan Smith / FT; a modern design engineer). The panel scored the package 5.8/10 on average with a unanimous “conditional yes”; this release clears the blockers they raised.

@@ -1,97 +1,127 @@
+<div align="center">
+
 # 戦略コンサル型ビジュアライゼーション・スキル
+
+**雑なメモを入れる。役員会スライドが出てくる。**
+
+AIエージェントに載せるひとつのスキルで、メモ・数値・文章をコンサル品質のビジュアルに変換 — 本物のSVGスライドとして、**アニメーション付きHTMLデッキ**として、あるいはデザイナーやツールがそのまま実行できるスペックとして。
+
+Python 3 標準ライブラリのみ。**依存ゼロ・APIキー不要・ネットワーク通信なし。**
+
+[![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/badge/Release-v1.9.0-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.9.0)
 
 [English](README.md) | 日本語
 
-[![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
+![このスキルで生成した6枚の役員会デッキ](assets/readme/demo.gif)
 
-> 雑なメモ・数値・文章を、役員会レベルのビジュアライゼーションに変える Agent Skill。スライドだけでなく、レポート・提案書・研修資料・技術ドキュメント・インフォグラフィックまで対応します。
+*このリポジトリだけで作った実物のデッキ: `スペック(JSON) → SVGスライド → アニメ付きHTMLデッキ`。手描きは一切なし。*
 
-![雑なメモから役員会スライドへ](assets/readme/hero-before-after.svg)
+</div>
 
-## スターする理由
+## スターされる理由
 
-これは単なるプロンプト集ではなく、エージェントが再利用できるビジュアライゼーションのOSとして作っています。
+- **実際に描画する。** ウォーターフォール、エグゼクティブサマリー、2×2、散布図、ヒートマップ、ガント、スモールマルチプル、カバーなど16パターンが本物のSVGスライドになります。下のギャラリーは全部レンダラーの出力そのままで、CIがpushごとに鮮度を検証します。
+- **1コマンドでアニメーション付きHTMLデッキ。** スライドを1つの自己完結HTMLに束ねる: 静かな段階リビール、キーボード操作、進捗バー、外部リクエストゼロ。`p` を押す → ブラウザが印刷 → **そのままPDF**。
+- **いつものスライドツールで使える。** SVGは **PowerPoint・Keynote・Word** に直接挿入可能。Googleスライドはブラウザで一度PNG化してから。
+- **日本語のビジネス文書が第一級市民。** CJKは全角幅で計測して正しく折り返し、フォントはNoto Sans JP / ヒラギノにフォールバック。稟議書・役員会資料・週報・学会抄録の専用プロファイル付き。
+- **監査に耐えるチャート。** バーの比率はデータと一致（Lie Factor ≈ 1.0）、ゼロ基線を明示、セル文字は全色域でWCAG AAコントラスト、アクセントのネイビーは白黒印刷でも判読可能 — すべて散文の約束ではなく**テストでアサート**。
+- **5人のデザイン巨匠に酷評させて、全部直した。** Tufteのデータインク規律、元McKinseyのチャート親方、スイス派グリッド、FT流データジャーナリズム、現代デザインエンジニアリングの5視点パネルが5.8/10と欠陥リストを突きつけ、v1.9.0で全修正を出荷。[記録はこちら。](#5人のデザイン巨匠に酷評された)
 
-- **雑な入力から役員会向けスペックへ**: メモ、数値、文章、プロセス説明を意思決定向けの可視化仕様に変換
-- **実際に描画できる証拠**: 依存ライブラリ不要の Python レンダラーで16パターンを SVG 出力(16:9のみ)。カタログの残りのパターンはスペック出力専用で、どちらかはドキュメントに明記
-- **ポータブルな skill パッケージ**: `SKILL.md` は短く保ち、詳細は必要な reference だけ読む構造
-- **安全な公開ポジショニング**: コンサルティング領域のカテゴリ表現を使い、特定ファームとの非提携を明記
-- **バイアスに強いレビュー**: 仮定、過剰主張、アクセシビリティ、翻訳・文化差のリスクを専門家レンズで点検
-- **品質ゲート付き**: テストと validation で、壊れた spec、古い SVG、危険な表現、パッケージ drift を検知
-
-## できること
-
-- **インサイト主導の見出し**:説明的なタイトルではなく、意思決定に答えるメッセージを作る
-- **パターン選択**:ウォーターフォール、2x2、ベンチマーク表、ギャップ、タイムライン、プロセスフロー、ファネル、コンセプトマップなど28パターンから最適なものを選ぶ
-- **どんな入力でも**:数値データ、文章、プロセス記述、会議メモ、学習ノート — [入力トリアージ](references/input-triage.md)が入力の種類をパターンに対応付けます
-- **どんな資料でも**:役員会資料、社内レポート、研究レポート、営業提案、研修教材、技術文書、ワンページャー、インフォグラフィックの[12プロファイル](references/document-type-profiles.md)
-- **実際にレンダリング**:スペック JSON から SVG スライドを生成するレンダラー付き(依存ライブラリ不要)
-
-## 30秒クイックスタート
-
-スキルをインストール:
+## 60秒スタート
 
 ```bash
+# 1. 取得（これがエージェントスキルとしてのインストールも兼ねる）
 git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization
+cd ~/.claude/skills/strategy-consulting-visualization
+
+# 2. スライド1枚をレンダリング → SVG
+python3 scripts/render_slide_spec.py examples/render-specs/arr-waterfall.json -o slide.svg
+
+# 3. アニメ付きフルデッキを生成 → HTML1ファイル
+python3 scripts/build_html_deck.py --manifest examples/demo-deck.json -o deck.html
+open deck.html   # ← 矢印キーで移動、"p" で印刷 → PDF
 ```
 
-サンプルスペックをレンダリング:
+ターミナルを開かず、エージェントに頼むなら:
+
+```text
+このスキルを使って、次のメモを役員会向けスライドにして:
+ARRは$10Mから$15Mに成長。エンタープライズ新規+$3M、既存拡張+$2.5M、チャーン-$0.5M。
+取締役会は実装キャパシティへの投資を判断する。
+```
+
+## パイプライン
+
+```mermaid
+flowchart LR
+    A["雑なメモ・数値・文章"] --> B["スライドスペック<br/>(JSON)"]
+    B --> C["SVGスライド"]
+    C --> D["アニメ付きHTMLデッキ"]
+    C --> E["PowerPoint / Keynote / Word<br/>(SVG挿入)"]
+    D --> F["PDF<br/>(ブラウザ印刷)"]
+```
+
+スペックはただのJSONなので、コードと同じようにdiff・レビュー・バージョン管理できます。
+
+## ギャラリー
+
+すべて `scripts/render_slide_spec.py` の出力そのまま。CIがレンダラー出力との一致を検証するので、ギャラリーが静かに腐ることはありません。スペックは [examples/render-specs/](examples/render-specs) にあります。
+
+| 役員会サマリー（日本語） | ARRウォーターフォール |
+| --- | --- |
+| ![日本語役員会サマリー](assets/rendered/jp-board-summary.svg) | ![ウォーターフォール](assets/rendered/arr-waterfall.svg) |
+
+| スモールマルチプル | 散布図 |
+| --- | --- |
+| ![スモールマルチプル](assets/rendered/segment-adoption-multiples.svg) | ![散布図](assets/rendered/pricing-retention-scatter.svg) |
+
+| エグゼクティブサマリー | カバースライド |
+| --- | --- |
+| ![サマリーストリップ](assets/rendered/executive-summary.svg) | ![カバー](assets/rendered/board-deck-cover.svg) |
+
+**SVG化できるのは16パターン**: カバー、ウォーターフォール、ギャップ、ビフォーアフター、時系列、ベンチマーク表、サマリーストリップ、プロセスフロー、ファネル、ヒートマップ、ガント、KPIスコアカード、2x2、散布図、分布、スモールマルチプル。残りの12パターン（サンキー、ピラミッド、地図、デシジョンツリー等）はスペックと画像生成プロンプトとして出力され、[カタログにどちらか明記](references/visualization-patterns.md)しています。誇張はしません。
+
+## アニメーション付きHTMLデッキ
 
 ```bash
-python3 scripts/render_slide_spec.py examples/render-specs/arr-waterfall.json -o slide.svg
+python3 scripts/build_html_deck.py cover.json bridge.json summary.json -o deck.html --title "Q4レビュー"
 ```
 
-エージェントへの依頼例:
+1コマンド・1ファイルで:
 
-```text
-このスキルを使って、次のメモを役員会向けのスライドスペックにして:
-- ARRは$10Mから$15Mに成長
-- エンタープライズ新規が$3M貢献
-- 既存顧客の拡張が$2.5M貢献
-- チャーンで$0.5M減少
-- 取締役会は実装キャパシティへの投資を判断する必要がある
-```
+- **静かな段階リビール** — 派手なトランジションではなく品のある動き（`prefers-reduced-motion` 対応）
+- **キーボード＋クリック操作**、進捗バー、ページカウンター、ディープリンク（`deck.html#3`）
+- **印刷スタイルシート**: `p` か Cmd+P で1スライド1ページ → **PDF保存**
+- **外部リクエストゼロ** — スタイルもスクリプトもSVGも全部インライン。メール添付・オフライン発表OK
 
-何を頼めばいいか迷ったら、この形で使えます:
+コミット済みデモ: [examples/demo-deck.html](examples/demo-deck.html)（クローン後ローカルで開く）
 
-```text
-このスキルを使って。まず読者と意思決定を特定し、いちばんシンプルで役に立つ可視化を選んで。
-仮定を疑い、言い過ぎを避け、専門家レビュー notes も付けて。
-素材:
-[メモ、数値、文章、プロセスを貼る]
-```
+## どこへでも書き出せる
 
-## バイアスに強いレビュー
+| 出力先 | 方法 | 品質 |
+| --- | --- | --- |
+| PDF | HTMLデッキを開いて印刷 → PDF保存 | ベクター、1スライド1ページ |
+| PowerPoint / Keynote / Word | SVGを画像として挿入 | ベクター、拡大しても劣化なし |
+| Googleスライド / Docs | ブラウザでSVG→PNG化して挿入 | 任意解像度のラスター |
+| Figma / Illustrator | SVGを直接開く | 完全編集可能なベクター |
+| ドキュメント / wiki / GitHub | SVGをそのまま埋め込み | このREADMEで見ている通り |
 
-[expert-review-loop.md](references/expert-review-loop.md) には、研究方法、経営、財務、プロダクト、データ可視化、アクセシビリティ、異文化、法務・セキュリティの観点を入れています。儀式を増やすためではなく、根拠の薄い断定、内輪用語、色だけに依存した意味、文化的な決めつけ、隠れた仮定を削るためのものです。
+## 5人のデザイン巨匠に酷評された
 
-## レンダリング例
+「きれいなチャート」ではなく**守り切れるチャート**を目指して、5視点のデザインレビューパネル（厳格なAIペルソナ）に容赦なく叩かせました:
 
-| ARRウォーターフォール | キャパシティギャップ |
-| --- | --- |
-| ![ウォーターフォール](assets/rendered/arr-waterfall.svg) | ![ギャップ](assets/rendered/capacity-gap.svg) |
+| レビュアーの流派 | 評点 | 一番鋭い一撃 |
+| --- | --- | --- |
+| Edward Tufte — データインク・正直な軸 | 5.5/10 | 「意味のない装飾矩形がレンダラーに焼き込まれている」 |
+| Gene Zelazny — 元McKinsey『Say It With Charts』 | 6.5/10 | 「旗艦サンプルが自分のヘッドライン規則に違反している」 |
+| Vignelli × Müller-Brockmann — スイス派 | 6/10 | 「デザインシステムではなく企業テンプレート」 |
+| Alan Smith — FTデータジャーナリズム | 5.5/10 | 「ウォーターフォールが負のブリッジで画面外に描画される」（実証付き） |
+| 現代デザインエンジニアリング | 5.5/10 | 「2020年代の仕様書を着た2016年のビジュアル」 |
 
-| ビフォーアフター | プロセスフロー |
-| --- | --- |
-| ![ビフォーアフター](assets/rendered/adoption-before-after.svg) | ![プロセスフロー](assets/rendered/onboarding-flow.svg) |
+そして[v1.9.0](CHANGELOG.md)で**全部直しました**: ゼロフロアのウォーターフォール、CJK正対応の折返し、サイレント切り捨ての根絶、白黒印刷に耐える単一ネイビー、符号付きデータのdivergingヒートマップ、全色域WCAG AAのアサート、装飾の除去、チャート選択前の比較タイプゲート、データインク健全性とデッキ論理を測るルーブリック。
 
-| ベンチマーク表 | エグゼクティブサマリー |
-| --- | --- |
-| ![ベンチマーク表](assets/rendered/vendor-benchmark.svg) | ![サマリーストリップ](assets/rendered/executive-summary.svg) |
-
-すべて `scripts/render_slide_spec.py` の出力そのままです。スペック JSON は [examples/render-specs/](examples/render-specs) にあります。対応パターンは16種:カバー、ウォーターフォール、ギャップ、ビフォーアフター、時系列、ベンチマーク表、サマリーストリップ、プロセスフロー、ファネル、ヒートマップ、ガント、KPIスコアカード、2x2、散布図、分布、スモールマルチプル。これ以外のカタログパターン(サンキー、地図、ピラミッド等)はスペック出力専用です。
-
-## 出力例を共有する
-
-雑なメモから使えるスライドに変わったら、あとで見返せるようにスターして、[GitHub Discussions](https://github.com/kgraph57/mckinsey-style-visualization-skill/discussions) で出力例を共有してください。実例が増えるほど、パターン集とレビュー観点を強くできます。
-
-歓迎する共有:
-
-- 元のメモと、生成された SVG またはスライドスペック
-- もっと良い可視化パターンが必要な業務シナリオ
-- 壊れた出力、わかりにくい出力、言い切りすぎた出力
-
-リクエストは [Example request issue template](https://github.com/kgraph57/mckinsey-style-visualization-skill/issues/new?template=example_request.md) から送れます。
+役員会でも、監査でも、デザイン批評家の前でも守り切れるビジュアルシステム — 一度批評を生き延びているからです。
 
 ## 職種別の使い方
 
@@ -107,46 +137,34 @@ python3 scripts/render_slide_spec.py examples/render-specs/arr-waterfall.json -o
 | エンジニア | 障害ポストモーテムのフロー | [プロセスフロー](assets/rendered/eng-incident-flow.svg) |
 | 研究職・医療職 | 研究アウトカムのサマリー | [ビフォーアフター](assets/rendered/research-outcomes-before-after.svg) |
 
-日本特有のビジネス文書(稟議書・週報・月報・学会抄録・抄読会・社内勉強会・提案書)のプロファイルも[document-type-profiles.md](references/document-type-profiles.md)に用意しています。
+日本特有のビジネス文書（稟議書・週報・月報・役員会資料・学会抄録・抄読会・社内勉強会・提案書）のプロファイルは [document-type-profiles.md](references/document-type-profiles.md) にあります。
 
 ## 仕組み
 
 ```mermaid
 flowchart LR
     A["入力(メモ・数値・文章)"] --> B["読者の問いを特定"]
-    B --> C["インサイト見出し"]
-    C --> D["パターン選択"]
+    B --> C["単一命題のインサイト見出し"]
+    C --> D["比較タイプ判定 → パターン選択"]
     D --> E["スペック生成"]
-    E --> F["品質ルーブリックで採点"]
-    F --> G["SVGレンダリング(任意)"]
+    E --> F["24点ルーブリックで採点"]
+    F --> G["SVG / HTMLデッキ出力"]
 ```
 
-| レイヤー | 役割 | ファイル |
-| --- | --- | --- |
-| スキル本体 | エージェントの使用条件とワークフロー | [SKILL.md](SKILL.md) |
-| 入力トリアージ | あらゆる入力をパターンに対応付け | [input-triage.md](references/input-triage.md) |
-| 文書プロファイル | 資料タイプ別のフォーマット・密度・トーン | [document-type-profiles.md](references/document-type-profiles.md) |
-| パターン集 | 28の可視化パターンと使い分け | [visualization-patterns.md](references/visualization-patterns.md) |
-| スタイルシステム | 配色・タイポグラフィ・レイアウト規則 | [style-system.md](references/style-system.md) |
-| プロンプトテンプレート | 再現可能なスペック形式 | [prompt-templates.md](references/prompt-templates.md) |
-| 品質ルーブリック | 20点満点の出力採点 | [quality-rubric.md](references/quality-rubric.md) |
-| レンダラー | スペック JSON → SVG スライド | [render_slide_spec.py](scripts/render_slide_spec.py) |
-
-## デザイン原則
-
-- 白背景・黒文字・ネイビー(`#15296B`)のアクセント、抑制されたグレー階層
-- 軸の正直なスケーリング、直接ラベル、凡例探しをさせない
-- 装飾ではなく情報密度と階層で勝負
-- 数値はすべて入力データか明示された仮定に紐づく(データの捏造をしない)
+見出しが先、チャートは後。すべてのビジュアルは読者の意思決定から始まり、5つの比較タイプ（成分/項目/時系列/分布/相関）のゲートを通ってからパターンが決まります。スタイルの正本は [style-system.md](references/style-system.md)（8pxグリッド・固定タイプスケール・単一ネイビー・fill > line > text の強調ラダー）。
 
 ## 検証
 
 ```bash
 python3 -m unittest discover -s tests
-python3 scripts/validate_skill.py
+python3 scripts/validate_skill.py   # → OK: skill package passed validation
 ```
 
-validator は必須ファイル、manifest、危険な提携表現、全サンプル spec のレンダリング、コミット済み SVG との一致を確認します。
+validatorは全サンプルspecとデモデッキをソースから再生成してコミット済み出力と突き合わせるので、ギャラリーとデッキは腐れません。
+
+## スター・破壊報告・共有
+
+雑なメモが使えるスライドになったら、**スターを**。壊れた出力・わかりにくい出力の報告は回帰テストになります（[Discussions](https://github.com/kgraph57/mckinsey-style-visualization-skill/discussions) / [リクエスト](https://github.com/kgraph57/mckinsey-style-visualization-skill/issues/new?template=example_request.md)）。
 
 ## 免責事項
 

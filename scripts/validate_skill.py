@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import importlib.util
 import json
 import re
 import sys
@@ -78,6 +79,7 @@ REQUIRED_FILES = [
     "examples/render-specs/deal-size-distribution.json",
     "examples/render-specs/segment-adoption-multiples.json",
     "examples/render-specs/board-deck-cover.json",
+    "examples/render-specs/jp-board-summary.json",
     "assets/rendered/sales-pipeline-funnel.svg",
     "assets/rendered/marketing-channel-heatmap.svg",
     "assets/rendered/product-priority-two-by-two.svg",
@@ -90,6 +92,11 @@ REQUIRED_FILES = [
     "assets/rendered/deal-size-distribution.svg",
     "assets/rendered/segment-adoption-multiples.svg",
     "assets/rendered/board-deck-cover.svg",
+    "assets/rendered/jp-board-summary.svg",
+    "assets/readme/demo.gif",
+    "scripts/build_html_deck.py",
+    "examples/demo-deck.json",
+    "examples/demo-deck.html",
     "assets/readme/hero-before-after.svg",
     "assets/social/launch-card.svg",
     ".github/ISSUE_TEMPLATE/marketplace-listing.md",
@@ -268,11 +275,26 @@ def validate_renderer() -> None:
             )
 
 
+def validate_demo_deck() -> None:
+    """The committed HTML deck must match a fresh build from its manifest."""
+    module_path = ROOT / "scripts" / "build_html_deck.py"
+    spec_loader = importlib.util.spec_from_file_location("build_html_deck", module_path)
+    module = importlib.util.module_from_spec(spec_loader)
+    spec_loader.loader.exec_module(module)
+    manifest = json.loads((ROOT / "examples" / "demo-deck.json").read_text(encoding="utf-8"))
+    spec_paths = [ROOT / "examples" / p for p in manifest["slides"]]
+    fresh = module.build_deck(spec_paths, manifest.get("title", "Slide Deck"))
+    committed = (ROOT / "examples" / "demo-deck.html").read_text(encoding="utf-8")
+    if fresh != committed:
+        fail("stale demo deck: regenerate examples/demo-deck.html with scripts/build_html_deck.py")
+
+
 def main() -> None:
     validate_required_files()
     validate_skill_frontmatter()
     validate_manifest()
     validate_no_stale_or_risky_text()
+    validate_demo_deck()
     validate_renderer()
     print("OK: skill package passed validation")
 
