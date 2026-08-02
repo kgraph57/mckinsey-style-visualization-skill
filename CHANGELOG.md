@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 2.0.2 - 2026-08-02 - Presentation Chrome Auto-Hide
+
+- The deck HUD (navigation dots, hint line, page counter) now fades out after 2.5s of mouse idle and disappears instantly on keyboard navigation, returning on mouse movement; the cursor hides with it. Presenting no longer shows persistent chrome over the slide. Print output is unaffected (the HUD was already hidden in print).
+
 ## 2.0.1 - 2026-08-02 - Print Pagination Fix
 
 - Fixed HTML deck printing collapsing every slide onto a single page: `.deck` stayed a flex container in print media, and flex items ignore forced page breaks. Print now switches the deck to block flow and declares `@page { size: 13.333in 7.5in; margin: 0 }` (a true 16:9 page per slide), so browser print → PDF produces one clean page per slide. The bug dated back to the deck feature's introduction in 1.9.0.

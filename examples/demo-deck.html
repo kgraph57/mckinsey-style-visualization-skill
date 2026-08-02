@@ -30,7 +30,12 @@ body { font-family: 'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragin
 .hud {
   position: fixed; left: 0; right: 0; bottom: 0; display: flex; align-items: center; gap: 14px;
   padding: 12px 20px; color: #93A3BC; font-size: 12px; user-select: none;
+  transition: opacity 320ms ease;
 }
+/* Presenting: chrome gets out of the way. The HUD fades after a short idle
+   (or instantly on keyboard navigation) and returns on mouse movement. */
+body.hud-hidden .hud { opacity: 0; pointer-events: none; }
+body.hud-hidden { cursor: none; }
 .hud .dots { display: flex; gap: 7px; }
 .hud .dot { width: 7px; height: 7px; border-radius: 50%; background: #33415C; cursor: pointer; border: 0; padding: 0; }
 .hud .dot.on { background: #E5E7EB; }
@@ -315,12 +320,25 @@ body { font-family: 'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragin
     counter.textContent = (current + 1) + ' / ' + slides.length;
     history.replaceState(null, '', '#' + (current + 1));
   }
+  // Presentation chrome: fade the HUD after a short idle, bring it back on
+  // mouse movement, and drop it instantly when the keyboard takes over.
+  var hudTimer = null;
+  function hideHud() { document.body.classList.add('hud-hidden'); }
+  function wakeHud() {
+    document.body.classList.remove('hud-hidden');
+    clearTimeout(hudTimer);
+    hudTimer = setTimeout(hideHud, 2500);
+  }
+  document.addEventListener('mousemove', wakeHud);
   document.addEventListener('keydown', function (event) {
+    var navigated = true;
     if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'PageDown') { show(current + 1); event.preventDefault(); }
-    if (event.key === 'ArrowLeft' || event.key === 'PageUp') { show(current - 1); event.preventDefault(); }
-    if (event.key === 'Home') show(0);
-    if (event.key === 'End') show(slides.length - 1);
-    if (event.key === 'p') window.print();
+    else if (event.key === 'ArrowLeft' || event.key === 'PageUp') { show(current - 1); event.preventDefault(); }
+    else if (event.key === 'Home') show(0);
+    else if (event.key === 'End') show(slides.length - 1);
+    else if (event.key === 'p') window.print();
+    else navigated = false;
+    if (navigated) { clearTimeout(hudTimer); hideHud(); }
   });
   document.querySelector('.deck').addEventListener('click', function (event) {
     if (event.target.closest('.hud')) return;
@@ -329,6 +347,7 @@ body { font-family: 'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragin
   });
   dots.forEach(function (dot, i) { dot.addEventListener('click', function () { show(i); }); });
   show(current);
+  wakeHud();
 })();
 </script>
 </body>
