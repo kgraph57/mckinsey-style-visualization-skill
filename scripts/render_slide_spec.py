@@ -230,9 +230,10 @@ def line_el(x1: float, y1: float, x2: float, y2: float, stroke: str = GREY_BORDE
 
 
 def header(spec: dict) -> list[str]:
-    # The kicker bar above the headline is the deck's single signature motif.
-    # Do not add sibling accent bars elsewhere (see style-system.md anti-patterns).
-    parts = [rect_el(ML, 52, 56, 5, BLUE)]
+    # No decorative marks: the headline itself anchors the slide (the former
+    # navy kicker bar above it carried no information and was removed —
+    # data-ink rule, see style-system.md Ink Discipline).
+    parts: list[str] = []
     headline = spec.get("headline", "")
     lines = wrap(headline, 64)
     size, line_h = 30, 40
@@ -496,7 +497,7 @@ def render_summary_strip(spec: dict) -> list[str]:
     # the deck has. The subhead directly above this band (e.g. "Board
     # takeaways for the Q4 decision") functions as the same kind of
     # immediately-preceding label that "KEY TAKEAWAYS" is for `closing` and
-    # the kicker is for `bullet_list`, so it gets the same fixed top anchor
+    # the headline is for `bullet_list`, so it gets the same fixed top anchor
     # instead of being centered away from its content: band_start =
     # CHART_TOP + 20, identical to bullet_list's band_start. Column start
     # position no longer depends on content height, so per-block height no
@@ -700,7 +701,7 @@ def render_kpi_scorecard(spec: dict) -> list[str]:
         x = ML + (i % cols) * (card_w + gap)
         y = CHART_TOP + (i // cols) * (card_h + 18)
         # Flat fill only — no border, no status accent bar (ink discipline: the
-        # kicker-bar motif does not get echoed onto cards). Status still reads
+        # no accent-bar motif on cards). Status still reads
         # through the trend color below and the value/target text itself.
         parts.append(rect_el(x, y, card_w, card_h, "#FFFFFF"))
         parts.append(text_el(x + 24, y + 30, metric["label"], size=14, fill=GREY_MED, weight="600"))
@@ -758,7 +759,6 @@ def render_cover(spec: dict) -> list[str]:
     """Navy cover slide. Bypasses the standard white header/footer chrome."""
     parts = [
         rect_el(0, 0, W, H, NAVY_COVER),
-        rect_el(ML, 200, 56, 5, WHITE),
     ]
     y = 264
     for line in wrap(spec.get("title", ""), 40, max_lines=3):
@@ -891,7 +891,7 @@ def render_small_multiples(spec: dict) -> list[str]:
 def render_section_divider(spec: dict) -> list[str]:
     """Navy full-bleed section divider (小扉). Bypasses header/footer chrome,
     mirroring render_cover's geometry (see CHROMELESS)."""
-    parts = [rect_el(0, 0, W, H, NAVY_COVER), rect_el(ML, 200, 56, 5, WHITE)]
+    parts = [rect_el(0, 0, W, H, NAVY_COVER)]
     section_number = spec["section_number"]
     parts.append(
         text_el(ML, 236, f"SECTION {section_number:02d}", size=15, fill="#E5E7EB", weight="600")
@@ -946,7 +946,7 @@ def render_end_cover(spec: dict) -> list[str]:
     """Navy full-bleed back cover. Mirrors render_cover geometry exactly, with
     a contact block and a default title so a bare {"pattern": "end_cover"}
     still renders."""
-    parts = [rect_el(0, 0, W, H, NAVY_COVER), rect_el(ML, 200, 56, 5, WHITE)]
+    parts = [rect_el(0, 0, W, H, NAVY_COVER)]
     y = 264
     for line in wrap(spec.get("title") or "Thank you", 40, max_lines=3):
         parts.append(text_el(ML, y, line, size=52, fill=WHITE, family=SERIF))
@@ -1106,7 +1106,7 @@ def render_bullet_list(spec: dict) -> list[str]:
         # same whole-block bug whenever a row was much taller than its
         # content (e.g. a single-bullet list, where row_h == the entire
         # band) — bullets[0] measured 154px below band_start instead of
-        # sitting under the kicker. Each item now anchors to its row's top
+        # sitting under the headline. Each item now anchors to its row's top
         # edge instead, so item 1 always starts at band_start regardless of
         # bullet count; leftover space collects after the last item, same
         # as every other row-divided pattern (gap, agenda, gantt).

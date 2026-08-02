@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Three constraints shape the rollout">
   <rect width="1280" height="720" fill="#FFFFFF"/>
-  <rect x="80.0" y="52.0" width="56.0" height="5.0" fill="#15296B" stroke="none"/>
   <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">Three constraints shape the rollout</text>
   <rect x="80.0" y="218.0" width="6.0" height="6.0" fill="#15296B" stroke="none"/>
   <text x="102.0" y="228.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="16" fill="#15296B" font-weight="600" text-anchor="start">Capacity is fixed until Q3</text>

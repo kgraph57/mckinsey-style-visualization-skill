@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 2.1.1 - 2026-08-03 - Kicker Bar Removed
+
+- Removed the navy "kicker" bar above every headline — from the content-slide header, the navy cover family (`cover`, `section_divider`, `end_cover`), and the report title band. It was documented as "the one sanctioned decorative motif," but it carried no information; the data-ink rule now has no exceptions. The headline anchors the slide by itself.
+- `references/style-system.md` Ink Discipline and Anti-Patterns rewritten accordingly: any decorative bar — horizontal kicker stroke or left-edge accent — is banned in any orientation. Tests assert no pattern draws one.
+
 ## 2.1.0 - 2026-08-03 - Art-Direction De-Slop Pass
 
 Four rounds of an adversarial art-direction review (a critic applying Kashiwa Sato's published principles — grasp the essence, strip the noise, sharpen to iconic — against rendered PNGs of all 22 patterns), each round's findings implemented and re-審査ed until the critic approved with zero remaining medium+ findings (final score 9/10).

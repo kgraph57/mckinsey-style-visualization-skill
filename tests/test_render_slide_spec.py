@@ -264,7 +264,7 @@ class StructuralSlidePatternTests(unittest.TestCase):
 
     # --- happy paths -----------------------------------------------------
 
-    def test_section_divider_renders_kicker_label_title_and_rail(self) -> None:
+    def test_section_divider_renders_label_title_and_rail(self) -> None:
         spec = {
             "pattern": "section_divider",
             "section_number": 2,
@@ -521,21 +521,23 @@ class StructuralSlidePatternTests(unittest.TestCase):
             ("end_cover", {"pattern": "end_cover", "title": "Thank you"}),
         ):
             svg = renderer.render(spec)
-            # The kicker bar is header()'s signature motif at (ML, 52); chromeless
-            # slides use their own kicker at y=200 instead, and never call header/footer.
-            self.assertNotIn('y="52.0" width="56.0"', svg, f"{pattern} must not use content-slide header chrome")
-            self.assertIn('y="200.0" width="56.0"', svg, f"{pattern} must use the cover-style kicker")
-            self.assertNotIn('fill="#FFFFFF" stroke="none"/>\n  <rect x="80.0" y="52.0"', svg)
+            # Chromeless slides never call header/footer, and no slide carries
+            # the former decorative kicker bar (removed 2026-08-03 — data-ink
+            # rule with no exceptions).
+            self.assertNotIn('width="56.0" height="5.0"', svg, f"{pattern} must not draw a kicker bar")
 
-    def test_chromed_structural_patterns_use_header_and_footer(self) -> None:
+    def test_no_pattern_draws_a_decorative_kicker_bar(self) -> None:
         for spec in (
             {"pattern": "agenda", "headline": "Agenda", "items": [{"title": "A"}]},
             {"pattern": "bullet_list", "headline": "Bullets", "bullets": [{"text": "A"}]},
             {"pattern": "closing", "headline": "Closing", "next_steps": [{"action": "A"}]},
             {"pattern": "quote", "headline": "Quote", "text": "A"},
+            {"pattern": "cover", "title": "Cover"},
         ):
             svg = renderer.render(spec)
-            self.assertIn('y="52.0" width="56.0"', svg, f"{spec['pattern']} must keep the standard kicker/header")
+            self.assertNotIn(
+                'width="56.0" height="5.0"', svg, f"{spec['pattern']} must not draw a kicker bar"
+            )
 
     def test_render_dispatch_chromeless_aria_falls_back_to_title(self) -> None:
         svg = renderer.render({"pattern": "section_divider", "section_number": 1, "title": "Context set-up"})

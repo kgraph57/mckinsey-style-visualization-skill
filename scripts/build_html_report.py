@@ -602,7 +602,6 @@ h1, h2 { font-family: var(--serif); font-weight: bold; }
 
 .title-band { background: var(--navy); color: #FFFFFF; }
 .title-band-inner { position: relative; max-width: 1220px; margin: 0 auto; padding: 72px 32px 48px; }
-.title-band .kicker { width: 56px; height: 5px; background: #FFFFFF; margin-bottom: 28px; }
 .title-band h1 { font-size: 42px; font-weight: normal; color: #FFFFFF; line-height: 1.25; max-width: 780px; text-wrap: balance; }
 .title-band .subtitle { margin-top: 14px; font-size: 18px; font-weight: normal; color: #E5E7EB; font-family: var(--sans); max-width: 720px; }
 .title-band .meta { margin-top: 24px; font-size: 14px; color: #E5E7EB; letter-spacing: 0.02em; }
@@ -779,7 +778,6 @@ def build_report(markdown_text: str, base_dir: Path, lang_override: str | None =
     title_band = (
         '<header class="title-band">'
         '<div class="title-band-inner">'
-        '<div class="kicker" aria-hidden="true"></div>'
         f"{classification_html}"
         f"<h1>{esc(title)}</h1>"
         f"{subtitle_html}"

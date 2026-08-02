@@ -319,7 +319,7 @@ Navy background (#15296B), flat — no gradient.
 Large serif font title in white (#FFFFFF), centered: "The Future of AI in Healthcare"
 Subtitle in smaller sans-serif font, light grey (#E5E7EB): "Strategic Implications for 2026"
 Metadata at bottom in small text: "February 2026 | Executive Board Review | Confidential"
-Thin white kicker line above title (no gold/metallic accents)
+No decorative marks (no kicker lines, no gold/metallic accents)
 Minimal graphics — focus on elegant typography
 Clean, institutional, boardroom-ready aesthetic.
 ```
@@ -343,7 +343,7 @@ Navy background (#15296B), flat, full bleed.
 Small-caps label above the title: "SECTION 02"
 Large serif title in white: "How to win"
 Subtitle in light grey (#E5E7EB): "Where we compete and why we take share"
-Thin white kicker line above the label (same anchor as a cover slide).
+No decorative marks — the small-caps label and title carry the hierarchy.
 Optional section rail near the bottom: "01 Context", "02 How to win" (bold white), "03 Roadmap" (light grey, 55% opacity)
 Clean, institutional, boardroom-ready aesthetic. No gradients.
 ```
@@ -431,7 +431,7 @@ Clean, minimal, institutional aesthetic. One quote only, no closing quotation ma
 **Prompt:**
 ```
 Create a professional consulting-style closing cover slide in landscape 16:9 format.
-Navy background (#15296B), flat, full bleed, thin white kicker line.
+Navy background (#15296B), flat, full bleed, no decorative marks.
 Large serif title in white, centered: "Thank you"
 Subtitle in light grey: "Questions and discussion"
 Contact lines in light grey below: "Strategy Office", "strategy@example.com"
