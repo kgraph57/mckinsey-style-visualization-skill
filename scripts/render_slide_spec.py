@@ -36,6 +36,62 @@ W, H = 1280, 720
 ML, MR = 80, 80
 CHART_TOP, CHART_BOTTOM = 208, 560
 
+# Type scale — a ratio system (references/style-system.md "Typography"), not a
+# grab-bag of pixel values: headline : body : chrome holds roughly 4 : 1.6 : 1
+# across the deck span (asserted in tests/test_render_slide_spec.py). Every
+# text-drawing call site below references one of these tokens; naked size
+# literals for a text role are a bug. Two roles stay deliberately small on
+# purpose and are exempt from the "reading floor" below: T_TICK (axis ticks /
+# range numerals / funnel conversion %, which are referenced, not read at
+# length) and T_CHROME (source line, footnotes, page number, classification —
+# whisper-small by design, never raised further). Every other text role has a
+# floor of T_LABEL (18px).
+T_COVER_TITLE = 54       # cover / end_cover title (serif)
+T_DIVIDER_TITLE = 48     # section_divider title (serif)
+T_HEADLINE = 40          # content headline, <=2 lines (serif bold)
+T_HEADLINE_DENSE = 32    # content headline, 3 lines (serif bold)
+T_STATEMENT = 32         # quote text (serif); KPI-like big statements
+T_KPI_NUM = 44           # kpi_scorecard main numbers (the hero layer)
+T_SUBLINE = 20           # headline subline; cover/divider/end_cover subtitle
+T_BODY = 22              # bullets, claims, takeaways, actions, agenda item
+                         # titles, process step titles, benchmark row labels
+T_LABEL = 18             # reading labels: sub-bullets, proofs/implications,
+                         # agenda details, owner-timing metas, chart
+                         # category/axis/value labels, gantt row labels,
+                         # small-multiples labels, rail items on dividers
+T_NUM_AGENDA = 28        # agenda numbers (serif navy)
+T_NUM_CLOSING = 26       # closing takeaway numbers (serif navy)
+T_TICK = 14              # axis ticks, min/max range numerals, funnel
+                         # conversion %; heatmap/benchmark cell values may
+                         # hold a size between this and T_LABEL when cells
+                         # are tight, but never drop below this floor
+T_KICKER_LABEL = 15      # structural small-caps labels (SECTION NN, KEY
+                         # TAKEAWAYS, NEXT STEPS), letter-spaced
+T_ANNOTATION = 22        # footer takeaway/annotation line (weight 600, BLUE)
+T_CHROME = 13            # source line, footnotes, page number,
+                         # classification — deliberately the smallest text
+                         # on the slide; do not raise it
+
+# Multi-line leading, derived once per token so every wrapped paragraph using
+# a given text role reads at the same leading across the whole deck (rather
+# than each renderer inventing its own). HALF_LINE_* is exactly half the
+# advance, used to vertically center an N-line block within a fixed row: a
+# 1-line block gets no offset, a 2-line block is nudged up by one half-step,
+# and so on — see render_gap/render_funnel/render_heatmap/render_gantt.
+LINE_H_BODY = 30           # T_BODY paragraphs (was 24 at the old 16-17px body)
+LINE_H_LABEL = 24          # T_LABEL paragraphs (was ~17-20 at the old 13-15px label)
+HALF_LINE_BODY = LINE_H_BODY // 2
+HALF_LINE_LABEL = LINE_H_LABEL // 2
+NUDGE_BODY = 9             # baseline nudge centering one T_BODY line in a row
+NUDGE_LABEL = 6            # baseline nudge centering one T_LABEL line in a row
+X_AXIS_LABEL_LEAD = 18     # gap from CHART_BOTTOM to a below-axis category
+                           # label's first line (waterfall/before_after/
+                           # distribution): keeps a 2-line label's descender
+                           # clear of the footer annotation band (y=630) —
+                           # verified by scripts/render_slide_spec.py's
+                           # renderers against real specs with both a 2-line
+                           # label and an annotation present
+
 # Palette (references/style-system.md)
 # BLUE is deliberately darker than Tailwind blue-900 so that rung-1 fills stay
 # distinguishable from GREY_DARK body text in greyscale print (relative-luminance
@@ -235,21 +291,39 @@ def header(spec: dict) -> list[str]:
     # data-ink rule, see style-system.md Ink Discipline).
     parts: list[str] = []
     headline = spec.get("headline", "")
-    lines = wrap(headline, 64)
-    size, line_h = 30, 40
+    lines = wrap(headline, 48)  # 64 * 30/40 (old size 30 -> T_HEADLINE)
+    size, line_h, subline_gap = T_HEADLINE, 52, 28
     if len(lines) > 2:
-        lines = wrap(headline, 80, max_lines=3)
-        size, line_h = 24, 32
+        lines = wrap(headline, 60, max_lines=3)  # 80 * 24/32 (old size 24 -> T_HEADLINE_DENSE)
+        size, line_h, subline_gap = T_HEADLINE_DENSE, 42, 24
     y = 96
+    last_line_y = y
     for line in lines:
         parts.append(text_el(ML, y, line, size=size, weight="bold", family=SERIF, title=headline if len(lines) > 2 else ""))
+        last_line_y = y
         y += line_h
     subline = spec.get("subline", "")
     if subline:
-        parts.append(text_el(ML, y + 2, subline, size=17, fill=GREY_MED))
+        # Anchored to the last *drawn* headline line, not the post-loop `y`
+        # (which already carries one unused extra line_h). The 2-line case
+        # gets a 28px gap — enough to clear a descender (p/g/y/q/j) on the
+        # headline's last line against the subline's own ascender, verified
+        # by rendering (see deal-size-distribution.svg, whose "roadmap"
+        # descender touched "Closed-won..." at the smaller gap this replaced).
+        # 28, not more: scatter/two_by_two draw their own y-axis-label
+        # caption just above CHART_TOP (see render_scatter/render_two_by_two),
+        # and a bigger subline gap pushes the subline down into that caption
+        # instead — see those renderers' `-9` offset, tuned against this
+        # exact gap. The 3-line dense case gets a tighter 24px gap instead of
+        # 28, because CHART_TOP=208 leaves no room for more: this keeps the
+        # tightest case (3-line dense + subline) at baseline 204, 4px clear
+        # of the chart band, accepting a closer (but still non-overlapping)
+        # fit as the deliberate tradeoff for that rare combination.
+        parts.append(text_el(ML, last_line_y + subline_gap, subline, size=T_SUBLINE, fill=GREY_MED))
     classification = spec.get("classification", "")
     if classification:
-        parts.append(text_el(W - MR, 40, classification.upper(), size=11, fill=GREY_MED, weight="600", anchor="end"))
+        # Chrome: deliberately the smallest text on the slide, not scaled up.
+        parts.append(text_el(W - MR, 40, classification.upper(), size=T_CHROME, fill=GREY_MED, weight="600", anchor="end"))
     return parts
 
 
@@ -259,21 +333,24 @@ def footer(spec: dict) -> list[str]:
     if annotation:
         # Emphasis through typography only — no decorative accent bar (data-ink rule).
         y = 630
-        for line in wrap(annotation, 112, max_lines=2):
-            parts.append(text_el(ML, y, line, size=16, fill=BLUE, weight="600", title=annotation))
-            y += 22
+        for line in wrap(annotation, 81, max_lines=2):  # 112 * 16/22 (old size 16 -> T_ANNOTATION)
+            parts.append(text_el(ML, y, line, size=T_ANNOTATION, fill=BLUE, weight="600", title=annotation))
+            y += 30  # 22 * 22/16, scaled with T_ANNOTATION
     footnotes = spec.get("footnotes", [])[:2]
     source = spec.get("source", "")
-    note_y = 692 - 16 * len(footnotes)
+    note_y = 692 - 18 * len(footnotes)  # 16 * 13/11, scaled with T_CHROME
     for i, note in enumerate(footnotes):
         marker = "¹²"[i]
-        parts.append(text_el(ML, note_y, f"{marker} {wrap(note, 150, max_lines=1)[0]}", size=11, fill=GREY_MED, title=note))
-        note_y += 16
+        parts.append(
+            text_el(ML, note_y, f"{marker} {wrap(note, 126, max_lines=1)[0]}", size=T_CHROME, fill=GREY_MED, title=note)  # 150 * 11/13
+        )
+        note_y += 18
     if source:
-        parts.append(text_el(ML, 692, source, size=12, fill=GREY_MED))
+        # Chrome: source/footnotes/page number stay the smallest text on the slide.
+        parts.append(text_el(ML, 692, source, size=T_CHROME, fill=GREY_MED))
     page_number = spec.get("page_number", "")
     if page_number != "":
-        parts.append(text_el(W - MR, 692, str(page_number), size=12, fill=GREY_MED, anchor="end"))
+        parts.append(text_el(W - MR, 692, str(page_number), size=T_CHROME, fill=GREY_MED, anchor="end"))
     return parts
 
 
@@ -309,17 +386,28 @@ def render_waterfall(spec: dict) -> list[str]:
     zero_y = y_at(0)
     parts = [
         line_el(ML, zero_y, W - MR, zero_y, GREY_DARK),
-        text_el(ML - 10, zero_y + 4, "0", size=11, fill=GREY_MED, anchor="end"),
+        text_el(ML - 10, zero_y + 4, "0", size=T_TICK, fill=GREY_MED, anchor="end"),
     ]
+
+    # Category-label wrap width scales with the column pitch (step), not the
+    # bar width (bar_w is capped at 110px purely for visual bar weight — the
+    # label sits in the full step gutter below it and only risks touching a
+    # neighboring column's label, never the bar edge). Same step-based sizing
+    # already used by render_distribution below; a flat bar_w-sized budget
+    # here clamped real driver labels ("Enterprise new customers", "Existing
+    # customer expansion") to 2 lines of 11 half-width units and silently
+    # dropped the last word behind the ellipsis once bar count was low enough
+    # to leave a wide step. floor 6 matches the other step-derived wraps.
+    label_width = max(int(step / 11), 6)
 
     def bar(i: int, base: float, value_top: float, fill: str, label: str, value_text: str) -> None:
         x = x_at(i)
         y1, y2 = y_at(max(base, value_top)), y_at(min(base, value_top))
         parts.append(rect_el(x, y1, bar_w, max(y2 - y1, 2), fill))
-        parts.append(text_el(x + bar_w / 2, y1 - 10, value_text, size=15, weight="bold", anchor="middle"))
-        for j, line in enumerate(wrap(label, 16, max_lines=2)):
+        parts.append(text_el(x + bar_w / 2, y1 - 10, value_text, size=T_LABEL, weight="bold", anchor="middle"))
+        for j, line in enumerate(wrap(label, label_width, max_lines=2)):
             parts.append(
-                text_el(x + bar_w / 2, CHART_BOTTOM + 22 + j * 16, line, size=13, fill=GREY_DARK, anchor="middle", title=label)
+                text_el(x + bar_w / 2, CHART_BOTTOM + X_AXIS_LABEL_LEAD + j * LINE_H_LABEL, line, size=T_LABEL, fill=GREY_DARK, anchor="middle", title=label)
             )
 
     bar(0, 0, start["value"], BLUE, start["label"], fmt(start["value"], unit))
@@ -353,19 +441,19 @@ def render_gap(spec: dict) -> list[str]:
         fill = BLUE if item.get("emphasis") else GREY_FILL
         # Flat fill only — grey reference bars never carry a border; the
         # fill/no-fill contrast alone marks emphasis vs. context.
-        label_lines = wrap(item["label"], 25, max_lines=2)
-        label_y = y + bar_h / 2 + 5 - (len(label_lines) - 1) * 9
+        label_lines = wrap(item["label"], 22, max_lines=2)  # 25 * 16/18
+        label_y = y + bar_h / 2 + NUDGE_LABEL - (len(label_lines) - 1) * HALF_LINE_LABEL
         for line in label_lines:
-            parts.append(text_el(ML, label_y, line, size=16, fill=GREY_DARK))
-            label_y += 19
+            parts.append(text_el(ML, label_y, line, size=T_LABEL, fill=GREY_DARK))
+            label_y += LINE_H_LABEL
         parts.append(rect_el(ML + 220, y, width, bar_h, fill))
         value_fill = BLUE if item.get("emphasis") else GREY_DARK
         parts.append(
-            text_el(ML + 232 + width, y + bar_h / 2 + 6, fmt(item["value"], unit), size=17, fill=value_fill, weight="bold")
+            text_el(ML + 232 + width, y + bar_h / 2 + NUDGE_LABEL + 1, fmt(item["value"], unit), size=T_LABEL, fill=value_fill, weight="bold")
         )
     gap_label = spec.get("gap_label", "")
     if gap_label:
-        parts.append(text_el(W - MR, CHART_TOP + 6, gap_label, size=18, fill=BLUE, weight="bold", anchor="end"))
+        parts.append(text_el(W - MR, CHART_TOP + 6, gap_label, size=T_LABEL, fill=BLUE, weight="bold", anchor="end"))
     return parts
 
 
@@ -381,7 +469,7 @@ def render_before_after(spec: dict) -> list[str]:
 
     parts = [
         line_el(ML, CHART_BOTTOM, W - MR, CHART_BOTTOM, GREY_DARK),
-        text_el(ML - 10, CHART_BOTTOM + 4, "0", size=11, fill=GREY_MED, anchor="end"),
+        text_el(ML - 10, CHART_BOTTOM + 4, "0", size=T_TICK, fill=GREY_MED, anchor="end"),
     ]
     before_label = spec.get("before_label", "Before")
     after_label = spec.get("after_label", "After")
@@ -393,21 +481,29 @@ def render_before_after(spec: dict) -> list[str]:
         # Flat fill only — the grey "before" bar never carries a border.
         parts.append(rect_el(bx, by, bar_w, CHART_BOTTOM - by, GREY_FILL))
         parts.append(rect_el(ax, ay, bar_w, CHART_BOTTOM - ay, BLUE))
-        parts.append(text_el(bx + bar_w / 2, by - 8, fmt(pair["before"], unit), size=14, fill=GREY_MED, anchor="middle"))
-        parts.append(text_el(ax + bar_w / 2, ay - 8, fmt(pair["after"], unit), size=15, weight="bold", anchor="middle"))
+        # Value/legend/delta stack above the bar top by one LINE_H_LABEL
+        # step each — not a flat scale of the old offsets, which pushed the
+        # stack high enough to collide with the subline on a tall bar (the
+        # chart's fixed 15% headroom above the tallest value didn't grow
+        # just because the font did; see collision check in the type-scale
+        # brief's acceptance criteria).
+        parts.append(text_el(bx + bar_w / 2, by - 10, fmt(pair["before"], unit), size=T_LABEL, fill=GREY_MED, anchor="middle"))
+        parts.append(text_el(ax + bar_w / 2, ay - 10, fmt(pair["after"], unit), size=T_LABEL, weight="bold", anchor="middle"))
         delta = pair["after"] - pair["before"]
         sign = "+" if delta >= 0 else "−"
-        delta_y = min(by, ay) - (52 if i == 0 else 32)
+        delta_y = min(by, ay) - (58 if i == 0 else 34)
         parts.append(
-            text_el(cx, delta_y, f"{sign}{fmt(abs(delta), unit)}", size=15, fill=BLUE2, weight="bold", anchor="middle")
+            text_el(cx, delta_y, f"{sign}{fmt(abs(delta), unit)}", size=T_LABEL, fill=BLUE2, weight="bold", anchor="middle")
         )
         if i == 0:
             # Direct labels on the first pair replace a legend (style rule:
             # avoid legend hunting).
-            parts.append(text_el(bx + bar_w / 2, by - 24, before_label, size=12, fill=GREY_MED, anchor="middle"))
-            parts.append(text_el(ax + bar_w / 2, ay - 24, after_label, size=12, fill=GREY_DARK, weight="600", anchor="middle"))
-        for j, line in enumerate(wrap(pair["label"], 22, max_lines=2)):
-            parts.append(text_el(cx, CHART_BOTTOM + 24 + j * 17, line, size=14, fill=GREY_DARK, anchor="middle", title=pair["label"]))
+            parts.append(text_el(bx + bar_w / 2, by - 34, before_label, size=T_LABEL, fill=GREY_MED, anchor="middle"))
+            parts.append(text_el(ax + bar_w / 2, ay - 34, after_label, size=T_LABEL, fill=GREY_DARK, weight="600", anchor="middle"))
+        for j, line in enumerate(wrap(pair["label"], 17, max_lines=2)):  # 22 * 14/18
+            parts.append(
+                text_el(cx, CHART_BOTTOM + X_AXIS_LABEL_LEAD + j * LINE_H_LABEL, line, size=T_LABEL, fill=GREY_DARK, anchor="middle", title=pair["label"])
+            )
     return parts
 
 
@@ -425,16 +521,16 @@ def render_time_series(spec: dict) -> list[str]:
 
     parts = [
         line_el(ML, CHART_BOTTOM, W - MR, CHART_BOTTOM, GREY_DARK),
-        text_el(ML - 10, CHART_BOTTOM + 4, "0", size=11, fill=GREY_MED, anchor="end"),
+        text_el(ML - 10, CHART_BOTTOM + 4, "0", size=T_TICK, fill=GREY_MED, anchor="end"),
     ]
     points = " ".join(f"{x:.1f},{y:.1f}" for x, y in (pt(i) for i in range(len(values))))
     parts.append(f'<polyline points="{points}" fill="none" stroke="{BLUE}" stroke-width="3"/>')
     for i, value in enumerate(values):
         x, y = pt(i)
         parts.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="{BLUE}"/>')
-        parts.append(text_el(x, y - 14, fmt(value, unit), size=14, weight="bold", anchor="middle"))
-        parts.append(text_el(x, CHART_BOTTOM + 24, labels[i], size=13, fill=GREY_DARK, anchor="middle"))
-    parts.append(text_el(ML, CHART_TOP - 16, spec["series"][0].get("label", ""), size=13, fill=GREY_MED))
+        parts.append(text_el(x, y - 18, fmt(value, unit), size=T_LABEL, weight="bold", anchor="middle"))
+        parts.append(text_el(x, CHART_BOTTOM + X_AXIS_LABEL_LEAD, labels[i], size=T_LABEL, fill=GREY_DARK, anchor="middle"))
+    parts.append(text_el(ML, CHART_TOP - 12, spec["series"][0].get("label", ""), size=T_LABEL, fill=GREY_MED))
     return parts
 
 
@@ -450,31 +546,36 @@ def render_benchmark_table(spec: dict) -> list[str]:
     parts: list[str] = []
     for j, column in enumerate(columns):
         cx = ML + label_w + col_w * j + col_w / 2
-        for k, line in enumerate(wrap(column, 18, max_lines=2)):
-            parts.append(text_el(cx, top_y + 20 + k * 15, line, size=13, fill=GREY_MED, weight="600", anchor="middle"))
+        for k, line in enumerate(wrap(column, 13, max_lines=2)):  # 18 * 13/18
+            parts.append(text_el(cx, top_y + 28 + k * LINE_H_LABEL, line, size=T_LABEL, fill=GREY_MED, weight="600", anchor="middle"))
     parts.append(line_el(ML, top_y + row_h, W - MR, top_y + row_h, GREY_DARK))
-    value_size = 15 if len(columns) <= 6 else 13
+    # Dense fallback (>6 columns) stays above the T_TICK floor (14px) — see
+    # references/style-system.md Typography.
+    value_size = T_LABEL if len(columns) <= 6 else 16
     cell_width_units = max(int(col_w / (value_size * 0.62)), 6)
+    value_line_h = value_size + 2
+    value_nudge = round(value_size / 3)
+    value_half = value_line_h / 2
     for i, row in enumerate(rows):
         y = top_y + row_h * (i + 1)
-        label_lines = wrap(row["label"], 28, max_lines=2)
-        ly = y + row_h / 2 + 6 - (len(label_lines) - 1) * 9
+        label_lines = wrap(row["label"], 19, max_lines=2)  # 28 * 15/22 (old size 15 -> T_BODY)
+        ly = y + row_h / 2 + NUDGE_BODY - (len(label_lines) - 1) * HALF_LINE_BODY
         for line in label_lines:
-            parts.append(text_el(ML, ly, line, size=15, fill=BLACK, weight="600", title=row["label"]))
-            ly += 18
+            parts.append(text_el(ML, ly, line, size=T_BODY, fill=BLACK, weight="600", title=row["label"]))
+            ly += LINE_H_BODY
         for j, value in enumerate(row["values"]):
             cx = ML + label_w + col_w * j + col_w / 2
             cell_lines = wrap(str(value), cell_width_units, max_lines=2)
-            cy = y + row_h / 2 + 6 - (len(cell_lines) - 1) * 8
+            cy = y + row_h / 2 + value_nudge - (len(cell_lines) - 1) * value_half
             if (i, j) in leaders:
                 parts.append(rect_el(ML + label_w + col_w * j + 6, y + 7, col_w - 12, row_h - 14, BLUE))
                 for line in cell_lines:
                     parts.append(text_el(cx, cy, line, size=value_size, fill="#FFFFFF", weight="bold", anchor="middle", title=str(value)))
-                    cy += value_size + 2
+                    cy += value_line_h
             else:
                 for line in cell_lines:
                     parts.append(text_el(cx, cy, line, size=value_size, fill=GREY_DARK, anchor="middle", title=str(value)))
-                    cy += value_size + 2
+                    cy += value_line_h
         parts.append(line_el(ML, y + row_h, W - MR, y + row_h, GREY_BORDER))
     return parts
 
@@ -487,8 +588,9 @@ def render_summary_strip(spec: dict) -> list[str]:
     # (ink discipline: organization comes from spacing/alignment, not marks).
     # Equal 28px inner margin on every column keeps the gutter symmetric.
     pad = 28.0
-    text_width = int((col_w - pad * 2) / 8.2)
-    claim_gap, proof_gap = 8.0, 10.0
+    claim_width = int((col_w - pad * 2) / (T_BODY * 0.62))
+    label_width = int((col_w - pad * 2) / (T_LABEL * 0.62))
+    claim_gap, proof_gap = 10.0, 13.0  # 8 * 18/14, 10 * 18/14 (old label size 14 -> T_LABEL)
 
     # 2026-08-02 panel round 3: a whole-block vertical center here (matching
     # process_flow's box_h/y technique) fixed the 44% dead-space complaint
@@ -509,18 +611,18 @@ def render_summary_strip(spec: dict) -> list[str]:
     for i, block in enumerate(blocks):
         x = ML + col_w * i
         inner_x = x + pad
-        y = strip_top + 18
-        for line in wrap(block["claim"], text_width, max_lines=3):
-            parts.append(text_el(inner_x, y, line, size=17, weight="bold"))
-            y += 23
+        y = strip_top + 23  # 18 * 22/17, scaled with T_BODY (claim role)
+        for line in wrap(block["claim"], claim_width, max_lines=3):
+            parts.append(text_el(inner_x, y, line, size=T_BODY, weight="bold"))
+            y += LINE_H_BODY
         y += claim_gap
-        for line in wrap(block["proof"], text_width, max_lines=4):
-            parts.append(text_el(inner_x, y, line, size=14, fill=GREY_MED))
-            y += 19
+        for line in wrap(block["proof"], label_width, max_lines=4):
+            parts.append(text_el(inner_x, y, line, size=T_LABEL, fill=GREY_MED))
+            y += LINE_H_LABEL
         y += proof_gap
-        for line in wrap(block["implication"], text_width, max_lines=3):
-            parts.append(text_el(inner_x, y, line, size=14, fill=BLUE, weight="600"))
-            y += 19
+        for line in wrap(block["implication"], label_width, max_lines=3):
+            parts.append(text_el(inner_x, y, line, size=T_LABEL, fill=BLUE, weight="600"))
+            y += LINE_H_LABEL
     return parts
 
 
@@ -530,10 +632,11 @@ def render_process_flow(spec: dict) -> list[str]:
     span = W - ML - MR
     gap = 26.0
     box_w = (span - gap * (len(steps) - 1)) / len(steps)
-    # 104px (down from 130) — sized to the longest step content actually seen
-    # in examples/render-specs and templates/decks (1-line title, up to
-    # 2-line detail) instead of a hollow box with leftover whitespace below.
-    box_h = 104.0
+    # 152px — grown from 104 to hold the same worst-case content (2-line
+    # title, 2-line detail) at T_BODY/T_LABEL instead of a hollow box with
+    # leftover whitespace below (see examples/render-specs and templates/decks
+    # for the longest step content actually seen).
+    box_h = 152.0
     y = (CHART_TOP + CHART_BOTTOM) / 2 - box_h / 2
 
     parts: list[str] = []
@@ -544,14 +647,15 @@ def render_process_flow(spec: dict) -> list[str]:
         parts.append(rect_el(x, y, box_w, box_h, BLUE if is_hot else GREY_FILL))
         title_fill = "#FFFFFF" if is_hot else BLACK
         detail_fill = "#E5E7EB" if is_hot else GREY_MED
-        ty, text_width = y + 34, int(box_w / 7.6)
-        parts.append(text_el(x + 16, ty - 14, f"{i + 1:02d}", size=13, fill=BLUE2 if not is_hot else "#E5E7EB", weight="bold"))
+        ty, text_width = y + 38, int(box_w / (T_BODY * 0.62))
+        parts.append(text_el(x + 16, ty - 16, f"{i + 1:02d}", size=T_LABEL, fill=BLUE2 if not is_hot else "#E5E7EB", weight="bold"))
         for line in wrap(step["label"], text_width, max_lines=2):
-            parts.append(text_el(x + 16, ty + 8, line, size=16, fill=title_fill, weight="bold"))
-            ty += 21
-        for line in wrap(step.get("detail", ""), text_width, max_lines=3):
-            parts.append(text_el(x + 16, ty + 12, line, size=13, fill=detail_fill))
-            ty += 17
+            parts.append(text_el(x + 16, ty + 8, line, size=T_BODY, fill=title_fill, weight="bold"))
+            ty += LINE_H_BODY
+        detail_width = int(box_w / (T_LABEL * 0.62))
+        for line in wrap(step.get("detail", ""), detail_width, max_lines=3):
+            parts.append(text_el(x + 16, ty + 14, line, size=T_LABEL, fill=detail_fill))
+            ty += LINE_H_LABEL
         if i < len(steps) - 1:
             ax = x + box_w + gap / 2
             ay = y + box_h / 2
@@ -581,21 +685,22 @@ def render_funnel(spec: dict) -> list[str]:
         y = CHART_TOP + row_h * i + (row_h - bar_h) / 2
         bw = max(span * stage["value"] / top_value, 6)
         parts.append(rect_el(cx - bw / 2, y, bw, bar_h, BLUE))
-        label_lines = wrap(stage["label"], 24, max_lines=2)
-        ly = y + bar_h / 2 + 5 - (len(label_lines) - 1) * 8.5
+        label_lines = wrap(stage["label"], 20, max_lines=2)  # 24 * 15/18
+        ly = y + bar_h / 2 + NUDGE_LABEL - (len(label_lines) - 1) * HALF_LINE_LABEL
         for line in label_lines:
-            parts.append(text_el(ML, ly, line, size=15, fill=GREY_DARK))
-            ly += 17
+            parts.append(text_el(ML, ly, line, size=T_LABEL, fill=GREY_DARK))
+            ly += LINE_H_LABEL
         value_text = fmt(stage["value"], unit)
         if bw > 110:
-            parts.append(text_el(cx, y + bar_h / 2 + 6, value_text, size=16, fill="#FFFFFF", weight="bold", anchor="middle"))
+            parts.append(text_el(cx, y + bar_h / 2 + NUDGE_LABEL + 1, value_text, size=T_LABEL, fill="#FFFFFF", weight="bold", anchor="middle"))
         else:
-            parts.append(text_el(cx + bw / 2 + 10, y + bar_h / 2 + 6, value_text, size=16, weight="bold"))
+            parts.append(text_el(cx + bw / 2 + 11, y + bar_h / 2 + NUDGE_LABEL + 1, value_text, size=T_LABEL, weight="bold"))
         if i > 0:
             previous_value = stages[i - 1]["value"]
             conversion = "n/a" if previous_value == 0 else f"{stage['value'] / previous_value * 100:.0f}%"
+            # Funnel conversion % is explicitly a T_TICK role (referenced, not read at length).
             parts.append(
-                text_el(cx + span / 2 + 28, CHART_TOP + row_h * i + 5, f"↓ {conversion}", size=15, fill=BLUE2, weight="600")
+                text_el(cx + span / 2 + 28, CHART_TOP + row_h * i + 5, f"↓ {conversion}", size=T_TICK, fill=BLUE2, weight="600")
             )
     return parts
 
@@ -614,6 +719,18 @@ def _heatmap_cell_fill(value: float, vmin: float, vmax: float, diverging: bool) 
     return _lerp_color(BLUE_TINT, BLUE, t)
 
 
+def _heatmap_value_size(cell_w: float, cell_h: float) -> int:
+    """Pick the largest size in the T_LABEL..T_TICK range that comfortably
+    fits a short value string in the cell — never below the T_TICK floor
+    (14px) even for a dense grid (see references/style-system.md Typography:
+    "heatmap cell values may hold a size between this and T_LABEL when cells
+    are tight, but never drop below this floor")."""
+    for candidate in (T_LABEL, 16, 15, T_TICK):
+        if cell_w >= candidate * 3.5 and cell_h >= candidate * 1.6:
+            return candidate
+    return T_TICK
+
+
 def render_heatmap(spec: dict) -> list[str]:
     unit = spec.get("unit", "")
     rows, columns, values = spec["rows"], spec["columns"], spec["values"]
@@ -623,18 +740,20 @@ def render_heatmap(spec: dict) -> list[str]:
     label_w = 210.0
     cell_w = (W - ML - MR - label_w) / len(columns)
     cell_h = min(72.0, (CHART_BOTTOM - CHART_TOP - 30) / len(rows))
+    value_size = _heatmap_value_size(cell_w, cell_h)
+    value_nudge = round(value_size * 0.36)
 
     parts: list[str] = []
     for j, column in enumerate(columns):
         cx = ML + label_w + cell_w * j + cell_w / 2
-        parts.append(text_el(cx, CHART_TOP + 12, column, size=14, fill=GREY_MED, weight="600", anchor="middle"))
+        parts.append(text_el(cx, CHART_TOP + 15, column, size=T_LABEL, fill=GREY_MED, weight="600", anchor="middle"))  # 12 * 18/14
     for i, row_label in enumerate(rows):
         y = CHART_TOP + 26 + cell_h * i
-        label_lines = wrap(row_label, 24, max_lines=2)
-        ly = y + cell_h / 2 + 5 - (len(label_lines) - 1) * 8.5
+        label_lines = wrap(row_label, 18, max_lines=2)  # 24 * 14/18
+        ly = y + cell_h / 2 + NUDGE_LABEL - (len(label_lines) - 1) * HALF_LINE_LABEL
         for line in label_lines:
-            parts.append(text_el(ML, ly, line, size=14, fill=GREY_DARK, title=row_label))
-            ly += 17
+            parts.append(text_el(ML, ly, line, size=T_LABEL, fill=GREY_DARK, title=row_label))
+            ly += LINE_H_LABEL
         for j, value in enumerate(values[i]):
             x = ML + label_w + cell_w * j
             fill = _heatmap_cell_fill(value, vmin, vmax, diverging)
@@ -642,7 +761,15 @@ def render_heatmap(spec: dict) -> list[str]:
             # Pick the value color by measured contrast so mid-tone cells stay
             # WCAG-readable instead of trusting a fixed threshold.
             parts.append(
-                text_el(x + cell_w / 2, y + cell_h / 2 + 5, fmt(value, unit), size=14, fill=_cell_text_color(fill), weight="600", anchor="middle")
+                text_el(
+                    x + cell_w / 2,
+                    y + cell_h / 2 + value_nudge,
+                    fmt(value, unit),
+                    size=value_size,
+                    fill=_cell_text_color(fill),
+                    weight="600",
+                    anchor="middle",
+                )
             )
     return parts
 
@@ -660,17 +787,17 @@ def render_gantt(spec: dict) -> list[str]:
     parts: list[str] = []
     for j, period in enumerate(periods):
         x = ML + label_w + col_w * j
-        parts.append(text_el(x + col_w / 2, CHART_TOP, period, size=13, fill=GREY_MED, weight="600", anchor="middle"))
+        parts.append(text_el(x + col_w / 2, CHART_TOP, period, size=T_LABEL, fill=GREY_MED, weight="600", anchor="middle"))
         parts.append(line_el(x, grid_top, x, grid_bottom, GREY_BORDER))
     parts.append(line_el(W - MR, grid_top, W - MR, grid_bottom, GREY_BORDER))
     parts.append(line_el(ML, grid_top, W - MR, grid_top, GREY_DARK))
     for i, bar in enumerate(bars):
         y = grid_top + row_h * i
-        label_lines = wrap(bar["label"], 28, max_lines=2)
-        ly = y + row_h / 2 + 5 - (len(label_lines) - 1) * 8.5
+        label_lines = wrap(bar["label"], 21, max_lines=2)  # 28 * 14/18
+        ly = y + row_h / 2 + NUDGE_LABEL - (len(label_lines) - 1) * HALF_LINE_LABEL
         for line in label_lines:
-            parts.append(text_el(ML, ly, line, size=14, fill=GREY_DARK))
-            ly += 17
+            parts.append(text_el(ML, ly, line, size=T_LABEL, fill=GREY_DARK))
+            ly += LINE_H_LABEL
         bx = ML + label_w + col_w * bar["start"] + 3
         bw = col_w * (bar["end"] - bar["start"] + 1) - 6
         hot = bar.get("highlight")
@@ -678,13 +805,22 @@ def render_gantt(spec: dict) -> list[str]:
         parts.append(rect_el(bx, y + (row_h - 24) / 2, bw, 24, BLUE if hot else GREY_FILL))
         note = bar.get("note", "")
         if note:
-            parts.append(text_el(bx + bw + 10, y + row_h / 2 + 5, note, size=12, fill=GREY_MED))
+            # Clamp to whatever room remains between the bar and the right
+            # margin — a bar late in the timeline leaves little room, and
+            # T_LABEL is wide enough now that an unclamped note can run well
+            # past the canvas edge.
+            note_x = bx + bw + 10
+            note_width_units = max(int((W - MR - note_x) / (T_LABEL * 0.62)), 6)
+            note_text = wrap(note, note_width_units, max_lines=1)[0]
+            parts.append(
+                text_el(note_x, y + row_h / 2 + NUDGE_LABEL, note_text, size=T_LABEL, fill=GREY_MED, title=note if note_text.endswith(ELLIPSIS) else "")
+            )
         parts.append(line_el(ML, y + row_h, W - MR, y + row_h, GREY_BORDER))
     for gate in gates:
         gx = ML + label_w + col_w * (gate["period"] + 1)
         gy = grid_bottom + 12
         parts.append(f'<path d="M {gx:.1f} {gy - 8:.1f} L {gx + 8:.1f} {gy:.1f} L {gx:.1f} {gy + 8:.1f} L {gx - 8:.1f} {gy:.1f} Z" fill="{BLUE}"/>')
-        parts.append(text_el(gx, gy + 24, gate["label"], size=12, fill=BLUE, weight="600", anchor="middle"))
+        parts.append(text_el(gx, gy + 36, gate["label"], size=T_LABEL, fill=BLUE, weight="600", anchor="middle"))  # 24 * 18/12
     return parts
 
 
@@ -695,6 +831,13 @@ def render_kpi_scorecard(spec: dict) -> list[str]:
     card_w = (W - ML - MR - gap * (cols - 1)) / cols
     n_rows = -(-len(metrics) // cols)
     card_h = min(150.0, (CHART_BOTTOM - CHART_TOP) / n_rows - 14)
+    # Label/value baselines are proportional to card_h (not fixed pixel
+    # offsets), so a taller grid (more metric rows, smaller card_h) still
+    # clears T_KPI_NUM's larger hero number instead of the value baseline
+    # colliding with the target line beneath it. At the common card_h=150
+    # this reproduces the previous fixed offsets (30, 88) exactly.
+    label_y_offset = round(card_h * 0.2)
+    value_y_offset = round(card_h * 88 / 150)
 
     parts: list[str] = []
     for i, metric in enumerate(metrics):
@@ -704,15 +847,15 @@ def render_kpi_scorecard(spec: dict) -> list[str]:
         # no accent-bar motif on cards). Status still reads
         # through the trend color below and the value/target text itself.
         parts.append(rect_el(x, y, card_w, card_h, "#FFFFFF"))
-        parts.append(text_el(x + 24, y + 30, metric["label"], size=14, fill=GREY_MED, weight="600"))
-        parts.append(text_el(x + 24, y + 72, str(metric["value"]), size=32, weight="bold"))
+        parts.append(text_el(x + 24, y + label_y_offset, metric["label"], size=T_LABEL, fill=GREY_MED, weight="600"))
+        parts.append(text_el(x + 24, y + value_y_offset, str(metric["value"]), size=T_KPI_NUM, weight="bold"))
         trend = metric.get("trend", "")
         if trend:
             trend_fill = RED if metric.get("status") == "risk" else BLUE2
-            parts.append(text_el(x + card_w - 18, y + 72, trend, size=14, fill=trend_fill, weight="600", anchor="end"))
+            parts.append(text_el(x + card_w - 18, y + value_y_offset, trend, size=T_LABEL, fill=trend_fill, weight="600", anchor="end"))
         target = metric.get("target", "")
         if target:
-            parts.append(text_el(x + 24, y + card_h - 16, f"Target: {target}", size=12, fill=GREY_MED))
+            parts.append(text_el(x + 24, y + card_h - 16, f"Target: {target}", size=T_LABEL, fill=GREY_MED))
     return parts
 
 
@@ -730,27 +873,49 @@ def render_two_by_two(spec: dict) -> list[str]:
         line_el(plot_x, mid_y, plot_x + plot_w, mid_y, GREY_BORDER),
     ]
     corners = [
-        (plot_x + 14, plot_y + 24, "start"),
-        (plot_x + plot_w - 14, plot_y + 24, "end"),
-        (plot_x + 14, plot_y + plot_h - 12, "start"),
-        (plot_x + plot_w - 14, plot_y + plot_h - 12, "end"),
+        (plot_x + 21, plot_y + 36, "start"),
+        (plot_x + plot_w - 21, plot_y + 36, "end"),
+        (plot_x + 21, plot_y + plot_h - 18, "start"),
+        (plot_x + plot_w - 21, plot_y + plot_h - 18, "end"),
     ]
     for (qx, qy, anchor), label in zip(corners, quadrants):
-        parts.append(text_el(qx, qy, label.upper(), size=12, fill=GREY_MED, weight="600", anchor=anchor))
-    parts.append(text_el(mid_x, plot_y + plot_h + 30, x_axis["label"], size=14, fill=GREY_DARK, weight="600", anchor="middle"))
-    parts.append(text_el(plot_x, plot_y + plot_h + 30, x_axis.get("low", "Low"), size=12, fill=GREY_MED))
-    parts.append(text_el(plot_x + plot_w, plot_y + plot_h + 30, x_axis.get("high", "High"), size=12, fill=GREY_MED, anchor="end"))
-    parts.append(text_el(plot_x - 12, plot_y + 10, y_axis.get("high", "High"), size=12, fill=GREY_MED, anchor="end"))
-    parts.append(text_el(plot_x - 12, plot_y + plot_h, y_axis.get("low", "Low"), size=12, fill=GREY_MED, anchor="end"))
-    parts.append(text_el(ML, plot_y - 14, y_axis["label"], size=14, fill=GREY_DARK, weight="600"))
+        parts.append(text_el(qx, qy, label.upper(), size=T_LABEL, fill=GREY_MED, weight="600", anchor=anchor))  # 12 * 18/12
+    # Axis title and its min/max range numerals share one baseline row —
+    # the title (T_LABEL) sets the offset; the T_TICK range numbers ride
+    # the same row rather than sitting on their own slightly-different one.
+    parts.append(text_el(mid_x, plot_y + plot_h + 39, x_axis["label"], size=T_LABEL, fill=GREY_DARK, weight="600", anchor="middle"))
+    parts.append(text_el(plot_x, plot_y + plot_h + 39, x_axis.get("low", "Low"), size=T_TICK, fill=GREY_MED))
+    parts.append(text_el(plot_x + plot_w, plot_y + plot_h + 39, x_axis.get("high", "High"), size=T_TICK, fill=GREY_MED, anchor="end"))
+    parts.append(text_el(plot_x - 14, plot_y + 10, y_axis.get("high", "High"), size=T_TICK, fill=GREY_MED, anchor="end"))
+    parts.append(text_el(plot_x - 14, plot_y + plot_h, y_axis.get("low", "Low"), size=T_TICK, fill=GREY_MED, anchor="end"))
+    # -9, not a bigger negative offset: tuned against header()'s 28px subline
+    # gap so this caption clears both a present subline above it and the
+    # plot's own top border below it (see header()'s comment on subline_gap).
+    parts.append(text_el(ML, plot_y - 9, y_axis["label"], size=T_LABEL, fill=GREY_DARK, weight="600"))
     for point in spec["points"]:
         px = plot_x + plot_w * point["x"] / 100
         py = plot_y + plot_h * (1 - point["y"] / 100)
         emphasis = point.get("emphasis")
         radius = 9 if emphasis else 7
         parts.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="{radius}" fill="{BLUE if emphasis else GREY_MED}"/>')
+        # Flip the label to the point's left when it would otherwise run
+        # past the right margin — T_LABEL is wide enough now that a point
+        # near the plot's right edge could push its label off the canvas.
+        label_w = _text_width(point["label"]) * T_LABEL * 0.62
+        if px + radius + 8 + label_w > W - MR:
+            label_x, anchor = px - radius - 8, "end"
+        else:
+            label_x, anchor = px + radius + 8, "start"
         parts.append(
-            text_el(px + radius + 6, py + 5, point["label"], size=14, fill=BLACK if emphasis else GREY_DARK, weight="600" if emphasis else "normal")
+            text_el(
+                label_x,
+                py + 6,
+                point["label"],
+                size=T_LABEL,
+                fill=BLACK if emphasis else GREY_DARK,
+                weight="600" if emphasis else "normal",
+                anchor=anchor,
+            )
         )
     return parts
 
@@ -761,21 +926,21 @@ def render_cover(spec: dict) -> list[str]:
         rect_el(0, 0, W, H, NAVY_COVER),
     ]
     y = 264
-    for line in wrap(spec.get("title", ""), 40, max_lines=3):
-        parts.append(text_el(ML, y, line, size=52, fill=WHITE, family=SERIF))
-        y += 64
+    for line in wrap(spec.get("title", ""), 38, max_lines=3):  # 40 * 52/54
+        parts.append(text_el(ML, y, line, size=T_COVER_TITLE, fill=WHITE, family=SERIF))
+        y += 66  # 64 * 54/52
     subtitle = spec.get("subtitle", "")
     if subtitle:
         y += 8
         for line in wrap(subtitle, 70, max_lines=2):
-            parts.append(text_el(ML, y, line, size=20, fill="#E5E7EB"))
+            parts.append(text_el(ML, y, line, size=T_SUBLINE, fill="#E5E7EB"))
             y += 28
     meta = " · ".join(str(spec[k]) for k in ("presenter", "date") if spec.get(k))
     if meta:
-        parts.append(text_el(ML, 640, meta, size=15, fill="#E5E7EB"))
+        parts.append(text_el(ML, 640, meta, size=T_LABEL, fill="#E5E7EB"))
     classification = spec.get("classification", "")
     if classification:
-        parts.append(text_el(W - MR, 640, classification.upper(), size=12, fill="#E5E7EB", anchor="end"))
+        parts.append(text_el(W - MR, 640, classification.upper(), size=T_CHROME, fill="#E5E7EB", anchor="end"))
     return parts
 
 
@@ -802,13 +967,16 @@ def render_scatter(spec: dict) -> list[str]:
     parts = [
         line_el(plot_x, plot_y + plot_h, plot_x + plot_w, plot_y + plot_h, GREY_DARK),
         line_el(plot_x, plot_y, plot_x, plot_y + plot_h, GREY_DARK),
-        text_el((plot_x + plot_x + plot_w) / 2, plot_y + plot_h + 34, x_axis["label"], size=14, fill=GREY_DARK, weight="600", anchor="middle"),
-        text_el(ML, plot_y - 14, y_axis["label"], size=14, fill=GREY_DARK, weight="600"),
+        text_el((plot_x + plot_x + plot_w) / 2, plot_y + plot_h + 44, x_axis["label"], size=T_LABEL, fill=GREY_DARK, weight="600", anchor="middle"),
+        # -9, not a bigger negative offset: tuned against header()'s 28px
+        # subline gap so this caption clears both a present subline above it
+        # and the plot's own top border below it (see header()'s comment).
+        text_el(ML, plot_y - 9, y_axis["label"], size=T_LABEL, fill=GREY_DARK, weight="600"),
         # Disclosed axis ranges keep non-zero baselines honest (chart rule).
-        text_el(plot_x, plot_y + plot_h + 18, fmt(x_min + x_pad, x_axis.get("unit", "")), size=11, fill=GREY_MED),
-        text_el(plot_x + plot_w, plot_y + plot_h + 18, fmt(x_max - x_pad, x_axis.get("unit", "")), size=11, fill=GREY_MED, anchor="end"),
-        text_el(plot_x - 8, plot_y + 10, fmt(y_max - y_pad, y_axis.get("unit", "")), size=11, fill=GREY_MED, anchor="end"),
-        text_el(plot_x - 8, plot_y + plot_h, fmt(y_min + y_pad, y_axis.get("unit", "")), size=11, fill=GREY_MED, anchor="end"),
+        text_el(plot_x, plot_y + plot_h + 23, fmt(x_min + x_pad, x_axis.get("unit", "")), size=T_TICK, fill=GREY_MED),
+        text_el(plot_x + plot_w, plot_y + plot_h + 23, fmt(x_max - x_pad, x_axis.get("unit", "")), size=T_TICK, fill=GREY_MED, anchor="end"),
+        text_el(plot_x - 10, plot_y + 10, fmt(y_max - y_pad, y_axis.get("unit", "")), size=T_TICK, fill=GREY_MED, anchor="end"),
+        text_el(plot_x - 10, plot_y + plot_h, fmt(y_min + y_pad, y_axis.get("unit", "")), size=T_TICK, fill=GREY_MED, anchor="end"),
     ]
     for point in points:
         cx, cy = px(point["x"]), py(point["y"])
@@ -817,8 +985,34 @@ def render_scatter(spec: dict) -> list[str]:
         parts.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{radius}" fill="{BLUE if emphasis else GREY_MED}"/>')
         label = point.get("label", "")
         if label:
+            # Decide the flip side off the label's *raw* (unclamped) width —
+            # T_LABEL is wide enough now that a point near the plot's right
+            # edge could push an unflipped label off the canvas — then clamp
+            # to whichever side's actual margin budget was chosen, not a
+            # fixed char count. A flat 17-unit clamp truncated legitimate
+            # short labels ("Guided, enterprise", 18 units) that had ample
+            # room on either side; this reuses the same px-per-unit constant
+            # (T_LABEL * 0.62) already used below for the margin check itself.
+            raw_w = _text_width(label) * T_LABEL * 0.62
+            if cx + radius + 8 + raw_w > W - MR:
+                label_x, anchor = cx - radius - 8, "end"
+                avail_px = label_x - ML
+            else:
+                label_x, anchor = cx + radius + 8, "start"
+                avail_px = (W - MR) - label_x
+            label_w_units = max(int(avail_px / (T_LABEL * 0.62)), 6)
+            clamped = wrap(label, label_w_units, max_lines=1)[0]
             parts.append(
-                text_el(cx + radius + 6, cy + 5, wrap(label, 24, max_lines=1)[0], size=13, fill=BLACK if emphasis else GREY_DARK, weight="600" if emphasis else "normal", title=label)
+                text_el(
+                    label_x,
+                    cy + 7,
+                    clamped,
+                    size=T_LABEL,
+                    fill=BLACK if emphasis else GREY_DARK,
+                    weight="600" if emphasis else "normal",
+                    anchor=anchor,
+                    title=label,
+                )
             )
     return parts
 
@@ -834,7 +1028,7 @@ def render_distribution(spec: dict) -> list[str]:
 
     parts = [
         line_el(ML, CHART_BOTTOM, W - MR, CHART_BOTTOM, GREY_DARK),
-        text_el(ML - 10, CHART_BOTTOM + 4, "0", size=11, fill=GREY_MED, anchor="end"),
+        text_el(ML - 10, CHART_BOTTOM + 4, "0", size=T_TICK, fill=GREY_MED, anchor="end"),
     ]
     for i, bucket in enumerate(bins):
         x = ML + step * i + (step - bar_w) / 2
@@ -843,9 +1037,11 @@ def render_distribution(spec: dict) -> list[str]:
         is_hot = i == highlight
         # Flat fill only — grey context bars never carry a border.
         parts.append(rect_el(x, y, bar_w, max(h, 1), BLUE if is_hot else GREY_FILL))
-        parts.append(text_el(x + bar_w / 2, y - 8, fmt(bucket["value"], unit), size=13, weight="bold" if is_hot else "normal", fill=BLACK if is_hot else GREY_MED, anchor="middle"))
-        for j, line in enumerate(wrap(bucket["label"], max(int(step / 8), 6), max_lines=2)):
-            parts.append(text_el(x + bar_w / 2, CHART_BOTTOM + 20 + j * 15, line, size=12, fill=GREY_DARK, anchor="middle", title=bucket["label"]))
+        parts.append(
+            text_el(x + bar_w / 2, y - 11, fmt(bucket["value"], unit), size=T_LABEL, weight="bold" if is_hot else "normal", fill=BLACK if is_hot else GREY_MED, anchor="middle")
+        )
+        for j, line in enumerate(wrap(bucket["label"], max(int(step / 11), 6), max_lines=2)):  # divisor 8 * 18/12
+            parts.append(text_el(x + bar_w / 2, CHART_BOTTOM + X_AXIS_LABEL_LEAD + j * LINE_H_LABEL, line, size=T_LABEL, fill=GREY_DARK, anchor="middle", title=bucket["label"]))
     return parts
 
 
@@ -869,8 +1065,18 @@ def render_small_multiples(spec: dict) -> list[str]:
         y = CHART_TOP + (i // cols) * (panel_h + 18)
         values = chart["values"]
         emphasis = chart.get("emphasis")
-        parts.append(text_el(x, y + 14, wrap(chart["label"], int(panel_w / 9), max_lines=1)[0], size=14, fill=BLACK if emphasis else GREY_DARK, weight="600", title=chart["label"]))
-        spark_top, spark_h = y + 26, panel_h - 48
+        parts.append(
+            text_el(
+                x,
+                y + 18,  # 14 * 18/14
+                wrap(chart["label"], int(panel_w / (T_LABEL * 0.62)), max_lines=1)[0],
+                size=T_LABEL,
+                fill=BLACK if emphasis else GREY_DARK,
+                weight="600",
+                title=chart["label"],
+            )
+        )
+        spark_top, spark_h = y + 33, panel_h - 62  # label clearance + value-line clearance scaled with T_LABEL
         baseline_y = spark_top + spark_h * (1 - (0 - shared_bottom) / (shared_top - shared_bottom))
         parts.append(line_el(x, baseline_y, x + panel_w, baseline_y, GREY_BORDER))
 
@@ -883,8 +1089,8 @@ def render_small_multiples(spec: dict) -> list[str]:
         parts.append(f'<polyline points="{line_points}" fill="none" stroke="{BLUE if emphasis else GREY_MED}" stroke-width="2.5"/>')
         lx, ly_pt = pt(len(values) - 1)
         parts.append(f'<circle cx="{lx:.1f}" cy="{ly_pt:.1f}" r="4" fill="{BLUE if emphasis else GREY_MED}"/>')
-        parts.append(text_el(x + panel_w, y + panel_h - 6, fmt(values[-1], unit), size=15, weight="bold", fill=BLUE if emphasis else GREY_DARK, anchor="end"))
-        parts.append(text_el(x, y + panel_h - 6, fmt(values[0], unit), size=12, fill=GREY_MED))
+        parts.append(text_el(x + panel_w, y + panel_h - 6, fmt(values[-1], unit), size=T_LABEL, weight="bold", fill=BLUE if emphasis else GREY_DARK, anchor="end"))
+        parts.append(text_el(x, y + panel_h - 6, fmt(values[0], unit), size=T_LABEL, fill=GREY_MED))
     return parts
 
 
@@ -894,34 +1100,34 @@ def render_section_divider(spec: dict) -> list[str]:
     parts = [rect_el(0, 0, W, H, NAVY_COVER)]
     section_number = spec["section_number"]
     parts.append(
-        text_el(ML, 236, f"SECTION {section_number:02d}", size=15, fill="#E5E7EB", weight="600")
+        text_el(ML, 236, f"SECTION {section_number:02d}", size=T_KICKER_LABEL, fill="#E5E7EB", weight="600")
     )
 
     title = spec.get("title", "")
     y = 284
-    lines = wrap(title, 40, max_lines=2)
+    lines = wrap(title, 33, max_lines=2)  # 40 * 40/48
     truncated = bool(lines) and lines[-1].endswith(ELLIPSIS)
     for line in lines:
-        parts.append(text_el(ML, y, line, size=40, fill=WHITE, family=SERIF, title=title if truncated else ""))
-        y += 50
+        parts.append(text_el(ML, y, line, size=T_DIVIDER_TITLE, fill=WHITE, family=SERIF, title=title if truncated else ""))
+        y += 60  # 50 * 48/40
 
     subtitle = spec.get("subtitle", "")
     if subtitle:
         y += 8
-        for line in wrap(subtitle, 70, max_lines=2):
-            parts.append(text_el(ML, y, line, size=18, fill="#E5E7EB"))
-            y += 26
+        for line in wrap(subtitle, 63, max_lines=2):  # 70 * 18/20
+            parts.append(text_el(ML, y, line, size=T_SUBLINE, fill="#E5E7EB"))
+            y += 29  # 26 * 20/18
 
     classification = spec.get("classification", "")
     if classification:
-        parts.append(text_el(W - MR, 40, classification.upper(), size=11, fill="#E5E7EB", weight="600", anchor="end"))
+        parts.append(text_el(W - MR, 40, classification.upper(), size=T_CHROME, fill="#E5E7EB", weight="600", anchor="end"))
 
     # Section rail: skip entirely rather than overlap or overflow (measured in
     # the same half-width character units `wrap`/`_text_width` already use).
     sections = spec.get("sections", [])
     if sections:
         rail_y = 604
-        px_per_unit = 13 * 0.62
+        px_per_unit = T_LABEL * 0.62
         gap_units = 4
         items = [f"{i + 1:02d} {name}" for i, name in enumerate(sections)]
         total_units = sum(_text_width(item) for item in items) + gap_units * max(len(items) - 1, 0)
@@ -932,10 +1138,10 @@ def render_section_divider(spec: dict) -> list[str]:
             for i, item in enumerate(items):
                 item_w = _text_width(item) * px_per_unit
                 if i == current_index:
-                    parts.append(text_el(x, rail_y, item, size=13, fill=WHITE, weight="600"))
+                    parts.append(text_el(x, rail_y, item, size=T_LABEL, fill=WHITE, weight="600"))
                 else:
                     parts.append(
-                        f'<text x="{x:.1f}" y="{rail_y:.1f}" font-family="{SANS}" font-size="13" '
+                        f'<text x="{x:.1f}" y="{rail_y:.1f}" font-family="{SANS}" font-size="{T_LABEL}" '
                         f'fill="#E5E7EB" opacity="0.55">{esc(item)}</text>'
                     )
                 x += item_w + gap_units * px_per_unit
@@ -948,26 +1154,26 @@ def render_end_cover(spec: dict) -> list[str]:
     still renders."""
     parts = [rect_el(0, 0, W, H, NAVY_COVER)]
     y = 264
-    for line in wrap(spec.get("title") or "Thank you", 40, max_lines=3):
-        parts.append(text_el(ML, y, line, size=52, fill=WHITE, family=SERIF))
-        y += 64
+    for line in wrap(spec.get("title") or "Thank you", 38, max_lines=3):  # 40 * 52/54
+        parts.append(text_el(ML, y, line, size=T_COVER_TITLE, fill=WHITE, family=SERIF))
+        y += 66  # 64 * 54/52
     subtitle = spec.get("subtitle", "")
     if subtitle:
         y += 8
         for line in wrap(subtitle, 70, max_lines=2):
-            parts.append(text_el(ML, y, line, size=20, fill="#E5E7EB"))
+            parts.append(text_el(ML, y, line, size=T_SUBLINE, fill="#E5E7EB"))
             y += 28
     contact = (spec.get("contact") or [])[:4]
     cy = 560
     for line in contact:
-        parts.append(text_el(ML, cy, str(line), size=15, fill="#E5E7EB"))
-        cy += 24
+        parts.append(text_el(ML, cy, str(line), size=T_LABEL, fill="#E5E7EB"))
+        cy += 29  # 24 * 18/15, scaled with T_LABEL
     meta = " · ".join(str(spec[k]) for k in ("presenter", "date") if spec.get(k))
     if meta:
-        parts.append(text_el(ML, 640, meta, size=15, fill="#E5E7EB"))
+        parts.append(text_el(ML, 640, meta, size=T_LABEL, fill="#E5E7EB"))
     classification = spec.get("classification", "")
     if classification:
-        parts.append(text_el(W - MR, 640, classification.upper(), size=12, fill="#E5E7EB", anchor="end"))
+        parts.append(text_el(W - MR, 640, classification.upper(), size=T_CHROME, fill="#E5E7EB", anchor="end"))
     return parts
 
 
@@ -991,8 +1197,8 @@ def render_agenda(spec: dict) -> list[str]:
     # Detail column sits at the same proportional offset the single-column
     # case uses literally (ML + 320 of a 1120px-wide band).
     detail_offset = col_w * (320 / 1120)
-    detail_width_units = max(int((col_w - detail_offset) / (14 * 0.62)), 8)
-    title_width_units = max(int((detail_offset - 46) / (17 * 0.62)), 8)
+    detail_width_units = max(int((col_w - detail_offset) / (T_LABEL * 0.62)), 8)
+    title_width_units = max(int((detail_offset - 54) / (T_BODY * 0.62)), 8)  # 46 * 28/24, scaled with T_NUM_AGENDA
 
     parts: list[str] = []
     for r in range(n_rows + 1):
@@ -1006,19 +1212,19 @@ def render_agenda(spec: dict) -> list[str]:
         for r, item in enumerate(col_items):
             index += 1
             y = CHART_TOP + row_h * r
-            baseline = y + row_h / 2 + 6
+            baseline = y + row_h / 2 + 8  # 6 * 22/17, scaled with T_BODY (title role)
             emphasized = current == index
             if emphasized:
                 parts.append(rect_el(col_x, y, col_w, row_h, BLUE_TINT))
-            parts.append(text_el(col_x, baseline, f"{index:02d}", size=24, fill=BLUE, family=SERIF))
+            parts.append(text_el(col_x, baseline, f"{index:02d}", size=T_NUM_AGENDA, fill=BLUE, family=SERIF))
             title_lines = wrap(item["title"], title_width_units, max_lines=1)
             title_text = title_lines[0] if title_lines else ""
             parts.append(
                 text_el(
-                    col_x + 46,
+                    col_x + 54,  # 46 * 28/24, scaled with T_NUM_AGENDA
                     baseline,
                     title_text,
-                    size=17,
+                    size=T_BODY,
                     fill=BLUE if emphasized else BLACK,
                     weight="600",
                     title=item["title"] if title_text.endswith(ELLIPSIS) else "",
@@ -1033,7 +1239,7 @@ def render_agenda(spec: dict) -> list[str]:
                         detail_x,
                         baseline,
                         detail_text,
-                        size=14,
+                        size=T_LABEL,
                         fill=GREY_MED,
                         title=detail if detail_text.endswith(ELLIPSIS) else "",
                     )
@@ -1082,8 +1288,8 @@ def render_bullet_list(spec: dict) -> list[str]:
     col_w = (W - ML - MR - gap) / 2 if columns == 2 else float(W - ML - MR)
     text_indent = 22.0  # past the 6px marker square
     sub_indent = text_indent + 24.0  # one nested step past the bullet text (24px per spec)
-    text_width_units = max(int((col_w - text_indent) / (16 * 0.62)), 10)
-    sub_width_units = max(int((col_w - sub_indent) / (14 * 0.62)), 10)
+    text_width_units = max(int((col_w - text_indent) / (T_BODY * 0.62)), 10)
+    sub_width_units = max(int((col_w - sub_indent) / (T_LABEL * 0.62)), 10)
     band_start = float(CHART_TOP) + 20
 
     parts: list[str] = []
@@ -1118,17 +1324,17 @@ def render_bullet_list(spec: dict) -> list[str]:
             text_fill = BLUE if emphasized else BLACK
             weight = "600" if emphasized else "normal"
             marker_y = y
-            parts.append(rect_el(col_x, marker_y - 10, 6, 6, BLUE))
+            parts.append(rect_el(col_x, marker_y - 14, 6, 6, BLUE))  # -10 * 22/16, scaled with T_BODY
             for line in lines:
-                parts.append(text_el(col_x + text_indent, y, line, size=16, fill=text_fill, weight=weight))
-                y += 24
+                parts.append(text_el(col_x + text_indent, y, line, size=T_BODY, fill=text_fill, weight=weight))
+                y += LINE_H_BODY
             if sub_lines:
-                y += 4
+                y += 6
                 for sl in sub_lines:
                     for j, line in enumerate(sl):
                         prefix = f"– {line}" if j == 0 else f"  {line}"
-                        parts.append(text_el(col_x + sub_indent, y, prefix, size=14, fill=GREY_DARK))
-                        y += 20
+                        parts.append(text_el(col_x + sub_indent, y, prefix, size=T_LABEL, fill=GREY_DARK))
+                        y += LINE_H_LABEL
     return parts
 
 
@@ -1150,12 +1356,13 @@ def render_closing(spec: dict) -> list[str]:
         col_gap = 40.0
         right_x = ML + left_w + col_gap
         right_w = (W - ML - MR) - left_w - col_gap
-        text_width_units = max(int((left_w - 40) / (16 * 0.62)), 10)
-        detail_width_units = max(int(right_w / (16 * 0.62)), 10)
+        text_indent = 42.0  # 32 * 26/20, scaled with T_NUM_CLOSING so the takeaway text clears the bigger number
+        text_width_units = max(int((left_w - text_indent) / (T_BODY * 0.62)), 10)
+        detail_width_units = max(int(right_w / (T_BODY * 0.62)), 10)
 
         band_start = float(CHART_TOP) + 34
 
-        parts.append(text_el(ML, CHART_TOP, "KEY TAKEAWAYS", size=12, fill=GREY_MED, weight="600"))
+        parts.append(text_el(ML, CHART_TOP, "KEY TAKEAWAYS", size=T_KICKER_LABEL, fill=GREY_MED, weight="600"))
         # Divide [band_start, CHART_BOTTOM] into one row per takeaway (the
         # render_gap/render_agenda "fill the band by row count" technique)
         # instead of centering the whole list as one block — that shifted
@@ -1173,15 +1380,15 @@ def render_closing(spec: dict) -> list[str]:
         for i, (takeaway, lines) in enumerate(zip(takeaways, takeaway_lines)):
             row_top = band_start + i * takeaway_row_h
             y = row_top
-            parts.append(text_el(ML, y, str(i + 1), size=20, fill=BLUE, family=SERIF, weight="bold"))
+            parts.append(text_el(ML, y, str(i + 1), size=T_NUM_CLOSING, fill=BLUE, family=SERIF, weight="bold"))
             ly = y
             for line in lines:
                 parts.append(
-                    text_el(ML + 32, ly, line, size=16, fill=BLACK, title=str(takeaway) if line.endswith(ELLIPSIS) else "")
+                    text_el(ML + text_indent, ly, line, size=T_BODY, fill=BLACK, title=str(takeaway) if line.endswith(ELLIPSIS) else "")
                 )
-                ly += 22
+                ly += LINE_H_BODY
 
-        parts.append(text_el(right_x, CHART_TOP, "NEXT STEPS", size=12, fill=GREY_MED, weight="600"))
+        parts.append(text_el(right_x, CHART_TOP, "NEXT STEPS", size=T_KICKER_LABEL, fill=GREY_MED, weight="600"))
         step_lines = [wrap(step["action"], detail_width_units, max_lines=2) for step in next_steps]
         step_metas = [" · ".join(str(step[k]) for k in ("owner", "timing") if step.get(k)) for step in next_steps]
         step_row_h = (CHART_BOTTOM - band_start) / len(next_steps)
@@ -1190,54 +1397,62 @@ def render_closing(spec: dict) -> list[str]:
             y = row_top
             for line in lines:
                 parts.append(
-                    text_el(right_x, y, line, size=16, fill=BLACK, weight="600", title=step["action"] if line.endswith(ELLIPSIS) else "")
+                    text_el(right_x, y, line, size=T_BODY, fill=BLACK, weight="600", title=step["action"] if line.endswith(ELLIPSIS) else "")
                 )
-                y += 21
+                y += LINE_H_BODY
             if meta:
-                y += 3
-                parts.append(text_el(right_x, y, meta, size=13, fill=GREY_MED))
+                y += 4
+                parts.append(text_el(right_x, y, meta, size=T_LABEL, fill=GREY_MED))
     else:
         row_h = min(64.0, (CHART_BOTTOM - CHART_TOP) / len(next_steps))
-        action_width_units = max(int((W - ML - MR - 260) / (16 * 0.62)), 10)
+        # 260 reserved the right-aligned "Owner · Timing" meta's column at
+        # the old T_LABEL size (13px); scaled to 360 by 18/13 so a full-width
+        # action line no longer runs into the bigger meta text at the row's
+        # right edge.
+        action_width_units = max(int((W - ML - MR - 360) / (T_BODY * 0.62)), 10)
         for r in range(len(next_steps) + 1):
             ry = CHART_TOP + row_h * r
             parts.append(line_el(ML, ry, W - MR, ry, GREY_BORDER))
         for i, step in enumerate(next_steps):
             row_y = CHART_TOP + row_h * i
             lines = wrap(step["action"], action_width_units, max_lines=2)
-            baseline = row_y + row_h / 2 - (len(lines) - 1) * 11 + 5
+            baseline = row_y + row_h / 2 - (len(lines) - 1) * HALF_LINE_BODY + NUDGE_BODY
             ay = baseline
             for line in lines:
                 parts.append(
-                    text_el(ML, ay, line, size=16, fill=BLACK, weight="600", title=step["action"] if line.endswith(ELLIPSIS) else "")
+                    text_el(ML, ay, line, size=T_BODY, fill=BLACK, weight="600", title=step["action"] if line.endswith(ELLIPSIS) else "")
                 )
-                ay += 21
+                ay += LINE_H_BODY
             meta = " · ".join(str(step[k]) for k in ("owner", "timing") if step.get(k))
             if meta:
-                parts.append(text_el(W - MR, row_y + row_h / 2 + 5, meta, size=13, fill=GREY_MED, anchor="end"))
+                parts.append(text_el(W - MR, row_y + row_h / 2 + NUDGE_LABEL, meta, size=T_LABEL, fill=GREY_MED, anchor="end"))
     return parts
+
+
+T_QUOTE_MARK = 103  # decorative opening mark, not a reading role; scaled with
+                     # T_STATEMENT's growth (90px mark : 28px quote text before)
 
 
 def render_quote(spec: dict) -> list[str]:
     """Pull-quote slide: one oversized opening quotation mark (structural
     motif, no closing mark) plus attributed text."""
     text = spec["text"]
-    parts = [text_el(ML, CHART_TOP + 70, "“", size=90, fill=BLUE_TINT, family=SERIF)]
+    parts = [text_el(ML, CHART_TOP + 70, "“", size=T_QUOTE_MARK, fill=BLUE_TINT, family=SERIF)]
     x = ML + 60
     y = CHART_TOP + 160
-    lines = wrap(text, 58, max_lines=4)
+    lines = wrap(text, 50, max_lines=4)  # 58 * 28/32
     truncated = bool(lines) and lines[-1].endswith(ELLIPSIS)
     for line in lines:
-        parts.append(text_el(x, y, line, size=28, fill=BLACK, family=SERIF, title=text if truncated else ""))
-        y += 40
+        parts.append(text_el(x, y, line, size=T_STATEMENT, fill=BLACK, family=SERIF, title=text if truncated else ""))
+        y += 46  # 40 * 32/28
     attribution = spec.get("attribution", "")
     if attribution:
-        y += 20
-        parts.append(text_el(x, y, f"— {attribution}", size=15, fill=GREY_DARK, weight="600"))
-        y += 22
+        y += 24  # 20 * 18/15, scaled with T_LABEL
+        parts.append(text_el(x, y, f"— {attribution}", size=T_LABEL, fill=GREY_DARK, weight="600"))
+        y += 26  # 22 * 18/15
     context = spec.get("context", "")
     if context:
-        parts.append(text_el(x, y, context, size=13, fill=GREY_MED))
+        parts.append(text_el(x, y, context, size=T_LABEL, fill=GREY_MED))
     return parts
 
 

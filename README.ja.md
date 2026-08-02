@@ -9,7 +9,7 @@ AIエージェントに載せるひとつのスキルで、メモ・数値・文
 Python 3 標準ライブラリのみ。**依存ゼロ・APIキー不要・ネットワーク通信なし。**
 
 [![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/badge/Release-v2.1.1-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.1.1)
+[![Release](https://img.shields.io/badge/Release-v2.2.0-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.2.0)
 
 [English](README.md) | 日本語
 

@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 2.2.0 - 2026-08-03 - Projection Type Scale
+
+- The whole renderer moved to a named type-token scale sized for projected presentations, not documents: body text 16 -> 22px (17pt equivalent), reading labels 13-15 -> 18px, content headline 30 -> 40px, section-divider title 40 -> 48px, cover title 54px, KPI hero numbers 44px, quote statements 32px — while chrome (sources, footnotes, page numbers, classification) deliberately stays at 13px so the hierarchy speaks. Sizes are a ratio system: headline:body 1.8:1, deck span (cover : chrome) about 4:1, asserted by a new test (headline/body >= 1.7, body/chrome >= 1.6).
+- All wrap widths and line advances rescaled with the tokens; band-grid anchoring, kinsoku, and contrast rules unchanged. Every size literal now references a token (documented exceptions commented). `references/style-system.md` type table rewritten around the tokens and the ratio principle.
+- Found and fixed while verifying: waterfall driver labels used a bar-width wrap budget instead of the full step width, silently dropping words ("Enterprise new customers" -> "Enterprise new customer…") behind an ellipsis. Labels now wrap on the step width; a regression test asserts no word of a driver label is ever dropped.
+- Verified across all 25 rendered examples: zero text collisions with the chart band, zero margin overflows, zero ellipses in shipped renders. Tests 134 -> 141.
+
 ## 2.1.1 - 2026-08-03 - Kicker Bar Removed
 
 - Removed the navy "kicker" bar above every headline — from the content-slide header, the navy cover family (`cover`, `section_divider`, `end_cover`), and the report title band. It was documented as "the one sanctioned decorative motif," but it carried no information; the data-ink rule now has no exceptions. The headline anchors the slide by itself.

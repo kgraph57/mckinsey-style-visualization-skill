@@ -150,6 +150,38 @@ class GraphicalIntegrityTests(unittest.TestCase):
         self.assertEqual(renderer.fmt(-4.5, "€"), "-€4.5")
         self.assertEqual(renderer.fmt(-12, "%"), "-12%")
 
+    def test_waterfall_driver_labels_do_not_drop_words(self) -> None:
+        # Regression for a real bug: a bar_w-sized (not step-sized) wrap
+        # budget clamped these exact two driver labels to 2 lines of 11
+        # half-width units and silently dropped "customers"/"expansion"
+        # behind an ellipsis, even though the label's own <title> carried the
+        # full text. Every word must survive, and no ellipsis is legitimate
+        # here since the full label fits within the column's step width.
+        spec = {
+            "pattern": "waterfall",
+            "headline": "Enterprise acquisition and expansion added $5.5M ARR",
+            "unit": "$M",
+            "start": {"label": "Q1 ARR", "value": 10.0},
+            "drivers": [
+                {"label": "Enterprise new customers", "value": 3.0},
+                {"label": "Existing customer expansion", "value": 2.5},
+                {"label": "Churn", "value": -0.5},
+            ],
+            "end_label": "Q4 ARR",
+        }
+
+        svg = renderer.render(spec)
+
+        for label in ("Enterprise new customers", "Existing customer expansion"):
+            self.assertIn(f"<title>{label}</title>", svg)
+            rendered = "".join(
+                m.group(1)
+                for m in re.finditer(rf"<title>{re.escape(label)}</title>([^<]*)", svg)
+            )
+            self.assertNotIn(renderer.ELLIPSIS, rendered, f"{label!r} lost words behind an ellipsis")
+            for word in label.split():
+                self.assertIn(word, svg, f"{word!r} from {label!r} dropped from the render")
+
     def test_cjk_text_wraps_instead_of_overflowing(self) -> None:
         headline = "成長は力強く、採用は実証済みで、いまや処理能力が制約条件になっている"
         lines = renderer.wrap(headline, 64)
@@ -257,6 +289,27 @@ class GraphicalIntegrityTests(unittest.TestCase):
         for spec in specs:
             svg = renderer.render(spec)
             self.assertIn("<svg", svg)
+
+    def test_scatter_point_label_does_not_truncate_when_room_available(self) -> None:
+        # Regression for a real bug: a flat 17-half-width-unit clamp cut this
+        # exact 18-unit label to "Guided,…" even though ~380px of clear
+        # margin sat to its right — the clamp must be sized off the actual
+        # available px to the chosen side, not a fixed character count.
+        spec = {
+            "pattern": "scatter",
+            "headline": "Price level does not explain churn; onboarding depth does",
+            "x_axis": {"label": "Contract price ($k / yr)"},
+            "y_axis": {"label": "12-month retention (%)"},
+            "points": [
+                {"x": 18, "y": 92, "label": "Guided onboarding", "emphasis": True},
+                {"x": 45, "y": 90, "label": "Guided, enterprise", "emphasis": True},
+            ],
+        }
+
+        svg = renderer.render(spec)
+
+        self.assertIn("<title>Guided, enterprise</title>Guided, enterprise<", svg)
+        self.assertNotIn(f"Guided,{renderer.ELLIPSIS}", svg)
 
 
 class StructuralSlidePatternTests(unittest.TestCase):
@@ -607,7 +660,9 @@ class InkDisciplineRegressionTests(unittest.TestCase):
         # "KEY TAKEAWAYS" is for `closing`, so it gets the same fixed
         # band_start anchor bullet_list and closing use.
         strip_top = renderer.CHART_TOP + 20
-        expected_claim_y = strip_top + 18
+        # 18 scaled by T_BODY/17 (the old claim size) -> 23, since the
+        # type-scale pass grew claim text from 17px to 22px.
+        expected_claim_y = strip_top + 23
         self.assertIn(f'y="{expected_claim_y:.1f}"', svg)
         # Must not regress to the whole-block-centered position this test
         # locked in previously (2-block short list, single-line claim/proof/
@@ -637,7 +692,9 @@ class InkDisciplineRegressionTests(unittest.TestCase):
                 for _ in range(3)
             ],
         }
-        expected_claim_y = renderer.CHART_TOP + 20 + 18
+        # 18 scaled by T_BODY/17 (the old claim size) -> 23, since the
+        # type-scale pass grew claim text from 17px to 22px.
+        expected_claim_y = renderer.CHART_TOP + 20 + 23
         for spec in (short_spec, long_spec):
             svg = renderer.render(spec)
             self.assertIn(f'y="{expected_claim_y:.1f}"', svg)
@@ -698,7 +755,9 @@ class InkDisciplineRegressionTests(unittest.TestCase):
         svg = renderer.render(
             {"pattern": "process_flow", "headline": "x", "steps": [{"label": "A"}, {"label": "B"}]}
         )
-        expected_box_h = 104.0
+        # 152px (grown from 104) holds the same worst-case content (2-line
+        # title, 2-line detail) at the type-scale pass's larger T_BODY/T_LABEL.
+        expected_box_h = 152.0
         expected_y = (renderer.CHART_TOP + renderer.CHART_BOTTOM) / 2 - expected_box_h / 2
         self.assertIn(f'height="{expected_box_h:.1f}"', svg)
         self.assertIn(f'y="{expected_y:.1f}"', svg)
@@ -790,7 +849,9 @@ class InkDisciplineRegressionTests(unittest.TestCase):
         band_start = float(renderer.CHART_TOP) + 20
         row_h = (renderer.CHART_BOTTOM - band_start) / 3
         row_tops = [band_start + i * row_h for i in range(3)]
-        expected_marker_ys = [row_tops[i] - 10 for i in range(3)]
+        # Marker offset is -10 scaled by T_BODY/16 (the old bullet-text size)
+        # -> -14, since the type-scale pass grew bullet text from 16px to 22px.
+        expected_marker_ys = [row_tops[i] - 14 for i in range(3)]
         for marker_y in expected_marker_ys:
             self.assertIn(f'y="{marker_y:.1f}"', svg)
         # Each item gets an equal share of the band (row boundaries are
@@ -798,7 +859,7 @@ class InkDisciplineRegressionTests(unittest.TestCase):
         self.assertAlmostEqual(row_tops[1] - row_tops[0], row_tops[2] - row_tops[1])
         old_whole_block_item3_marker_y = 430.0
         self.assertNotIn(f'y="{old_whole_block_item3_marker_y:.1f}"', svg)
-        old_within_row_item1_marker_y = row_tops[0] + max(row_h - 48.0, 0.0) / 2 - 10
+        old_within_row_item1_marker_y = row_tops[0] + max(row_h - 48.0, 0.0) / 2 - 14
         self.assertNotIn(f'y="{old_within_row_item1_marker_y:.1f}"', svg)
 
     def test_bullet_list_single_bullet_stays_under_the_band_start(self) -> None:
@@ -814,12 +875,92 @@ class InkDisciplineRegressionTests(unittest.TestCase):
         }
         svg = renderer.render(spec)
         band_start = float(renderer.CHART_TOP) + 20
-        marker_y = band_start - 10
+        # Marker offset is -10 scaled by T_BODY/16 (the old bullet-text size)
+        # -> -14, since the type-scale pass grew bullet text from 16px to 22px.
+        marker_y = band_start - 14
         self.assertIn(f'y="{marker_y:.1f}"', svg)
         # The old within-row centering bug put the marker at y=372.0 for
         # this exact spec (144px below band_start=228.0) before the round-3
         # fix anchored it to the row's top edge instead.
         self.assertNotIn('y="372.0"', svg)
+
+
+class TypeScaleTests(unittest.TestCase):
+    """The type scale is a ratio system (references/style-system.md
+    Typography), not a grab-bag of pixel values: this locks in the token
+    table and the two ratios that must survive any future size change."""
+
+    def test_token_table_exists_with_contract_values(self) -> None:
+        expected = {
+            "T_COVER_TITLE": 54,
+            "T_DIVIDER_TITLE": 48,
+            "T_HEADLINE": 40,
+            "T_HEADLINE_DENSE": 32,
+            "T_STATEMENT": 32,
+            "T_KPI_NUM": 44,
+            "T_SUBLINE": 20,
+            "T_BODY": 22,
+            "T_LABEL": 18,
+            "T_NUM_AGENDA": 28,
+            "T_NUM_CLOSING": 26,
+            "T_TICK": 14,
+            "T_KICKER_LABEL": 15,
+            "T_ANNOTATION": 22,
+            "T_CHROME": 13,
+        }
+        for name, value in expected.items():
+            self.assertTrue(hasattr(renderer, name), f"missing type-scale token {name}")
+            self.assertEqual(getattr(renderer, name), value, f"{name} drifted from the token contract")
+
+    def test_headline_to_body_ratio_holds(self) -> None:
+        self.assertGreaterEqual(renderer.T_HEADLINE / renderer.T_BODY, 1.7)
+
+    def test_body_to_chrome_ratio_holds(self) -> None:
+        self.assertGreaterEqual(renderer.T_BODY / renderer.T_CHROME, 1.6)
+
+    def test_reading_text_never_drops_below_the_label_floor(self) -> None:
+        # Every role except the three deliberately-small exceptions clears
+        # the 18px reading floor: T_TICK and T_CHROME are whisper-small on
+        # purpose (referenced, not read at length), and T_KICKER_LABEL is a
+        # small-caps structural eyebrow (SECTION NN, KEY TAKEAWAYS), a
+        # distinct, intentionally tighter role rather than a body of reading
+        # text.
+        floor = renderer.T_LABEL
+        exceptions = {"T_TICK", "T_CHROME", "T_KICKER_LABEL"}
+        for name in (
+            "T_COVER_TITLE",
+            "T_DIVIDER_TITLE",
+            "T_HEADLINE",
+            "T_HEADLINE_DENSE",
+            "T_STATEMENT",
+            "T_KPI_NUM",
+            "T_SUBLINE",
+            "T_BODY",
+            "T_LABEL",
+            "T_NUM_AGENDA",
+            "T_NUM_CLOSING",
+            "T_KICKER_LABEL",
+            "T_ANNOTATION",
+        ):
+            if name in exceptions:
+                continue
+            self.assertGreaterEqual(getattr(renderer, name), floor, f"{name} fell below the reading floor")
+
+    def test_rendered_output_carries_the_contract_sizes(self) -> None:
+        # Grep-verifiable per the brief's acceptance check: body measures
+        # T_BODY, labels measure T_LABEL, chrome measures T_CHROME in the
+        # actual SVG output (not just as unused module constants).
+        bullet_svg = renderer.render(
+            {
+                "pattern": "bullet_list",
+                "headline": "Body text renders at the body token",
+                "bullets": [{"text": "Bullet body copy", "sub": ["Sub-bullet label copy"]}],
+                "source": "Source: illustrative.",
+            }
+        )
+        self.assertIn(f'font-size="{renderer.T_BODY}"', bullet_svg)
+        self.assertIn(f'font-size="{renderer.T_LABEL}"', bullet_svg)
+        self.assertIn(f'font-size="{renderer.T_CHROME}"', bullet_svg)
 
 
 if __name__ == "__main__":

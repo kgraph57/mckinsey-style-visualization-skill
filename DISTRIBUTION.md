@@ -8,7 +8,7 @@ https://github.com/kgraph57/mckinsey-style-visualization-skill
 
 ## Release URL
 
-https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.1.1
+https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.2.0
 
 ## Awesome-List Submission Kit
 
