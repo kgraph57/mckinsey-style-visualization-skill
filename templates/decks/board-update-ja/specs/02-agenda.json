@@ -1,0 +1,12 @@
+{
+  "pattern": "agenda",
+  "headline": "本日は4つの論点で稼働体制への投資判断を仰ぎます",
+  "items": [
+    {"title": "成長", "detail": "ARRと新規契約がどこから伸びたか"},
+    {"title": "導入状況", "detail": "新ワークフローの利用がどれだけ広がったか"},
+    {"title": "稼働リスク", "detail": "オンボーディングがなぜボトルネックになったか"},
+    {"title": "依頼事項", "detail": "本日承認いただきたい内容"}
+  ],
+  "page_number": 2,
+  "source": "出所: Illustrative data — 実データに置き換えてください。"
+}

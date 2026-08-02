@@ -1,0 +1,15 @@
+{
+  "title": "Q3 Board Update — demo deck",
+  "description": "Quarterly board update: growth story, KPI scorecard, ARR bridge, and a capacity ask.",
+  "slides": [
+    "specs/01-cover.json",
+    "specs/02-agenda.json",
+    "specs/03-executive-summary.json",
+    "specs/04-kpi-scorecard.json",
+    "specs/05-arr-waterfall.json",
+    "specs/06-adoption-trend.json",
+    "specs/07-capacity-risk-heatmap.json",
+    "specs/08-closing.json",
+    "specs/09-end-cover.json"
+  ]
+}

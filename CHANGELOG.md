@@ -2,6 +2,42 @@
 
 ## Unreleased
 
+## 2.0.0 - 2026-08-02 - Full Presentation System
+
+"Install the skill and produce a complete strategy-consulting-style presentation or document immediately." Three pillars, all zero-dependency (Python 3 stdlib, no network, single-file HTML outputs).
+
+### Six new structural slide patterns (16 → 22 rendered)
+
+- Added `section_divider` (小扉), `end_cover` (裏表紙), `agenda`, `bullet_list` (action-title text slide), `closing` (key takeaways / next steps), and `quote` to `scripts/render_slide_spec.py` — the deck furniture beyond charts. Every slide of a real deck is now renderable.
+- `cover`, `section_divider`, and `end_cover` form a chromeless, full-bleed navy family (bypass the standard header/footer); `agenda`, `bullet_list`, `closing`, and `quote` use the standard white content chrome, with `headline` driving the header exactly like a chart slide.
+- New example specs in `examples/render-specs/` (`strategy-agenda.json`, `phase-divider.json`, `rollout-constraints.json`, `board-closing.json`, `customer-quote.json`, `deck-end-cover.json`) with committed, CI-verified renders in `assets/rendered/`.
+- Extended `tests/test_render_slide_spec.py`: happy path, validator errors (missing required fields, >8 agenda items, >6 bullets, two emphasized bullets), CJK wrapping, and chromeless-family assertions for all six, without weakening any existing test.
+- The 16 existing chart patterns and their committed SVGs are unchanged — byte-identical, verified by the validator's freshness check.
+
+### Deck templates and a scaffolder
+
+- Added `scripts/scaffold_deck.py`: `--list` shows every archetype with a one-line description and slide count; `scaffold_deck.py <archetype> -o <dir> [--title T] [--force]` copies a full `deck.json` + `specs/` into a working directory, rewrites the title, refuses to clobber a non-empty directory without `--force`, and prints the next commands to render and build.
+- Added six ready-made deck archetypes under `templates/decks/`, each 9-12 slides with a coherent illustrative storyline (generic actors, "Illustrative data — replace" sources): `board-update`, `strategy-recommendation`, `project-status`, `market-entry`, `sales-proposal`, and `board-update-ja` (the board-update storyline in natural Japanese). Every archetype opens `cover` → `agenda`, uses `section_divider` at act boundaries, and closes `closing` → `end_cover`.
+- Added `tests/test_scaffold_deck.py` covering listing, copying, title rewriting, and overwrite refusal.
+
+### HTML report mode
+
+- Added `scripts/build_html_report.py`: Markdown (with an optional YAML-style front-matter block) → a single self-contained, consulting-style HTML document with a navy title band, auto-numbered headings, a table of contents, numbered exhibits, and print-to-A4 CSS.
+- Its own small stdlib Markdown subset covers headings, paragraphs, bullet and ordered lists, bold/italic/code, blockquotes, GFM tables, horizontal rules, and links — everything is HTML-escaped first, so nothing outside the subset can inject markup. Link targets go through a scheme allowlist (`http`, `https`, `mailto`, fragments, relative paths); executable schemes such as `javascript:` or `data:` are dropped and the label renders as plain text.
+- Exhibits: `![Caption](spec:relative/path.json)` renders a slide spec inline as `Exhibit N — Caption`; `![Caption](svg:path.svg)` embeds an existing SVG the same way. Unknown or missing references are a hard error, never a silent gap.
+- Added three starting templates in `templates/reports/` (`board-pre-read.md`, `one-pager.md`, `proposal-memo.md`) and a committed demo (`examples/demo-report.md` → `examples/demo-report.html`).
+- Added `tests/test_build_html_report.py`: front-matter parsing, subset rendering, escaping (a `<script>` tag in the input stays inert text), exhibit numbering, missing-ref errors, and `--lang ja` mode.
+- This is the one document profile the renderer now produces natively end to end — see `references/document-type-profiles.md` for the exception to "the renderer outputs 16:9 only."
+
+### Docs and validation
+
+- `SKILL.md`: added a "Fast Path" section (scaffold a deck / write Markdown and build a report) and updated the workflow's rendered-pattern count and list from 16 to 22, with guidance that structural patterns are deck furniture, not the argument.
+- `references/visualization-patterns.md`: added a "Structural / Deck Patterns" table and notes for the six new patterns. `references/style-system.md`: added a "Structural Slides" section documenting the navy/white chrome families and each pattern's layout tokens. `references/prompt-templates.md`: added literal JSON spec templates for all six. `references/document-type-profiles.md`: documented the report-profile rendering exception.
+- `README.md` / `README.ja.md`: added an "Instant Deck" quickstart (scaffold → build), a template gallery table for all six archetypes, and a report-mode section; refreshed the rendered/spec-only pattern counts (22 rendered, 13 spec-only, 35 cataloged) and the package internals table. `QUICKSTART.md` and `EXAMPLES.md` gained matching fast-path commands and six structural-pattern usage examples.
+- `scripts/validate_skill.py`: version expectation bumped to 2.0.0; added the new required files (both new scripts, the six new spec/render pairs, all six `templates/decks/*/deck.json`, the three `templates/reports/*.md`, and the demo report pair); added `validate_demo_report()` (rebuilds the demo report fresh via the CLI and diffs it against the committed HTML, mirroring `validate_demo_deck()`); extended `validate_renderer()` to also render every `templates/decks/*/specs/*.json` (must succeed; no committed SVG required for template specs, since they are illustrative starting points meant to be edited).
+- `marketplace/manifest.json`: version bumped to 2.0.0.
+- `examples/demo-deck.json` / `examples/demo-deck.html`: extended to show the full arc (cover, agenda, divider, four content slides, closing, end cover).
+
 ## 1.9.0 - 2026-07-17 - Design-Panel Review Hardening
 
 ### Animated HTML decks and README relaunch

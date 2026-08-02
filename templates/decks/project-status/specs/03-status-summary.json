@@ -1,0 +1,24 @@
+{
+  "pattern": "summary_strip",
+  "headline": "The migration is two weeks behind schedule because of data-quality rework, not scope growth",
+  "subline": "Program status, October checkpoint",
+  "blocks": [
+    {
+      "claim": "Budget is on track",
+      "proof": "Spend is at 61% of the approved budget against 58% of the elapsed timeline.",
+      "implication": "Budget is not the risk; schedule is."
+    },
+    {
+      "claim": "Schedule has slipped two weeks",
+      "proof": "Data-migration validation found defect rates three times the plan assumption.",
+      "implication": "The defect backlog, not new scope, is driving the slip."
+    },
+    {
+      "claim": "Go-live is still recoverable",
+      "proof": "The critical path has four weeks of buffer before the committed go-live date.",
+      "implication": "Closing the defect backlog this month keeps go-live on the committed date."
+    }
+  ],
+  "page_number": 3,
+  "source": "Illustrative data — replace with your own metrics."
+}

@@ -138,6 +138,30 @@ Across all canvases the constants are: insight-led headline, honest scales, rest
 - Add source notes when the user provides sources or when assumptions are material.
 - Board-facing slides carry their furniture: page number, classification marker, and numbered footnotes where claims need them.
 
+## Structural Slides
+
+Six patterns are deck furniture rather than charts (see `references/visualization-patterns.md` → Structural / Deck Patterns): `cover`, `section_divider`, `end_cover`, `agenda`, `bullet_list`, `closing`, `quote`. They split into the two chrome families below; the renderer's `CHROMELESS = {"cover", "section_divider", "end_cover"}` set is the single source for which family a pattern belongs to.
+
+### Navy Family (chromeless, full-bleed)
+
+`cover`, `section_divider`, `end_cover` bypass the standard header/footer chrome entirely. All three share the cover's white kicker bar (56×5) at the ML anchor, y=200 — the one sanctioned decorative motif, reused across the family because it is the family's signature, not a per-slide accent.
+
+- **`section_divider`** (小扉): small-caps label `SECTION 02`-style (sans 15, `#E5E7EB`, letter-spaced) above the title; title serif 40 white, wrap 40 units, max 2 lines; subtitle sans 18 `#E5E7EB`. Optional `sections` rail near y≈600: horizontal `NN Title` items in sans 13 — the current section (index = `section_number` − 1) solid white weight 600, all others `#E5E7EB` at 55% opacity. The rail is skipped, not compressed, if it would overflow the ML..W-MR margins. Required: `title`, `section_number` (integer ≥ 1).
+- **`end_cover`** (裏表紙): mirrors the `cover` geometry — serif 52 title (defaults to "Thank you" when omitted), subtitle 20 `#E5E7EB`. Up to four `contact` lines (sans 15 `#E5E7EB`, 24px leading) start at y=560; presenter/date meta and the classification marker sit in the same slots as `cover` (y=640). Every field is optional — a bare `{"pattern": "end_cover"}` must still render.
+
+### White Content Family (standard chrome)
+
+`agenda`, `bullet_list`, `closing`, `quote` keep the standard header/footer chrome; `headline` drives the header exactly like a chart slide, so the insight-headline discipline still applies even though there is no chart underneath it.
+
+- **`agenda`**: 1–8 rows on hairlines (`GREY_BORDER`), starting at `CHART_TOP` and filling the chart band. `01`-style serif 24 navy row numbers at ML; title sans 17 weight 600 black; `detail` sans 14 `GREY_MED`, either at x = ML+320 or beneath the title when the detail text is long — pick one placement and hold it for the whole deck. More than 6 items splits into two columns (4+4) at the same row height; more than 8 is a spec error, not a smaller row height. At most one row takes rung-2 emphasis via `current` (`BLUE_TINT` fill behind the row, title in `BLUE`).
+- **`bullet_list`** (action-title text slide): 1–6 top-level bullets — a 7th is a sign the slide should split in two, so 7+ is a spec error, never smaller type. Marker: a 6×6 navy square at the text baseline; text sans 16 black, wrapped to the column width, 24px leading. Each bullet may carry 0–3 `sub` items: en-dash marker, sans 14 `GREY_DARK`, indented 24px. `columns: 2` splits the bullets into two equal columns. At most one bullet may set `emphasis: true`, rendered as weight 600 + rung-4 `BLUE` text — the one sanctioned exception to the "do not stack rungs" rule below, reserved for a single inline sentence, never a filled block.
+- **`closing`** (key takeaways / next steps): with `takeaways` (1–4) present, two columns — left (~45% width) carries the `KEY TAKEAWAYS` label (sans 12, `GREY_MED`, letter-spaced), numbered serif navy digits, and sans 16 text; right carries the `NEXT STEPS` label with `action` sans 16 weight 600 and "Owner · Timing" sans 13 `GREY_MED` on a second line. Without `takeaways`, 1–5 `next_steps` rows (each requiring `action`) run full width on hairlines with owner/timing right-aligned at W-MR. `call_to_action` renders through the existing footer annotation slot (blue, weight 600) — it reuses that mechanism rather than introducing a new motif.
+- **`quote`**: one oversized opening quotation mark (serif 90, `BLUE_TINT` fill) above-left of the block — the single structural motif this pattern gets, and it never gets a matching closing mark. Quote text serif 28 black, wrap 58 units, max 4 lines, left-aligned starting at x = ML+60; attribution sans 15 `GREY_DARK` weight 600 prefixed with an em-dash; `context` sans 13 `GREY_MED` below it.
+
+### Deck Arc
+
+The conventional shape a full deck follows: `cover` → `agenda` → content slides (with `section_divider` marking each act boundary) → `closing` → `end_cover`. Not every deck needs every structural pattern, but a `section_divider` with no corresponding `agenda` entry, or a `closing` with no `cover`, reads as an unfinished deck rather than a deliberate one.
+
 ## Ink Discipline
 
 Every mark must carry information (data-ink rule). The one sanctioned decorative motif is the kicker bar above the headline — a single signature, used once per slide. Do not echo it as accent bars on annotations, column headers, or cards; a repeated motif reads as template filler and competes with the emphasis ladder.

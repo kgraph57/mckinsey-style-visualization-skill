@@ -1,0 +1,11 @@
+{
+  "pattern": "time_series",
+  "headline": "Mid-market logistics software spend has grown every quarter for two years",
+  "subline": "Estimated mid-market logistics software spend, industry-wide",
+  "unit": "$M",
+  "x_labels": ["Q1 2025", "Q2 2025", "Q3 2025", "Q4 2025", "Q1 2026"],
+  "series": [{"label": "Mid-market segment spend", "values": [210, 238, 265, 301, 332]}],
+  "annotation": "The segment has grown 58% in five quarters with no sign of slowing.",
+  "page_number": 3,
+  "source": "Illustrative data — replace with your own metrics."
+}

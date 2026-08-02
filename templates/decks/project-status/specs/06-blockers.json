@@ -1,0 +1,21 @@
+{
+  "pattern": "bullet_list",
+  "headline": "Three blockers threaten the go-live date",
+  "bullets": [
+    {
+      "text": "Critical defect backlog stands at 34, more than double the plan assumption",
+      "sub": ["Root cause: legacy field mappings not documented in the source system"],
+      "emphasis": true
+    },
+    {
+      "text": "Test environment access for the vendor team is limited to business hours",
+      "sub": ["Adds roughly two days to every test cycle"]
+    },
+    {
+      "text": "UAT entry criteria have not been signed off by the business owner"
+    }
+  ],
+  "annotation": "Clearing the defect backlog is the single highest-leverage action available this month.",
+  "page_number": 6,
+  "source": "Illustrative data — replace with your own metrics."
+}

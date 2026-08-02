@@ -2,6 +2,8 @@
 
 The same visual discipline adapts to many document formats. Pick the profile that matches the deliverable, then keep the core rules from `references/style-system.md`: insight-led headline, honest scales, restrained palette, explicit assumptions.
 
+**Rendering note**: `scripts/render_slide_spec.py` still produces the 16:9 canvas only (`references/style-system.md` → Canvas Formats) — every profile below other than the one noted next stays spec-only or image-generation-prompt-only for its native canvas. The exception is the **internal report / memo** profile (and the one-pager and proposal-memo variants of it): `scripts/build_html_report.py` renders it natively as a single self-contained, A4-print-ready HTML document, embedding 16:9 slide-spec exhibits as auto-numbered figures. See the Internal Report / Memo notes below and `templates/reports/` for starting points.
+
 ## Profile Table
 
 | Profile | Canvas | Density | Tone | Preferred Patterns |
@@ -29,6 +31,8 @@ The default profile and the strictest. One message per slide, decision-linked he
 
 Figures support running text instead of standing alone. Keep figure titles descriptive-plus-insight ("Churn concentrated in SMB tier") and number figures so prose can reference them. Smaller headline sizes than slides.
 
+This is the one profile the renderer produces natively end to end: write the report as Markdown with an optional front-matter block (`title`, `subtitle`, `author`, `date`, `classification`, `lang`), reference a rendered figure inline with `![Caption](spec:path/to/spec.json)` (auto-numbered `Exhibit N — Caption`, full slide SVG embedded, no header/footer chrome required), and build it with `python3 scripts/build_html_report.py report.md -o report.html`. The output is a self-contained HTML document with a navy title band, an auto-generated table of contents, and A4 print CSS — no external requests. Three starting points live in `templates/reports/`: `board-pre-read.md` (board/executive deck pre-read), `one-pager.md` (see One-Pager / Fact Sheet below), and `proposal-memo.md` (see Sales Proposal / Pitch below, written as a memo instead of slides).
+
 ### Research Report / Whitepaper
 
 Every figure needs a source or methodology note. Show uncertainty honestly: ranges, confidence notes, sample sizes. Avoid persuasion-first layouts; let structure carry the argument.
@@ -36,6 +40,8 @@ Every figure needs a source or methodology note. Show uncertainty honestly: rang
 ### Sales Proposal / Pitch
 
 Frame headlines around the customer's outcome, not the seller's features. Before-after and contrast patterns dominate. Keep claims tied to evidence the customer can verify; flag estimates clearly.
+
+For a written-memo version of this profile (rather than a slide deck), `templates/reports/proposal-memo.md` builds through `scripts/build_html_report.py`.
 
 ### Project Status / Steering
 
@@ -52,6 +58,8 @@ Precision over polish: exact labels, real component names, directional arrows wi
 ### One-Pager / Fact Sheet
 
 Everything competes for one page: use a strict grid, 2-4 compact visuals, and one dominant number or claim. Cut anything the reader cannot absorb in 60 seconds.
+
+`templates/reports/one-pager.md` renders this profile through `scripts/build_html_report.py` — keep it to a single H1 title block plus one or two H2 sections so the printed A4 output actually stays one page.
 
 ### Infographic / Public Explainer
 

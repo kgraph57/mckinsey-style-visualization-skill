@@ -1,0 +1,15 @@
+{
+  "pattern": "gap",
+  "headline": "Closing the implementation-speed gap needs six more certified partners",
+  "subline": "Certified implementation partners, current vs. target coverage",
+  "unit": "",
+  "items": [
+    {"label": "Target partner coverage", "value": 18, "emphasis": true},
+    {"label": "Current certified partners", "value": 7},
+    {"label": "Partners in certification pipeline", "value": 12}
+  ],
+  "gap_label": "Gap: 6 partners",
+  "annotation": "The partner pipeline covers most of the gap if certification finishes on schedule.",
+  "page_number": 8,
+  "source": "Illustrative data — replace with your own metrics."
+}

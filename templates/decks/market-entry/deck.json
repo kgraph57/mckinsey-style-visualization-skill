@@ -1,0 +1,15 @@
+{
+  "title": "Entering the Mid-Market Logistics Segment — demo deck",
+  "description": "Market-entry case: market read, competitive field, segment choice, and entry approach.",
+  "slides": [
+    "specs/01-cover.json",
+    "specs/02-agenda.json",
+    "specs/03-market-trend.json",
+    "specs/04-competitive-benchmark.json",
+    "specs/05-segment-priority.json",
+    "specs/06-entry-approach.json",
+    "specs/07-target-fit.json",
+    "specs/08-closing.json",
+    "specs/09-end-cover.json"
+  ]
+}

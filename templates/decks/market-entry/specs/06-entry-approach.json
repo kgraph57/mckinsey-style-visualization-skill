@@ -1,0 +1,16 @@
+{
+  "pattern": "process_flow",
+  "headline": "Partner certification reaches revenue four months faster than building a direct sales team from zero",
+  "subline": "Proposed partner-led entry sequence",
+  "steps": [
+    {"label": "Certify two partners", "detail": "Logistics-focused resellers; 2 months"},
+    {"label": "Joint pipeline build", "detail": "Partner-sourced leads; month 2-3"},
+    {"label": "First co-sold deals", "detail": "Target: 5 pilot accounts by month 3"},
+    {"label": "Direct team hire", "detail": "Add 2 AEs once pipeline proves out"},
+    {"label": "Scale coverage", "detail": "Expand to 4 more partners"}
+  ],
+  "highlight": 0,
+  "annotation": "Certifying two logistics resellers is the fastest path to a qualified pipeline in this segment.",
+  "page_number": 6,
+  "source": "Illustrative data — replace with your own metrics."
+}

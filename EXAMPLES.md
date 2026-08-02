@@ -15,9 +15,36 @@ This document provides practical examples of using the Strategy Consulting Visua
 ## Table of Contents
 
 - [Basic Usage](#basic-usage)
+- [Instant Deck and Report Mode](#instant-deck-and-report-mode)
 - [Visualization Type Examples](#visualization-type-examples)
+- [Structural Slide Examples](#structural-slide-examples)
 - [Real-World Scenarios](#real-world-scenarios)
 - [Advanced Techniques](#advanced-techniques)
+
+## Instant Deck and Report Mode
+
+### Scaffold a Complete Deck
+
+**Scenario:** You need a full board-update deck fast, not one slide at a time.
+
+```bash
+python3 scripts/scaffold_deck.py --list
+python3 scripts/scaffold_deck.py board-update -o q3-board-update --title "Q3 Board Update"
+# edit q3-board-update/specs/*.json with real numbers
+python3 scripts/build_html_deck.py --manifest q3-board-update/deck.json -o q3-board-update/deck.html
+```
+
+**Use case:** Recurring board or steering updates where the storyline (cover, agenda, KPIs, bridge, trend, risk, closing) rarely changes, only the numbers do. Five more archetypes cover strategy recommendations, project status, market entry, sales proposals, and a Japanese board update — see the [README template gallery](README.md#template-gallery).
+
+### Build a Report Document
+
+**Scenario:** A pre-read memo for the board, not a slide deck.
+
+```bash
+python3 scripts/build_html_report.py board-pre-read.md -o board-pre-read.html --lang en
+```
+
+**Use case:** Internal reports, one-pagers, and proposal memos where prose carries the argument and charts are numbered exhibits, not full slides. Start from `templates/reports/board-pre-read.md`, `templates/reports/one-pager.md`, or `templates/reports/proposal-memo.md`; see the committed [examples/demo-report.html](examples/demo-report.html) for the full shape of the output.
 
 ## Basic Usage
 
@@ -298,6 +325,121 @@ Clean, institutional, boardroom-ready aesthetic.
 ```
 
 **Use case:** Executive presentations, board meetings, client deliverables
+
+---
+
+## Structural Slide Examples
+
+Deck furniture — dividers, agendas, text slides, closings, quotes, and back covers. Real JSON spec templates for all six are in [prompt-templates.md](references/prompt-templates.md); the prompts below are the equivalent for agents that only take a text description.
+
+### 12. Section Divider
+
+**Scenario:** Open the "How to win" act of a strategy deck
+
+**Prompt:**
+```
+Create a professional consulting-style section divider slide in landscape 16:9 format.
+Navy background (#15296B), flat, full bleed.
+Small-caps label above the title: "SECTION 02"
+Large serif title in white: "How to win"
+Subtitle in light grey (#E5E7EB): "Where we compete and why we take share"
+Thin white kicker line above the label (same anchor as a cover slide).
+Optional section rail near the bottom: "01 Context", "02 How to win" (bold white), "03 Roadmap" (light grey, 55% opacity)
+Clean, institutional, boardroom-ready aesthetic. No gradients.
+```
+
+**Use case:** Marking act boundaries in a strategy or board deck
+
+---
+
+### 13. Agenda
+
+**Scenario:** Orient the reader before the first content slide
+
+**Prompt:**
+```
+Create a professional consulting-style agenda slide in landscape 16:9 format.
+White background, black text, standard header with serif headline: "Three questions decide this investment"
+Numbered rows on hairline dividers: 01 Context, 02 Options, 03 Recommendation
+Each row: bold title on the left, one-line detail on the right
+Highlight the current row (if revisiting mid-deck) with a light navy tint and navy title text
+Clean, minimal, institutional aesthetic.
+```
+
+**Use case:** Deck openings, or a progress-marking "you are here" slide mid-deck
+
+---
+
+### 14. Bullet List (Action-Title Text Slide)
+
+**Scenario:** State the constraints before the next chart
+
+**Prompt:**
+```
+Create a professional consulting-style text slide in landscape 16:9 format.
+White background, black text, standard header with serif headline: "Three constraints shape the rollout"
+Bulleted list with small navy square markers, sans-serif text, generous line spacing
+One or two supporting sub-points per bullet, indented, smaller grey text
+At most one bullet emphasized in bold navy-blue text
+Clean, minimal, institutional aesthetic. No icons, no decorative elements.
+```
+
+**Use case:** Stating risks, context, or constraints that are true but not yet a chart
+
+---
+
+### 15. Closing (Key Takeaways / Next Steps)
+
+**Scenario:** Close the deck with the decision ask
+
+**Prompt:**
+```
+Create a professional consulting-style closing slide in landscape 16:9 format.
+White background, black text, standard header with serif headline: "Decide the pilot now, scale in Q3"
+Two columns: left "KEY TAKEAWAYS" with 2-3 numbered points; right "NEXT STEPS" with action, owner, and timing per row
+Bottom annotation line in bold blue: "Decision requested today: approve the Q2 pilot"
+Clean, minimal, institutional aesthetic.
+```
+
+**Use case:** Ending a deck with takeaways, owned next steps, and an explicit ask
+
+---
+
+### 16. Quote
+
+**Scenario:** Ground a claim in a customer's own words
+
+**Prompt:**
+```
+Create a professional consulting-style quote slide in landscape 16:9 format.
+White background, black text, standard header with serif headline: "Customers already describe the switch as done"
+Oversized light-navy-tinted quotation mark above-left of the quote block (the only decorative element)
+Large serif quote text: "We moved 80% of volume in six weeks — the old tool is a backup now."
+Attribution below in bold grey with an em-dash: "— COO, mid-market logistics customer"
+Small grey context line: "Interview, February 2026"
+Clean, minimal, institutional aesthetic. One quote only, no closing quotation mark.
+```
+
+**Use case:** Grounding a claim in a verbatim, attributable customer or stakeholder statement
+
+---
+
+### 17. End Cover (Back Cover)
+
+**Scenario:** Close a deck with a way to follow up
+
+**Prompt:**
+```
+Create a professional consulting-style closing cover slide in landscape 16:9 format.
+Navy background (#15296B), flat, full bleed, thin white kicker line.
+Large serif title in white, centered: "Thank you"
+Subtitle in light grey: "Questions and discussion"
+Contact lines in light grey below: "Strategy Office", "strategy@example.com"
+Presenter and date meta line, classification marker, same slots as a cover slide.
+Minimal graphics — the quietest slide in the deck.
+```
+
+**Use case:** The final slide of a deck — a closing mark, not a second closing argument
 
 ---
 

@@ -2,11 +2,18 @@
 """Render a slide spec JSON file into a styled 16:9 SVG slide.
 
 Implements the visual system in references/style-system.md for a subset of
-patterns from references/visualization-patterns.md:
+patterns from references/visualization-patterns.md (22 total):
 
     waterfall, gap, before_after, time_series, benchmark_table,
     summary_strip, process_flow, funnel, heatmap, gantt, kpi_scorecard,
-    two_by_two, scatter, distribution, small_multiples, cover
+    two_by_two, scatter, distribution, small_multiples, cover,
+    section_divider, end_cover, agenda, bullet_list, closing, quote
+
+The last six are structural slide furniture (dividers, agenda, action-title
+bullets, closing/next-steps, quote, back cover) rather than charts.
+section_divider and end_cover are full-bleed navy slides that bypass the
+standard header/footer chrome (see CHROMELESS); the rest use it like any
+chart pattern.
 
 Patterns not in this list are spec-only: the skill produces a structured spec
 or an image-generation prompt for them, not an SVG (see SKILL.md).
@@ -828,6 +835,298 @@ def render_small_multiples(spec: dict) -> list[str]:
     return parts
 
 
+def render_section_divider(spec: dict) -> list[str]:
+    """Navy full-bleed section divider (小扉). Bypasses header/footer chrome,
+    mirroring render_cover's geometry (see CHROMELESS)."""
+    parts = [rect_el(0, 0, W, H, NAVY_COVER), rect_el(ML, 200, 56, 5, WHITE)]
+    section_number = spec["section_number"]
+    parts.append(
+        text_el(ML, 236, f"SECTION {section_number:02d}", size=15, fill="#E5E7EB", weight="600")
+    )
+
+    title = spec.get("title", "")
+    y = 284
+    lines = wrap(title, 40, max_lines=2)
+    truncated = bool(lines) and lines[-1].endswith(ELLIPSIS)
+    for line in lines:
+        parts.append(text_el(ML, y, line, size=40, fill=WHITE, family=SERIF, title=title if truncated else ""))
+        y += 50
+
+    subtitle = spec.get("subtitle", "")
+    if subtitle:
+        y += 8
+        for line in wrap(subtitle, 70, max_lines=2):
+            parts.append(text_el(ML, y, line, size=18, fill="#E5E7EB"))
+            y += 26
+
+    classification = spec.get("classification", "")
+    if classification:
+        parts.append(text_el(W - MR, 40, classification.upper(), size=11, fill="#E5E7EB", weight="600", anchor="end"))
+
+    # Section rail: skip entirely rather than overlap or overflow (measured in
+    # the same half-width character units `wrap`/`_text_width` already use).
+    sections = spec.get("sections", [])
+    if sections:
+        rail_y = 604
+        px_per_unit = 13 * 0.62
+        gap_units = 4
+        items = [f"{i + 1:02d} {name}" for i, name in enumerate(sections)]
+        total_units = sum(_text_width(item) for item in items) + gap_units * max(len(items) - 1, 0)
+        available_units = (W - ML - MR) / px_per_unit
+        if total_units <= available_units:
+            current_index = section_number - 1
+            x = float(ML)
+            for i, item in enumerate(items):
+                item_w = _text_width(item) * px_per_unit
+                if i == current_index:
+                    parts.append(text_el(x, rail_y, item, size=13, fill=WHITE, weight="600"))
+                else:
+                    parts.append(
+                        f'<text x="{x:.1f}" y="{rail_y:.1f}" font-family="{SANS}" font-size="13" '
+                        f'fill="#E5E7EB" opacity="0.55">{esc(item)}</text>'
+                    )
+                x += item_w + gap_units * px_per_unit
+    return parts
+
+
+def render_end_cover(spec: dict) -> list[str]:
+    """Navy full-bleed back cover. Mirrors render_cover geometry exactly, with
+    a contact block and a default title so a bare {"pattern": "end_cover"}
+    still renders."""
+    parts = [rect_el(0, 0, W, H, NAVY_COVER), rect_el(ML, 200, 56, 5, WHITE)]
+    y = 264
+    for line in wrap(spec.get("title") or "Thank you", 40, max_lines=3):
+        parts.append(text_el(ML, y, line, size=52, fill=WHITE, family=SERIF))
+        y += 64
+    subtitle = spec.get("subtitle", "")
+    if subtitle:
+        y += 8
+        for line in wrap(subtitle, 70, max_lines=2):
+            parts.append(text_el(ML, y, line, size=20, fill="#E5E7EB"))
+            y += 28
+    contact = (spec.get("contact") or [])[:4]
+    cy = 560
+    for line in contact:
+        parts.append(text_el(ML, cy, str(line), size=15, fill="#E5E7EB"))
+        cy += 24
+    meta = " · ".join(str(spec[k]) for k in ("presenter", "date") if spec.get(k))
+    if meta:
+        parts.append(text_el(ML, 640, meta, size=15, fill="#E5E7EB"))
+    classification = spec.get("classification", "")
+    if classification:
+        parts.append(text_el(W - MR, 640, classification.upper(), size=12, fill="#E5E7EB", anchor="end"))
+    return parts
+
+
+def render_agenda(spec: dict) -> list[str]:
+    """Numbered agenda list on hairlines; splits into two columns beyond six
+    items and optionally emphasizes the current item (rung 2: tinted fill,
+    accent text)."""
+    items = spec["items"]
+    n = len(items)
+    current = spec.get("current")
+    two_col = n > 6
+    if two_col:
+        split = -(-n // 2)  # ceil(n / 2), so 7 -> 4+3 and 8 -> 4+4
+        columns = [items[:split], items[split:]]
+    else:
+        columns = [items]
+    n_rows = max(len(col) for col in columns)
+    row_h = (CHART_BOTTOM - CHART_TOP) / n_rows
+    gap = 40.0
+    col_w = (W - ML - MR - gap) / 2 if two_col else float(W - ML - MR)
+    # Detail column sits at the same proportional offset the single-column
+    # case uses literally (ML + 320 of a 1120px-wide band).
+    detail_offset = col_w * (320 / 1120)
+    detail_width_units = max(int((col_w - detail_offset) / (14 * 0.62)), 8)
+    title_width_units = max(int((detail_offset - 46) / (17 * 0.62)), 8)
+
+    parts: list[str] = []
+    for r in range(n_rows + 1):
+        ry = CHART_TOP + row_h * r
+        parts.append(line_el(ML, ry, W - MR, ry, GREY_BORDER))
+
+    index = 0
+    for c, col_items in enumerate(columns):
+        col_x = ML + c * (col_w + gap)
+        detail_x = col_x + detail_offset
+        for r, item in enumerate(col_items):
+            index += 1
+            y = CHART_TOP + row_h * r
+            baseline = y + row_h / 2 + 6
+            emphasized = current == index
+            if emphasized:
+                parts.append(rect_el(col_x, y, col_w, row_h, BLUE_TINT))
+            parts.append(text_el(col_x, baseline, f"{index:02d}", size=24, fill=BLUE, family=SERIF))
+            title_lines = wrap(item["title"], title_width_units, max_lines=1)
+            title_text = title_lines[0] if title_lines else ""
+            parts.append(
+                text_el(
+                    col_x + 46,
+                    baseline,
+                    title_text,
+                    size=17,
+                    fill=BLUE if emphasized else BLACK,
+                    weight="600",
+                    title=item["title"] if title_text.endswith(ELLIPSIS) else "",
+                )
+            )
+            detail = item.get("detail", "")
+            if detail:
+                detail_lines = wrap(detail, detail_width_units, max_lines=1)
+                detail_text = detail_lines[0] if detail_lines else ""
+                parts.append(
+                    text_el(
+                        detail_x,
+                        baseline,
+                        detail_text,
+                        size=14,
+                        fill=GREY_MED,
+                        title=detail if detail_text.endswith(ELLIPSIS) else "",
+                    )
+                )
+    return parts
+
+
+def render_bullet_list(spec: dict) -> list[str]:
+    """Action-title bullet slide. One marker family (square bullets, en-dash
+    subs) — no accent bars, per the single-motif ink-discipline rule."""
+    bullets = spec["bullets"]
+    columns = spec.get("columns", 1)
+    if columns == 2:
+        half = -(-len(bullets) // 2)
+        column_bullets = [bullets[:half], bullets[half:]]
+    else:
+        column_bullets = [bullets]
+
+    gap = 60.0
+    col_w = (W - ML - MR - gap) / 2 if columns == 2 else float(W - ML - MR)
+    text_indent = 22.0  # past the 6px marker square
+    sub_indent = text_indent + 24.0  # one nested step past the bullet text (24px per spec)
+    text_width_units = max(int((col_w - text_indent) / (16 * 0.62)), 10)
+    sub_width_units = max(int((col_w - sub_indent) / (14 * 0.62)), 10)
+
+    parts: list[str] = []
+    for c, group in enumerate(column_bullets):
+        col_x = ML + c * (col_w + gap)
+        y = float(CHART_TOP) + 20
+        for bullet in group:
+            emphasized = bool(bullet.get("emphasis"))
+            text_fill = BLUE if emphasized else BLACK
+            weight = "600" if emphasized else "normal"
+            marker_y = y
+            lines = wrap(bullet["text"], text_width_units)
+            parts.append(rect_el(col_x, marker_y - 10, 6, 6, BLUE))
+            for line in lines:
+                parts.append(text_el(col_x + text_indent, y, line, size=16, fill=text_fill, weight=weight))
+                y += 24
+            subs = bullet.get("sub", [])[:3]
+            if subs:
+                y += 4
+                for sub in subs:
+                    sub_lines = wrap(str(sub), sub_width_units)
+                    for i, line in enumerate(sub_lines):
+                        prefix = f"– {line}" if i == 0 else f"  {line}"
+                        parts.append(text_el(col_x + sub_indent, y, prefix, size=14, fill=GREY_DARK))
+                        y += 20
+            y += 22
+    return parts
+
+
+def render_closing(spec: dict) -> list[str]:
+    """Key-takeaways / next-steps closing slide. call_to_action rides the
+    existing footer "annotation" slot mechanics (blue 600) instead of a new
+    motif — this mutates `spec` in place so the render() dispatch's later
+    footer(spec) call picks it up, without touching footer() itself."""
+    call_to_action = spec.get("call_to_action", "")
+    if call_to_action:
+        spec.setdefault("annotation", call_to_action)
+
+    takeaways = (spec.get("takeaways") or [])[:4]
+    next_steps = spec["next_steps"][:5]
+    parts: list[str] = []
+
+    if takeaways:
+        left_w = (W - ML - MR) * 0.45
+        col_gap = 40.0
+        right_x = ML + left_w + col_gap
+        right_w = (W - ML - MR) - left_w - col_gap
+        text_width_units = max(int((left_w - 40) / (16 * 0.62)), 10)
+        detail_width_units = max(int(right_w / (16 * 0.62)), 10)
+
+        parts.append(text_el(ML, CHART_TOP, "KEY TAKEAWAYS", size=12, fill=GREY_MED, weight="600"))
+        y = CHART_TOP + 34
+        for i, takeaway in enumerate(takeaways, start=1):
+            parts.append(text_el(ML, y, str(i), size=20, fill=BLUE, family=SERIF, weight="bold"))
+            lines = wrap(str(takeaway), text_width_units, max_lines=3)
+            ly = y
+            for line in lines:
+                parts.append(
+                    text_el(ML + 32, ly, line, size=16, fill=BLACK, title=str(takeaway) if line.endswith(ELLIPSIS) else "")
+                )
+                ly += 22
+            y += max(len(lines), 1) * 22 + 18
+
+        parts.append(text_el(right_x, CHART_TOP, "NEXT STEPS", size=12, fill=GREY_MED, weight="600"))
+        y = CHART_TOP + 34
+        for step in next_steps:
+            lines = wrap(step["action"], detail_width_units, max_lines=2)
+            for line in lines:
+                parts.append(
+                    text_el(right_x, y, line, size=16, fill=BLACK, weight="600", title=step["action"] if line.endswith(ELLIPSIS) else "")
+                )
+                y += 21
+            meta = " · ".join(str(step[k]) for k in ("owner", "timing") if step.get(k))
+            if meta:
+                y += 3
+                parts.append(text_el(right_x, y, meta, size=13, fill=GREY_MED))
+                y += 17
+            y += 18
+    else:
+        row_h = min(64.0, (CHART_BOTTOM - CHART_TOP) / len(next_steps))
+        action_width_units = max(int((W - ML - MR - 260) / (16 * 0.62)), 10)
+        for r in range(len(next_steps) + 1):
+            ry = CHART_TOP + row_h * r
+            parts.append(line_el(ML, ry, W - MR, ry, GREY_BORDER))
+        for i, step in enumerate(next_steps):
+            row_y = CHART_TOP + row_h * i
+            lines = wrap(step["action"], action_width_units, max_lines=2)
+            baseline = row_y + row_h / 2 - (len(lines) - 1) * 11 + 5
+            ay = baseline
+            for line in lines:
+                parts.append(
+                    text_el(ML, ay, line, size=16, fill=BLACK, weight="600", title=step["action"] if line.endswith(ELLIPSIS) else "")
+                )
+                ay += 21
+            meta = " · ".join(str(step[k]) for k in ("owner", "timing") if step.get(k))
+            if meta:
+                parts.append(text_el(W - MR, row_y + row_h / 2 + 5, meta, size=13, fill=GREY_MED, anchor="end"))
+    return parts
+
+
+def render_quote(spec: dict) -> list[str]:
+    """Pull-quote slide: one oversized opening quotation mark (structural
+    motif, no closing mark) plus attributed text."""
+    text = spec["text"]
+    parts = [text_el(ML, CHART_TOP + 70, "“", size=90, fill=BLUE_TINT, family=SERIF)]
+    x = ML + 60
+    y = CHART_TOP + 160
+    lines = wrap(text, 58, max_lines=4)
+    truncated = bool(lines) and lines[-1].endswith(ELLIPSIS)
+    for line in lines:
+        parts.append(text_el(x, y, line, size=28, fill=BLACK, family=SERIF, title=text if truncated else ""))
+        y += 40
+    attribution = spec.get("attribution", "")
+    if attribution:
+        y += 20
+        parts.append(text_el(x, y, f"— {attribution}", size=15, fill=GREY_DARK, weight="600"))
+        y += 22
+    context = spec.get("context", "")
+    if context:
+        parts.append(text_el(x, y, context, size=13, fill=GREY_MED))
+    return parts
+
+
 RENDERERS = {
     "cover": render_cover,
     "scatter": render_scatter,
@@ -845,7 +1144,18 @@ RENDERERS = {
     "gantt": render_gantt,
     "kpi_scorecard": render_kpi_scorecard,
     "two_by_two": render_two_by_two,
+    "section_divider": render_section_divider,
+    "end_cover": render_end_cover,
+    "agenda": render_agenda,
+    "bullet_list": render_bullet_list,
+    "closing": render_closing,
+    "quote": render_quote,
 }
+
+# Full-bleed navy patterns bypass the standard white header/footer chrome,
+# like render_cover. render() dispatches on membership in this set instead of
+# a hardcoded pattern name (see render()).
+CHROMELESS = {"cover", "section_divider", "end_cover"}
 
 
 def _as_sequence(spec: dict, key: str) -> list:
@@ -944,6 +1254,73 @@ def _validate_cover(spec: dict) -> None:
         raise RenderSpecError("cover requires a title")
 
 
+def _validate_section_divider(spec: dict) -> None:
+    if not spec.get("title"):
+        raise RenderSpecError("section_divider requires a title")
+    section_number = spec.get("section_number")
+    if not isinstance(section_number, int) or isinstance(section_number, bool) or section_number < 1:
+        raise RenderSpecError("section_divider requires section_number to be an integer >= 1")
+    sections = spec.get("sections")
+    if sections is not None and not isinstance(sections, list):
+        raise RenderSpecError("section_divider sections must be a list")
+
+
+def _validate_end_cover(spec: dict) -> None:
+    contact = spec.get("contact")
+    if contact is not None and not isinstance(contact, list):
+        raise RenderSpecError("end_cover contact must be a list of strings")
+
+
+def _validate_agenda(spec: dict) -> None:
+    items = _as_sequence(spec, "items")
+    if len(items) > 8:
+        raise RenderSpecError(f"agenda supports at most 8 items; found {len(items)}")
+    for index, item in enumerate(items):
+        if not isinstance(item, dict) or not item.get("title"):
+            raise RenderSpecError(f"items[{index}] must be an object with a title")
+    current = spec.get("current")
+    if current is not None:
+        if not isinstance(current, int) or isinstance(current, bool) or not (1 <= current <= len(items)):
+            raise RenderSpecError(f"current must be an integer between 1 and {len(items)}")
+
+
+def _validate_bullet_list(spec: dict) -> None:
+    bullets = _as_sequence(spec, "bullets")
+    if len(bullets) > 6:
+        raise RenderSpecError(f"bullet_list supports at most 6 bullets; found {len(bullets)}")
+    columns = spec.get("columns", 1)
+    if columns not in (1, 2):
+        raise RenderSpecError(f"bullet_list columns must be 1 or 2; found {columns!r}")
+    emphasized_count = 0
+    for index, bullet in enumerate(bullets):
+        if not isinstance(bullet, dict) or not bullet.get("text"):
+            raise RenderSpecError(f"bullets[{index}] must be an object with text")
+        if bullet.get("emphasis"):
+            emphasized_count += 1
+        sub = bullet.get("sub", [])
+        if sub and not isinstance(sub, list):
+            raise RenderSpecError(f"bullets[{index}].sub must be a list")
+        if sub and len(sub) > 3:
+            raise RenderSpecError(f"bullets[{index}].sub supports at most 3 items; found {len(sub)}")
+    if emphasized_count > 1:
+        raise RenderSpecError(f"bullet_list allows at most one emphasized bullet; found {emphasized_count}")
+
+
+def _validate_closing(spec: dict) -> None:
+    next_steps = _as_sequence(spec, "next_steps")
+    for index, step in enumerate(next_steps):
+        if not isinstance(step, dict) or not step.get("action"):
+            raise RenderSpecError(f"next_steps[{index}] must be an object with an action")
+    takeaways = spec.get("takeaways")
+    if takeaways is not None and not isinstance(takeaways, list):
+        raise RenderSpecError("takeaways must be a list")
+
+
+def _validate_quote(spec: dict) -> None:
+    if not spec.get("text"):
+        raise RenderSpecError("quote requires text")
+
+
 VALIDATORS = {
     "time_series": _validate_time_series,
     "funnel": _validate_funnel,
@@ -953,6 +1330,12 @@ VALIDATORS = {
     "distribution": _validate_distribution,
     "small_multiples": _validate_small_multiples,
     "cover": _validate_cover,
+    "section_divider": _validate_section_divider,
+    "end_cover": _validate_end_cover,
+    "agenda": _validate_agenda,
+    "bullet_list": _validate_bullet_list,
+    "closing": _validate_closing,
+    "quote": _validate_quote,
 }
 
 
@@ -969,14 +1352,14 @@ def validate_spec(spec: dict) -> None:
 def render(spec: dict) -> str:
     validate_spec(spec)
     pattern = spec.get("pattern", "")
-    if pattern == "cover":
+    if pattern in CHROMELESS:
         body = RENDERERS[pattern](spec)
         aria = spec.get("title", "")
     else:
         body = header(spec) + RENDERERS[pattern](spec) + footer(spec)
         aria = spec.get("headline", "")
     content = "\n  ".join(body)
-    background = "" if pattern == "cover" else f'  <rect width="{W}" height="{H}" fill="#FFFFFF"/>\n'
+    background = "" if pattern in CHROMELESS else f'  <rect width="{W}" height="{H}" fill="#FFFFFF"/>\n'
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
         f'width="{W}" height="{H}" role="img" aria-label="{esc(aria)}">\n'

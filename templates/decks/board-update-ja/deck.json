@@ -1,0 +1,15 @@
+{
+  "title": "第3四半期 取締役会アップデート — デモデック",
+  "description": "取締役会向け四半期アップデート（日本語版）: 成長・KPI・ARRブリッジ・増員承認依頼。",
+  "slides": [
+    "specs/01-cover.json",
+    "specs/02-agenda.json",
+    "specs/03-executive-summary.json",
+    "specs/04-kpi-scorecard.json",
+    "specs/05-arr-waterfall.json",
+    "specs/06-adoption-trend.json",
+    "specs/07-risks.json",
+    "specs/08-closing.json",
+    "specs/09-end-cover.json"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "pattern": "two_by_two",
+  "headline": "Two initiatives justify an immediate green light; the platform rewrite waits for Q3",
+  "subline": "Illustrative data — prioritization of candidate initiatives",
+  "x_axis": {"label": "Implementation effort", "low": "Low", "high": "High"},
+  "y_axis": {"label": "Expected impact", "low": "Low", "high": "High"},
+  "quadrants": ["Quick wins", "Big bets", "Low priority", "Reconsider"],
+  "points": [
+    {"label": "Self-serve onboarding", "x": 22, "y": 80, "emphasis": true},
+    {"label": "Usage-based pricing", "x": 34, "y": 74, "emphasis": true},
+    {"label": "Platform rewrite", "x": 86, "y": 70},
+    {"label": "Partner marketplace", "x": 58, "y": 48},
+    {"label": "UI refresh", "x": 18, "y": 22},
+    {"label": "Legacy data migration", "x": 82, "y": 20}
+  ],
+  "annotation": "Self-serve onboarding and usage-based pricing ship this quarter; the rewrite moves to the Q3 roadmap review.",
+  "source": "Illustrative data — sample initiative scoring."
+}

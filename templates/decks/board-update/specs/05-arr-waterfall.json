@@ -1,0 +1,16 @@
+{
+  "pattern": "waterfall",
+  "headline": "New enterprise logos and expansion added $6.3M, more than offsetting $1.3M of churn",
+  "subline": "ARR bridge, Q2 to Q3",
+  "unit": "$M",
+  "start": {"label": "Q2 ARR", "value": 32.0},
+  "drivers": [
+    {"label": "New enterprise logos", "value": 4.2},
+    {"label": "Existing customer expansion", "value": 2.1},
+    {"label": "Churn", "value": -1.3}
+  ],
+  "end_label": "Q3 ARR",
+  "annotation": "Net +$5.0M ARR this quarter; enterprise new-logo growth is the main engine.",
+  "page_number": 5,
+  "source": "Illustrative data — replace with your own metrics."
+}

@@ -11,7 +11,7 @@ Python 3 standard library only. **Zero dependencies. Zero API keys. Zero network
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
 [![Skill Format](https://img.shields.io/badge/SKILL.md-ready-blue.svg)](SKILL.md)
-[![Release](https://img.shields.io/badge/Release-v1.9.0-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v1.9.0)
+[![Release](https://img.shields.io/badge/Release-v2.0.0-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.0.0)
 
 English | [日本語](README.ja.md)
 
@@ -23,12 +23,14 @@ English | [日本語](README.ja.md)
 
 ## Why This Gets Starred
 
-- **It actually renders.** 16 chart patterns produce real SVG slides — waterfall, executive summary, 2×2, scatter, heatmap, Gantt, small multiples, cover, and more. Every gallery image below is committed renderer output, verified fresh by CI on every push.
+- **Install it and get a complete deck immediately.** `scripts/scaffold_deck.py <archetype>` copies a full, coherent 9-12 slide deck — cover through closing — into a working directory. Swap the illustrative data for yours and build. Six archetypes ship, one in Japanese.
+- **It actually renders.** 22 patterns produce real SVG slides — waterfall, executive summary, 2×2, scatter, heatmap, Gantt, small multiples, cover, section dividers, agendas, closings, and more. Every gallery image below is committed renderer output, verified fresh by CI on every push.
 - **Animated HTML decks from one command.** Combine slides into a single self-contained HTML file: quiet staggered reveals, keyboard navigation, progress bar, zero external requests. Press `p` → your browser prints it → **you have a PDF**.
+- **A browser-native report mode.** `scripts/build_html_report.py` turns Markdown into a self-contained, print-to-A4 HTML document with numbered exhibits — the same visual system, for documents instead of decks.
 - **Works with your slide tools.** The SVGs drop straight into **PowerPoint, Keynote, and Word** (Insert → Picture). For Google Slides, export PNG from any browser first.
 - **Japanese business documents are first-class.** CJK text wraps correctly (measured per fullwidth character, not by spaces), fonts fall back to Noto Sans JP / Hiragino, and there are dedicated profiles for 稟議書, 役員会資料, 週報, 学会抄録.
 - **Charts that survive an audit.** Bar proportions match the data (Lie Factor ≈ 1.0), zero baselines are marked, cell text passes WCAG AA contrast across the whole color ramp, and the accent navy stays readable in greyscale print — all of it **asserted in the test suite**, not promised in prose.
-- **Roasted by five design legends, then fixed.** We ran the whole system through a five-perspective design panel — Tufte's data-ink discipline, an ex-McKinsey chart master, Swiss grid typography, FT-style data journalism, and modern design engineering. They scored it 5.8/10 and listed every flaw. v1.9.0 shipped every fix. [Read the receipts.](#roasted-by-five-design-legends)
+- **Roasted by five design legends, then fixed.** We ran the whole system through a five-perspective design panel — Tufte's data-ink discipline, an ex-McKinsey chart master, Swiss grid typography, FT-style data journalism, and modern design engineering. They scored it 5.8/10 and listed every flaw. A previous release shipped every fix. [Read the receipts.](#roasted-by-five-design-legends)
 
 ## 60-Second Start
 
@@ -90,7 +92,7 @@ Every image is committed output of `scripts/render_slide_spec.py` — CI fails i
 | --- | --- |
 | ![Rendered capacity gap](assets/rendered/capacity-gap.svg) | ![Rendered process flow](assets/rendered/onboarding-flow.svg) |
 
-**16 patterns render to SVG**: `cover`, `waterfall`, `gap`, `before_after`, `time_series`, `benchmark_table`, `summary_strip`, `process_flow`, `funnel`, `heatmap`, `gantt`, `kpi_scorecard`, `two_by_two`, `scatter`, `distribution`, `small_multiples`. Twelve more patterns (Sankey, pyramid, maps, decision trees, …) ship as structured specs and image-generation prompts — [the catalog says exactly which is which](references/visualization-patterns.md). We don't pretend.
+**22 patterns render to SVG**: `cover`, `section_divider`, `end_cover`, `agenda`, `bullet_list`, `closing`, `quote`, `waterfall`, `gap`, `before_after`, `time_series`, `benchmark_table`, `summary_strip`, `process_flow`, `funnel`, `heatmap`, `gantt`, `kpi_scorecard`, `two_by_two`, `scatter`, `distribution`, `small_multiples`. Thirteen more patterns (Sankey, pyramid, maps, decision trees, …) ship as structured specs and image-generation prompts — [the catalog says exactly which is which](references/visualization-patterns.md). We don't pretend.
 
 ## Animated HTML Decks
 
@@ -106,6 +108,48 @@ One command, one file, and you get:
 - **Zero external requests** — fonts, styles, scripts, and SVGs are all inline. Email it, host it, present offline.
 
 Try the committed demo: [examples/demo-deck.html](examples/demo-deck.html) (open locally after cloning).
+
+## Instant Deck: Scaffold → Build
+
+Skip writing specs from a blank page. Pick an archetype, copy it, swap in real data:
+
+```bash
+python3 scripts/scaffold_deck.py --list                    # see all 6 archetypes + slide counts
+python3 scripts/scaffold_deck.py board-update -o my-deck --title "FY27 Board Update"
+# edit my-deck/specs/*.json with real numbers — the pattern shapes are already right
+python3 scripts/build_html_deck.py --manifest my-deck/deck.json -o my-deck/deck.html
+```
+
+`scaffold_deck.py` refuses to overwrite a non-empty directory unless you pass `--force`, and prints the next two commands when it's done.
+
+## Template Gallery
+
+Six deck archetypes ship pre-filled with a coherent illustrative storyline — every slide renders, nothing is a stub.
+
+| Archetype | Use For | Storyline |
+| --- | --- | --- |
+| `board-update` | Recurring board / steering updates | Cover → agenda → executive summary → KPI scorecard → ARR waterfall → trend → risk view → closing → end cover |
+| `strategy-recommendation` | "Where to play, how to win" strategy decks | Cover → agenda → context → two section dividers (Where to play / How to win) → 2×2 → benchmark table → gap or bridge → roadmap → closing → end cover |
+| `project-status` | PMO / steering-committee status reviews | Cover → summary → roadmap → KPI scorecard → blockers → path-to-green flow → closing → end cover |
+| `market-entry` | Entry or expansion investment cases | Cover → agenda → market trend → competitor benchmark → segment 2×2 → entry-path flow → distribution or scatter → closing → end cover |
+| `sales-proposal` | Customer-facing proposals | Cover → client situation → before/after → approach flow → plan → why-us benchmark → customer quote → closing → end cover |
+| `board-update-ja` | 役員会向け月次アップデート（日本語） | `board-update` と同じ構成を、翻訳調ではなく自然な日本語の見出しで |
+
+## Report Mode: Markdown → Browser Document
+
+For a document instead of a deck, write Markdown and build it straight to a single self-contained, print-to-A4 HTML report:
+
+```bash
+python3 scripts/build_html_report.py my-report.md -o my-report.html --lang en
+```
+
+- Front matter (`title`, `subtitle`, `author`, `date`, `classification`, `lang`) drives a navy title band — the only navy surface in the document.
+- `##`/`###` headings auto-number and build a "Contents" TOC with anchor links; standard Markdown (bullets, ordered lists, tables, bold/italic, code, blockquotes, links) renders as clean editorial typography — everything HTML-escaped first, so nothing in the source can inject markup.
+- Drop in a rendered chart with `![Caption](spec:path/to/spec.json)` — it becomes an auto-numbered `Exhibit N — Caption` with the full slide SVG embedded inline, no header/footer chrome needed. `![Caption](svg:path.svg)` embeds an existing SVG file the same way.
+- `p` / Cmd+P exports an A4-portrait PDF with the title band as the first page.
+- Zero external requests — same self-contained guarantee as the HTML deck.
+
+Three starting points ship in `templates/reports/`: `board-pre-read.md`, `one-pager.md`, `proposal-memo.md`. See the committed demo: [examples/demo-report.html](examples/demo-report.html) (built from [examples/demo-report.md](examples/demo-report.md)).
 
 ## Export Anywhere
 
@@ -129,7 +173,7 @@ Most chart generators say "beautiful". We wanted **defensible**, so we convened 
 | Alan Smith — FT data journalism | 5.5/10 | "The waterfall draws off-canvas on negative bridges" (he proved it) |
 | Modern design engineering | 5.5/10 | "2016 visuals wearing a 2020s spec sheet" |
 
-Then we shipped **every fix** in [v1.9.0](CHANGELOG.md): zero-floor waterfalls, CJK-correct wrapping, no silent truncation, a single re-derived navy that survives greyscale printing, diverging heatmaps for signed data, WCAG-AA cell text asserted across the entire ramp, decoration stripped, a comparison-type gate before every chart choice, and a rubric that now measures data-ink integrity and deck-level storyline logic.
+Then we shipped **every fix** in [a prior release](CHANGELOG.md): zero-floor waterfalls, CJK-correct wrapping, no silent truncation, a single re-derived navy that survives greyscale printing, diverging heatmaps for signed data, WCAG-AA cell text asserted across the entire ramp, decoration stripped, a comparison-type gate before every chart choice, and a rubric that now measures data-ink integrity and deck-level storyline logic.
 
 The result is a visual system you can defend in front of a board, an auditor, or a design critic — because it already survived one.
 
@@ -223,13 +267,15 @@ Even better contributions:
 | Skill entrypoint | Tells agents when and how to use the skill | [SKILL.md](SKILL.md) |
 | Input triage | Maps any input to a pattern family | [input-triage.md](references/input-triage.md) |
 | Document profiles | Adapts format and tone per deliverable | [document-type-profiles.md](references/document-type-profiles.md) |
-| Pattern library | Comparison-type gate + 28-pattern catalog | [visualization-patterns.md](references/visualization-patterns.md) |
+| Pattern library | Comparison-type gate + 35-pattern catalog | [visualization-patterns.md](references/visualization-patterns.md) |
 | Style system | Tokens, palette, typography, chart rules | [style-system.md](references/style-system.md) |
 | Prompt templates | Reproducible spec formats | [prompt-templates.md](references/prompt-templates.md) |
 | Quality rubric | 24-point scoring + blocking gates + deck check | [quality-rubric.md](references/quality-rubric.md) |
 | Expert review loop | Adversarial pre-publication review | [expert-review-loop.md](references/expert-review-loop.md) |
-| SVG renderer | Spec JSON → styled SVG slide | [render_slide_spec.py](scripts/render_slide_spec.py) |
+| SVG renderer | Spec JSON → styled SVG slide (22 patterns) | [render_slide_spec.py](scripts/render_slide_spec.py) |
 | Deck builder | SVG slides → animated single-file HTML deck | [build_html_deck.py](scripts/build_html_deck.py) |
+| Deck scaffolder | Copies a ready-made deck archetype into a working directory | [scaffold_deck.py](scripts/scaffold_deck.py) |
+| Report builder | Markdown → self-contained, print-to-A4 HTML report | [build_html_report.py](scripts/build_html_report.py) |
 | Structural review | Lint a drafted spec document | [review_slide_spec.py](scripts/review_slide_spec.py) |
 | Validation | Package integrity + render parity | [validate_skill.py](scripts/validate_skill.py) |
 

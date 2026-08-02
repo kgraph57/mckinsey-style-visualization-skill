@@ -1,0 +1,15 @@
+{
+  "title": "Partnership Proposal: Logistics Operations Platform — demo deck",
+  "description": "Sales pitch: client situation, proof, approach, plan, and the ask.",
+  "slides": [
+    "specs/01-cover.json",
+    "specs/02-situation.json",
+    "specs/03-proof.json",
+    "specs/04-approach.json",
+    "specs/05-plan.json",
+    "specs/06-why-us.json",
+    "specs/07-reference.json",
+    "specs/08-closing.json",
+    "specs/09-end-cover.json"
+  ]
+}

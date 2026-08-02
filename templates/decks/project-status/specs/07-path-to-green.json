@@ -1,0 +1,16 @@
+{
+  "pattern": "process_flow",
+  "headline": "Closing the defect backlog before UAT entry is the fastest path back to green",
+  "subline": "Recovery plan, next four weeks",
+  "steps": [
+    {"label": "Triage backlog", "detail": "PMO; this week"},
+    {"label": "Fix field mappings", "detail": "Vendor team; 2 weeks"},
+    {"label": "Re-test migration", "detail": "QA team; 1 week"},
+    {"label": "UAT entry gate", "detail": "Business owner sign-off"},
+    {"label": "Cutover", "detail": "On committed date"}
+  ],
+  "highlight": 1,
+  "annotation": "Fixing the field-mapping defects clears 70% of the backlog in one pass.",
+  "page_number": 7,
+  "source": "Illustrative data — replace with your own metrics."
+}

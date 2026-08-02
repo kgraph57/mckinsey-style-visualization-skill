@@ -1,0 +1,12 @@
+{
+  "pattern": "agenda",
+  "headline": "Four topics decide today's capacity vote",
+  "items": [
+    {"title": "Growth", "detail": "Where the ARR and logo gains came from"},
+    {"title": "Adoption", "detail": "How fast accounts are using the new workflow"},
+    {"title": "Capacity risk", "detail": "Why onboarding is now the bottleneck"},
+    {"title": "The ask", "detail": "What we need approved today"}
+  ],
+  "page_number": 2,
+  "source": "Illustrative data — replace with your own metrics."
+}

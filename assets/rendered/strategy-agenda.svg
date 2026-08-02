@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Three questions decide this investment">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <rect x="80.0" y="52.0" width="56.0" height="5.0" fill="#15296B" stroke="none"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">Three questions decide this investment</text>
+  <line x1="80.0" y1="208.0" x2="1200.0" y2="208.0" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="296.0" x2="1200.0" y2="296.0" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="384.0" x2="1200.0" y2="384.0" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="472.0" x2="1200.0" y2="472.0" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="560.0" x2="1200.0" y2="560.0" stroke="#D1D5DB"/>
+  <text x="80.0" y="258.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="24" fill="#15296B" font-weight="normal" text-anchor="start">01</text>
+  <text x="126.0" y="258.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="17" fill="#000000" font-weight="600" text-anchor="start">Context</text>
+  <text x="400.0" y="258.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">What changed since January</text>
+  <rect x="80.0" y="296.0" width="1120.0" height="88.0" fill="#EFF3FB" stroke="none"/>
+  <text x="80.0" y="346.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="24" fill="#15296B" font-weight="normal" text-anchor="start">02</text>
+  <text x="126.0" y="346.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="17" fill="#15296B" font-weight="600" text-anchor="start">Options</text>
+  <text x="400.0" y="346.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">Three entry paths, one recommendation</text>
+  <text x="80.0" y="434.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="24" fill="#15296B" font-weight="normal" text-anchor="start">03</text>
+  <text x="126.0" y="434.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="17" fill="#000000" font-weight="600" text-anchor="start">Economics</text>
+  <text x="400.0" y="434.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">Unit economics and payback at scale</text>
+  <text x="80.0" y="522.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="24" fill="#15296B" font-weight="normal" text-anchor="start">04</text>
+  <text x="126.0" y="522.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="17" fill="#000000" font-weight="600" text-anchor="start">Risks</text>
+  <text x="400.0" y="522.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">What could break the plan</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="start">Illustrative data — sample deck outline.</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="end">2</text>
+</svg>

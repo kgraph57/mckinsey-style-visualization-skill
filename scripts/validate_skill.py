@@ -6,7 +6,9 @@ from __future__ import annotations
 import importlib.util
 import json
 import re
+import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 
@@ -97,6 +99,31 @@ REQUIRED_FILES = [
     "scripts/build_html_deck.py",
     "examples/demo-deck.json",
     "examples/demo-deck.html",
+    "scripts/scaffold_deck.py",
+    "scripts/build_html_report.py",
+    "examples/render-specs/strategy-agenda.json",
+    "examples/render-specs/phase-divider.json",
+    "examples/render-specs/rollout-constraints.json",
+    "examples/render-specs/board-closing.json",
+    "examples/render-specs/customer-quote.json",
+    "examples/render-specs/deck-end-cover.json",
+    "assets/rendered/strategy-agenda.svg",
+    "assets/rendered/phase-divider.svg",
+    "assets/rendered/rollout-constraints.svg",
+    "assets/rendered/board-closing.svg",
+    "assets/rendered/customer-quote.svg",
+    "assets/rendered/deck-end-cover.svg",
+    "templates/decks/board-update/deck.json",
+    "templates/decks/strategy-recommendation/deck.json",
+    "templates/decks/project-status/deck.json",
+    "templates/decks/market-entry/deck.json",
+    "templates/decks/sales-proposal/deck.json",
+    "templates/decks/board-update-ja/deck.json",
+    "templates/reports/board-pre-read.md",
+    "templates/reports/one-pager.md",
+    "templates/reports/proposal-memo.md",
+    "examples/demo-report.md",
+    "examples/demo-report.html",
     "assets/readme/hero-before-after.svg",
     "assets/social/launch-card.svg",
     ".github/ISSUE_TEMPLATE/marketplace-listing.md",
@@ -204,7 +231,7 @@ def validate_manifest() -> None:
     expected = {
         "name": "strategy-consulting-visualization",
         "display_name": "Strategy Consulting Visualization Skill",
-        "version": "1.9.0",
+        "version": "2.0.0",
         "license": "MIT",
         "entrypoint": "SKILL.md",
     }
@@ -274,6 +301,18 @@ def validate_renderer() -> None:
                 f"{spec_path.relative_to(ROOT)}: regenerate {rendered_path.relative_to(ROOT)}"
             )
 
+    # Deck-template specs are illustrative starting points meant to be edited by
+    # scaffold_deck.py users, not frozen proof assets — render must succeed, but
+    # no committed SVG is required or compared.
+    for spec_path in sorted((ROOT / "templates" / "decks").glob("*/specs/*.json")):
+        try:
+            slide_spec = json.loads(spec_path.read_text(encoding="utf-8"))
+            svg = module.render(slide_spec)
+        except Exception as exc:  # noqa: BLE001 - any render failure should fail validation
+            fail(f"renderer failed on {spec_path.relative_to(ROOT)}: {exc}")
+        if "<svg" not in svg:
+            fail(f"renderer produced invalid output for {spec_path.relative_to(ROOT)}")
+
 
 def validate_demo_deck() -> None:
     """The committed HTML deck must match a fresh build from its manifest."""
@@ -289,12 +328,43 @@ def validate_demo_deck() -> None:
         fail("stale demo deck: regenerate examples/demo-deck.html with scripts/build_html_deck.py")
 
 
+def validate_demo_report() -> None:
+    """The committed HTML report must match a fresh build from its Markdown source.
+
+    Unlike ``validate_demo_deck`` (which imports ``build_html_deck`` and calls its
+    ``build_deck`` function directly), this shells out to the documented CLI
+    (``python3 scripts/build_html_report.py input.md -o report.html``). That
+    keeps the freshness check pinned to the one public contract for the report
+    builder rather than to an internal function name/signature.
+    """
+    script_path = ROOT / "scripts" / "build_html_report.py"
+    source_path = ROOT / "examples" / "demo-report.md"
+    committed_path = ROOT / "examples" / "demo-report.html"
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        output_path = Path(tmp_dir) / "demo-report.html"
+        result = subprocess.run(
+            [sys.executable, str(script_path), str(source_path), "-o", str(output_path)],
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode != 0:
+            fail(
+                "build_html_report.py failed on examples/demo-report.md: "
+                f"{result.stderr.strip()}"
+            )
+        fresh = output_path.read_text(encoding="utf-8")
+    committed = committed_path.read_text(encoding="utf-8")
+    if fresh != committed:
+        fail("stale demo report: regenerate examples/demo-report.html with scripts/build_html_report.py")
+
+
 def main() -> None:
     validate_required_files()
     validate_skill_frontmatter()
     validate_manifest()
     validate_no_stale_or_risky_text()
     validate_demo_deck()
+    validate_demo_report()
     validate_renderer()
     print("OK: skill package passed validation")
 

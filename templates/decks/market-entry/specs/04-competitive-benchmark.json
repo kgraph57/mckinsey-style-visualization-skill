@@ -1,0 +1,15 @@
+{
+  "pattern": "benchmark_table",
+  "headline": "No competitor leads on both integration depth and price in this segment",
+  "subline": "Weighted scores, 1-5 scale; leaders highlighted",
+  "columns": ["Integration depth", "Implementation speed", "Support model", "List price"],
+  "rows": [
+    {"label": "Competitor A", "values": ["3.0", "4.2", "3.1", "4.5"]},
+    {"label": "Competitor B", "values": ["4.4", "3.0", "4.0", "3.0"]},
+    {"label": "Competitor C", "values": ["3.5", "3.4", "3.6", "3.6"]}
+  ],
+  "leaders": [[1, 0], [0, 1], [1, 2], [0, 3]],
+  "annotation": "A product that matches Competitor B's integration depth at a mid-tier price has no direct match today.",
+  "page_number": 4,
+  "source": "Illustrative data — replace with your own metrics."
+}

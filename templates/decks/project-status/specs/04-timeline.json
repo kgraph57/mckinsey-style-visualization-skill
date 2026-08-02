@@ -1,0 +1,20 @@
+{
+  "pattern": "gantt",
+  "headline": "Data migration is the critical path; a second slip here moves the go-live date",
+  "subline": "Program timeline by workstream, current status",
+  "periods": ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  "bars": [
+    {"label": "Environment build", "start": 0, "end": 1},
+    {"label": "Data migration", "start": 1, "end": 4, "highlight": true, "note": "critical path, 2 wks behind"},
+    {"label": "Integration testing", "start": 3, "end": 4},
+    {"label": "UAT", "start": 4, "end": 5},
+    {"label": "Cutover", "start": 5, "end": 5}
+  ],
+  "gates": [
+    {"label": "UAT entry gate", "period": 4},
+    {"label": "Go / no-go", "period": 5}
+  ],
+  "annotation": "Recovering one week in data-migration validation keeps the committed cutover date.",
+  "page_number": 4,
+  "source": "Illustrative data — replace with your own metrics."
+}

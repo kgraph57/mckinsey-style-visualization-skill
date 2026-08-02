@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Illustrative growth review</title>
+<style>
+:root { color-scheme: light; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: #FFFFFF; }
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  color: #000000;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body.lang-ja { line-height: 1.9; }
+h1, h2, h3 {
+  font-family: Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  font-weight: bold;
+  color: #000000;
+}
+.title-band {
+  position: relative;
+  background: #15296B;
+  color: #FFFFFF;
+  padding: 64px 48px 40px;
+}
+.title-band .kicker { width: 56px; height: 5px; background: #FFFFFF; margin-bottom: 24px; }
+.title-band h1 { font-size: 44px; font-weight: normal; color: #FFFFFF; line-height: 1.2; max-width: 760px; }
+.title-band .subtitle { margin-top: 12px; font-size: 18px; font-weight: normal; color: #E5E7EB; font-family: inherit; max-width: 720px; }
+.title-band .meta { margin-top: 20px; font-size: 15px; color: #E5E7EB; }
+.title-band .classification {
+  position: absolute; top: 32px; right: 48px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em; color: #E5E7EB; text-transform: uppercase;
+}
+.doc { max-width: 900px; margin: 0 auto; padding: 48px 32px 96px; }
+.toc { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid #D1D5DB; }
+.toc .toc-label { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #6B7280; margin-bottom: 12px; }
+.toc ol { list-style: none; padding-left: 0; }
+.toc li { margin-bottom: 8px; }
+.toc a { color: #15296B; text-decoration: none; font-size: 15px; }
+.toc a:hover, .toc a.active { text-decoration: underline; }
+h2 { font-size: 24px; margin-top: 48px; padding-top: 20px; border-top: 1px solid #D1D5DB; }
+.doc > h2:first-child { margin-top: 0; }
+h3 { font-size: 18px; font-weight: 600; margin-top: 32px; }
+p { margin: 16px 0; }
+ul, ol { margin: 16px 0; padding-left: 28px; }
+li { margin: 6px 0; }
+ul ul { margin: 6px 0; }
+blockquote { margin: 20px 0; padding-left: 20px; border-left: 2px solid #D1D5DB; color: #374151; }
+hr { border: none; border-top: 1px solid #D1D5DB; margin: 32px 0; }
+code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; background: #F3F4F6; padding: 1px 5px; font-size: 0.9em; border-radius: 3px; }
+a { color: #2563EB; }
+.table-scroll { overflow-x: auto; margin: 20px 0; }
+table { border-collapse: collapse; width: 100%; margin: 0; font-size: 14px; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid #D1D5DB; white-space: nowrap; }
+th { font-weight: 600; color: #374151; border-bottom: 1px solid #374151; }
+figure.exhibit { margin: 32px 0; border: 1px solid #D1D5DB; padding: 20px; }
+figure.exhibit figcaption { font-size: 13px; letter-spacing: 0.04em; font-variant: small-caps; color: #374151; margin-bottom: 12px; }
+figure.exhibit svg { display: block; width: 100%; height: auto; }
+
+@media (max-width: 640px) {
+  .title-band { padding: 40px 20px 28px; }
+  .doc { padding: 32px 16px 64px; }
+  th, td { white-space: normal; }
+}
+
+@media print {
+  @page { size: A4; margin: 20mm 18mm; }
+  html, body { background: #FFFFFF; }
+  .title-band {
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    min-height: 257mm; box-sizing: border-box;
+    display: flex; flex-direction: column; justify-content: center;
+    break-after: page; page-break-after: always;
+  }
+  .doc { max-width: none; padding: 0; }
+  .toc { break-after: page; page-break-after: always; border-bottom: none; }
+  h2 { break-after: avoid-page; page-break-after: avoid; }
+  h3 { break-after: avoid-page; page-break-after: avoid; }
+  p, li { orphans: 3; widows: 3; }
+  figure.exhibit { break-inside: avoid; page-break-inside: avoid; }
+  a { color: #000000; text-decoration: underline; }
+  .toc a.active { text-decoration: none; }
+}
+</style>
+</head>
+<body>
+<header class="title-band"><div class="kicker" aria-hidden="true"></div><div class="classification">ILLUSTRATIVE — SAMPLE DATA</div><h1>Illustrative growth review</h1><p class="subtitle">A single-file demonstration of every element the report builder supports</p><p class="meta">Strategy Office &middot; March 2026</p></header>
+<main class="doc">
+<nav class="toc" aria-label="Contents"><p class="toc-label">Contents</p><ol><li><a href="#executive-summary">1. Executive summary</a></li><li><a href="#where-adoption-stands">2. Where adoption stands</a></li><li><a href="#how-we-compare-to-alternatives">3. How we compare to alternatives</a></li><li><a href="#what-the-team-recommends">4. What the team recommends</a></li><li><a href="#assumptions-and-caveats">5. Assumptions and caveats</a></li></ol></nav>
+<h2 id="executive-summary">1. Executive summary</h2>
+<p>Adoption <strong>more than tripled</strong> over four quarters, and the driver is a shift toward self-serve signups rather than paid acquisition. Cross-checking against raw usage events (<code>GET /v1/usage</code> request volume) confirms the same pattern independently, so this is <em>not</em> an artifact of how signups happen to be counted.</p>
+<h3>What changed this quarter</h3>
+<p>Nothing structural changed in the product; the shift shows up entirely in the acquisition mix, which is why the recommendation below is about channel investment, not the roadmap.</p>
+<h2 id="where-adoption-stands">2. Where adoption stands</h2>
+<p>The adoption curve has not flattened yet.</p>
+<figure class="exhibit"><figcaption>Exhibit 1 — Adoption rate by quarter</figcaption><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="AI workflow adoption rose 46 points in four quarters, creating a scalable operating base">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <rect x="80.0" y="52.0" width="56.0" height="5.0" fill="#15296B" stroke="none"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">AI workflow adoption rose 46 points in four quarters, creating a</text>
+  <text x="80.0" y="136.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">scalable operating base</text>
+  <text x="80.0" y="178.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="17" fill="#6B7280" font-weight="normal" text-anchor="start">Share of accounts on AI workflows</text>
+  <line x1="80.0" y1="560.0" x2="1200.0" y2="560.0" stroke="#374151"/>
+  <text x="70.0" y="564.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="11" fill="#6B7280" font-weight="normal" text-anchor="end">0</text>
+  <polyline points="80.0,477.5 453.3,417.9 826.7,335.4 1200.0,266.7" fill="none" stroke="#15296B" stroke-width="3"/>
+  <circle cx="80.0" cy="477.5" r="5" fill="#15296B"/>
+  <text x="80.0" y="463.5" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#000000" font-weight="bold" text-anchor="middle">18%</text>
+  <text x="80.0" y="584.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#374151" font-weight="normal" text-anchor="middle">Q1</text>
+  <circle cx="453.3" cy="417.9" r="5" fill="#15296B"/>
+  <text x="453.3" y="403.9" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#000000" font-weight="bold" text-anchor="middle">31%</text>
+  <text x="453.3" y="584.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#374151" font-weight="normal" text-anchor="middle">Q2</text>
+  <circle cx="826.7" cy="335.4" r="5" fill="#15296B"/>
+  <text x="826.7" y="321.4" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#000000" font-weight="bold" text-anchor="middle">49%</text>
+  <text x="826.7" y="584.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#374151" font-weight="normal" text-anchor="middle">Q3</text>
+  <circle cx="1200.0" cy="266.7" r="5" fill="#15296B"/>
+  <text x="1200.0" y="252.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="14" fill="#000000" font-weight="bold" text-anchor="middle">64%</text>
+  <text x="1200.0" y="584.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#374151" font-weight="normal" text-anchor="middle">Q4</text>
+  <text x="80.0" y="192.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">Adoption rate</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="16" fill="#15296B" font-weight="600" text-anchor="start"><title>Adoption has crossed the majority threshold; delivery capacity is now the constraint.</title>Adoption has crossed the majority threshold; delivery capacity is now the constraint.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="start">Source: user-provided product telemetry.</text>
+</svg>
+</figure>
+<p>Delivery capacity, not demand, is now the binding constraint on the next four quarters.</p>
+<h2 id="how-we-compare-to-alternatives">3. How we compare to alternatives</h2>
+<p>Vendor B leads on the two criteria buyers weight most heavily, which is consistent with what the win/loss interviews describe.</p>
+<figure class="exhibit"><figcaption>Exhibit 2 — Vendor scoring on integration, support, and cost</figcaption><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Vendor B leads on integration depth and support; Vendor A wins only on list price">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <rect x="80.0" y="52.0" width="56.0" height="5.0" fill="#15296B" stroke="none"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">Vendor B leads on integration depth and support; Vendor A wins</text>
+  <text x="80.0" y="136.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="30" fill="#000000" font-weight="bold" text-anchor="start">only on list price</text>
+  <text x="80.0" y="178.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="17" fill="#6B7280" font-weight="normal" text-anchor="start">Weighted scores, 1-5 scale; leaders highlighted</text>
+  <text x="421.2" y="218.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="600" text-anchor="middle">Integration depth</text>
+  <text x="643.8" y="218.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="600" text-anchor="middle">Support model</text>
+  <text x="866.2" y="218.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="600" text-anchor="middle">Security posture</text>
+  <text x="1088.8" y="218.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="600" text-anchor="middle">Total cost (3yr)</text>
+  <line x1="80.0" y1="262.0" x2="1200.0" y2="262.0" stroke="#374151"/>
+  <text x="80.0" y="300.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#000000" font-weight="600" text-anchor="start"><title>Vendor A</title>Vendor A</text>
+  <text x="421.2" y="300.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.1</title>3.1</text>
+  <text x="643.8" y="300.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#374151" font-weight="normal" text-anchor="middle"><title>2.8</title>2.8</text>
+  <text x="866.2" y="300.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.6</title>3.6</text>
+  <rect x="983.5" y="269.0" width="210.5" height="50.0" fill="#15296B" stroke="none"/>
+  <text x="1088.8" y="300.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#FFFFFF" font-weight="bold" text-anchor="middle"><title>4.5</title>4.5</text>
+  <line x1="80.0" y1="326.0" x2="1200.0" y2="326.0" stroke="#D1D5DB"/>
+  <text x="80.0" y="364.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#000000" font-weight="600" text-anchor="start"><title>Vendor B</title>Vendor B</text>
+  <rect x="316.0" y="333.0" width="210.5" height="50.0" fill="#15296B" stroke="none"/>
+  <text x="421.2" y="364.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#FFFFFF" font-weight="bold" text-anchor="middle"><title>4.6</title>4.6</text>
+  <rect x="538.5" y="333.0" width="210.5" height="50.0" fill="#15296B" stroke="none"/>
+  <text x="643.8" y="364.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#FFFFFF" font-weight="bold" text-anchor="middle"><title>4.4</title>4.4</text>
+  <text x="866.2" y="364.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#374151" font-weight="normal" text-anchor="middle"><title>4.1</title>4.1</text>
+  <text x="1088.8" y="364.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.2</title>3.2</text>
+  <line x1="80.0" y1="390.0" x2="1200.0" y2="390.0" stroke="#D1D5DB"/>
+  <text x="80.0" y="428.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#000000" font-weight="600" text-anchor="start"><title>Vendor C</title>Vendor C</text>
+  <text x="421.2" y="428.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.8</title>3.8</text>
+  <text x="643.8" y="428.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.5</title>3.5</text>
+  <rect x="761.0" y="397.0" width="210.5" height="50.0" fill="#15296B" stroke="none"/>
+  <text x="866.2" y="428.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#FFFFFF" font-weight="bold" text-anchor="middle"><title>4.2</title>4.2</text>
+  <text x="1088.8" y="428.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.0</title>3.0</text>
+  <line x1="80.0" y1="454.0" x2="1200.0" y2="454.0" stroke="#D1D5DB"/>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="16" fill="#15296B" font-weight="600" text-anchor="start"><title>Recommend Vendor B: leads on the two criteria weighted highest for this decision.</title>Recommend Vendor B: leads on the two criteria weighted highest for this decision.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="start">Source: user-provided RFP scoring; subjective scores caveated in appendix.</text>
+</svg>
+</figure>
+<h2 id="what-the-team-recommends">4. What the team recommends</h2>
+<ul><li><strong>Hold acquisition spend flat</strong> and reallocate the freed budget to onboarding capacity.<ul><li>This is a reallocation, not a net-new budget ask.</li></ul></li><li>Ship the two integrations already in the backlog before adding new ones.</li><li>Re-run this scorecard next quarter using the same four metrics, no substitutions.</li></ul>
+<ol><li>Confirm the onboarding headcount plan with the platform team this week.</li><li>Freeze new integration requests until the backlog above ships.</li><li>Revisit paid acquisition once delivery capacity catches up.</li></ol>
+<blockquote><p>&quot;The self-serve motion carried more than half of new logos this quarter for the first time.&quot; — Head of growth, illustrative interview note</p></blockquote>
+<hr>
+<h2 id="assumptions-and-caveats">5. Assumptions and caveats</h2>
+<div class="table-scroll"><table><thead><tr><th>Assumption</th><th>Basis</th><th>Risk if wrong</th></tr></thead><tbody><tr><td>Self-serve mix holds</td><td>Trailing two quarters</td><td>Medium</td></tr><tr><td>No pricing change this quarter</td><td>Roadmap review, February</td><td>Low</td></tr><tr><td>Support headcount stays flat</td><td>Current staffing plan</td><td>High</td></tr></tbody></table></div>
+<h3>A note on how this document is built</h3>
+<p>This paragraph exists to prove the escaping works: a line like &lt;script&gt;alert(1)&lt;/script&gt; renders as inert text, never as a tag, because every line is HTML-escaped before any markdown syntax is recognized. For questions about the underlying data, contact the <a href="mailto:strategy@example.com">strategy office</a>.</p>
+</main>
+<script>
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  if (!links.length || !window.IntersectionObserver) return;
+  var targets = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      var index = targets.indexOf(entry.target);
+      if (index === -1) return;
+      if (entry.isIntersecting) {
+        links.forEach(function (l) { l.classList.remove('active'); });
+        links[index].classList.add('active');
+      }
+    });
+  }, { rootMargin: '0px 0px -70% 0px' });
+  targets.forEach(function (t) { if (t) observer.observe(t); });
+})();
+</script>
+</body>
+</html>

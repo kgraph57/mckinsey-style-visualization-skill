@@ -1,0 +1,15 @@
+{
+  "pattern": "waterfall",
+  "headline": "New-logo growth offsets a wider-than-planned churn hole",
+  "subline": "Illustrative data — ARR bridge, Q1 to Q4",
+  "unit": "$M",
+  "start": {"label": "Q1 ARR", "value": 22.0},
+  "drivers": [
+    {"label": "New logos", "value": 5.5},
+    {"label": "Expansion", "value": 2.0},
+    {"label": "Churn", "value": -3.0}
+  ],
+  "end_label": "Q4 ARR",
+  "annotation": "Net +$4.5M ARR; churn is now the largest single driver working against growth.",
+  "source": "Illustrative data — sample ARR bridge."
+}

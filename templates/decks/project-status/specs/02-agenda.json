@@ -1,0 +1,13 @@
+{
+  "pattern": "agenda",
+  "headline": "Five things the steering committee needs from this update",
+  "items": [
+    {"title": "Status", "detail": "Where the program stands against plan"},
+    {"title": "Timeline", "detail": "What the critical path looks like now"},
+    {"title": "Metrics", "detail": "Cutover readiness by workstream"},
+    {"title": "Blockers", "detail": "What is putting the go-live date at risk"},
+    {"title": "Path to green", "detail": "The fastest way back on track"}
+  ],
+  "page_number": 2,
+  "source": "Illustrative data — replace with your own metrics."
+}

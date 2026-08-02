@@ -1,0 +1,18 @@
+{
+  "pattern": "two_by_two",
+  "headline": "Two of five logistics sub-segments combine high growth with low competitive intensity",
+  "subline": "Sub-segments by market growth and competitive intensity",
+  "x_axis": {"label": "Competitive intensity", "low": "Low", "high": "High"},
+  "y_axis": {"label": "Market growth", "low": "Low", "high": "High"},
+  "quadrants": ["Priority targets", "Contested growth", "Safe niches", "Avoid"],
+  "points": [
+    {"label": "Regional freight brokers", "x": 22, "y": 78, "emphasis": true},
+    {"label": "Last-mile delivery fleets", "x": 30, "y": 74, "emphasis": true},
+    {"label": "National carriers", "x": 82, "y": 80},
+    {"label": "Warehouse operators", "x": 25, "y": 32},
+    {"label": "Owner-operator fleets", "x": 78, "y": 24}
+  ],
+  "annotation": "Regional freight brokers and last-mile fleets are underserved and growing fast.",
+  "page_number": 5,
+  "source": "Illustrative data — replace with your own metrics."
+}

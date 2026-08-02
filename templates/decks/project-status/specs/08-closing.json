@@ -1,0 +1,12 @@
+{
+  "pattern": "closing",
+  "headline": "Approve two extra QA contractors this week to protect the go-live date",
+  "next_steps": [
+    {"action": "Approve two additional QA contractors for defect burn-down", "owner": "Steering committee", "timing": "This week"},
+    {"action": "Business owner signs off UAT entry criteria", "owner": "Business owner", "timing": "Next week"},
+    {"action": "Vendor team completes field-mapping fixes", "owner": "Vendor lead", "timing": "Two weeks"}
+  ],
+  "call_to_action": "Decision requested today: approve two additional QA contractors.",
+  "page_number": 8,
+  "source": "Illustrative data — replace with your own metrics."
+}

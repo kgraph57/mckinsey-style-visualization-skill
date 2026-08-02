@@ -1,0 +1,17 @@
+{
+  "pattern": "scatter",
+  "headline": "Regional freight brokers offer the best combination of deal size and budget authority",
+  "subline": "Prospect segments by company size and estimated software budget",
+  "x_axis": {"label": "Target company size (employees)", "unit": ""},
+  "y_axis": {"label": "Logistics software budget ($k/yr)", "unit": "$k"},
+  "points": [
+    {"x": 80, "y": 42, "label": "Regional freight brokers", "emphasis": true},
+    {"x": 60, "y": 35, "label": "Last-mile delivery fleets", "emphasis": true},
+    {"x": 250, "y": 30, "label": "National carriers"},
+    {"x": 40, "y": 12, "label": "Owner-operator fleets"},
+    {"x": 120, "y": 18, "label": "Warehouse operators"}
+  ],
+  "annotation": "Regional freight brokers combine sufficient budget with a company size the current sales motion can reach.",
+  "page_number": 7,
+  "source": "Illustrative data — replace with your own metrics."
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Where to play">
+  <rect x="0.0" y="0.0" width="1280.0" height="720.0" fill="#15296B" stroke="none"/>
+  <rect x="80.0" y="200.0" width="56.0" height="5.0" fill="#FFFFFF" stroke="none"/>
+  <text x="80.0" y="236.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="15" fill="#E5E7EB" font-weight="600" text-anchor="start">SECTION 02</text>
+  <text x="80.0" y="284.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#FFFFFF" font-weight="normal" text-anchor="start">Where to play</text>
+  <text x="80.0" y="342.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">Market selection and entry sequence</text>
+  <text x="1200.0" y="40.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="11" fill="#E5E7EB" font-weight="600" text-anchor="end">DRAFT — ILLUSTRATIVE</text>
+  <text x="80.0" y="604.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#E5E7EB" opacity="0.55">01 Context</text>
+  <text x="192.8" y="604.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#FFFFFF" font-weight="600" text-anchor="start">02 Where to play</text>
+  <text x="354.0" y="604.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#E5E7EB" opacity="0.55">03 How to win</text>
+  <text x="491.1" y="604.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif" font-size="13" fill="#E5E7EB" opacity="0.55">04 Roadmap</text>
+</svg>

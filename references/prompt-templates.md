@@ -86,6 +86,108 @@ Expert review notes:
 - Counterpoint: [what would change the recommendation]
 ```
 
+## Structural Pattern Spec Templates
+
+Use these as literal starting JSON for the six deck-furniture patterns (all render with `python3 scripts/render_slide_spec.py`). Replace every bracketed placeholder; keep the field shapes intact so the spec still validates. Full field rules are in `references/style-system.md` → Structural Slides.
+
+### Section Divider (`section_divider`)
+
+```json
+{
+  "pattern": "section_divider",
+  "section_number": 2,
+  "title": "[Section title — the act the deck is entering]",
+  "subtitle": "[One line: the scope of this section]",
+  "sections": ["[Section 1]", "[Section 2 — this one]", "[Section 3]", "[Section 4]"],
+  "classification": "[e.g. Draft — illustrative]"
+}
+```
+
+Required: `title`, `section_number` (integer ≥ 1). Drop `sections` rather than force it onto a deck with too many acts to fit the rail.
+
+### End Cover (`end_cover`)
+
+```json
+{
+  "pattern": "end_cover",
+  "title": "[Closing line — defaults to \"Thank you\" if omitted]",
+  "subtitle": "[e.g. Questions and discussion]",
+  "contact": ["[Team or office name]", "[Email or contact line]"],
+  "presenter": "[Name]",
+  "date": "[Month Year]",
+  "classification": "[e.g. Confidential — illustrative]"
+}
+```
+
+Every field is optional; `{"pattern": "end_cover"}` alone is a valid, renderable spec.
+
+### Agenda (`agenda`)
+
+```json
+{
+  "pattern": "agenda",
+  "headline": "[Insight-led headline stating what the deck decides]",
+  "items": [
+    {"title": "[Section name]", "detail": "[One line: what this section answers]"}
+  ],
+  "current": null,
+  "page_number": 2,
+  "source": ""
+}
+```
+
+1-8 items (7+ splits into two columns automatically past 6; 9+ is a spec error). Set `current` (1-based) only when the agenda is being revisited mid-deck to mark progress — omit it on the opening agenda slide.
+
+### Bullet List (`bullet_list`)
+
+```json
+{
+  "pattern": "bullet_list",
+  "headline": "[Insight-led headline stating the constraint or context]",
+  "bullets": [
+    {"text": "[Top-level point]", "sub": ["[Supporting detail]"], "emphasis": false}
+  ],
+  "columns": 1,
+  "annotation": "",
+  "source": ""
+}
+```
+
+1-6 top-level bullets (7+ is a spec error — split the slide, not the type size), 0-3 `sub` items each. At most one bullet may set `"emphasis": true`. Set `"columns": 2` for two equal-width columns.
+
+### Closing (`closing`)
+
+```json
+{
+  "pattern": "closing",
+  "headline": "[Insight-led headline stating the decision]",
+  "takeaways": ["[What happened, stated in one line]"],
+  "next_steps": [
+    {"action": "[What must happen]", "owner": "[Who owns it]", "timing": "[When]"}
+  ],
+  "call_to_action": "[The one decision being asked for, stated plainly]",
+  "page_number": 12,
+  "source": ""
+}
+```
+
+1-4 `takeaways`, 1-5 `next_steps` (`action` required per step). Drop `takeaways` entirely for a next-steps-only closing slide — the layout adapts.
+
+### Quote (`quote`)
+
+```json
+{
+  "pattern": "quote",
+  "headline": "[Insight-led headline the quote proves]",
+  "text": "[Verbatim quote — never fabricated or composited]",
+  "attribution": "[Role, company, or context — use a real name only with permission]",
+  "context": "[e.g. Interview, Month Year]",
+  "source": "[e.g. Customer interviews (n=X), Month Year]"
+}
+```
+
+`text` is the only required field. Use one verbatim statement, not a paraphrase; attribute by role when the source cannot be named.
+
 ## Diagram-as-Code Spec
 
 Use when the user works in a repo or wants an editable diagram. Emit Mermaid (default) or another requested format alongside the spec.

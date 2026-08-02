@@ -1,0 +1,17 @@
+{
+  "pattern": "closing",
+  "headline": "Approve Segment A entry now to hit the FY27 second-engine target",
+  "takeaways": [
+    "Segment A combines the fastest growth with the least entrenched competition",
+    "The Company's integration strength already fits what Segment A buyers value most",
+    "Partner certification is the only pacing risk, and it is already in motion"
+  ],
+  "next_steps": [
+    {"action": "Approve the Segment A entry budget", "owner": "CEO", "timing": "This week"},
+    {"action": "Finalize the six additional partner certifications", "owner": "Partner team", "timing": "Q1"},
+    {"action": "Review pilot account results at the Q2 board meeting", "owner": "Strategy Office", "timing": "Q2"}
+  ],
+  "call_to_action": "Decision requested today: approve the Segment A entry budget.",
+  "page_number": 10,
+  "source": "Illustrative data — replace with your own metrics."
+}

@@ -29,8 +29,10 @@ class BuildHtmlDeckTests(unittest.TestCase):
 
     def test_deck_contains_one_section_per_slide(self) -> None:
         html = self.build_demo()
-        self.assertEqual(html.count('<section class="slide"'), 6)
-        self.assertEqual(html.count('class="dot"'), 6)
+        manifest = json.loads((ROOT / "examples" / "demo-deck.json").read_text(encoding="utf-8"))
+        slide_count = len(manifest["slides"])
+        self.assertEqual(html.count('<section class="slide"'), slide_count)
+        self.assertEqual(html.count('class="dot"'), slide_count)
 
     def test_deck_is_self_contained(self) -> None:
         html = self.build_demo()

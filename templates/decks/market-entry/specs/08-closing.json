@@ -1,0 +1,17 @@
+{
+  "pattern": "closing",
+  "headline": "Approve the partner-led entry into regional freight brokerage this quarter",
+  "takeaways": [
+    "Mid-market logistics software spend has grown 58% in five quarters",
+    "Regional freight brokers and last-mile fleets are underserved and fast-growing",
+    "A partner-led entry reaches revenue four months faster than a direct build"
+  ],
+  "next_steps": [
+    {"action": "Approve the partner-led entry budget", "owner": "CEO", "timing": "This week"},
+    {"action": "Sign the first two logistics reseller partners", "owner": "Corporate Development", "timing": "Next 8 weeks"},
+    {"action": "Review pilot account results at the Q4 board meeting", "owner": "Corporate Development", "timing": "Q4"}
+  ],
+  "call_to_action": "Decision requested today: approve the partner-led entry budget.",
+  "page_number": 8,
+  "source": "Illustrative data — replace with your own metrics."
+}

@@ -1,0 +1,20 @@
+{
+  "pattern": "bullet_list",
+  "headline": "Manual routing decisions are costing the prospect roughly 12% of fleet capacity every week",
+  "bullets": [
+    {
+      "text": "Dispatchers re-plan routes manually when conditions change mid-day",
+      "sub": ["Average of 45 minutes lost per re-plan, three times a day"],
+      "emphasis": true
+    },
+    {
+      "text": "Fleet utilization sits at 71%, below the 85% the prospect's peers report"
+    },
+    {
+      "text": "The current dispatch tool has no live traffic or capacity feed"
+    }
+  ],
+  "annotation": "None of these are staffing problems; they are tooling gaps a platform switch fixes directly.",
+  "page_number": 2,
+  "source": "Illustrative data — replace with your own metrics."
+}

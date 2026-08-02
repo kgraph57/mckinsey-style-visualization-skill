@@ -1,0 +1,16 @@
+{
+  "pattern": "kpi_scorecard",
+  "headline": "Retention holds steady while onboarding time drifts past target",
+  "subline": "Illustrative data — quarterly customer health metrics vs. target",
+  "columns": 3,
+  "metrics": [
+    {"label": "NET REVENUE RETENTION", "value": "108%", "target": "110%", "trend": "-2 pts", "status": "watch"},
+    {"label": "GROSS RETENTION", "value": "94%", "target": "92%", "trend": "+2 pts", "status": "good"},
+    {"label": "TIME TO FIRST VALUE", "value": "19 days", "target": "14 days", "trend": "+5 days", "status": "risk"},
+    {"label": "NPS", "value": "42", "target": "40", "trend": "+3", "status": "good"},
+    {"label": "SUPPORT CSAT", "value": "91%", "target": "90%", "trend": "+1 pt", "status": "good"},
+    {"label": "ACTIVE SEATS", "value": "72%", "target": "75%", "trend": "-1 pt", "status": "watch"}
+  ],
+  "annotation": "Onboarding time is now the binding constraint on retention; every other metric is within range.",
+  "source": "Illustrative data — sample customer health dashboard."
+}

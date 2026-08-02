@@ -1,0 +1,12 @@
+{
+  "pattern": "closing",
+  "headline": "Approve the four-week pilot to start capturing these gains this quarter",
+  "next_steps": [
+    {"action": "Approve the four-week pilot agreement", "owner": "Prospect's VP Operations", "timing": "This week"},
+    {"action": "Connect the dispatch data feed for one depot", "owner": "the Company — Implementation", "timing": "Week 1"},
+    {"action": "Review pilot results and decide on full rollout", "owner": "Both teams", "timing": "Week 4"}
+  ],
+  "call_to_action": "Decision requested today: approve the four-week pilot agreement.",
+  "page_number": 8,
+  "source": "Illustrative data — replace with your own metrics."
+}

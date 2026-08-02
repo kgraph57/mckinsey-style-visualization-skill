@@ -1,0 +1,17 @@
+{
+  "pattern": "kpi_scorecard",
+  "headline": "Cutover readiness is green on four measures; defect burn-down is the outlier",
+  "subline": "Readiness metrics, current vs. target",
+  "columns": 3,
+  "metrics": [
+    {"label": "BUDGET UTILIZATION", "value": "61%", "target": "58%", "trend": "+3 pts", "status": "watch"},
+    {"label": "DATA MIGRATED", "value": "78%", "target": "85%", "trend": "-7 pts", "status": "risk"},
+    {"label": "OPEN CRITICAL DEFECTS", "value": "34", "target": "<15", "trend": "+19", "status": "risk"},
+    {"label": "ENVIRONMENT UPTIME", "value": "99.6%", "target": "99%", "trend": "+0.6 pts", "status": "good"},
+    {"label": "TEST CASE PASS RATE", "value": "88%", "target": "95%", "trend": "-7 pts", "status": "watch"},
+    {"label": "TRAINING COMPLETION", "value": "92%", "target": "90%", "trend": "+2 pts", "status": "good"}
+  ],
+  "annotation": "Defect burn-down decides whether October recovers the schedule.",
+  "page_number": 5,
+  "source": "Illustrative data — replace with your own metrics."
+}

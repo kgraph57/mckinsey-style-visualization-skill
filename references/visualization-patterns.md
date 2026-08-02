@@ -180,3 +180,42 @@ Define each level or check objectively enough that two readers score the same wa
 ### Annotated Map
 
 Use a map only when geography itself is the message; otherwise ranked bars by region are clearer. Annotate the few locations that carry the story.
+
+## Structural / Deck Patterns
+
+These patterns are deck furniture, not chart types: they open, orient, transition, and close a deck so the argument-carrying content slides do not have to. They follow the same style system, but none of them encode data — do not reach for one when the reader's question is quantitative; go back to the comparison-type gate instead.
+
+| Pattern | Renderer | Use When | Reader Question |
+| --- | --- | --- | --- |
+| Section divider (小扉) | ✓ SVG | Opening a new act inside a deck (e.g. "Where to play", "How to win") | What phase of the argument am I entering now? |
+| Agenda | ✓ SVG | Orienting the reader before the first content slide, or marking progress mid-deck | What will this deck cover, and where are we right now? |
+| Bullet list (action-title) | ✓ SVG | Stating constraints, context, or risks that are true but not yet a chart | What are the plain facts I need to hold before the next visual? |
+| Closing (takeaways / next steps) | ✓ SVG | Ending a deck with the decision ask, owners, and timing | What do I need to remember, and what happens next? |
+| Quote | ✓ SVG | Grounding a claim in a verbatim customer or stakeholder statement | Is this actually happening, in someone else's words? |
+| End cover (裏表紙) | ✓ SVG | Closing a deck | Who do I follow up with? |
+
+## Structural Pattern Notes
+
+### Section Divider (小扉)
+
+Full-bleed navy, same family as `cover`. Use one per act, not per slide — a deck with a divider every two slides has no acts, just decoration. Carry the running section list so the reader always knows where they are; keep it out if it would overflow the available width rather than shrink it into illegibility.
+
+### Agenda
+
+State what the deck covers in the reader's language, not a table of contents copied from slide titles. If the deck is long enough to revisit the agenda mid-deck, mark `current` once and only once — a "you are here" needs a single unambiguous marker, not a running theme.
+
+### Bullet List (Action-Title Text Slide)
+
+This is the fallback for a true statement that is not a comparison, trend, or relationship — use it deliberately, not because a chart felt like too much work. Keep the top-level list to what a reader can hold in one glance (six items is already a lot); a seventh point is a sign the slide should split in two. At most one bullet earns the strongest emphasis — if the whole slide feels like the takeaway, the takeaway is not stated yet.
+
+### Closing (Key Takeaways / Next Steps)
+
+Separate what happened (`takeaways`) from what happens next (`next_steps`) — do not blend a summary bullet and an action item in the same list, the reader needs to know which is which. Every next step needs an owner; "next steps" without owners is a wish list, not a plan. The `call_to_action` line is the one sentence a reader should still remember a week later — state the decision being asked for, not a recap.
+
+### Quote
+
+Use only a real, attributable statement — never a fabricated or composited quote presented as verbatim. If the source cannot be named specifically (a customer under NDA, an anonymized interview), attribute by role and context instead of inventing a name. One quote per slide; a wall of testimonials dilutes the one voice that was supposed to carry the room.
+
+### End Cover (裏表紙)
+
+The quietest slide in the deck — a closing mark and a way to follow up, not a second closing argument. Do not repeat the takeaways here; that is what `closing` is for.

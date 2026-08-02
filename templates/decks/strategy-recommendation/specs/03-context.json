@@ -1,0 +1,21 @@
+{
+  "pattern": "bullet_list",
+  "headline": "Core-market growth is slowing while two adjacent segments are accelerating",
+  "bullets": [
+    {
+      "text": "Core-market growth has fallen from 22% to 9% over two years",
+      "sub": ["The market is maturing; the Company already holds the leading share"]
+    },
+    {
+      "text": "Two adjacent segments are growing faster than the core market",
+      "sub": ["Both are underserved by the Company's current product"],
+      "emphasis": true
+    },
+    {
+      "text": "The FY27 growth target requires a second engine beyond the core market"
+    }
+  ],
+  "annotation": "The question is not whether to expand, but which segment and how fast.",
+  "page_number": 3,
+  "source": "Illustrative data — replace with your own metrics."
+}

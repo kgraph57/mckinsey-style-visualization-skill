@@ -1,0 +1,11 @@
+{
+  "pattern": "time_series",
+  "headline": "導入率は3四半期連続で上昇し、過半数を大きく超えた",
+  "subline": "新ワークフローの利用率（対象アカウント比）",
+  "unit": "%",
+  "x_labels": ["前年Q4", "Q1", "Q2", "Q3"],
+  "series": [{"label": "導入率", "values": [41, 52, 61, 68]}],
+  "annotation": "需要はむしろ強い。制約はオンボーディングの処理速度に移った。",
+  "page_number": 6,
+  "source": "出所: Illustrative data — 実データに置き換えてください。"
+}

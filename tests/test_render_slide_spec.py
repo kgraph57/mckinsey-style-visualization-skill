@@ -239,5 +239,288 @@ class GraphicalIntegrityTests(unittest.TestCase):
             self.assertIn("<svg", svg)
 
 
+class StructuralSlidePatternTests(unittest.TestCase):
+    """Pillar 1: section_divider, end_cover, agenda, bullet_list, closing, quote."""
+
+    # --- happy paths -----------------------------------------------------
+
+    def test_section_divider_renders_kicker_label_title_and_rail(self) -> None:
+        spec = {
+            "pattern": "section_divider",
+            "section_number": 2,
+            "title": "Where to play",
+            "subtitle": "Market selection and entry sequence",
+            "sections": ["Context", "Where to play", "How to win", "Roadmap"],
+            "classification": "Draft — illustrative",
+        }
+
+        svg = renderer.render(spec)
+
+        self.assertIn("<svg", svg)
+        self.assertIn("SECTION 02", svg)
+        self.assertIn("Where to play", svg)
+        self.assertIn("Market selection and entry sequence", svg)
+        self.assertIn("02 Where to play", svg)
+        self.assertIn('opacity="0.55"', svg, "non-current rail items must be dimmed")
+        self.assertIn("DRAFT — ILLUSTRATIVE", svg)
+
+    def test_end_cover_renders_with_all_fields(self) -> None:
+        spec = {
+            "pattern": "end_cover",
+            "title": "Thank you",
+            "subtitle": "Questions and discussion",
+            "contact": ["Strategy Office", "strategy@example.com"],
+            "presenter": "Jane Doe",
+            "date": "March 2026",
+            "classification": "Confidential — illustrative",
+        }
+
+        svg = renderer.render(spec)
+
+        self.assertIn("Thank you", svg)
+        self.assertIn("Strategy Office", svg)
+        self.assertIn("strategy@example.com", svg)
+        self.assertIn("Jane Doe · March 2026", svg)
+        self.assertIn("CONFIDENTIAL — ILLUSTRATIVE", svg)
+
+    def test_end_cover_bare_spec_still_renders(self) -> None:
+        svg = renderer.render({"pattern": "end_cover"})
+
+        self.assertIn("<svg", svg)
+        self.assertIn("Thank you", svg, "end_cover must default its title")
+
+    def test_agenda_renders_numbered_rows_and_emphasizes_current(self) -> None:
+        spec = {
+            "pattern": "agenda",
+            "headline": "Three questions decide this investment",
+            "items": [
+                {"title": "Context", "detail": "What changed since January"},
+                {"title": "Options", "detail": "Three entry paths, one recommendation"},
+            ],
+            "current": 2,
+            "page_number": 2,
+        }
+
+        svg = renderer.render(spec)
+
+        self.assertIn("Context", svg)
+        self.assertIn("Options", svg)
+        self.assertIn("What changed since January", svg)
+        self.assertIn(renderer.BLUE_TINT, svg, "current row must get a rung-2 tinted fill")
+
+    def test_agenda_over_six_items_splits_into_two_columns(self) -> None:
+        spec = {
+            "pattern": "agenda",
+            "headline": "Eight-item agenda",
+            "items": [{"title": f"Item {i}"} for i in range(8)],
+        }
+
+        svg = renderer.render(spec)
+
+        for i in range(8):
+            self.assertIn(f"Item {i}", svg)
+
+    def test_bullet_list_renders_marker_subs_and_emphasis(self) -> None:
+        spec = {
+            "pattern": "bullet_list",
+            "headline": "Three constraints shape the rollout",
+            "bullets": [
+                {"text": "Capacity is fixed until Q3", "sub": ["Hiring freeze through June"], "emphasis": True},
+                {"text": "Regional pricing has not been finalized"},
+            ],
+        }
+
+        svg = renderer.render(spec)
+
+        self.assertIn("Capacity is fixed until Q3", svg)
+        self.assertIn("– Hiring freeze through June", svg)
+        self.assertIn(renderer.BLUE, svg)
+
+    def test_bullet_list_two_columns_splits_bullets(self) -> None:
+        spec = {
+            "pattern": "bullet_list",
+            "headline": "Four items in two columns",
+            "bullets": [{"text": f"Bullet {i}"} for i in range(4)],
+            "columns": 2,
+        }
+
+        svg = renderer.render(spec)
+
+        for i in range(4):
+            self.assertIn(f"Bullet {i}", svg)
+
+    def test_closing_with_takeaways_renders_two_columns_and_call_to_action(self) -> None:
+        spec = {
+            "pattern": "closing",
+            "headline": "Decide the pilot now, scale in Q3",
+            "takeaways": ["Unit economics clear the bar", "Risk is concentrated in supply"],
+            "next_steps": [{"action": "Approve pilot budget", "owner": "CFO", "timing": "This week"}],
+            "call_to_action": "Decision requested today: approve the Q2 pilot",
+            "page_number": 12,
+        }
+
+        svg = renderer.render(spec)
+
+        self.assertIn("KEY TAKEAWAYS", svg)
+        self.assertIn("NEXT STEPS", svg)
+        self.assertIn("Unit economics clear the bar", svg)
+        self.assertIn("Approve pilot budget", svg)
+        self.assertIn("CFO · This week", svg)
+        # call_to_action rides the existing footer annotation slot, not a new motif.
+        self.assertIn("Decision requested today: approve the Q2 pilot", svg)
+
+    def test_closing_without_takeaways_renders_full_width_rows(self) -> None:
+        spec = {
+            "pattern": "closing",
+            "headline": "Next steps",
+            "next_steps": [
+                {"action": "Do X", "owner": "A", "timing": "Now"},
+                {"action": "Do Y"},
+            ],
+        }
+
+        svg = renderer.render(spec)
+
+        self.assertNotIn("KEY TAKEAWAYS", svg)
+        self.assertIn("Do X", svg)
+        self.assertIn("A · Now", svg)
+        self.assertIn("Do Y", svg)
+
+    def test_quote_renders_mark_text_and_attribution(self) -> None:
+        spec = {
+            "pattern": "quote",
+            "headline": "Customers already describe the switch as done",
+            "text": "We moved 80% of volume in six weeks — the old tool is a backup now.",
+            "attribution": "COO, mid-market logistics customer",
+            "context": "Interview, February 2026",
+        }
+
+        svg = renderer.render(spec)
+
+        self.assertIn("“", svg, "quote needs the oversized opening mark")
+        self.assertIn("We moved 80% of volume", svg)
+        self.assertIn("— COO, mid-market logistics customer", svg)
+        self.assertIn("Interview, February 2026", svg)
+
+    # --- validator errors --------------------------------------------------
+
+    def test_section_divider_requires_title(self) -> None:
+        with self.assertRaises(ValueError) as ctx:
+            renderer.render({"pattern": "section_divider", "section_number": 1})
+        self.assertIn("section_divider requires a title", str(ctx.exception))
+
+    def test_section_divider_requires_positive_section_number(self) -> None:
+        with self.assertRaises(ValueError) as ctx:
+            renderer.render({"pattern": "section_divider", "title": "x", "section_number": 0})
+        self.assertIn("section_number", str(ctx.exception))
+
+    def test_agenda_requires_items_with_titles(self) -> None:
+        with self.assertRaises(ValueError):
+            renderer.render({"pattern": "agenda", "headline": "x", "items": [{}]})
+
+    def test_agenda_over_eight_items_raises(self) -> None:
+        with self.assertRaises(ValueError) as ctx:
+            renderer.render(
+                {"pattern": "agenda", "headline": "x", "items": [{"title": str(i)} for i in range(9)]}
+            )
+        self.assertIn("at most 8 items", str(ctx.exception))
+
+    def test_bullet_list_requires_bullet_text(self) -> None:
+        with self.assertRaises(ValueError):
+            renderer.render({"pattern": "bullet_list", "headline": "x", "bullets": [{}]})
+
+    def test_bullet_list_over_six_bullets_raises(self) -> None:
+        with self.assertRaises(ValueError) as ctx:
+            renderer.render(
+                {"pattern": "bullet_list", "headline": "x", "bullets": [{"text": str(i)} for i in range(7)]}
+            )
+        self.assertIn("at most 6 bullets", str(ctx.exception))
+
+    def test_bullet_list_two_emphasized_bullets_raises(self) -> None:
+        with self.assertRaises(ValueError) as ctx:
+            renderer.render(
+                {
+                    "pattern": "bullet_list",
+                    "headline": "x",
+                    "bullets": [
+                        {"text": "a", "emphasis": True},
+                        {"text": "b", "emphasis": True},
+                    ],
+                }
+            )
+        self.assertIn("at most one emphasized bullet", str(ctx.exception))
+
+    def test_closing_requires_next_steps(self) -> None:
+        with self.assertRaises(ValueError):
+            renderer.render({"pattern": "closing", "headline": "x"})
+
+    def test_closing_requires_action_per_step(self) -> None:
+        with self.assertRaises(ValueError):
+            renderer.render({"pattern": "closing", "headline": "x", "next_steps": [{"owner": "A"}]})
+
+    def test_quote_requires_text(self) -> None:
+        with self.assertRaises(ValueError) as ctx:
+            renderer.render({"pattern": "quote", "headline": "x"})
+        self.assertIn("quote requires text", str(ctx.exception))
+
+    # --- Japanese text ------------------------------------------------------
+
+    def test_section_divider_wraps_japanese_title(self) -> None:
+        spec = {
+            "pattern": "section_divider",
+            "section_number": 1,
+            "title": "成長は力強く、採用は実証済みで、いまや処理能力が制約条件になっている",
+        }
+
+        svg = renderer.render(spec)
+
+        self.assertIn("<svg", svg)
+
+    def test_bullet_list_wraps_japanese_bullets(self) -> None:
+        spec = {
+            "pattern": "bullet_list",
+            "headline": "三つの制約がロールアウトを規定する",
+            "bullets": [
+                {
+                    "text": "処理能力は第3四半期まで固定されている",
+                    "sub": ["6月末まで採用凍結"],
+                }
+            ],
+        }
+
+        svg = renderer.render(spec)
+
+        self.assertIn("処理能力", svg)
+
+    # --- chromeless dispatch -------------------------------------------------
+
+    def test_chromeless_patterns_skip_header_and_footer_chrome(self) -> None:
+        self.assertEqual(renderer.CHROMELESS, {"cover", "section_divider", "end_cover"})
+        for pattern, spec in (
+            ("section_divider", {"pattern": "section_divider", "section_number": 1, "title": "Context"}),
+            ("end_cover", {"pattern": "end_cover", "title": "Thank you"}),
+        ):
+            svg = renderer.render(spec)
+            # The kicker bar is header()'s signature motif at (ML, 52); chromeless
+            # slides use their own kicker at y=200 instead, and never call header/footer.
+            self.assertNotIn('y="52.0" width="56.0"', svg, f"{pattern} must not use content-slide header chrome")
+            self.assertIn('y="200.0" width="56.0"', svg, f"{pattern} must use the cover-style kicker")
+            self.assertNotIn('fill="#FFFFFF" stroke="none"/>\n  <rect x="80.0" y="52.0"', svg)
+
+    def test_chromed_structural_patterns_use_header_and_footer(self) -> None:
+        for spec in (
+            {"pattern": "agenda", "headline": "Agenda", "items": [{"title": "A"}]},
+            {"pattern": "bullet_list", "headline": "Bullets", "bullets": [{"text": "A"}]},
+            {"pattern": "closing", "headline": "Closing", "next_steps": [{"action": "A"}]},
+            {"pattern": "quote", "headline": "Quote", "text": "A"},
+        ):
+            svg = renderer.render(spec)
+            self.assertIn('y="52.0" width="56.0"', svg, f"{spec['pattern']} must keep the standard kicker/header")
+
+    def test_render_dispatch_chromeless_aria_falls_back_to_title(self) -> None:
+        svg = renderer.render({"pattern": "section_divider", "section_number": 1, "title": "Context set-up"})
+        self.assertIn('aria-label="Context set-up"', svg)
+
+
 if __name__ == "__main__":
     unittest.main()

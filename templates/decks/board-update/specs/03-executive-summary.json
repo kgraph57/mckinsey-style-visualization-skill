@@ -1,0 +1,25 @@
+{
+  "pattern": "summary_strip",
+  "headline": "Growth is real, but onboarding capacity now caps how fast bookings convert to revenue",
+  "subline": "Q3 board summary",
+  "blocks": [
+    {
+      "claim": "Growth remains enterprise-led",
+      "proof": "ARR grew from $32M to $37M this quarter; enterprise new logos accounted for $4.2M of the $6.3M gross increase.",
+      "implication": "Protect the enterprise motion before diversifying spend."
+    },
+    {
+      "claim": "Adoption keeps compounding",
+      "proof": "Workflow adoption rose from 41% to 68% of accounts over three quarters.",
+      "implication": "The product motion scales; the constraint has moved downstream."
+    },
+    {
+      "claim": "Onboarding capacity is now the limiter",
+      "proof": "14 signed accounts are queued for onboarding, more than double the prior quarter.",
+      "implication": "Approve the two additional onboarding hires this quarter."
+    }
+  ],
+  "page_number": 3,
+  "classification": "Confidential — illustrative",
+  "source": "Illustrative data — replace with your own metrics."
+}

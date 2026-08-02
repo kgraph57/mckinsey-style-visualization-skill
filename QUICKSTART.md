@@ -32,6 +32,29 @@ Expected:
 OK: skill package passed validation
 ```
 
+## Fastest Path to a Complete Deck
+
+Skip writing specs from scratch — scaffold a ready-made archetype and fill in real data:
+
+```bash
+python3 scripts/scaffold_deck.py --list
+python3 scripts/scaffold_deck.py board-update -o my-deck
+# edit my-deck/specs/*.json with real data
+python3 scripts/build_html_deck.py --manifest my-deck/deck.json -o my-deck/deck.html
+```
+
+Six archetypes ship: `board-update`, `strategy-recommendation`, `project-status`, `market-entry`, `sales-proposal`, and `board-update-ja` (Japanese). See the [README template gallery](README.md#template-gallery) for what each one contains.
+
+## Fastest Path to a Report Document
+
+For a document instead of a deck, write Markdown and build it straight to a self-contained, print-to-A4 HTML report:
+
+```bash
+python3 scripts/build_html_report.py my-report.md -o my-report.html --lang en
+```
+
+Start from a template in `templates/reports/` (`board-pre-read.md`, `one-pager.md`, `proposal-memo.md`), or see the committed [examples/demo-report.html](examples/demo-report.html).
+
 ## First Prompt
 
 ```text

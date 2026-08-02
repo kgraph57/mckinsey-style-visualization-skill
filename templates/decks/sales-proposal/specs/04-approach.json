@@ -1,0 +1,15 @@
+{
+  "pattern": "process_flow",
+  "headline": "A four-week pilot proves the model before any commitment beyond the pilot fee",
+  "subline": "Proposed engagement approach",
+  "steps": [
+    {"label": "Kickoff", "detail": "Week 1; data connect"},
+    {"label": "Pilot routes live", "detail": "Week 2; one depot"},
+    {"label": "Results review", "detail": "Week 4; go/no-go"},
+    {"label": "Full rollout", "detail": "If approved; all depots"}
+  ],
+  "highlight": 2,
+  "annotation": "The go/no-go decision happens before any commitment beyond the pilot fee.",
+  "page_number": 4,
+  "source": "Illustrative data — replace with your own metrics."
+}

@@ -1,0 +1,14 @@
+{
+  "pattern": "benchmark_table",
+  "headline": "Vendor B is the only option that clears both the cost and integration bars",
+  "subline": "Illustrative data — RFP scoring, 1-5 scale; leaders highlighted",
+  "columns": ["Integration effort", "Data security", "Annual cost", "Support SLA"],
+  "rows": [
+    {"label": "Vendor A", "values": ["2.8", "3.4", "4.6", "3.0"]},
+    {"label": "Vendor B", "values": ["4.2", "4.0", "3.8", "4.4"]},
+    {"label": "Vendor C", "values": ["3.5", "4.6", "2.9", "3.2"]}
+  ],
+  "leaders": [[1, 0], [2, 1], [0, 2], [1, 3]],
+  "annotation": "Recommend Vendor B: leads on the two criteria weighted highest in the scoring model.",
+  "source": "Illustrative data — sample RFP scoring exercise."
+}

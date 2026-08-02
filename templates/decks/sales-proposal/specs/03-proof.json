@@ -1,0 +1,15 @@
+{
+  "pattern": "before_after",
+  "headline": "Comparable customers cut dispatch time in half within the first quarter",
+  "subline": "Typical outcomes, comparable mid-market logistics customers, pre- vs. post-rollout",
+  "before_label": "Before",
+  "after_label": "After",
+  "pairs": [
+    {"label": "Dispatch time per re-plan (min)", "before": 45, "after": 19, "unit": ""},
+    {"label": "Fleet utilization (%)", "before": 71, "after": 86, "unit": "%"},
+    {"label": "Late deliveries per week", "before": 34, "after": 11, "unit": ""}
+  ],
+  "annotation": "Utilization gains alone cover the platform cost within the first two quarters.",
+  "page_number": 3,
+  "source": "Illustrative data — replace with your own metrics."
+}

@@ -1,0 +1,20 @@
+{
+  "pattern": "gantt",
+  "headline": "Segment A entry reaches first revenue in month five if partner certification stays on track",
+  "subline": "FY27 entry roadmap by workstream",
+  "periods": ["Q1", "Q2", "Q3", "Q4"],
+  "bars": [
+    {"label": "Partner certification", "start": 0, "end": 1, "highlight": true, "note": "critical path"},
+    {"label": "Go-to-market build", "start": 0, "end": 1},
+    {"label": "Pilot accounts", "start": 1, "end": 2},
+    {"label": "General availability", "start": 2, "end": 3},
+    {"label": "Scale hiring", "start": 2, "end": 3}
+  ],
+  "gates": [
+    {"label": "Pilot go/no-go", "period": 1},
+    {"label": "GA decision", "period": 2}
+  ],
+  "annotation": "Certification is the pacing item; everything else can run in parallel.",
+  "page_number": 9,
+  "source": "Illustrative data — replace with your own metrics."
+}

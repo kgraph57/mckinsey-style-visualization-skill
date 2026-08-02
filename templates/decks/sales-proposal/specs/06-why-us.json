@@ -1,0 +1,15 @@
+{
+  "pattern": "benchmark_table",
+  "headline": "The Company leads on integration depth and support; competitors win only on list price",
+  "subline": "Weighted scores, 1-5 scale; leaders highlighted",
+  "columns": ["Integration depth", "Live routing", "Support model", "List price"],
+  "rows": [
+    {"label": "The Company", "values": ["4.6", "4.4", "4.3", "3.1"]},
+    {"label": "Competitor A", "values": ["3.2", "3.0", "3.1", "4.4"]},
+    {"label": "Competitor B", "values": ["3.7", "3.5", "3.6", "3.8"]}
+  ],
+  "leaders": [[0, 0], [0, 1], [0, 2], [1, 3]],
+  "annotation": "Every criterion the prospect ranked highest in discovery favors the Company.",
+  "page_number": 6,
+  "source": "Illustrative data — replace with your own metrics."
+}

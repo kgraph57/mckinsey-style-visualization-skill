@@ -1,0 +1,18 @@
+{
+  "pattern": "heatmap",
+  "headline": "Delivery buffer turns negative in onboarding by Q3, the first real capacity risk this year",
+  "subline": "Capacity buffer vs. committed volume, by team and quarter (percentage points)",
+  "unit": "pt",
+  "rows": ["Sales", "Onboarding", "Support", "Product"],
+  "columns": ["Q1", "Q2", "Q3"],
+  "values": [
+    [12, 9, 6],
+    [8, -2, -14],
+    [15, 14, 10],
+    [20, 18, 17]
+  ],
+  "diverging": true,
+  "annotation": "Add two onboarding leads before Q4 or the enterprise pipeline queues for a full quarter.",
+  "page_number": 7,
+  "source": "Illustrative data — replace with your own metrics."
+}

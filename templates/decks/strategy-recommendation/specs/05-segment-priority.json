@@ -1,0 +1,17 @@
+{
+  "pattern": "two_by_two",
+  "headline": "One adjacent segment combines high growth with a real right to win",
+  "subline": "Candidate segments by market growth and competitive intensity",
+  "x_axis": {"label": "Competitive intensity", "low": "Low", "high": "High"},
+  "y_axis": {"label": "Market growth", "low": "Low", "high": "High"},
+  "quadrants": ["Priority target", "Contested growth", "Safe niche", "Avoid"],
+  "points": [
+    {"label": "Segment A — mid-market logistics", "x": 25, "y": 80, "emphasis": true},
+    {"label": "Segment B — field services", "x": 70, "y": 75},
+    {"label": "Segment C — retail operations", "x": 30, "y": 30},
+    {"label": "Segment D — public sector", "x": 85, "y": 20}
+  ],
+  "annotation": "Segment A pairs the fastest growth with the least entrenched competition.",
+  "page_number": 5,
+  "source": "Illustrative data — replace with your own metrics."
+}

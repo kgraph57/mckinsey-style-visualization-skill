@@ -8,6 +8,67 @@ Get the skill in front of agent users who create business, strategy, board, inve
 
 Primary outcome: marketplace listings, GitHub stars, forks, saves, replies, and inbound requests for rendered slide examples or paid templates.
 
+## Release Copy (v2.0.0)
+
+Lead with the "one command → full deck" demo: scaffold a template, build the HTML deck, show the print-to-PDF. The story is completeness — covers, dividers, agenda, closing, back cover, deck templates, and browser documents, not just charts.
+
+### Show HN (Hacker News)
+
+```text
+Title: Show HN: Full consulting-style decks and reports from one command – templates, structural slides, HTML docs (zero deps)
+
+v2.0.0 turns my slide renderer into a complete presentation system.
+Everything is still Python 3 stdlib — no installs, no API keys, no
+network calls, single-file outputs.
+
+- 22 patterns now render to real SVG: the 16 charts plus the deck
+  furniture nobody ships — section dividers, agenda (with current-item
+  tracking), action-title bullet slides, key-takeaways/next-steps
+  closings, quotes, and back covers. A whole deck, cover to "thank you",
+  renders from JSON.
+- 6 deck templates (board update, strategy recommendation, project
+  status, market entry, sales proposal, and a native-Japanese board
+  deck): scaffold_deck.py copies one, you swap the data, one command
+  builds an animated HTML deck that prints straight to PDF.
+- New report mode: write Markdown, reference slide specs as exhibits,
+  and build_html_report.py emits a self-contained consulting-style HTML
+  document — auto-numbered exhibits, TOC, A4 print stylesheet.
+- CI still enforces that every committed render is byte-identical to
+  what the code produces, now across templates and reports too.
+
+https://github.com/kgraph57/mckinsey-style-visualization-skill
+```
+
+### X Version (EN)
+
+```text
+One command in. A complete consulting-style deck out.
+
+v2.0.0 of my strategy-visualization skill:
+- 22 render patterns: charts + the deck furniture (dividers, agenda, closings, back covers)
+- 6 ready deck templates: scaffold -> swap data -> animated HTML deck -> PDF
+- New: Markdown -> consulting-style HTML report with auto-numbered exhibits
+- Japanese board decks are a first-class template, not a translation
+
+Still zero dependencies. Zero API keys.
+https://github.com/kgraph57/mckinsey-style-visualization-skill
+```
+
+### X Version (JP)
+
+```text
+テンプレを選んでデータを差し替えると、表紙から裏表紙まで揃った戦略コンサル風デッキが1コマンドで出てくる。
+
+v2.0.0の目玉:
+- 描画22パターン: グラフ16種＋小扉・アジェンダ・箇条書き・クロージング・引用・裏表紙
+- デッキテンプレ6種（役員報告・戦略提言・進捗報告・市場参入・営業提案＋日本語ネイティブの役員会デッキ）
+- 新機能: Markdownを書くとExhibit自動採番つきのコンサル風HTML文書に（ブラウザ印刷でA4 PDF）
+- committed済みレンダリングとコードの一致をCIが全数検証
+
+依存ゼロ・APIキー不要は据え置き。
+https://github.com/kgraph57/mckinsey-style-visualization-skill
+```
+
 ## Release Copy (v1.9.0)
 
 Attach `assets/readme/demo.gif` to every post — the animated deck carries the message. For platforms that need stills, use the gallery SVGs exported to PNG.

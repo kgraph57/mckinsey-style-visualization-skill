@@ -1,0 +1,11 @@
+{
+  "pattern": "time_series",
+  "headline": "Workflow adoption rose 27 points in three quarters and is still accelerating",
+  "subline": "Share of accounts on the new workflow",
+  "unit": "%",
+  "x_labels": ["Q4 last year", "Q1", "Q2", "Q3"],
+  "series": [{"label": "Adoption rate", "values": [41, 52, 61, 68]}],
+  "annotation": "Momentum supports the growth case; the bottleneck is now onboarding throughput, not demand.",
+  "page_number": 6,
+  "source": "Illustrative data — replace with your own metrics."
+}
