@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import re
 import unittest
 from pathlib import Path
 
@@ -108,12 +109,18 @@ class RenderSlideSpecTests(unittest.TestCase):
 
 def _element_bounds(svg: str) -> list[tuple[float, float]]:
     """Collect (y, height-extent) pairs for rects and text elements."""
-    import re
-
     bounds: list[tuple[float, float]] = []
     for match in re.finditer(r'<rect x="[^"]+" y="([\d.\-]+)" width="[^"]+" height="([\d.\-]+)"', svg):
         bounds.append((float(match.group(1)), float(match.group(1)) + float(match.group(2))))
     return bounds
+
+
+def _rects_with_stroke(svg: str, stroke_value: str) -> list[str]:
+    """`<rect ...>` tags (only rects, not hairline `<line>` elements) whose
+    stroke attribute equals `stroke_value`. Used to assert flat-fill-only
+    ink discipline without tripping on legitimate GREY_BORDER hairlines
+    (table rules, gantt grid lines, agenda rows) drawn with `<line>`."""
+    return re.findall(rf'<rect[^>]*stroke="{re.escape(stroke_value)}"[^>]*/>', svg)
 
 
 class GraphicalIntegrityTests(unittest.TestCase):
@@ -533,6 +540,284 @@ class StructuralSlidePatternTests(unittest.TestCase):
     def test_render_dispatch_chromeless_aria_falls_back_to_title(self) -> None:
         svg = renderer.render({"pattern": "section_divider", "section_number": 1, "title": "Context set-up"})
         self.assertIn('aria-label="Context set-up"', svg)
+
+
+class InkDisciplineRegressionTests(unittest.TestCase):
+    """Locks in the de-slop pass (2026-08-02 panel review, two rounds): flat
+    fill only on KPI cards / grey context bars, no divider rule between
+    summary_strip columns, and band-filling geometry that replaces fixed
+    decoration and fixed-cap whitespace. Round 2 replaced two round-1 fixes
+    that were themselves regressions: `closing` and `bullet_list` no longer
+    center the *whole* item stack as one block (that detached item 1 from
+    its label whenever a short list left slack in the band) — they divide
+    the band into one row per item instead, like `render_gap`, and center
+    each item's own text block within its own row. `summary_strip` never
+    had this problem (no external label to detach from) so it still centers
+    its one-column stack as a single unit, replacing a fixed `CHART_TOP+50`
+    anchor. See references/style-system.md Ink Discipline and Chart Rules
+    for the corresponding documentation."""
+
+    def test_kpi_scorecard_cards_have_no_border_or_status_accent_bar(self) -> None:
+        spec = {
+            "pattern": "kpi_scorecard",
+            "headline": "Six metrics status check",
+            "metrics": [
+                {"label": "A", "value": "1", "status": "good"},
+                {"label": "B", "value": "2", "status": "watch"},
+                {"label": "C", "value": "3", "status": "risk"},
+            ],
+        }
+        svg = renderer.render(spec)
+        self.assertEqual(_rects_with_stroke(svg, renderer.GREY_BORDER), [], "KPI cards must be flat fill, no border")
+        # The old status accent bar was a fixed 5px-wide rect the full card height.
+        self.assertNotIn('width="5.0"', svg, "status must no longer render as an accent bar")
+
+    def test_summary_strip_has_no_column_divider_line(self) -> None:
+        spec = {
+            "pattern": "summary_strip",
+            "headline": "Three takeaways",
+            "blocks": [
+                {"claim": "A", "proof": "B", "implication": "C"},
+                {"claim": "D", "proof": "E", "implication": "F"},
+                {"claim": "G", "proof": "H", "implication": "I"},
+            ],
+        }
+        svg = renderer.render(spec)
+        self.assertNotIn("<line", svg, "summary_strip columns must separate by whitespace, not a rule")
+
+    def test_summary_strip_claim_anchors_directly_under_the_subhead(self) -> None:
+        spec = {
+            "pattern": "summary_strip",
+            "headline": "Three takeaways",
+            "blocks": [
+                {"claim": "A", "proof": "B", "implication": "C"},
+                {"claim": "D", "proof": "E", "implication": "F"},
+            ],
+        }
+        svg = renderer.render(spec)
+        # 2026-08-02 panel round 3: whole-block centering (the fix locked in
+        # here until this round) solved the 44%-dead-space complaint but
+        # opened a new offense — a 135-205px gap between the subhead and the
+        # claim line that no other text pattern on the deck has (measured on
+        # executive-summary.svg / jp-board-summary.svg: strip_top=325.5,
+        # 205.5px below the subhead at y=138). The subhead directly above
+        # this band functions as the same kind of content-introducing label
+        # "KEY TAKEAWAYS" is for `closing`, so it gets the same fixed
+        # band_start anchor bullet_list and closing use.
+        strip_top = renderer.CHART_TOP + 20
+        expected_claim_y = strip_top + 18
+        self.assertIn(f'y="{expected_claim_y:.1f}"', svg)
+        # Must not regress to the whole-block-centered position this test
+        # locked in previously (2-block short list, single-line claim/proof/
+        # implication: total_height=79, centered to strip_top=344.5,
+        # claim_y=362.5).
+        old_centered_claim_y = 362.5
+        self.assertNotIn(f'y="{old_centered_claim_y:.1f}"', svg)
+
+    def test_summary_strip_claim_anchor_is_independent_of_block_count(self) -> None:
+        # Regardless of how many blocks or how tall the tallest one is, every
+        # column's claim line starts at the same fixed offset from CHART_TOP
+        # — the point of dropping whole-block centering.
+        short_spec = {
+            "pattern": "summary_strip",
+            "headline": "One block",
+            "blocks": [{"claim": "A", "proof": "B", "implication": "C"}],
+        }
+        long_spec = {
+            "pattern": "summary_strip",
+            "headline": "Three tall blocks",
+            "blocks": [
+                {
+                    "claim": "A much longer claim line that will wrap across more than one row of text",
+                    "proof": "A much longer proof line that will also wrap across more than one row of text",
+                    "implication": "A much longer implication line that will wrap across more than one row too",
+                }
+                for _ in range(3)
+            ],
+        }
+        expected_claim_y = renderer.CHART_TOP + 20 + 18
+        for spec in (short_spec, long_spec):
+            svg = renderer.render(spec)
+            self.assertIn(f'y="{expected_claim_y:.1f}"', svg)
+
+    def test_gap_before_after_distribution_gantt_process_flow_bars_are_flat_fill(self) -> None:
+        specs = [
+            {
+                "pattern": "gap",
+                "headline": "Gap to target",
+                "items": [{"label": "A", "value": 10}, {"label": "B", "value": 20, "emphasis": True}],
+            },
+            {
+                "pattern": "before_after",
+                "headline": "Before after",
+                "pairs": [{"label": "A", "before": 10, "after": 20}],
+            },
+            {
+                "pattern": "distribution",
+                "headline": "Distribution",
+                "bins": [{"label": "A", "value": 10}, {"label": "B", "value": 20}],
+                "highlight": 1,
+            },
+            {
+                "pattern": "gantt",
+                "headline": "Gantt",
+                "periods": ["Q1", "Q2"],
+                "bars": [
+                    {"label": "A", "start": 0, "end": 1, "highlight": True},
+                    {"label": "B", "start": 0, "end": 1},
+                ],
+            },
+            {
+                "pattern": "process_flow",
+                "headline": "Flow",
+                "steps": [{"label": "A", "detail": "x"}, {"label": "B", "detail": "y"}],
+                "highlight": 0,
+            },
+        ]
+        for spec in specs:
+            svg = renderer.render(spec)
+            self.assertEqual(
+                _rects_with_stroke(svg, renderer.GREY_BORDER),
+                [],
+                f"{spec['pattern']} bars/boxes must be flat fill only (grey fill must not pair with a border)",
+            )
+
+    def test_gap_row_height_fills_the_band_without_a_fixed_cap(self) -> None:
+        items = [{"label": "A", "value": 10}, {"label": "B", "value": 20}, {"label": "C", "value": 30}]
+        svg = renderer.render({"pattern": "gap", "headline": "x", "items": items})
+        expected_row_h = (renderer.CHART_BOTTOM - renderer.CHART_TOP - 30) / len(items)
+        expected_bar_h = expected_row_h * 0.52
+        # The old 86px row cap held bar_h to ~44.7px regardless of item count;
+        # three items must now use the full uncapped share of the band (~55.8px).
+        self.assertGreater(expected_bar_h, 50.0)
+        self.assertIn(f'height="{expected_bar_h:.1f}"', svg)
+
+    def test_process_flow_box_height_reduced_and_recentered(self) -> None:
+        svg = renderer.render(
+            {"pattern": "process_flow", "headline": "x", "steps": [{"label": "A"}, {"label": "B"}]}
+        )
+        expected_box_h = 104.0
+        expected_y = (renderer.CHART_TOP + renderer.CHART_BOTTOM) / 2 - expected_box_h / 2
+        self.assertIn(f'height="{expected_box_h:.1f}"', svg)
+        self.assertIn(f'y="{expected_y:.1f}"', svg)
+
+    def test_center_block_start_splits_slack_evenly_around_a_short_list(self) -> None:
+        # heights sum to 30, +2 gaps of 5 = 40 natural height inside a 100px
+        # band: 60px of slack, split evenly above/below the block -> +30.
+        start_y = renderer._center_block_start(0.0, 100.0, [10.0, 10.0, 10.0], gap=5.0)
+        self.assertEqual(start_y, 30.0)
+
+    def test_center_block_start_falls_back_to_band_start_when_the_band_is_tight(self) -> None:
+        # natural height (10*3 + 5*2 = 40) exceeds the 30px band: no slack to
+        # distribute, so the block starts at the band's top edge unmoved.
+        start_y = renderer._center_block_start(0.0, 30.0, [10.0, 10.0, 10.0], gap=5.0)
+        self.assertEqual(start_y, 0.0)
+
+    def test_closing_takeaways_items_anchor_to_row_top_for_a_three_item_list(self) -> None:
+        spec = {
+            "pattern": "closing",
+            "headline": "Three and three",
+            "takeaways": ["Unit economics clear the bar", "Risk is concentrated in supply", "Capacity binds"],
+            "next_steps": [
+                {"action": "Approve pilot budget", "owner": "CFO", "timing": "This week"},
+                {"action": "Confirm capacity", "owner": "Ops", "timing": "Two weeks"},
+                {"action": "Review results", "owner": "Strategy", "timing": "Q3"},
+            ],
+        }
+        svg = renderer.render(spec)
+        # 2026-08-02 panel round 2 divided the band into one row per item
+        # (render_gap's technique) instead of whole-block centering, but
+        # still centered each item *within* its own row — round 3 found that
+        # this degenerates back to whole-block centering whenever a row is
+        # much taller than its content (see the 1-item regression test
+        # below). Items now anchor to each row's top edge instead.
+        band_start = float(renderer.CHART_TOP) + 34
+        row_h = (renderer.CHART_BOTTOM - band_start) / 3
+        expected_ys = [band_start + i * row_h for i in range(3)]
+        for y in expected_ys:
+            self.assertIn(f'y="{y:.1f}"', svg)
+        # Rows are evenly spaced across the whole band (no single dead gap
+        # collecting either right after the label or right before the footer).
+        self.assertAlmostEqual(expected_ys[1] - expected_ys[0], expected_ys[2] - expected_ys[1])
+        # Item 1 sits exactly at the label's row boundary — no offset at all.
+        self.assertEqual(expected_ys[0], band_start)
+        self.assertNotIn('y="350.0"', svg, "must not regress to the whole-block-center bug's item-1 position")
+
+    def test_closing_single_takeaway_and_single_next_step_stay_under_their_labels(self) -> None:
+        # 2026-08-02 panel round 3 regression: with one item, row_h spans the
+        # entire band, so centering *within* the row (the round-2 fix) put
+        # the item 182px below its label — the same detachment round 2 had
+        # already diagnosed and fixed for 3-item lists, just recurring at
+        # n=1. takeaways(1-4) and next_steps(1-5) are both in the documented
+        # input range (style-system.md), not edge cases.
+        spec = {
+            "pattern": "closing",
+            "headline": "One thing matters",
+            "takeaways": ["Unit economics clear the bar"],
+            "next_steps": [{"action": "Approve pilot budget", "owner": "CFO", "timing": "This week"}],
+        }
+        svg = renderer.render(spec)
+        band_start = float(renderer.CHART_TOP) + 34
+        self.assertIn(f'y="{band_start:.1f}"', svg)
+        # The old within-row centering bug put the sole takeaway at y=390.0
+        # for this exact spec (148px below band_start=242.0, 182px below the
+        # "KEY TAKEAWAYS" label itself at CHART_TOP=208) and the sole next
+        # step at y=380.5, before the round-3 fix anchored both to their
+        # row's top edge instead (band_start, same for both columns).
+        self.assertNotIn('y="390.0"', svg)
+        self.assertNotIn('y="380.5"', svg)
+
+    def test_bullet_list_items_fill_the_band_by_row_instead_of_block_centering(self) -> None:
+        spec = {
+            "pattern": "bullet_list",
+            "headline": "Three constraints",
+            "bullets": [
+                {"text": "Capacity is fixed until Q3", "sub": ["Hiring freeze through June"]},
+                {"text": "Vendor A integration is not yet certified"},
+                {"text": "Regional pricing has not been finalized"},
+            ],
+        }
+        svg = renderer.render(spec)
+        self.assertIn("Regional pricing has not been finalized", svg)
+        # render_gap's "divide the band into one row per item" technique
+        # replaces the whole-block center this test locked in until round 2
+        # (that bug pinned item 1 far from band_start whenever the 3-item
+        # stack left slack in the band). Round 3 dropped the extra
+        # center-within-row step on top of that (see the 1-bullet regression
+        # test below) — each marker now sits at its row's top edge.
+        band_start = float(renderer.CHART_TOP) + 20
+        row_h = (renderer.CHART_BOTTOM - band_start) / 3
+        row_tops = [band_start + i * row_h for i in range(3)]
+        expected_marker_ys = [row_tops[i] - 10 for i in range(3)]
+        for marker_y in expected_marker_ys:
+            self.assertIn(f'y="{marker_y:.1f}"', svg)
+        # Each item gets an equal share of the band (row boundaries are
+        # evenly spaced).
+        self.assertAlmostEqual(row_tops[1] - row_tops[0], row_tops[2] - row_tops[1])
+        old_whole_block_item3_marker_y = 430.0
+        self.assertNotIn(f'y="{old_whole_block_item3_marker_y:.1f}"', svg)
+        old_within_row_item1_marker_y = row_tops[0] + max(row_h - 48.0, 0.0) / 2 - 10
+        self.assertNotIn(f'y="{old_within_row_item1_marker_y:.1f}"', svg)
+
+    def test_bullet_list_single_bullet_stays_under_the_band_start(self) -> None:
+        # 2026-08-02 panel round 3 regression: with one bullet, row_h spans
+        # the entire band, so centering *within* the row (the round-2 fix)
+        # left the text floating in the column's dead center — 154px below
+        # band_start, marker at 144px below. bullets(1-6) is a documented
+        # input range (style-system.md), not an edge case.
+        spec = {
+            "pattern": "bullet_list",
+            "headline": "One constraint dominates",
+            "bullets": [{"text": "Capacity is fixed until Q3"}],
+        }
+        svg = renderer.render(spec)
+        band_start = float(renderer.CHART_TOP) + 20
+        marker_y = band_start - 10
+        self.assertIn(f'y="{marker_y:.1f}"', svg)
+        # The old within-row centering bug put the marker at y=372.0 for
+        # this exact spec (144px below band_start=228.0) before the round-3
+        # fix anchored it to the row's top edge instead.
+        self.assertNotIn('y="372.0"', svg)
 
 
 if __name__ == "__main__":

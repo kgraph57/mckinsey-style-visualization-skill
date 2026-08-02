@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 2.1.0 - 2026-08-03 - Art-Direction De-Slop Pass
+
+Four rounds of an adversarial art-direction review (a critic applying Kashiwa Sato's published principles — grasp the essence, strip the noise, sharpen to iconic — against rendered PNGs of all 22 patterns), each round's findings implemented and re-審査ed until the critic approved with zero remaining medium+ findings (final score 9/10).
+
+- Removed template-card slop across the renderer: `kpi_scorecard` lost its card outlines and 5px colored left accent bars (status now reads through the trend text color alone); `summary_strip` lost its inter-column divider lines (columns separate by symmetric whitespace); `gap`, `before_after`, `distribution`, `gantt`, and `process_flow` lost the grey-border-on-grey-fill stroke so every bar and box is a flat fill.
+- Unified the text-pattern layout grid: `closing`, `bullet_list`, and `summary_strip` all anchor content directly under their label or subhead (band top), dividing the chart band into equal rows per item — no whole-block or per-row vertical centering that let short lists float mid-canvas. Regression tests lock the single-item cases.
+- `references/style-system.md` now names the banned moves explicitly (left accent bars on cards, column divider rules, stroke+fill pairing) and documents the shared band grid. Tests 121 → 134.
+
 ## 2.0.3 - 2026-08-02 - Report Reading Layer
 
 - Redesigned the HTML report's reading layer around long-form document mechanics: body text now sits on a ~720px reading measure while exhibits and tables use the full column; sections get their rhythm from hairline rules and whitespace; the table of contents becomes a hairline band on narrow screens and a sticky right-rail with scroll-tracked highlighting on wide ones. Blockquotes drop the left accent bar for top/bottom hairlines; unordered lists use small navy square markers matching the deck's bullet_list pattern; exhibits are framed by hairlines instead of a full border box; tables gain uppercase letter-spaced headers and tabular numerals; Japanese documents get proportional-kerning (`palt`).

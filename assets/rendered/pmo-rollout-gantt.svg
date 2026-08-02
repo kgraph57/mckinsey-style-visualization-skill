@@ -23,23 +23,23 @@
   <line x1="1200.0" y1="222.0" x2="1200.0" y2="534.0" stroke="#D1D5DB"/>
   <line x1="80.0" y1="222.0" x2="1200.0" y2="222.0" stroke="#374151"/>
   <text x="80.0" y="253.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start">Vendor selection</text>
-  <rect x="333.0" y="236.0" width="211.5" height="24.0" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <rect x="333.0" y="236.0" width="211.5" height="24.0" fill="#F3F4F6" stroke="none"/>
   <line x1="80.0" y1="274.0" x2="1200.0" y2="274.0" stroke="#D1D5DB"/>
   <text x="80.0" y="305.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start">Contract and sign-off</text>
-  <rect x="550.5" y="288.0" width="102.8" height="24.0" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <rect x="550.5" y="288.0" width="102.8" height="24.0" fill="#F3F4F6" stroke="none"/>
   <line x1="80.0" y1="326.0" x2="1200.0" y2="326.0" stroke="#D1D5DB"/>
   <text x="80.0" y="357.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start">Data migration</text>
   <rect x="659.2" y="340.0" width="320.2" height="24.0" fill="#15296B" stroke="none"/>
   <text x="989.5" y="357.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="12" fill="#6B7280" font-weight="normal" text-anchor="start">critical path</text>
   <line x1="80.0" y1="378.0" x2="1200.0" y2="378.0" stroke="#D1D5DB"/>
   <text x="80.0" y="409.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start">Integration build</text>
-  <rect x="768.0" y="392.0" width="320.2" height="24.0" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <rect x="768.0" y="392.0" width="320.2" height="24.0" fill="#F3F4F6" stroke="none"/>
   <line x1="80.0" y1="430.0" x2="1200.0" y2="430.0" stroke="#D1D5DB"/>
   <text x="80.0" y="461.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start">Training</text>
-  <rect x="985.5" y="444.0" width="211.5" height="24.0" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <rect x="985.5" y="444.0" width="211.5" height="24.0" fill="#F3F4F6" stroke="none"/>
   <line x1="80.0" y1="482.0" x2="1200.0" y2="482.0" stroke="#D1D5DB"/>
   <text x="80.0" y="513.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="normal" text-anchor="start">Go-live preparation</text>
-  <rect x="1094.2" y="496.0" width="102.8" height="24.0" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <rect x="1094.2" y="496.0" width="102.8" height="24.0" fill="#F3F4F6" stroke="none"/>
   <line x1="80.0" y1="534.0" x2="1200.0" y2="534.0" stroke="#D1D5DB"/>
   <path d="M 656.2 538.0 L 664.2 546.0 L 656.2 554.0 L 648.2 546.0 Z" fill="#15296B"/>
   <text x="656.2" y="570.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="12" fill="#15296B" font-weight="600" text-anchor="middle">Sign-off</text>

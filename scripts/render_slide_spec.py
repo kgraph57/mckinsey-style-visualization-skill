@@ -340,7 +340,9 @@ def render_gap(spec: dict) -> list[str]:
     items = spec["items"]
     top = max(item["value"] for item in items) or 1
     span = W - ML - MR - 280
-    row_h = min(86.0, (CHART_BOTTOM - CHART_TOP) / len(items))
+    # No row-height cap: like render_agenda, divide the full chart band by
+    # item count so a short list fills the band instead of stopping short.
+    row_h = (CHART_BOTTOM - CHART_TOP - 30) / len(items)
     bar_h = row_h * 0.52
 
     parts: list[str] = []
@@ -348,13 +350,14 @@ def render_gap(spec: dict) -> list[str]:
         y = CHART_TOP + 30 + i * row_h
         width = span * item["value"] / top
         fill = BLUE if item.get("emphasis") else GREY_FILL
-        stroke = "none" if item.get("emphasis") else GREY_BORDER
+        # Flat fill only — grey reference bars never carry a border; the
+        # fill/no-fill contrast alone marks emphasis vs. context.
         label_lines = wrap(item["label"], 25, max_lines=2)
         label_y = y + bar_h / 2 + 5 - (len(label_lines) - 1) * 9
         for line in label_lines:
             parts.append(text_el(ML, label_y, line, size=16, fill=GREY_DARK))
             label_y += 19
-        parts.append(rect_el(ML + 220, y, width, bar_h, fill, stroke))
+        parts.append(rect_el(ML + 220, y, width, bar_h, fill))
         value_fill = BLUE if item.get("emphasis") else GREY_DARK
         parts.append(
             text_el(ML + 232 + width, y + bar_h / 2 + 6, fmt(item["value"], unit), size=17, fill=value_fill, weight="bold")
@@ -386,7 +389,8 @@ def render_before_after(spec: dict) -> list[str]:
         cx = ML + step * i + step / 2
         bx, ax = cx - bar_w - 8, cx + 8
         by, ay = y_at(pair["before"]), y_at(pair["after"])
-        parts.append(rect_el(bx, by, bar_w, CHART_BOTTOM - by, GREY_FILL, GREY_BORDER))
+        # Flat fill only — the grey "before" bar never carries a border.
+        parts.append(rect_el(bx, by, bar_w, CHART_BOTTOM - by, GREY_FILL))
         parts.append(rect_el(ax, ay, bar_w, CHART_BOTTOM - ay, BLUE))
         parts.append(text_el(bx + bar_w / 2, by - 8, fmt(pair["before"], unit), size=14, fill=GREY_MED, anchor="middle"))
         parts.append(text_el(ax + bar_w / 2, ay - 8, fmt(pair["after"], unit), size=15, weight="bold", anchor="middle"))
@@ -478,23 +482,41 @@ def render_summary_strip(spec: dict) -> list[str]:
     blocks = spec["blocks"]
     span = W - ML - MR
     col_w = span / len(blocks)
+    # Columns are separated by whitespace only — no vertical divider rule
+    # (ink discipline: organization comes from spacing/alignment, not marks).
+    # Equal 28px inner margin on every column keeps the gutter symmetric.
+    pad = 28.0
+    text_width = int((col_w - pad * 2) / 8.2)
+    claim_gap, proof_gap = 8.0, 10.0
+
+    # 2026-08-02 panel round 3: a whole-block vertical center here (matching
+    # process_flow's box_h/y technique) fixed the 44% dead-space complaint
+    # but overshot into a different offense — it opened a 135-205px gap
+    # between the subhead and the claim line that no other text pattern on
+    # the deck has. The subhead directly above this band (e.g. "Board
+    # takeaways for the Q4 decision") functions as the same kind of
+    # immediately-preceding label that "KEY TAKEAWAYS" is for `closing` and
+    # the kicker is for `bullet_list`, so it gets the same fixed top anchor
+    # instead of being centered away from its content: band_start =
+    # CHART_TOP + 20, identical to bullet_list's band_start. Column start
+    # position no longer depends on content height, so per-block height no
+    # longer needs computing here — height differences between columns show
+    # up only at each column's end, not at its shared start.
+    strip_top = CHART_TOP + 20
 
     parts: list[str] = []
-    strip_top = CHART_TOP + 50
     for i, block in enumerate(blocks):
         x = ML + col_w * i
-        if i > 0:
-            parts.append(line_el(x, strip_top - 40, x, strip_top + 230, GREY_BORDER))
-        inner_x, text_width = x + (18 if i else 0), int(col_w / 8.2)
+        inner_x = x + pad
         y = strip_top + 18
         for line in wrap(block["claim"], text_width, max_lines=3):
             parts.append(text_el(inner_x, y, line, size=17, weight="bold"))
             y += 23
-        y += 8
+        y += claim_gap
         for line in wrap(block["proof"], text_width, max_lines=4):
             parts.append(text_el(inner_x, y, line, size=14, fill=GREY_MED))
             y += 19
-        y += 10
+        y += proof_gap
         for line in wrap(block["implication"], text_width, max_lines=3):
             parts.append(text_el(inner_x, y, line, size=14, fill=BLUE, weight="600"))
             y += 19
@@ -507,13 +529,18 @@ def render_process_flow(spec: dict) -> list[str]:
     span = W - ML - MR
     gap = 26.0
     box_w = (span - gap * (len(steps) - 1)) / len(steps)
-    box_h, y = 130.0, (CHART_TOP + CHART_BOTTOM) / 2 - 65
+    # 104px (down from 130) — sized to the longest step content actually seen
+    # in examples/render-specs and templates/decks (1-line title, up to
+    # 2-line detail) instead of a hollow box with leftover whitespace below.
+    box_h = 104.0
+    y = (CHART_TOP + CHART_BOTTOM) / 2 - box_h / 2
 
     parts: list[str] = []
     for i, step in enumerate(steps):
         x = ML + i * (box_w + gap)
         is_hot = i == highlight
-        parts.append(rect_el(x, y, box_w, box_h, BLUE if is_hot else GREY_FILL, "none" if is_hot else GREY_BORDER))
+        # Flat fill only — grey step boxes never carry a border.
+        parts.append(rect_el(x, y, box_w, box_h, BLUE if is_hot else GREY_FILL))
         title_fill = "#FFFFFF" if is_hot else BLACK
         detail_fill = "#E5E7EB" if is_hot else GREY_MED
         ty, text_width = y + 34, int(box_w / 7.6)
@@ -646,7 +673,8 @@ def render_gantt(spec: dict) -> list[str]:
         bx = ML + label_w + col_w * bar["start"] + 3
         bw = col_w * (bar["end"] - bar["start"] + 1) - 6
         hot = bar.get("highlight")
-        parts.append(rect_el(bx, y + (row_h - 24) / 2, bw, 24, BLUE if hot else GREY_FILL, "none" if hot else GREY_BORDER))
+        # Flat fill only — the grey reference bar never carries a border.
+        parts.append(rect_el(bx, y + (row_h - 24) / 2, bw, 24, BLUE if hot else GREY_FILL))
         note = bar.get("note", "")
         if note:
             parts.append(text_el(bx + bw + 10, y + row_h / 2 + 5, note, size=12, fill=GREY_MED))
@@ -666,14 +694,15 @@ def render_kpi_scorecard(spec: dict) -> list[str]:
     card_w = (W - ML - MR - gap * (cols - 1)) / cols
     n_rows = -(-len(metrics) // cols)
     card_h = min(150.0, (CHART_BOTTOM - CHART_TOP) / n_rows - 14)
-    status_fill = {"good": BLUE, "watch": GREY_MED, "risk": RED}
 
     parts: list[str] = []
     for i, metric in enumerate(metrics):
         x = ML + (i % cols) * (card_w + gap)
         y = CHART_TOP + (i // cols) * (card_h + 18)
-        parts.append(rect_el(x, y, card_w, card_h, "#FFFFFF", GREY_BORDER))
-        parts.append(rect_el(x, y, 5, card_h, status_fill.get(metric.get("status", "watch"), GREY_MED)))
+        # Flat fill only — no border, no status accent bar (ink discipline: the
+        # kicker-bar motif does not get echoed onto cards). Status still reads
+        # through the trend color below and the value/target text itself.
+        parts.append(rect_el(x, y, card_w, card_h, "#FFFFFF"))
         parts.append(text_el(x + 24, y + 30, metric["label"], size=14, fill=GREY_MED, weight="600"))
         parts.append(text_el(x + 24, y + 72, str(metric["value"]), size=32, weight="bold"))
         trend = metric.get("trend", "")
@@ -812,7 +841,8 @@ def render_distribution(spec: dict) -> list[str]:
         h = (bucket["value"] / top) * (CHART_BOTTOM - CHART_TOP)
         y = CHART_BOTTOM - h
         is_hot = i == highlight
-        parts.append(rect_el(x, y, bar_w, max(h, 1), BLUE if is_hot else GREY_FILL, "none" if is_hot else GREY_BORDER))
+        # Flat fill only — grey context bars never carry a border.
+        parts.append(rect_el(x, y, bar_w, max(h, 1), BLUE if is_hot else GREY_FILL))
         parts.append(text_el(x + bar_w / 2, y - 8, fmt(bucket["value"], unit), size=13, weight="bold" if is_hot else "normal", fill=BLACK if is_hot else GREY_MED, anchor="middle"))
         for j, line in enumerate(wrap(bucket["label"], max(int(step / 8), 6), max_lines=2)):
             parts.append(text_el(x + bar_w / 2, CHART_BOTTOM + 20 + j * 15, line, size=12, fill=GREY_DARK, anchor="middle", title=bucket["label"]))
@@ -1011,6 +1041,32 @@ def render_agenda(spec: dict) -> list[str]:
     return parts
 
 
+def _center_block_start(start: float, end: float, heights: list[float], gap: float) -> float:
+    """Return the y at which to begin drawing a stack of items so the whole
+    block sits vertically centered within [start, end], rather than
+    expanding the inter-item gap to chase the band's bottom edge.
+
+    No renderer currently calls this — `summary_strip` was the last one
+    (removed 2026-08-02 panel round 3: it centered the claim/proof/
+    implication stack as a block, but the subhead directly above the band
+    functions as the same kind of content-introducing label `bullet_list`
+    and `closing` have, so centering-as-a-block detached it from that label
+    the same way it once did for those two — see their fixed band_start
+    anchors instead). Kept as a tested helper for a future pattern whose
+    content band truly has no preceding label to stay anchored under.
+
+    When the band is too tight to hold the block at all (natural height >=
+    available height), there is no slack to distribute: the block starts at
+    `start` and is left to overflow toward `end`, same as before.
+    """
+    n = len(heights)
+    if n == 0:
+        return start
+    natural_height = sum(heights) + gap * max(n - 1, 0)
+    slack = max(0.0, (end - start) - natural_height)
+    return start + slack / 2
+
+
 def render_bullet_list(spec: dict) -> list[str]:
     """Action-title bullet slide. One marker family (square bullets, en-dash
     subs) — no accent bars, per the single-motif ink-discipline rule."""
@@ -1028,31 +1084,51 @@ def render_bullet_list(spec: dict) -> list[str]:
     sub_indent = text_indent + 24.0  # one nested step past the bullet text (24px per spec)
     text_width_units = max(int((col_w - text_indent) / (16 * 0.62)), 10)
     sub_width_units = max(int((col_w - sub_indent) / (14 * 0.62)), 10)
+    band_start = float(CHART_TOP) + 20
 
     parts: list[str] = []
     for c, group in enumerate(column_bullets):
         col_x = ML + c * (col_w + gap)
-        y = float(CHART_TOP) + 20
+        # Pre-wrap every bullet once so its rendered height is known before
+        # laying out rows.
+        rendered: list[tuple[dict, list[str], list[list[str]]]] = []
         for bullet in group:
+            lines = wrap(bullet["text"], text_width_units)
+            subs = bullet.get("sub", [])[:3]
+            sub_lines = [wrap(str(sub), sub_width_units) for sub in subs]
+            rendered.append((bullet, lines, sub_lines))
+        # Divide [band_start, CHART_BOTTOM] into one row per bullet — the
+        # same "fill the band by row count" technique render_gap and
+        # render_agenda use — instead of centering the whole column as one
+        # block (that shifted bullet 1 away from band_start by however much
+        # slack a short list left, per column count). 2026-08-02 panel round
+        # 3: centering each item *within* its own row degenerated to the
+        # same whole-block bug whenever a row was much taller than its
+        # content (e.g. a single-bullet list, where row_h == the entire
+        # band) — bullets[0] measured 154px below band_start instead of
+        # sitting under the kicker. Each item now anchors to its row's top
+        # edge instead, so item 1 always starts at band_start regardless of
+        # bullet count; leftover space collects after the last item, same
+        # as every other row-divided pattern (gap, agenda, gantt).
+        row_h = (CHART_BOTTOM - band_start) / len(group)
+        for i, (bullet, lines, sub_lines) in enumerate(rendered):
+            row_top = band_start + i * row_h
+            y = row_top
             emphasized = bool(bullet.get("emphasis"))
             text_fill = BLUE if emphasized else BLACK
             weight = "600" if emphasized else "normal"
             marker_y = y
-            lines = wrap(bullet["text"], text_width_units)
             parts.append(rect_el(col_x, marker_y - 10, 6, 6, BLUE))
             for line in lines:
                 parts.append(text_el(col_x + text_indent, y, line, size=16, fill=text_fill, weight=weight))
                 y += 24
-            subs = bullet.get("sub", [])[:3]
-            if subs:
+            if sub_lines:
                 y += 4
-                for sub in subs:
-                    sub_lines = wrap(str(sub), sub_width_units)
-                    for i, line in enumerate(sub_lines):
-                        prefix = f"– {line}" if i == 0 else f"  {line}"
+                for sl in sub_lines:
+                    for j, line in enumerate(sl):
+                        prefix = f"– {line}" if j == 0 else f"  {line}"
                         parts.append(text_el(col_x + sub_indent, y, prefix, size=14, fill=GREY_DARK))
                         y += 20
-            y += 22
     return parts
 
 
@@ -1077,34 +1153,49 @@ def render_closing(spec: dict) -> list[str]:
         text_width_units = max(int((left_w - 40) / (16 * 0.62)), 10)
         detail_width_units = max(int(right_w / (16 * 0.62)), 10)
 
+        band_start = float(CHART_TOP) + 34
+
         parts.append(text_el(ML, CHART_TOP, "KEY TAKEAWAYS", size=12, fill=GREY_MED, weight="600"))
-        y = CHART_TOP + 34
-        for i, takeaway in enumerate(takeaways, start=1):
-            parts.append(text_el(ML, y, str(i), size=20, fill=BLUE, family=SERIF, weight="bold"))
-            lines = wrap(str(takeaway), text_width_units, max_lines=3)
+        # Divide [band_start, CHART_BOTTOM] into one row per takeaway (the
+        # render_gap/render_agenda "fill the band by row count" technique)
+        # instead of centering the whole list as one block — that shifted
+        # item 1 away from the label by however much slack a short list left
+        # (worse the fewer items there are). 2026-08-02 panel round 3:
+        # centering each item *within* its own row reintroduced the same
+        # degeneration whenever the row itself is most of the band — a
+        # single takeaway measured 182px below the "KEY TAKEAWAYS" label
+        # instead of sitting right under it. Each item now anchors to its
+        # row's top edge instead, so item 1 always starts at band_start
+        # regardless of list length; leftover space collects after the last
+        # item, same as every other row-divided pattern.
+        takeaway_lines = [wrap(str(t), text_width_units, max_lines=3) for t in takeaways]
+        takeaway_row_h = (CHART_BOTTOM - band_start) / len(takeaways)
+        for i, (takeaway, lines) in enumerate(zip(takeaways, takeaway_lines)):
+            row_top = band_start + i * takeaway_row_h
+            y = row_top
+            parts.append(text_el(ML, y, str(i + 1), size=20, fill=BLUE, family=SERIF, weight="bold"))
             ly = y
             for line in lines:
                 parts.append(
                     text_el(ML + 32, ly, line, size=16, fill=BLACK, title=str(takeaway) if line.endswith(ELLIPSIS) else "")
                 )
                 ly += 22
-            y += max(len(lines), 1) * 22 + 18
 
         parts.append(text_el(right_x, CHART_TOP, "NEXT STEPS", size=12, fill=GREY_MED, weight="600"))
-        y = CHART_TOP + 34
-        for step in next_steps:
-            lines = wrap(step["action"], detail_width_units, max_lines=2)
+        step_lines = [wrap(step["action"], detail_width_units, max_lines=2) for step in next_steps]
+        step_metas = [" · ".join(str(step[k]) for k in ("owner", "timing") if step.get(k)) for step in next_steps]
+        step_row_h = (CHART_BOTTOM - band_start) / len(next_steps)
+        for i, (step, lines, meta) in enumerate(zip(next_steps, step_lines, step_metas)):
+            row_top = band_start + i * step_row_h
+            y = row_top
             for line in lines:
                 parts.append(
                     text_el(right_x, y, line, size=16, fill=BLACK, weight="600", title=step["action"] if line.endswith(ELLIPSIS) else "")
                 )
                 y += 21
-            meta = " · ".join(str(step[k]) for k in ("owner", "timing") if step.get(k))
             if meta:
                 y += 3
                 parts.append(text_el(right_x, y, meta, size=13, fill=GREY_MED))
-                y += 17
-            y += 18
     else:
         row_h = min(64.0, (CHART_BOTTOM - CHART_TOP) / len(next_steps))
         action_width_units = max(int((W - ML - MR - 260) / (16 * 0.62)), 10)
