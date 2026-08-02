@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 2.0.3 - 2026-08-02 - Report Reading Layer
+
+- Redesigned the HTML report's reading layer around long-form document mechanics: body text now sits on a ~720px reading measure while exhibits and tables use the full column; sections get their rhythm from hairline rules and whitespace; the table of contents becomes a hairline band on narrow screens and a sticky right-rail with scroll-tracked highlighting on wide ones. Blockquotes drop the left accent bar for top/bottom hairlines; unordered lists use small navy square markers matching the deck's bullet_list pattern; exhibits are framed by hairlines instead of a full border box; tables gain uppercase letter-spaced headers and tabular numerals; Japanese documents get proportional-kerning (`palt`).
+- Fixed the Japanese sans fallback order everywhere (renderer SVG output, deck HTML, report HTML): system faces (Hiragino Sans, Yu Gothic) now come before Noto Sans JP. A partial Noto install — commonly the Black weight only — listed first captured body text and rendered whole documents ultra-bold. Committed renders regenerated.
+
 ## 2.0.2 - 2026-08-02 - Presentation Chrome Auto-Hide
 
 - The deck HUD (navigation dots, hint line, page counter) now fades out after 2.5s of mouse idle and disappears instantly on keyboard navigation, returning on mouse movement; the cursor hides with it. Presenting no longer shows persistent chrome over the slide. Print output is unaffected (the HUD was already hidden in print).

@@ -54,9 +54,12 @@ NAVY_COVER = BLUE  # single navy across content and cover slides
 WHITE = "#FFFFFF"
 
 SERIF = "Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif"
+# System Japanese faces come before Noto Sans JP: on machines where Noto is
+# only partially installed (commonly just the Black weight), listing it first
+# captures body text and renders everything ultra-bold.
 SANS = (
     "'Helvetica Neue', Helvetica, Arial, "
-    "'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif"
+    "'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif"
 )
 
 ELLIPSIS = "…"

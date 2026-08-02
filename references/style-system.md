@@ -78,7 +78,7 @@ Discipline rules:
 Typefaces are named, not left to fallback chance.
 
 - Headline serif: **Georgia** (fallback: Times New Roman; Japanese: Hiragino Mincho ProN, Yu Mincho). This is a deliberate choice, not a shrug — distributable strategy-consulting templates substitute Georgia for their licensed brand serifs, so Georgia is the accurate portable equivalent.
-- Body sans: **Helvetica Neue** (fallbacks: Helvetica, Arial; Japanese: Noto Sans JP, Hiragino Sans, Yu Gothic, Meiryo). The CJK fallbacks are part of the stack, not an afterthought — outputs must render on machines without Latin-only fonts.
+- Body sans: **Helvetica Neue** (fallbacks: Helvetica, Arial; Japanese: Hiragino Sans, Yu Gothic, Noto Sans JP, Meiryo). The CJK fallbacks are part of the stack, not an afterthought — outputs must render on machines without Latin-only fonts. System Japanese faces come before Noto Sans JP deliberately: a partial Noto install (commonly Black weight only) listed first would set body text ultra-bold.
 
 Type sizes are fixed tokens (px on the 1280x720 canvas), not ranges:
 

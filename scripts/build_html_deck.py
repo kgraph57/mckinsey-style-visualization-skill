@@ -69,7 +69,7 @@ STYLE = """
 :root { color-scheme: light; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { height: 100%; background: #0B1220; }
-body { font-family: 'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', sans-serif; }
+body { font-family: 'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif; }
 .deck { position: relative; height: 100%; display: flex; align-items: center; justify-content: center; }
 .slide {
   position: absolute; inset: 0; display: none; align-items: center; justify-content: center;

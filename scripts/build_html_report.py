@@ -566,85 +566,151 @@ def render_body(blocks: list[tuple], base_dir: Path) -> tuple[str, list[tuple[in
 # ---------------------------------------------------------------------------
 
 STYLE = """
-:root { color-scheme: light; }
+/* Reading layer. Mechanics follow proven long-form document practice:
+   body text capped at a ~720px measure while exhibits and tables use the
+   full column; section rhythm from hairlines and whitespace (no boxes,
+   no left accent bars); a sticky table of contents on wide screens.
+   The skin stays on the slide system's tokens (navy, Georgia, greys). */
+:root {
+  color-scheme: light;
+  --navy: #15296B;
+  --ink: #000000;
+  --body-ink: #1F2937;
+  --muted: #6B7280;
+  --rule: #D1D5DB;
+  --rule-strong: #9CA3AF;
+  --tint: #F3F4F6;
+  --link: #2563EB;
+  --measure: 720px;
+  --serif: Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --sans: 'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif;
+  --mono: 'SFMono-Regular', 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+}
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { background: #FFFFFF; }
 body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
-  color: #000000;
+  font-family: var(--sans);
+  color: var(--body-ink);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
 }
-body.lang-ja { line-height: 1.9; }
-h1, h2, h3 {
-  font-family: Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
-  font-weight: bold;
-  color: #000000;
-}
-.title-band {
-  position: relative;
-  background: #15296B;
-  color: #FFFFFF;
-  padding: 64px 48px 40px;
-}
-.title-band .kicker { width: 56px; height: 5px; background: #FFFFFF; margin-bottom: 24px; }
-.title-band h1 { font-size: 44px; font-weight: normal; color: #FFFFFF; line-height: 1.2; max-width: 760px; }
-.title-band .subtitle { margin-top: 12px; font-size: 18px; font-weight: normal; color: #E5E7EB; font-family: inherit; max-width: 720px; }
-.title-band .meta { margin-top: 20px; font-size: 15px; color: #E5E7EB; }
+body.lang-ja { line-height: 1.9; font-feature-settings: 'palt'; }
+h1, h2, h3 { color: var(--ink); }
+h1, h2 { font-family: var(--serif); font-weight: bold; }
+
+.title-band { background: var(--navy); color: #FFFFFF; }
+.title-band-inner { position: relative; max-width: 1220px; margin: 0 auto; padding: 72px 32px 48px; }
+.title-band .kicker { width: 56px; height: 5px; background: #FFFFFF; margin-bottom: 28px; }
+.title-band h1 { font-size: 42px; font-weight: normal; color: #FFFFFF; line-height: 1.25; max-width: 780px; text-wrap: balance; }
+.title-band .subtitle { margin-top: 14px; font-size: 18px; font-weight: normal; color: #E5E7EB; font-family: var(--sans); max-width: 720px; }
+.title-band .meta { margin-top: 24px; font-size: 14px; color: #E5E7EB; letter-spacing: 0.02em; }
 .title-band .classification {
-  position: absolute; top: 32px; right: 48px; font-size: 11px; font-weight: 600;
-  letter-spacing: 0.08em; color: #E5E7EB; text-transform: uppercase;
+  position: absolute; top: 36px; right: 32px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; color: #E5E7EB; text-transform: uppercase;
 }
-.doc { max-width: 900px; margin: 0 auto; padding: 48px 32px 96px; }
-.toc { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid #D1D5DB; }
-.toc .toc-label { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #6B7280; margin-bottom: 12px; }
+
+.doc { max-width: 820px; margin: 0 auto; padding: 56px 32px 96px; }
+.doc-main { min-width: 0; }
+/* Text stays on the reading measure; exhibits and tables may use the full column. */
+.doc-main > p, .doc-main > ul, .doc-main > ol, .doc-main > blockquote, .doc-main > h3 { max-width: var(--measure); }
+
+.toc { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); padding: 20px 0; margin-bottom: 56px; }
+.toc .toc-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
 .toc ol { list-style: none; padding-left: 0; }
-.toc li { margin-bottom: 8px; }
-.toc a { color: #15296B; text-decoration: none; font-size: 15px; }
-.toc a:hover, .toc a.active { text-decoration: underline; }
-h2 { font-size: 24px; margin-top: 48px; padding-top: 20px; border-top: 1px solid #D1D5DB; }
-.doc > h2:first-child { margin-top: 0; }
-h3 { font-size: 18px; font-weight: 600; margin-top: 32px; }
-p { margin: 16px 0; }
-ul, ol { margin: 16px 0; padding-left: 28px; }
-li { margin: 6px 0; }
-ul ul { margin: 6px 0; }
-blockquote { margin: 20px 0; padding-left: 20px; border-left: 2px solid #D1D5DB; color: #374151; }
-hr { border: none; border-top: 1px solid #D1D5DB; margin: 32px 0; }
-code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; background: #F3F4F6; padding: 1px 5px; font-size: 0.9em; border-radius: 3px; }
-a { color: #2563EB; }
-.table-scroll { overflow-x: auto; margin: 20px 0; }
-table { border-collapse: collapse; width: 100%; margin: 0; font-size: 14px; }
-th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid #D1D5DB; white-space: nowrap; }
-th { font-weight: 600; color: #374151; border-bottom: 1px solid #374151; }
-figure.exhibit { margin: 32px 0; border: 1px solid #D1D5DB; padding: 20px; }
-figure.exhibit figcaption { font-size: 13px; letter-spacing: 0.04em; font-variant: small-caps; color: #374151; margin-bottom: 12px; }
+.toc li { margin: 4px 0; }
+.toc a { color: var(--body-ink); text-decoration: none; font-size: 15px; border-bottom: none; }
+.toc a:hover { color: var(--navy); }
+.toc a.active { color: var(--navy); font-weight: 600; }
+
+h2 { font-size: 25px; line-height: 1.4; margin: 72px 0 20px; padding-top: 24px; border-top: 1px solid var(--rule-strong); }
+.doc-main > h2:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+h3 { font-family: var(--sans); font-size: 17px; font-weight: 700; line-height: 1.5; margin: 40px 0 10px; }
+p { margin: 14px 0; }
+strong { color: var(--ink); }
+
+ul, ol { margin: 14px 0; padding-left: 1.6em; }
+li { margin: 5px 0; }
+ul ul, ol ol, ul ol, ol ul { margin: 5px 0; }
+ul { list-style: none; padding-left: 1.4em; }
+ul > li { position: relative; }
+ul > li::before {
+  content: ''; position: absolute; left: -1.15em; top: 0.62em;
+  width: 6px; height: 6px; background: var(--navy);
+}
+ul ul > li::before { width: 5px; height: 5px; top: 0.68em; background: var(--muted); }
+body.lang-ja ul > li::before { top: 0.72em; }
+
+blockquote {
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule);
+  padding: 14px 0 16px;
+  margin: 28px 0;
+  color: var(--body-ink);
+}
+blockquote > :first-child { margin-top: 0; }
+blockquote > :last-child { margin-bottom: 0; }
+
+hr { border: none; border-top: 1px solid var(--rule); margin: 48px 0; }
+code { font-family: var(--mono); background: var(--tint); padding: 1px 5px; font-size: 0.9em; }
+a { color: var(--link); text-decoration: none; border-bottom: 1px solid rgba(37, 99, 235, 0.35); }
+a:hover { border-bottom-color: var(--link); }
+
+.table-scroll { overflow-x: auto; margin: 24px 0; }
+table { border-collapse: collapse; width: 100%; margin: 0; font-size: 14.5px; line-height: 1.7; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; vertical-align: top; padding: 10px 16px 10px 0; border-bottom: 1px solid var(--rule); }
+th { font-size: 11.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--rule-strong); }
+
+figure.exhibit { margin: 40px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 24px 0 28px; }
+figure.exhibit figcaption { font-size: 13px; letter-spacing: 0.05em; font-variant: small-caps; color: #374151; margin-bottom: 14px; }
 figure.exhibit svg { display: block; width: 100%; height: auto; }
 
+/* Wide screens: the TOC becomes a sticky rail and the exhibits gain width. */
+@media (min-width: 1240px) {
+  .doc:has(nav.toc) { max-width: 1220px; display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 72px; align-items: start; }
+  .doc:has(nav.toc) .doc-main { grid-column: 1; grid-row: 1; }
+  .doc:has(nav.toc) .toc {
+    grid-column: 2; grid-row: 1;
+    position: sticky; top: 40px;
+    border-top: none; border-bottom: none;
+    border-left: 1px solid var(--rule);
+    padding: 4px 0 4px 28px;
+    margin: 0;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+  }
+}
+
 @media (max-width: 640px) {
-  .title-band { padding: 40px 20px 28px; }
+  .title-band-inner { padding: 40px 20px 28px; }
+  .title-band h1 { font-size: 32px; }
   .doc { padding: 32px 16px 64px; }
-  th, td { white-space: normal; }
 }
 
 @media print {
   @page { size: A4; margin: 20mm 18mm; }
-  html, body { background: #FFFFFF; }
+  html, body { background: #FFFFFF; font-size: 10.5pt; line-height: 1.65; }
   .title-band {
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
     min-height: 257mm; box-sizing: border-box;
     display: flex; flex-direction: column; justify-content: center;
     break-after: page; page-break-after: always;
   }
-  .doc { max-width: none; padding: 0; }
-  .toc { break-after: page; page-break-after: always; border-bottom: none; }
-  h2 { break-after: avoid-page; page-break-after: avoid; }
+  .doc { display: block; max-width: none; padding: 0; }
+  .doc-main > p, .doc-main > ul, .doc-main > ol, .doc-main > blockquote, .doc-main > h3 { max-width: none; }
+  .toc {
+    position: static; border-left: none;
+    border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong);
+    padding: 20px 0; margin: 0;
+    break-after: page; page-break-after: always;
+  }
+  h2 { margin-top: 40px; break-after: avoid-page; page-break-after: avoid; }
   h3 { break-after: avoid-page; page-break-after: avoid; }
   p, li { orphans: 3; widows: 3; }
-  figure.exhibit { break-inside: avoid; page-break-inside: avoid; }
-  a { color: #000000; text-decoration: underline; }
-  .toc a.active { text-decoration: none; }
+  figure.exhibit, blockquote, .table-scroll, tr { break-inside: avoid; page-break-inside: avoid; }
+  a { color: #000000; border-bottom: none; text-decoration: underline; }
+  .toc a { text-decoration: none; }
 }
 """
 
@@ -712,11 +778,13 @@ def build_report(markdown_text: str, base_dir: Path, lang_override: str | None =
 
     title_band = (
         '<header class="title-band">'
+        '<div class="title-band-inner">'
         '<div class="kicker" aria-hidden="true"></div>'
         f"{classification_html}"
         f"<h1>{esc(title)}</h1>"
         f"{subtitle_html}"
         f"{meta_html}"
+        "</div>"
         "</header>"
     )
 
@@ -735,7 +803,9 @@ def build_report(markdown_text: str, base_dir: Path, lang_override: str | None =
 {title_band}
 <main class="doc">
 {toc_html}
+<div class="doc-main">
 {body_html}
+</div>
 </main>
 {script_html}
 </body>
