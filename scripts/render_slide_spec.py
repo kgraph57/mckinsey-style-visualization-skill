@@ -128,13 +128,32 @@ def _tokens(text: str) -> list[tuple[str, bool]]:
     return tokens
 
 
+# Line-start kinsoku (行頭禁則): closing punctuation that must not begin a
+# line. Resolved by hanging it off the previous line (ぶら下がり組) — a
+# one-character overhang reads better than orphaned punctuation.
+KINSOKU_HEAD = "。、．，）」』】〉》〕！？"
+
+
+def _apply_kinsoku(lines: list[str]) -> list[str]:
+    for i in range(1, len(lines)):
+        moved = ""
+        while lines[i] and lines[i][0] in KINSOKU_HEAD:
+            moved += lines[i][0]
+            lines[i] = lines[i][1:]
+        if moved:
+            lines[i - 1] += moved
+    return [line for line in lines if line]
+
+
 def wrap(text: str, width: int, max_lines: int = 0) -> list[str]:
     """Wrap text to a width given in half-width character units.
 
     ASCII counts 1 per character, CJK counts 2, so existing English widths keep
     their meaning while Japanese wraps at roughly half the character count.
-    When max_lines > 0 the result is clamped and a trailing ellipsis marks any
-    dropped content — nothing is truncated silently.
+    Closing punctuation (。、」 …) never starts a line: it hangs off the end of
+    the previous line instead (line-start kinsoku). When max_lines > 0 the
+    result is clamped and a trailing ellipsis marks any dropped content —
+    nothing is truncated silently.
     """
     lines: list[str] = []
     current = ""
@@ -155,6 +174,7 @@ def wrap(text: str, width: int, max_lines: int = 0) -> list[str]:
             current = rest
     if current:
         lines.append(current)
+    lines = _apply_kinsoku(lines)
     if max_lines and len(lines) > max_lines:
         kept = lines[:max_lines]
         last = kept[-1]

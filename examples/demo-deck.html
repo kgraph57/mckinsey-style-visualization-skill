@@ -37,9 +37,15 @@ body { font-family: 'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', 'Hiragin
 .hud .counter { margin-left: auto; font-variant-numeric: tabular-nums; letter-spacing: 0.06em; }
 .progress { position: fixed; top: 0; left: 0; height: 2px; background: #E5E7EB; width: 0; transition: width 240ms ease; }
 @media print {
+  /* One 16:9 page per slide. The deck must stop being a flex container:
+     flex items ignore forced page breaks, which collapsed the whole deck
+     onto a single page. */
+  @page { size: 13.333in 7.5in; margin: 0; }
   html, body { background: #fff; height: auto; }
   .hud, .progress { display: none; }
+  .deck { display: block; height: auto; }
   .slide { display: block !important; position: static; padding: 0; page-break-after: always; break-after: page; }
+  .slide:last-of-type { page-break-after: auto; break-after: auto; }
   .frame { width: 100%; box-shadow: none; border-radius: 0; }
   .slide svg .el, .slide .frame { opacity: 1 !important; animation: none !important; }
 }

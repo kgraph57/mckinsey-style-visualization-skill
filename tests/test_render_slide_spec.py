@@ -150,6 +150,19 @@ class GraphicalIntegrityTests(unittest.TestCase):
         for line in lines:
             self.assertLessEqual(renderer._text_width(line), 64)
 
+    def test_wrap_never_starts_a_line_with_closing_punctuation(self) -> None:
+        # 行頭禁則: closing punctuation hangs off the previous line instead
+        # of starting its own, at every width where it would otherwise land
+        # at a line head.
+        text = "多角化より先に、エンタープライズの勢いを守る。"
+        for width in range(8, 48, 2):
+            lines = renderer.wrap(text, width)
+            self.assertEqual("".join(lines), text, f"content lost at width {width}")
+            for line in lines[1:]:
+                self.assertNotIn(
+                    line[0], renderer.KINSOKU_HEAD, f"width {width}: line starts with {line[0]!r}"
+                )
+
     def test_wrap_clamps_with_visible_ellipsis(self) -> None:
         lines = renderer.wrap("Enterprise strategic accounts renewal team (APAC)", 20, max_lines=2)
         self.assertEqual(len(lines), 2)

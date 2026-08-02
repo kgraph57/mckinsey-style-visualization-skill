@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 2.0.1 - 2026-08-02 - Print Pagination Fix
+
+- Fixed HTML deck printing collapsing every slide onto a single page: `.deck` stayed a flex container in print media, and flex items ignore forced page breaks. Print now switches the deck to block flow and declares `@page { size: 13.333in 7.5in; margin: 0 }` (a true 16:9 page per slide), so browser print → PDF produces one clean page per slide. The bug dated back to the deck feature's introduction in 1.9.0.
+- Regression-tested: the deck builder test suite now asserts the print-fragmentation CSS is present, and a headless-Chrome print of the 9-slide demo deck yields 9 pages.
+- Japanese line-start kinsoku (行頭禁則) in the renderer's `wrap()`: closing punctuation (。、）」…) no longer begins a line — it hangs off the previous line instead (ぶら下がり組), matching the rule `references/style-system.md` already stated. No committed example render changed; the fix shows up in Japanese template decks and any user content that wrapped just before a punctuation mark.
+
 ## 2.0.0 - 2026-08-02 - Full Presentation System
 
 "Install the skill and produce a complete strategy-consulting-style presentation or document immediately." Three pillars, all zero-dependency (Python 3 stdlib, no network, single-file HTML outputs).

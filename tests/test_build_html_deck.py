@@ -44,6 +44,10 @@ class BuildHtmlDeckTests(unittest.TestCase):
         self.assertIn("animation-delay", html)
         self.assertIn("prefers-reduced-motion", html)
         self.assertIn("@media print", html)
+        # Print fragmentation: the deck must leave flex layout so each slide
+        # can take its own 16:9 page (flex items ignore forced page breaks).
+        self.assertIn("@page { size: 13.333in 7.5in; margin: 0; }", html)
+        self.assertIn(".deck { display: block; height: auto; }", html)
         self.assertIn("page-break-after: always", html)
 
     def test_animate_svg_tags_elements_but_not_background(self) -> None:

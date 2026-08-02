@@ -98,7 +98,7 @@ Type sizes are fixed tokens (px on the 1280x720 canvas), not ranges:
 - Line feed: CJK body text needs looser leading than Latin — use 1.75-1.8x line height where Latin uses ~1.5x.
 - The renderer wraps CJK text per character (no spaces needed) and measures fullwidth characters as double width; do not pre-break Japanese strings.
 - Break lines at meaning boundaries when hand-tuning (bunsetsu), never mid-word for katakana loanwords.
-- Avoid starting a line with closing punctuation (。、）」); when hand-tuning, pull the preceding character down.
+- Closing punctuation (。、）」…) never starts a line: the renderer's `wrap()` applies line-start kinsoku automatically by hanging the punctuation off the previous line (ぶら下がり組). When hand-tuning outside the renderer, do the same or pull the preceding character down.
 
 ## Canvas Formats
 
