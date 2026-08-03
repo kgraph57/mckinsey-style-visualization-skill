@@ -1,5 +1,6 @@
 {
   "pattern": "heatmap",
+  "label": "Capacity Risk",
   "headline": "Delivery buffer turns negative in onboarding by Q3, the first real capacity risk this year",
   "subline": "Capacity buffer vs. committed volume, by team and quarter (percentage points)",
   "unit": "pt",
@@ -15,5 +16,15 @@
   "annotation": "Add two onboarding leads before Q4 or the enterprise pipeline queues for a full quarter.",
   "page_number": 7,
   "source": "Illustrative data — replace with your own metrics.",
-  "notes": "This is the slide that turns a growth story into a decision. Every other team still has buffer; onboarding alone has crossed into negative territory, and that's the constraint the rest of the deck has been building toward."
+  "notes": "This is the slide that turns a growth story into a decision. Every other team still has buffer; onboarding alone has crossed into negative territory, and that's the constraint the rest of the deck has been building toward.",
+  "refs": [
+    {
+      "label": "Capacity planning — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Capacity_planning"
+    },
+    {
+      "label": "Bottleneck (production) — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Bottleneck_(production)"
+    }
+  ]
 }

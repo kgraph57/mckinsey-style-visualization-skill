@@ -1,5 +1,6 @@
 {
   "pattern": "waterfall",
+  "label": "Growth Bridge",
   "headline": "New enterprise logos and expansion added $6.3M, more than offsetting $1.3M of churn",
   "subline": "ARR bridge, Q2 to Q3",
   "unit": "$M",
@@ -13,5 +14,15 @@
   "annotation": "Net +$5.0M ARR this quarter; enterprise new-logo growth is the main engine.",
   "page_number": 5,
   "source": "Illustrative data — replace with your own metrics.",
-  "notes": "The bridge shows this growth is concentrated, not diffuse: a handful of enterprise wins did most of the work. That concentration is good news for durability, but it also means the onboarding bottleneck sits squarely under the highest-value accounts."
+  "notes": "The bridge shows this growth is concentrated, not diffuse: a handful of enterprise wins did most of the work. That concentration is good news for durability, but it also means the onboarding bottleneck sits squarely under the highest-value accounts.",
+  "refs": [
+    {
+      "label": "Annual recurring revenue (ARR) — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Annual_recurring_revenue"
+    },
+    {
+      "label": "Churn rate — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Churn_rate"
+    }
+  ]
 }

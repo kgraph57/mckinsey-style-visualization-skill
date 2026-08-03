@@ -1,5 +1,7 @@
 {
   "title": "Q3 Board Update — demo deck",
+  "series": "Board Reporting Series",
+  "lead": "This is the quarterly checkpoint where the board weighs a strong growth story against the operating constraint sitting underneath it — and decides whether to fund the fix before it slows next quarter down.",
   "description": "Quarterly board update: growth story, KPI scorecard, ARR bridge, and a capacity ask.",
   "slides": [
     "specs/01-cover.json",

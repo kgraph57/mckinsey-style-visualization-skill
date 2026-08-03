@@ -1,5 +1,6 @@
 {
   "pattern": "time_series",
+  "label": "Adoption Curve",
   "headline": "Workflow adoption rose 27 points in three quarters and is still accelerating",
   "subline": "Share of accounts on the new workflow",
   "unit": "%",

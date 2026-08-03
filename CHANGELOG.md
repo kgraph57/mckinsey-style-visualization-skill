@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 2.4.0 - 2026-08-03 - Article Mode, Serialized-Column Format
+
+- The article builder now produces a serialized-column reading experience modeled on a field-tested slide-article format: a single 680px reading column (TOC removed — the article is a linear scroll), a paper-first hero (series kicker, serif title, lead paragraph, meta chips for slide count / author / date, closed by an ink rule), and per-slide blocks of number + small-caps label, headline, hairline-framed slide, and narration.
+- New optional keys: manifest `series` and `lead`; per-slide `label` (the small-caps section tag) and `refs` (per-slide related links, scheme-allowlisted, aggregated and deduped into an end-of-article links section).
+- `text-wrap: pretty` and `word-break: auto-phrase` on article prose; print is A4 portrait with slide blocks kept intact. Tests 229 -> 258.
+
 ## 2.3.1 - 2026-08-03 - Speaker Script: Slide Left, Script Right
 
 - The speaker script layout now matches how it is actually used at a lectern (verified against a real conference script): the slide sits on the LEFT and the narration on the RIGHT, side by side — on screen and in print. Print switched from A4 portrait to A4 landscape, one slide per page, so the paper page mirrors the presenter screen. Below 900px the pair stacks.

@@ -36,7 +36,7 @@ python3 scripts/build_html_report.py my-report.md -o my-report.html --lang en
 python3 scripts/build_speaker_script.py --manifest my-deck/deck.json -o my-deck/script.html --lang en
 ```
 
-**Deck as an article** — the same deck read top-to-bottom as a web page instead of click-through slides: each slide's SVG followed by its `notes` as reading prose, with a "Contents" jump list built from the content slides' headlines.
+**Deck as an article** — the same deck read top-to-bottom on a single 680px reading column instead of click-through slides or a side-nav document: a paper-first hero (kicker/lead from the manifest's optional `series`/`lead` keys), then each slide's SVG followed by its `notes` as reading prose, with optional per-slide `label`/`refs` fields adding a section tag and a "Links" aside that rolls up into an end-of-article links section.
 
 ```bash
 python3 scripts/build_html_article.py --manifest my-deck/deck.json -o my-deck/article.html --lang en

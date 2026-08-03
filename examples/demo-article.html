@@ -5,13 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Q3 Board Update — demo deck</title>
 <style>
-/* Reading layer, sharing scripts/build_html_report.py's mechanics: the deck
-   read top-to-bottom as one article. Each slide's SVG runs the full ~980px
-   column (an "exhibit"); its narration sits below on a capped 720px
-   reading measure. Section rhythm from hairlines and whitespace only -- no
-   boxes, no left accent bars. The TOC is a sticky rail on wide screens,
-   otherwise the same hairline band build_html_report.py uses -- never a
-   third TOC style. */
+/* Paper-first reading layer matching the M3-series article format (see the
+   v2.4.0 addendum): a single 680px column, no side rail, no navy band --
+   just a hero, then each slide's figure and prose, in one linear scroll.
+   The skill's own skin throughout: navy as the one accent, Georgia serif
+   headings, hairlines, no boxes, no left accent bars. */
 :root {
   color-scheme: light;
   --navy: #15296B;
@@ -19,8 +17,6 @@
   --body-ink: #1F2937;
   --muted: #6B7280;
   --rule: #D1D5DB;
-  --rule-strong: #9CA3AF;
-  --measure: 720px;
   --serif: Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
   --sans: 'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif;
 }
@@ -33,87 +29,73 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
+  /* Progressive enhancements from the reference: inert on browsers that
+     don't support them, harmless everywhere, never load-bearing. */
+  text-wrap: pretty;
+  word-break: auto-phrase;
 }
 body.lang-ja { line-height: 1.9; font-feature-settings: 'palt'; }
-h1 { color: var(--ink); font-family: var(--serif); font-weight: bold; }
+h1, h2 { font-family: var(--serif); font-weight: normal; color: var(--ink); }
 
-.title-band { background: var(--navy); color: #FFFFFF; }
-.title-band-inner { max-width: 1220px; margin: 0 auto; padding: 72px 32px 48px; }
-.title-band h1 { font-size: 42px; font-weight: normal; color: #FFFFFF; line-height: 1.25; max-width: 780px; text-wrap: balance; }
-.title-band .subtitle { margin-top: 14px; font-size: 18px; font-weight: normal; color: #E5E7EB; max-width: 720px; }
-.title-band .meta { margin-top: 24px; font-size: 14px; color: #E5E7EB; letter-spacing: 0.02em; }
+.wrap { max-width: 680px; margin: 0 auto; padding: clamp(40px, 7vw, 72px) clamp(20px, 5vw, 28px) 96px; }
 
-.doc { max-width: 1044px; margin: 0 auto; padding: 56px 32px 96px; }
-.doc-main { min-width: 0; }
+.hero { padding-bottom: 28px; margin-bottom: 8px; border-bottom: 1px solid var(--ink); }
+.hero .kicker { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+.hero h1 { font-size: clamp(1.6rem, 4.2vw, 2rem); line-height: 1.35; letter-spacing: 0.01em; }
+.hero .lead { margin-top: 16px; color: var(--muted); font-size: 1rem; max-width: 56ch; line-height: 1.75; }
+.hero .meta-row { margin-top: 18px; font-size: 13px; color: var(--muted); letter-spacing: 0.02em; }
+.hero .meta-row .chip { display: inline; }
+.hero .meta-row .chip + .chip::before { content: " · "; }
 
-.toc { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); padding: 20px 0; margin-bottom: 56px; }
-.toc .toc-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-.toc ol { list-style: none; padding-left: 0; }
-.toc li { margin: 4px 0; }
-.toc a { color: var(--body-ink); text-decoration: none; font-size: 15px; }
-.toc a:hover { color: var(--navy); }
-.toc a.active { color: var(--navy); font-weight: 600; }
+.slide-block { padding: 40px 0; border-top: 1px solid var(--rule); }
+.slide-block:first-of-type { border-top: none; padding-top: 0; }
+.slide-head { margin-bottom: 18px; }
+.slide-meta { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.slide-meta .num { color: var(--navy); margin-right: 0.6em; }
+.slide-head h2 { font-size: 1.2rem; line-height: 1.5; }
 
-.slide-block { margin: 0 0 56px; }
-.slide-block:last-child { margin-bottom: 0; }
-.slide-figure { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 20px 0; margin: 0; }
+.slide-figure { margin: 0 0 24px; border: 1px solid var(--rule); }
 .slide-figure svg { display: block; width: 100%; height: auto; }
-.notes { max-width: var(--measure); margin-top: 20px; }
-.notes p { margin: 12px 0; }
-.notes p:first-child { margin-top: 0; }
 
-/* Wide screens: the TOC becomes a sticky rail, same mechanics as build_html_report.py. */
-@media (min-width: 1240px) {
-  .doc:has(nav.toc) { max-width: 1302px; display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 72px; align-items: start; }
-  .doc:has(nav.toc) .doc-main { grid-column: 1; grid-row: 1; }
-  .doc:has(nav.toc) .toc {
-    grid-column: 2; grid-row: 1;
-    position: sticky; top: 40px;
-    border-top: none; border-bottom: none;
-    border-left: 1px solid var(--rule);
-    padding: 4px 0 4px 28px;
-    margin: 0;
-    max-height: calc(100vh - 80px);
-    overflow-y: auto;
-  }
-}
+.notes p { margin: 0 0 16px; font-size: 16px; }
+.notes p:first-child { margin-top: 0; }
+.notes p:last-child { margin-bottom: 0; }
+
+.slide-refs { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.slide-refs-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.ref-list { margin: 0; padding-left: 1.15em; list-style: disc; }
+.ref-list li { margin: 0.35em 0; font-size: 0.9rem; line-height: 1.55; }
+.ref-list a { color: var(--navy); text-decoration: none; font-weight: 600; word-break: break-all; }
+.ref-list a:hover { text-decoration: underline; }
+
+.bibliography { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--ink); }
+.bibliography h2 { font-size: 1.05rem; margin-bottom: 14px; }
+.bibliography .ref-list li { font-size: 0.92rem; }
+
+footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 12px; color: var(--muted); }
 
 @media (max-width: 640px) {
-  .title-band-inner { padding: 40px 20px 28px; }
-  .title-band h1 { font-size: 32px; }
-  .doc { padding: 32px 16px 64px; }
+  .wrap { padding: 32px 16px 64px; }
 }
 
 @media print {
-  @page { size: A4; margin: 20mm 18mm; }
-  html, body { background: #FFFFFF; font-size: 10.5pt; line-height: 1.65; }
-  .title-band {
-    -webkit-print-color-adjust: exact; print-color-adjust: exact;
-    min-height: 257mm; box-sizing: border-box;
-    display: flex; flex-direction: column; justify-content: center;
-    break-after: page; page-break-after: always;
-  }
-  .doc { display: block; max-width: none; padding: 0; }
-  .notes { max-width: none; }
-  .toc {
-    position: static; border-left: none;
-    border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong);
-    padding: 20px 0; margin: 0 0 32px;
-  }
-  /* Keep a slide's figure from splitting across a page break; the notes
-     below it may still flow onto the next page -- this is a continuous
-     read, not a one-slide-per-page script (see build_speaker_script.py). */
-  .slide-figure { break-inside: avoid; page-break-inside: avoid; }
+  @page { size: A4 portrait; margin: 18mm; }
+  html, body { background: #FFFFFF; font-size: 10.5pt; line-height: 1.6; }
+  .wrap { max-width: none; padding: 0; }
+  /* Keep a slide's whole block (meta, heading, figure, prose, refs) from
+     splitting across a page break; nothing forces a page break between
+     slides -- this is a continuous read, not a one-slide-per-page script
+     (see scripts/build_speaker_script.py for that). */
+  .slide-block { break-inside: avoid; page-break-inside: avoid; }
   p { orphans: 3; widows: 3; }
 }
 </style>
 </head>
 <body>
-<header class="title-band"><div class="title-band-inner"><h1>Q3 Board Update — demo deck</h1><p class="subtitle">Quarterly board update: growth story, KPI scorecard, ARR bridge, and a capacity ask.</p><p class="meta">Operating Team &middot; October 2026</p></div></header>
-<main class="doc">
-<nav class="toc" aria-label="Contents"><p class="toc-label">Contents</p><ol><li><a href="#four-topics-decide-today-s-capacity-vote">1. Four topics decide today's capacity vote</a></li><li><a href="#growth-is-real-but-onboarding-capacity-now-caps-how-fast-bookings-convert-to-revenue">2. Growth is real, but onboarding capacity now caps how fast bookings convert to revenue</a></li><li><a href="#every-growth-metric-is-on-plan-onboarding-capacity-is-the-outlier">3. Every growth metric is on plan; onboarding capacity is the outlier</a></li><li><a href="#new-enterprise-logos-and-expansion-added-6-3m-more-than-offsetting-1-3m-of-churn">4. New enterprise logos and expansion added $6.3M, more than offsetting $1.3M of churn</a></li><li><a href="#workflow-adoption-rose-27-points-in-three-quarters-and-is-still-accelerating">5. Workflow adoption rose 27 points in three quarters and is still accelerating</a></li><li><a href="#delivery-buffer-turns-negative-in-onboarding-by-q3-the-first-real-capacity-risk-this-year">6. Delivery buffer turns negative in onboarding by Q3, the first real capacity risk this year</a></li><li><a href="#approve-the-onboarding-capacity-investment-now-or-q4-growth-slows">7. Approve the onboarding capacity investment now, or Q4 growth slows</a></li></ol></nav>
-<div class="doc-main">
-<section class="slide-block"><figure class="slide-figure">
+<div class="wrap">
+<header class="hero"><p class="kicker">Board Reporting Series</p><h1>Q3 Board Update — demo deck</h1><p class="lead">This is the quarterly checkpoint where the board weighs a strong growth story against the operating constraint sitting underneath it — and decides whether to fund the fix before it slows next quarter down.</p><div class="meta-row"><span class="chip">9 slides</span><span class="chip">Author: Operating Team</span><span class="chip">October 2026</span></div></header>
+<main class="doc-main">
+<article class="slide-block" id="slide-01"><header class="slide-head"><p class="slide-meta"><span class="num">1</span></p><h2>Q3 Board Update</h2></header><figure class="slide-figure">
 <svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Q3 Board Update">
   <rect x="0.0" y="0.0" width="1280.0" height="720.0" fill="#15296B" stroke="none"/>
   <text x="80.0" y="264.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="54" fill="#FFFFFF" font-weight="normal" text-anchor="start">Q3 Board Update</text>
@@ -122,8 +104,8 @@ h1 { color: var(--ink); font-family: var(--serif); font-weight: bold; }
   <text x="1200.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#E5E7EB" font-weight="normal" text-anchor="end">CONFIDENTIAL — ILLUSTRATIVE</text>
 </svg>
 
-</figure><div class="notes"><p>This is the quarterly checkpoint the board uses to weigh growth against the operating constraints behind it. The story this quarter is a good one, but it arrives bundled with a capacity decision that cannot wait for the next meeting.</p></div></section>
-<section class="slide-block" id="four-topics-decide-today-s-capacity-vote"><figure class="slide-figure">
+</figure><div class="notes"><p>This is the quarterly checkpoint the board uses to weigh growth against the operating constraints behind it. The story this quarter is a good one, but it arrives bundled with a capacity decision that cannot wait for the next meeting.</p></div></article>
+<article class="slide-block" id="slide-02"><header class="slide-head"><p class="slide-meta"><span class="num">2</span><span class="lbl">Agenda</span></p><h2>Four topics decide today's capacity vote</h2></header><figure class="slide-figure">
 <svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Four topics decide today's capacity vote">
   <rect width="1280" height="720" fill="#FFFFFF"/>
   <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Four topics decide today's capacity vote</text>
@@ -148,8 +130,8 @@ h1 { color: var(--ink); font-family: var(--serif); font-weight: bold; }
   <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">2</text>
 </svg>
 
-</figure><div class="notes"><p>The order here is deliberate: growth and adoption build the case, capacity risk explains the tension underneath it, and the ask closes the loop. Each topic hands off directly into the next, so the constraint is visible well before the request is.</p></div></section>
-<section class="slide-block" id="growth-is-real-but-onboarding-capacity-now-caps-how-fast-bookings-convert-to-revenue"><figure class="slide-figure">
+</figure><div class="notes"><p>The order here is deliberate: growth and adoption build the case, capacity risk explains the tension underneath it, and the ask closes the loop. Each topic hands off directly into the next, so the constraint is visible well before the request is.</p></div></article>
+<article class="slide-block" id="slide-03"><header class="slide-head"><p class="slide-meta"><span class="num">3</span><span class="lbl">The Bottom Line</span></p><h2>Growth is real, but onboarding capacity now caps how fast bookings convert to revenue</h2></header><figure class="slide-figure">
 <svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Growth is real, but onboarding capacity now caps how fast bookings convert to revenue">
   <rect width="1280" height="720" fill="#FFFFFF"/>
   <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Growth is real, but onboarding capacity now caps</text>
@@ -186,8 +168,8 @@ h1 { color: var(--ink); font-family: var(--serif); font-weight: bold; }
   <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">3</text>
 </svg>
 
-</figure><div class="notes"><p>None of these three points stands alone: growth funds the case for more onboarding capacity, and the adoption curve is what proves the demand is durable rather than a one-quarter spike. The open question is timing, not direction.</p></div></section>
-<section class="slide-block" id="every-growth-metric-is-on-plan-onboarding-capacity-is-the-outlier"><figure class="slide-figure">
+</figure><div class="notes"><p>None of these three points stands alone: growth funds the case for more onboarding capacity, and the adoption curve is what proves the demand is durable rather than a one-quarter spike. The open question is timing, not direction.</p></div></article>
+<article class="slide-block" id="slide-04"><header class="slide-head"><p class="slide-meta"><span class="num">4</span><span class="lbl">Scorecard</span></p><h2>Every growth metric is on plan; onboarding capacity is the outlier</h2></header><figure class="slide-figure">
 <svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Every growth metric is on plan; onboarding capacity is the outlier">
   <rect width="1280" height="720" fill="#FFFFFF"/>
   <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Every growth metric is on plan; onboarding</text>
@@ -229,8 +211,8 @@ h1 { color: var(--ink); font-family: var(--serif); font-weight: bold; }
   <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">4</text>
 </svg>
 
-</figure><div class="notes"><p>Five of six metrics would normally carry the whole meeting; the two in red are the ones worth lingering on instead. Engineering utilization running hot predates the onboarding queue and helps explain why that queue built up so fast.</p></div></section>
-<section class="slide-block" id="new-enterprise-logos-and-expansion-added-6-3m-more-than-offsetting-1-3m-of-churn"><figure class="slide-figure">
+</figure><div class="notes"><p>Five of six metrics would normally carry the whole meeting; the two in red are the ones worth lingering on instead. Engineering utilization running hot predates the onboarding queue and helps explain why that queue built up so fast.</p></div></article>
+<article class="slide-block" id="slide-05"><header class="slide-head"><p class="slide-meta"><span class="num">5</span><span class="lbl">Growth Bridge</span></p><h2>New enterprise logos and expansion added $6.3M, more than offsetting $1.3M of churn</h2></header><figure class="slide-figure">
 <svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="New enterprise logos and expansion added $6.3M, more than offsetting $1.3M of churn">
   <rect width="1280" height="720" fill="#FFFFFF"/>
   <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">New enterprise logos and expansion added $6.3M,</text>
@@ -263,8 +245,8 @@ h1 { color: var(--ink); font-family: var(--serif); font-weight: bold; }
   <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">5</text>
 </svg>
 
-</figure><div class="notes"><p>The bridge shows this growth is concentrated, not diffuse: a handful of enterprise wins did most of the work. That concentration is good news for durability, but it also means the onboarding bottleneck sits squarely under the highest-value accounts.</p></div></section>
-<section class="slide-block" id="workflow-adoption-rose-27-points-in-three-quarters-and-is-still-accelerating"><figure class="slide-figure">
+</figure><div class="notes"><p>The bridge shows this growth is concentrated, not diffuse: a handful of enterprise wins did most of the work. That concentration is good news for durability, but it also means the onboarding bottleneck sits squarely under the highest-value accounts.</p></div><aside class="slide-refs"><p class="slide-refs-label">Links</p><ul class="ref-list"><li><a href="https://en.wikipedia.org/wiki/Annual_recurring_revenue" target="_blank" rel="noopener">Annual recurring revenue (ARR) — Wikipedia</a></li><li><a href="https://en.wikipedia.org/wiki/Churn_rate" target="_blank" rel="noopener">Churn rate — Wikipedia</a></li></ul></aside></article>
+<article class="slide-block" id="slide-06"><header class="slide-head"><p class="slide-meta"><span class="num">6</span><span class="lbl">Adoption Curve</span></p><h2>Workflow adoption rose 27 points in three quarters and is still accelerating</h2></header><figure class="slide-figure">
 <svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Workflow adoption rose 27 points in three quarters and is still accelerating">
   <rect width="1280" height="720" fill="#FFFFFF"/>
   <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Workflow adoption rose 27 points in three</text>
@@ -292,8 +274,8 @@ h1 { color: var(--ink); font-family: var(--serif); font-weight: bold; }
   <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">6</text>
 </svg>
 
-</figure><div class="notes"><p>A steady three-quarter climb like this answers 'is this durable', not just 'is this working'. It also reframes the capacity conversation: this isn't a spike to wait out, it's the shape of demand going forward.</p></div></section>
-<section class="slide-block" id="delivery-buffer-turns-negative-in-onboarding-by-q3-the-first-real-capacity-risk-this-year"><figure class="slide-figure">
+</figure><div class="notes"><p>A steady three-quarter climb like this answers 'is this durable', not just 'is this working'. It also reframes the capacity conversation: this isn't a spike to wait out, it's the shape of demand going forward.</p></div></article>
+<article class="slide-block" id="slide-07"><header class="slide-head"><p class="slide-meta"><span class="num">7</span><span class="lbl">Capacity Risk</span></p><h2>Delivery buffer turns negative in onboarding by Q3, the first real capacity risk this year</h2></header><figure class="slide-figure">
 <svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Delivery buffer turns negative in onboarding by Q3, the first real capacity risk this year">
   <rect width="1280" height="720" fill="#FFFFFF"/>
   <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Delivery buffer turns negative in onboarding by</text>
@@ -336,8 +318,8 @@ h1 { color: var(--ink); font-family: var(--serif); font-weight: bold; }
   <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">7</text>
 </svg>
 
-</figure><div class="notes"><p>This is the slide that turns a growth story into a decision. Every other team still has buffer; onboarding alone has crossed into negative territory, and that's the constraint the rest of the deck has been building toward.</p></div></section>
-<section class="slide-block" id="approve-the-onboarding-capacity-investment-now-or-q4-growth-slows"><figure class="slide-figure">
+</figure><div class="notes"><p>This is the slide that turns a growth story into a decision. Every other team still has buffer; onboarding alone has crossed into negative territory, and that's the constraint the rest of the deck has been building toward.</p></div><aside class="slide-refs"><p class="slide-refs-label">Links</p><ul class="ref-list"><li><a href="https://en.wikipedia.org/wiki/Capacity_planning" target="_blank" rel="noopener">Capacity planning — Wikipedia</a></li><li><a href="https://en.wikipedia.org/wiki/Bottleneck_(production)" target="_blank" rel="noopener">Bottleneck (production) — Wikipedia</a></li></ul></aside></article>
+<article class="slide-block" id="slide-08"><header class="slide-head"><p class="slide-meta"><span class="num">8</span><span class="lbl">The Ask</span></p><h2>Approve the onboarding capacity investment now, or Q4 growth slows</h2></header><figure class="slide-figure">
 <svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Approve the onboarding capacity investment now, or Q4 growth slows">
   <rect width="1280" height="720" fill="#FFFFFF"/>
   <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Approve the onboarding capacity investment now,</text>
@@ -367,8 +349,8 @@ h1 { color: var(--ink); font-family: var(--serif); font-weight: bold; }
   <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">8</text>
 </svg>
 
-</figure><div class="notes"><p>The three takeaways aren't new information; they're the same facts reordered as a decision. What matters on this slide is what's asked for by name and by owner, not just what's true.</p></div></section>
-<section class="slide-block"><figure class="slide-figure">
+</figure><div class="notes"><p>The three takeaways aren't new information; they're the same facts reordered as a decision. What matters on this slide is what's asked for by name and by owner, not just what's true.</p></div></article>
+<article class="slide-block" id="slide-09"><header class="slide-head"><p class="slide-meta"><span class="num">9</span></p><h2>Thank you</h2></header><figure class="slide-figure">
 <svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Thank you">
   <rect x="0.0" y="0.0" width="1280.0" height="720.0" fill="#15296B" stroke="none"/>
   <text x="80.0" y="264.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="54" fill="#FFFFFF" font-weight="normal" text-anchor="start">Thank you</text>
@@ -379,26 +361,10 @@ h1 { color: var(--ink); font-family: var(--serif); font-weight: bold; }
   <text x="1200.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#E5E7EB" font-weight="normal" text-anchor="end">CONFIDENTIAL — ILLUSTRATIVE</text>
 </svg>
 
-</figure><div class="notes"><p>The ask is intentionally narrow: two hires, timed to unblock the queue before Q4 pressure compounds it. Everything from here is the discussion the board actually needs to have.</p></div></section>
-</div>
+</figure><div class="notes"><p>The ask is intentionally narrow: two hires, timed to unblock the queue before Q4 pressure compounds it. Everything from here is the discussion the board actually needs to have.</p></div></article>
 </main>
-<script>
-(function () {
-  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
-  if (!links.length || !window.IntersectionObserver) return;
-  var targets = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      var index = targets.indexOf(entry.target);
-      if (index === -1) return;
-      if (entry.isIntersecting) {
-        links.forEach(function (l) { l.classList.remove('active'); });
-        links[index].classList.add('active');
-      }
-    });
-  }, { rootMargin: '0px 0px -70% 0px' });
-  targets.forEach(function (t) { if (t) observer.observe(t); });
-})();
-</script>
+<section class="bibliography" id="all-links"><h2>All links</h2><ul class="ref-list"><li><a href="https://en.wikipedia.org/wiki/Annual_recurring_revenue" target="_blank" rel="noopener">Annual recurring revenue (ARR) — Wikipedia</a></li><li><a href="https://en.wikipedia.org/wiki/Churn_rate" target="_blank" rel="noopener">Churn rate — Wikipedia</a></li><li><a href="https://en.wikipedia.org/wiki/Capacity_planning" target="_blank" rel="noopener">Capacity planning — Wikipedia</a></li><li><a href="https://en.wikipedia.org/wiki/Bottleneck_(production)" target="_blank" rel="noopener">Bottleneck (production) — Wikipedia</a></li></ul></section>
+<footer><p>Q3 Board Update — demo deck &middot; Generated by the Strategy Consulting Visualization skill.</p></footer>
+</div>
 </body>
 </html>

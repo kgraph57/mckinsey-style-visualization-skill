@@ -1,5 +1,6 @@
 {
   "pattern": "kpi_scorecard",
+  "label": "Scorecard",
   "headline": "Every growth metric is on plan; onboarding capacity is the outlier",
   "subline": "Key metrics, Q3 vs. target",
   "columns": 3,

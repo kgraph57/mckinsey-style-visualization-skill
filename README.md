@@ -11,7 +11,7 @@ Python 3 standard library only. **Zero dependencies. Zero API keys. Zero network
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
 [![Skill Format](https://img.shields.io/badge/SKILL.md-ready-blue.svg)](SKILL.md)
-[![Release](https://img.shields.io/badge/Release-v2.3.1-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.3.1)
+[![Release](https://img.shields.io/badge/Release-v2.4.0-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.4.0)
 
 English | [日本語](README.ja.md)
 
@@ -168,16 +168,17 @@ See the committed demo: [examples/demo-script.html](examples/demo-script.html) (
 
 ## Deck as an Article: Read It Top to Bottom Like a Web Page
 
-The same `notes` field also drives a reading-mode build: the whole deck laid out vertically, each slide's SVG followed by its narration as prose — a deck that reads like an article instead of click-through-one-slide-at-a-time.
+The same `notes` field also drives a reading-mode build: the whole deck laid out vertically on a single 680px column, each slide's SVG followed by its narration as prose — a paper-first article, like a published M3-series piece, not a side-nav document.
 
 ```bash
 python3 scripts/build_html_article.py --manifest my-deck/deck.json -o my-deck/article.html --lang en
 ```
 
-- Every slide appears, in manifest order, on the full ~980px reading column, with its notes as prose on a 720px measure below it.
+- A hero opens the page: an optional uppercase kicker from the manifest's `series` key, the title, an optional lead paragraph from `lead` (falling back to `description` for older manifests), and meta chips for slide count, presenter, and date (from the deck's cover slide).
+- Every slide appears, in manifest order, as its own `<article>` on the full 680px column — meta line (number + optional per-spec `label`), heading, SVG, then its notes as prose. There is no "Contents" jump list in this mode; it is a single linear scroll.
 - A slide with no notes renders frame-only — the article still shows every slide, like flipping through the deck.
-- A "Contents" list is built from each content slide's headline (cover / section divider / end-cover slides are skipped in the list but still shown in the flow), promoted to a sticky right rail on wide screens.
-- `--title` overrides the manifest title; zero external requests.
+- Optional per-slide `refs` (`[{"label": ..., "url": ...}]`) render as a "Links" aside below the notes and roll up, deduped by URL, into an "All links" section after the last slide; only http(s)/mailto URLs render as links.
+- `--title` overrides the manifest title; zero external requests except the `href` of a ref link itself.
 
 See the committed demo: [examples/demo-article.html](examples/demo-article.html) (built from [templates/decks/board-update/deck.json](templates/decks/board-update/deck.json)).
 

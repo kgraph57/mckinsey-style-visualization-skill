@@ -6,21 +6,39 @@ slide order, each slide's SVG followed by its narrative prose -- a deck that
 reads top to bottom like a web article instead of click-through-one-slide-
 at-a-time. Companion to scripts/build_speaker_script.py (the podium script,
 one slide per printed page) and scripts/build_html_deck.py (the click-
-through presenter deck); this shares their manifest format and the reading
-mechanics of scripts/build_html_report.py.
+through presenter deck).
+
+v2.4 matches the structure of a real published M3-series article: a single
+680px reading column (no sticky/side "Contents" rail -- this is a linear
+scroll, not a document with navigation), a paper-first hero (kicker, serif
+h1, lead paragraph, meta chips -- no navy title band), and per-slide meta
+(number + optional section label) with an optional "further reading" aside.
+The skill's own skin is kept throughout: navy #15296B as the one accent
+color, Georgia serif headings, hairlines, and the JP sans stack (Hiragino
+before Noto Sans JP).
 
 Manifest format (same file scripts/build_html_deck.py consumes):
 
-    {"title": "Q3 Board Update", "description": "...", "slides": [
-        "specs/01-cover.json", "specs/02-agenda.json", ...
-    ]}
+    {
+      "title": "Q3 Board Update",
+      "series": "Board Reporting Series",
+      "lead": "A short narrative lead paragraph for the hero.",
+      "description": "...",
+      "slides": ["specs/01-cover.json", "specs/02-agenda.json", ...]
+    }
 
 Slide paths resolve relative to the manifest file, in the order listed --
-that order is preserved exactly in the rendered article. ``title`` and
-``description`` (if present) seed the navy title band's heading and
-subtitle; the first ``cover``-pattern slide's ``presenter``/``date`` fields
-(if present) seed the band's meta line, the same "presenter · date" pairing
-render_cover() draws on the cover slide itself.
+that order is preserved exactly in the rendered article, and drives the
+per-slide anchor ids (``slide-01``, ``slide-02``, ...). ``title`` seeds the
+hero's ``<h1>`` and the document ``<title>``. ``series`` (optional) seeds
+the hero's uppercase kicker line. ``lead`` (optional) seeds the hero's lead
+paragraph; if a manifest has no ``lead``, ``description`` is used instead so
+older manifests (written before ``lead`` existed) still get a lead
+paragraph -- ``description`` remains the field scripts/scaffold_deck.py
+reads for its own deck-picker listing, so this is additive, not a rename.
+The first ``cover``-pattern slide's ``presenter``/``date`` fields (if
+present) seed two of the hero's meta chips; a third chip always reports the
+slide count.
 
 The shared `notes` contract (any slide spec may carry a top-level `notes`:
 a string, or a list of strings, one per paragraph): scripts/render_slide_spec.py
@@ -32,33 +50,52 @@ Markdown parser already uses for prose; a list is used as-is, one entry per
 paragraph. Every paragraph is escaped with the shared `esc()` on the way
 into HTML: notes are untrusted, spoken/narrative text, never markup.
 
-Output is one <section> per slide, always in manifest order, with every
-slide shown -- chromeless slides (cover / section_divider / end_cover,
-scripts/render_slide_spec.CHROMELESS) included, exactly like flipping
-through the physical deck:
+Two more optional per-slide spec fields, both additive (the renderer
+ignores both, exactly like ``notes``):
 
+    - ``label``: a short string shown next to the slide number in the
+      meta line (small caps, muted) -- a section tag, e.g. "Growth Bridge".
+    - ``refs``: a list of ``{"label": str, "url": str}`` objects rendered
+      as a bulleted "Links" aside below the slide's notes. A ``url`` whose
+      scheme is not http(s)/mailto is dropped to plain (unlinked) text --
+      the same allowlist scripts/build_html_report.py's Markdown links use
+      (``_safe_href``, imported rather than re-implemented). Every ref
+      collected across the whole deck is also rolled up, deduped by URL, in
+      an aggregated links section after the last slide.
+
+Output is one <article class="slide-block"> per slide, always in manifest
+order, with every slide shown -- chromeless slides (cover / section_divider
+/ end_cover, scripts/render_slide_spec.CHROMELESS) included, exactly like
+flipping through the physical deck:
+
+    - A meta line: the slide's 1-based position (in navy) and its optional
+      ``label``.
+    - An <h2> with the slide's headline, or (chromeless slides only) its
+      ``title`` -- omitted entirely when neither is present, since a
+      chromeless slide with no headline and no title carries no distinct
+      message text to show.
     - The slide's SVG, embedded inline (xmlns stripped, as build_html_report.py
       strips it for the same "no spurious http:// string" reason), running
-      the full ~980px reading column.
-    - Below it, the slide's notes as reading prose on build_html_report.py's
-      ~720px measure -- 16px body, `--lang ja` loosens line-height to 1.9
-      with `font-feature-settings: palt` for CJK readability (Latin: 1.7).
-    - A slide with no notes renders frame-only: the figure, nothing below
-      it. The article still shows the slide -- never silently skipped.
+      the full 680px reading column with a 1px hairline frame.
+    - Below it, the slide's notes as reading prose (16px, `--lang ja`
+      loosens line-height to 1.9 with `font-feature-settings: palt` for CJK
+      readability; Latin stays 1.7). A slide with no notes renders frame-
+      only: the figure, nothing below it. The article still shows the
+      slide -- never silently skipped.
+    - An optional "Links" aside, if the slide carries ``refs``.
 
-A "Contents" TOC is built from every *content* slide's headline (falling
-back to `title`, then a "Slide N" placeholder) in document order; chromeless
-slides are omitted from the TOC (they carry no headline chrome to link to)
-but still appear in the flow. The TOC reuses build_html_report.py's exact
-mechanics rather than forking a third style: a hairline-bordered band by
-default, promoted to a sticky right rail via `:has()` on wide screens.
+There is no "Contents" navigation in this mode (v2.3 had one; the reference
+M3 article format this version matches is a single linear scroll instead --
+see the v2.4.0 addendum). If any slide carried refs, an aggregated links
+section follows the last slide, then a one-line footer.
 
-Output is a single self-contained HTML file: zero external requests, no
-required JavaScript (the TOC scroll-highlight script is inline and
-decorative only, included only when a TOC exists). Screen layout is a
-~980px reading column; print layout is A4 with the slide figure kept
-together (`break-inside: avoid`) but no forced page break between slides
-(this is a continuous read, not a one-slide-per-page script -- see
+Output is a single self-contained HTML file: zero external requests (the
+one exception is the ``href`` of a ref link itself, which is meant to be
+followed -- there is no image, script, or stylesheet fetch anywhere), no
+required JavaScript at all. Screen layout is a single 680px reading column;
+print layout is A4 portrait with each slide-block kept together
+(`break-inside: avoid`) -- no forced page break between slides (this is a
+continuous read, not a one-slide-per-page script -- see
 scripts/build_speaker_script.py for that).
 
 Usage:
@@ -79,18 +116,25 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 
 
-def _load_renderer():
-    module_path = ROOT / "render_slide_spec.py"
-    spec = importlib.util.spec_from_file_location("render_slide_spec", module_path)
+def _load_module(name: str):
+    module_path = ROOT / f"{name}.py"
+    spec = importlib.util.spec_from_file_location(name, module_path)
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
     spec.loader.exec_module(module)
     return module
 
 
-_renderer = _load_renderer()
+_renderer = _load_module("render_slide_spec")
 esc = _renderer.esc
 CHROMELESS = _renderer.CHROMELESS
+
+# The refs scheme allowlist is the report builder's own -- imported rather
+# than re-implemented, so the two never drift apart (see _safe_href's
+# docstring in build_html_report.py for the full rationale: http(s)/mailto
+# only, control characters rejected outright).
+_report = _load_module("build_html_report")
+_safe_href = _report._safe_href
 
 
 class ArticleBuildError(ValueError):
@@ -127,6 +171,54 @@ def notes_paragraphs(notes: object) -> list[str]:
     # spaces -- a paragraph is read as one continuous line of prose
     # regardless of how it was wrapped in the source JSON.
     return [" ".join(p.split()) for p in raw_paragraphs if p.strip()]
+
+
+def _normalize_refs(raw: object) -> list[dict]:
+    """Normalize a slide's optional ``refs`` field into an ordered list of
+    ``{"label": str, "url": str}`` dicts, dropping malformed entries.
+
+    ``refs`` is additive and optional, exactly like ``notes`` and ``label``:
+    anything that is not a list, a list item that is not an object, or an
+    item missing a usable ``url`` is silently skipped rather than raising --
+    a malformed ref entry never breaks the build. A missing ``label`` falls
+    back to the URL itself so the link always has visible text.
+    """
+    if not isinstance(raw, list):
+        return []
+    normalized: list[dict] = []
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        url = item.get("url")
+        if not isinstance(url, str) or not url.strip():
+            continue
+        label = item.get("label")
+        label = str(label) if label else url
+        normalized.append({"label": label, "url": url})
+    return normalized
+
+
+def _render_ref_list(refs: list[dict]) -> str:
+    """Render a ``<ul class="ref-list">`` for a list of normalized refs.
+
+    Shared by the per-slide "Links" aside and the aggregated end-of-article
+    links section, so the two can never drift in markup or in how they
+    apply the scheme allowlist. A ref whose URL fails ``_safe_href`` (any
+    scheme outside http/https/mailto, e.g. ``javascript:``) renders as
+    plain, unlinked text instead of an <a> -- dropped silently, never an
+    error, exactly like build_html_report.py's Markdown links.
+    """
+    items = []
+    for ref in refs:
+        label_html = esc(ref["label"])
+        href = _safe_href(ref["url"])
+        if href is None:
+            items.append(f"<li>{label_html}</li>")
+        else:
+            items.append(
+                f'<li><a href="{esc(href)}" target="_blank" rel="noopener">{label_html}</a></li>'
+            )
+    return f'<ul class="ref-list">{"".join(items)}</ul>'
 
 
 # ---------------------------------------------------------------------------
@@ -166,58 +258,72 @@ def _render_slide_svg(spec: dict, path: Path) -> str:
     return _strip_for_inline_embed(svg)
 
 
-def _slugify(text: str) -> str:
-    slug = re.sub(r"[^a-z0-9]+", "-", text.strip().lower()).strip("-")
-    return slug or "slide"
-
-
-def _cover_meta_html(specs: list[dict]) -> str:
-    """The title band's "presenter · date" meta line, sourced from the first
-    cover-pattern slide that carries either field -- the same pairing
-    render_cover() draws on the cover slide itself."""
+def _cover_meta(specs: list[dict]) -> dict:
+    """The hero's presenter/date chips, sourced from the first cover-pattern
+    slide that carries either field -- the same pairing render_cover() draws
+    on the cover slide itself."""
     for spec in specs:
         if spec.get("pattern") != "cover":
             continue
-        parts = [esc(spec[key]) for key in ("presenter", "date") if spec.get(key)]
-        if parts:
-            return " &middot; ".join(parts)
-    return ""
+        return {
+            "presenter": str(spec.get("presenter") or ""),
+            "date": str(spec.get("date") or ""),
+        }
+    return {"presenter": "", "date": ""}
+
+
+def _slide_heading(spec: dict, is_chromeless: bool, index: int) -> str | None:
+    """The slide-block's <h2> text.
+
+    Content slides always get one: headline, falling back to title, falling
+    back to a "Slide N" placeholder -- there is always a message to show.
+    Chromeless slides (cover / section_divider / end_cover) use headline or
+    title if either is present, but render no <h2> at all when neither is:
+    a bare chromeless slide with no distinct message text has nothing worth
+    heading (the hero's own <h1> already carries the deck's title).
+    """
+    headline = spec.get("headline")
+    if headline:
+        return str(headline)
+    title = spec.get("title")
+    if title:
+        return str(title)
+    if is_chromeless:
+        return None
+    return f"Slide {index}"
 
 
 # ---------------------------------------------------------------------------
-# Sections + TOC
+# Sections + aggregated links
 # ---------------------------------------------------------------------------
 
 
-def _build_sections(specs: list[dict], spec_paths: list[Path]) -> tuple[str, str]:
-    """Render every slide, in order, into an article section; build the
-    matching "Contents" TOC alongside it.
+def _build_sections(specs: list[dict], spec_paths: list[Path], lang: str) -> tuple[str, list[dict]]:
+    """Render every slide, in order, into an <article class="slide-block">;
+    collect every ref seen along the way (in slide order, deduped by URL)
+    for the aggregated end-of-article links section.
 
     Every slide gets a section -- chromeless (CHROMELESS) or not -- so the
-    article always shows the whole deck. Only non-chromeless (headline-
-    bearing) slides get a TOC entry and the anchor id it links to.
+    article always shows the whole deck.
     """
     section_parts: list[str] = []
-    toc_items: list[str] = []
-    used_slugs: set[str] = set()
-    entry_number = 0
+    all_refs: list[dict] = []
+    seen_urls: set[str] = set()
 
-    for spec, path in zip(specs, spec_paths):
+    for index, (spec, path) in enumerate(zip(specs, spec_paths), start=1):
         svg = _render_slide_svg(spec, path)
-        is_content = spec.get("pattern", "") not in CHROMELESS
+        is_chromeless = spec.get("pattern", "") in CHROMELESS
+        slug = f"slide-{index:02d}"
 
-        id_attr = ""
-        if is_content:
-            entry_number += 1
-            label = spec.get("headline") or spec.get("title") or f"Slide {entry_number}"
-            base_slug = _slugify(label)
-            slug, suffix = base_slug, 2
-            while slug in used_slugs:
-                slug = f"{base_slug}-{suffix}"
-                suffix += 1
-            used_slugs.add(slug)
-            id_attr = f' id="{esc(slug)}"'
-            toc_items.append(f'<li><a href="#{esc(slug)}">{entry_number}. {esc(label)}</a></li>')
+        label = spec.get("label")
+        label_html = f'<span class="lbl">{esc(label)}</span>' if label else ""
+        meta_html = f'<p class="slide-meta"><span class="num">{index}</span>{label_html}</p>'
+
+        heading = _slide_heading(spec, is_chromeless, index)
+        heading_html = f"<h2>{esc(heading)}</h2>" if heading else ""
+
+        head_html = f'<header class="slide-head">{meta_html}{heading_html}</header>'
+        figure_html = f'<figure class="slide-figure">\n{svg}\n</figure>'
 
         notes_html = ""
         paragraphs = notes_paragraphs(spec.get("notes"))
@@ -225,22 +331,86 @@ def _build_sections(specs: list[dict], spec_paths: list[Path]) -> tuple[str, str
             paras_html = "".join(f"<p>{esc(p)}</p>" for p in paragraphs)
             notes_html = f'<div class="notes">{paras_html}</div>'
 
+        refs = _normalize_refs(spec.get("refs"))
+        refs_html = ""
+        if refs:
+            refs_html = (
+                '<aside class="slide-refs">'
+                f'<p class="slide-refs-label">{esc(REFS_LABEL[lang])}</p>'
+                f"{_render_ref_list(refs)}"
+                "</aside>"
+            )
+            for ref in refs:
+                if ref["url"] not in seen_urls:
+                    seen_urls.add(ref["url"])
+                    all_refs.append(ref)
+
         section_parts.append(
-            f'<section class="slide-block"{id_attr}>'
-            f'<figure class="slide-figure">\n{svg}\n</figure>'
+            f'<article class="slide-block" id="{slug}">'
+            f"{head_html}"
+            f"{figure_html}"
             f"{notes_html}"
-            "</section>"
+            f"{refs_html}"
+            "</article>"
         )
 
-    toc_html = ""
-    if toc_items:
-        toc_html = (
-            '<nav class="toc" aria-label="Contents">'
-            '<p class="toc-label">Contents</p>'
-            f"<ol>{''.join(toc_items)}</ol>"
-            "</nav>"
-        )
-    return "\n".join(section_parts), toc_html
+    return "\n".join(section_parts), all_refs
+
+
+# ---------------------------------------------------------------------------
+# Hero, aggregated links, footer
+# ---------------------------------------------------------------------------
+
+SLIDE_COUNT_TEXT = {
+    "en": lambda n: f"{n} slide" if n == 1 else f"{n} slides",
+    "ja": lambda n: f"全 {n} スライド",
+}
+AUTHOR_PREFIX = {"en": "Author: ", "ja": "著者："}
+REFS_LABEL = {"en": "Links", "ja": "関連リンク"}
+ALL_LINKS_TITLE = {"en": "All links", "ja": "参考リンク一覧"}
+FOOTER_GENERATED = {
+    "en": "Generated by the Strategy Consulting Visualization skill.",
+    "ja": "Strategy Consulting Visualization スキルで生成。",
+}
+
+
+def _hero_html(title: str, lead: str, series: str, cover_meta: dict, slide_count: int, lang: str) -> str:
+    kicker_html = f'<p class="kicker">{esc(series)}</p>' if series else ""
+    lead_html = f'<p class="lead">{esc(lead)}</p>' if lead else ""
+
+    chips = [f'<span class="chip">{esc(SLIDE_COUNT_TEXT[lang](slide_count))}</span>']
+    if cover_meta.get("presenter"):
+        chips.append(f'<span class="chip">{AUTHOR_PREFIX[lang]}{esc(cover_meta["presenter"])}</span>')
+    if cover_meta.get("date"):
+        chips.append(f'<span class="chip">{esc(cover_meta["date"])}</span>')
+    meta_row_html = f'<div class="meta-row">{"".join(chips)}</div>'
+
+    return (
+        '<header class="hero">'
+        f"{kicker_html}"
+        f"<h1>{esc(title)}</h1>"
+        f"{lead_html}"
+        f"{meta_row_html}"
+        "</header>"
+    )
+
+
+def _bibliography_html(all_refs: list[dict], lang: str) -> str:
+    """The aggregated "All links" / "参考リンク一覧" section after the last
+    slide -- every ref collected across the deck, in slide order, deduped by
+    URL. Omitted entirely when no slide carried any refs."""
+    if not all_refs:
+        return ""
+    return (
+        '<section class="bibliography" id="all-links">'
+        f"<h2>{esc(ALL_LINKS_TITLE[lang])}</h2>"
+        f"{_render_ref_list(all_refs)}"
+        "</section>"
+    )
+
+
+def _footer_html(title: str, lang: str) -> str:
+    return f"<footer><p>{esc(title)} &middot; {esc(FOOTER_GENERATED[lang])}</p></footer>"
 
 
 # ---------------------------------------------------------------------------
@@ -248,13 +418,11 @@ def _build_sections(specs: list[dict], spec_paths: list[Path]) -> tuple[str, str
 # ---------------------------------------------------------------------------
 
 STYLE = """
-/* Reading layer, sharing scripts/build_html_report.py's mechanics: the deck
-   read top-to-bottom as one article. Each slide's SVG runs the full ~980px
-   column (an "exhibit"); its narration sits below on a capped 720px
-   reading measure. Section rhythm from hairlines and whitespace only -- no
-   boxes, no left accent bars. The TOC is a sticky rail on wide screens,
-   otherwise the same hairline band build_html_report.py uses -- never a
-   third TOC style. */
+/* Paper-first reading layer matching the M3-series article format (see the
+   v2.4.0 addendum): a single 680px column, no side rail, no navy band --
+   just a hero, then each slide's figure and prose, in one linear scroll.
+   The skill's own skin throughout: navy as the one accent, Georgia serif
+   headings, hairlines, no boxes, no left accent bars. */
 :root {
   color-scheme: light;
   --navy: #15296B;
@@ -262,8 +430,6 @@ STYLE = """
   --body-ink: #1F2937;
   --muted: #6B7280;
   --rule: #D1D5DB;
-  --rule-strong: #9CA3AF;
-  --measure: 720px;
   --serif: Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
   --sans: 'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif;
 }
@@ -276,127 +442,94 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
+  /* Progressive enhancements from the reference: inert on browsers that
+     don't support them, harmless everywhere, never load-bearing. */
+  text-wrap: pretty;
+  word-break: auto-phrase;
 }
 body.lang-ja { line-height: 1.9; font-feature-settings: 'palt'; }
-h1 { color: var(--ink); font-family: var(--serif); font-weight: bold; }
+h1, h2 { font-family: var(--serif); font-weight: normal; color: var(--ink); }
 
-.title-band { background: var(--navy); color: #FFFFFF; }
-.title-band-inner { max-width: 1220px; margin: 0 auto; padding: 72px 32px 48px; }
-.title-band h1 { font-size: 42px; font-weight: normal; color: #FFFFFF; line-height: 1.25; max-width: 780px; text-wrap: balance; }
-.title-band .subtitle { margin-top: 14px; font-size: 18px; font-weight: normal; color: #E5E7EB; max-width: 720px; }
-.title-band .meta { margin-top: 24px; font-size: 14px; color: #E5E7EB; letter-spacing: 0.02em; }
+.wrap { max-width: 680px; margin: 0 auto; padding: clamp(40px, 7vw, 72px) clamp(20px, 5vw, 28px) 96px; }
 
-.doc { max-width: 1044px; margin: 0 auto; padding: 56px 32px 96px; }
-.doc-main { min-width: 0; }
+.hero { padding-bottom: 28px; margin-bottom: 8px; border-bottom: 1px solid var(--ink); }
+.hero .kicker { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+.hero h1 { font-size: clamp(1.6rem, 4.2vw, 2rem); line-height: 1.35; letter-spacing: 0.01em; }
+.hero .lead { margin-top: 16px; color: var(--muted); font-size: 1rem; max-width: 56ch; line-height: 1.75; }
+.hero .meta-row { margin-top: 18px; font-size: 13px; color: var(--muted); letter-spacing: 0.02em; }
+.hero .meta-row .chip { display: inline; }
+.hero .meta-row .chip + .chip::before { content: " · "; }
 
-.toc { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); padding: 20px 0; margin-bottom: 56px; }
-.toc .toc-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-.toc ol { list-style: none; padding-left: 0; }
-.toc li { margin: 4px 0; }
-.toc a { color: var(--body-ink); text-decoration: none; font-size: 15px; }
-.toc a:hover { color: var(--navy); }
-.toc a.active { color: var(--navy); font-weight: 600; }
+.slide-block { padding: 40px 0; border-top: 1px solid var(--rule); }
+.slide-block:first-of-type { border-top: none; padding-top: 0; }
+.slide-head { margin-bottom: 18px; }
+.slide-meta { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.slide-meta .num { color: var(--navy); margin-right: 0.6em; }
+.slide-head h2 { font-size: 1.2rem; line-height: 1.5; }
 
-.slide-block { margin: 0 0 56px; }
-.slide-block:last-child { margin-bottom: 0; }
-.slide-figure { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 20px 0; margin: 0; }
+.slide-figure { margin: 0 0 24px; border: 1px solid var(--rule); }
 .slide-figure svg { display: block; width: 100%; height: auto; }
-.notes { max-width: var(--measure); margin-top: 20px; }
-.notes p { margin: 12px 0; }
-.notes p:first-child { margin-top: 0; }
 
-/* Wide screens: the TOC becomes a sticky rail, same mechanics as build_html_report.py. */
-@media (min-width: 1240px) {
-  .doc:has(nav.toc) { max-width: 1302px; display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 72px; align-items: start; }
-  .doc:has(nav.toc) .doc-main { grid-column: 1; grid-row: 1; }
-  .doc:has(nav.toc) .toc {
-    grid-column: 2; grid-row: 1;
-    position: sticky; top: 40px;
-    border-top: none; border-bottom: none;
-    border-left: 1px solid var(--rule);
-    padding: 4px 0 4px 28px;
-    margin: 0;
-    max-height: calc(100vh - 80px);
-    overflow-y: auto;
-  }
-}
+.notes p { margin: 0 0 16px; font-size: 16px; }
+.notes p:first-child { margin-top: 0; }
+.notes p:last-child { margin-bottom: 0; }
+
+.slide-refs { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.slide-refs-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.ref-list { margin: 0; padding-left: 1.15em; list-style: disc; }
+.ref-list li { margin: 0.35em 0; font-size: 0.9rem; line-height: 1.55; }
+.ref-list a { color: var(--navy); text-decoration: none; font-weight: 600; word-break: break-all; }
+.ref-list a:hover { text-decoration: underline; }
+
+.bibliography { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--ink); }
+.bibliography h2 { font-size: 1.05rem; margin-bottom: 14px; }
+.bibliography .ref-list li { font-size: 0.92rem; }
+
+footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 12px; color: var(--muted); }
 
 @media (max-width: 640px) {
-  .title-band-inner { padding: 40px 20px 28px; }
-  .title-band h1 { font-size: 32px; }
-  .doc { padding: 32px 16px 64px; }
+  .wrap { padding: 32px 16px 64px; }
 }
 
 @media print {
-  @page { size: A4; margin: 20mm 18mm; }
-  html, body { background: #FFFFFF; font-size: 10.5pt; line-height: 1.65; }
-  .title-band {
-    -webkit-print-color-adjust: exact; print-color-adjust: exact;
-    min-height: 257mm; box-sizing: border-box;
-    display: flex; flex-direction: column; justify-content: center;
-    break-after: page; page-break-after: always;
-  }
-  .doc { display: block; max-width: none; padding: 0; }
-  .notes { max-width: none; }
-  .toc {
-    position: static; border-left: none;
-    border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong);
-    padding: 20px 0; margin: 0 0 32px;
-  }
-  /* Keep a slide's figure from splitting across a page break; the notes
-     below it may still flow onto the next page -- this is a continuous
-     read, not a one-slide-per-page script (see build_speaker_script.py). */
-  .slide-figure { break-inside: avoid; page-break-inside: avoid; }
+  @page { size: A4 portrait; margin: 18mm; }
+  html, body { background: #FFFFFF; font-size: 10.5pt; line-height: 1.6; }
+  .wrap { max-width: none; padding: 0; }
+  /* Keep a slide's whole block (meta, heading, figure, prose, refs) from
+     splitting across a page break; nothing forces a page break between
+     slides -- this is a continuous read, not a one-slide-per-page script
+     (see scripts/build_speaker_script.py for that). */
+  .slide-block { break-inside: avoid; page-break-inside: avoid; }
   p { orphans: 3; widows: 3; }
 }
 """
 
-TOC_SCRIPT = """
-(function () {
-  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
-  if (!links.length || !window.IntersectionObserver) return;
-  var targets = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      var index = targets.indexOf(entry.target);
-      if (index === -1) return;
-      if (entry.isIntersecting) {
-        links.forEach(function (l) { l.classList.remove('active'); });
-        links[index].classList.add('active');
-      }
-    });
-  }, { rootMargin: '0px 0px -70% 0px' });
-  targets.forEach(function (t) { if (t) observer.observe(t); });
-})();
-"""
 
-
-def build_article(spec_paths: list[Path], title: str, subtitle: str, lang: str) -> str:
+def build_article(
+    spec_paths: list[Path],
+    title: str,
+    lead: str,
+    lang: str,
+    series: str = "",
+) -> str:
     """Build the article HTML from an ordered list of slide spec paths.
 
-    ``title``/``subtitle``/``lang`` are already resolved by the caller (CLI
-    override vs. manifest fallback) -- this function only assembles them.
+    ``title``/``lead``/``lang``/``series`` are already resolved by the
+    caller (CLI override vs. manifest fallback) -- this function only
+    assembles them. ``lead`` is the hero's lead paragraph (the manifest's
+    optional ``lead`` key, or ``description`` as a fallback for older
+    manifests); ``series`` is the hero's optional uppercase kicker line.
     """
     lang = lang if lang in ("en", "ja") else "en"
     specs = [_load_spec(path) for path in spec_paths]
-    sections_html, toc_html = _build_sections(specs, spec_paths)
+    sections_html, all_refs = _build_sections(specs, spec_paths, lang)
 
-    cover_meta = _cover_meta_html(specs)
-    meta_html = f'<p class="meta">{cover_meta}</p>' if cover_meta else ""
-    subtitle_html = f'<p class="subtitle">{esc(subtitle)}</p>' if subtitle else ""
-
-    title_band = (
-        '<header class="title-band">'
-        '<div class="title-band-inner">'
-        f"<h1>{esc(title)}</h1>"
-        f"{subtitle_html}"
-        f"{meta_html}"
-        "</div>"
-        "</header>"
-    )
+    cover_meta = _cover_meta(specs)
+    hero_html = _hero_html(title, lead, series, cover_meta, len(specs), lang)
+    bibliography_html = _bibliography_html(all_refs, lang)
+    footer_html = _footer_html(title, lang)
 
     body_class = ' class="lang-ja"' if lang == "ja" else ""
-    script_html = f"<script>{TOC_SCRIPT}</script>" if toc_html else ""
 
     return f"""<!DOCTYPE html>
 <html lang="{lang}">
@@ -407,14 +540,14 @@ def build_article(spec_paths: list[Path], title: str, subtitle: str, lang: str) 
 <style>{STYLE}</style>
 </head>
 <body{body_class}>
-{title_band}
-<main class="doc">
-{toc_html}
-<div class="doc-main">
+<div class="wrap">
+{hero_html}
+<main class="doc-main">
 {sections_html}
-</div>
 </main>
-{script_html}
+{bibliography_html}
+{footer_html}
+</div>
 </body>
 </html>
 """
@@ -449,10 +582,11 @@ def main() -> None:
     base = manifest_path.parent
     spec_paths = [base / p for p in slides]
     title = args.title or manifest.get("title", "Untitled")
-    subtitle = manifest.get("description", "")
+    lead = manifest.get("lead") or manifest.get("description", "")
+    series = manifest.get("series", "")
 
     try:
-        html = build_article(spec_paths, title, subtitle, args.lang)
+        html = build_article(spec_paths, title, lead, args.lang, series=series)
     except ArticleBuildError as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         raise SystemExit(1)

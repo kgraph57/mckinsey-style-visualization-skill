@@ -9,7 +9,7 @@ AIエージェントに載せるひとつのスキルで、メモ・数値・文
 Python 3 標準ライブラリのみ。**依存ゼロ・APIキー不要・ネットワーク通信なし。**
 
 [![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/badge/Release-v2.3.1-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.3.1)
+[![Release](https://img.shields.io/badge/Release-v2.4.0-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.4.0)
 
 [English](README.md) | 日本語
 
@@ -143,16 +143,17 @@ python3 scripts/build_speaker_script.py --manifest my-deck/deck.json -o my-deck/
 
 ## デッキを記事として読む（縦スクロール版）
 
-同じ `notes` フィールドで、読み物モードのビルドもできます: デッキ全体を縦に並べ、各スライドのSVGの下にnotesを地の文として続ける — クリックで1枚ずつめくるのではなく、記事として上から下まで読めるデッキです。
+同じ `notes` フィールドで、読み物モードのビルドもできます: デッキ全体を約680px幅の1カラムに縦に並べ、各スライドのSVGの下にnotesを地の文として続ける — サイドナビ付きの文書ではなく、実際のM3連載記事のような紙面優先のレイアウトです。
 
 ```bash
 python3 scripts/build_html_article.py --manifest my-deck/deck.json -o my-deck/article.html --lang ja
 ```
 
-- 全スライドがマニフェスト順に、約980px幅の読み物カラムで表示され、下に720px幅の本文欄でnotesが続きます
+- 冒頭はヒーロー: マニフェストの `series` キーから大文字のキッカー（任意）、タイトル、`lead`（任意。無ければ後方互換で `description` を使用）からリード文、カバースライドから著者・日付・全スライド数のメタチップ
+- 全スライドがマニフェスト順に、680px幅のカラムに1つの `<article>` として表示されます（番号+任意の `label` → 見出し → SVG → notes地の文）。このモードに目次（Contents）はなく、上から下まで一本道で読みます
 - notesがないスライドは枠だけ表示 — デッキをめくるように、記事でも全スライドを省略せず表示します
-- 「目次（Contents）」は本文スライドの見出しから自動生成（カバー・セクション区切り・裏表紙は目次から省くが本文には表示）。広い画面ではスティッキーな右カラムに
-- `--title` でマニフェストのタイトルを上書き可能。外部リクエストゼロ
+- スライドごとの任意フィールド `refs`（`[{"label": ..., "url": ...}]`）はnotesの下に「関連リンク」として表示され、URLをキーに重複排除した上で最後の「参考リンク一覧」に集約されます。http(s)/mailto以外のURLはリンク化されません
+- `--title` でマニフェストのタイトルを上書き可能。外部リクエストは関連リンク自身の`href`を除きゼロ
 
 コミット済みデモ: [examples/demo-article.html](examples/demo-article.html)（[templates/decks/board-update/deck.json](templates/decks/board-update/deck.json)からビルド）。
 

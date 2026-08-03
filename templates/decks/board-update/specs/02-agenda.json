@@ -1,5 +1,6 @@
 {
   "pattern": "agenda",
+  "label": "Agenda",
   "headline": "Four topics decide today's capacity vote",
   "items": [
     { "title": "Growth", "detail": "Where the ARR and logo gains came from" },

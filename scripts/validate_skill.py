@@ -235,7 +235,7 @@ def validate_manifest() -> None:
     expected = {
         "name": "strategy-consulting-visualization",
         "display_name": "Strategy Consulting Visualization Skill",
-        "version": "2.3.1",
+        "version": "2.4.0",
         "license": "MIT",
         "entrypoint": "SKILL.md",
     }
@@ -399,7 +399,11 @@ def validate_demo_article() -> None:
     manifest_path = ROOT / "templates" / "decks" / "board-update" / "deck.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     spec_paths = [manifest_path.parent / p for p in manifest["slides"]]
-    fresh = module.build_article(spec_paths, manifest.get("title", "Untitled"), manifest.get("description", ""), "en")
+    lead = manifest.get("lead") or manifest.get("description", "")
+    series = manifest.get("series", "")
+    fresh = module.build_article(
+        spec_paths, manifest.get("title", "Untitled"), lead, "en", series=series
+    )
     committed = (ROOT / "examples" / "demo-article.html").read_text(encoding="utf-8")
     if fresh != committed:
         fail(
