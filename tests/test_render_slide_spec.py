@@ -189,6 +189,37 @@ class GraphicalIntegrityTests(unittest.TestCase):
         for line in lines:
             self.assertLessEqual(renderer._text_width(line), 64)
 
+    def test_wrap_breaks_japanese_at_phrase_boundaries(self) -> None:
+        # The real offense this guards against: 「…成長を規定す/る制約…」 —
+        # a mid-verb break. With boundary backtracking the break lands after
+        # the particle を instead, and no character is lost.
+        text = "需要ではなく処理能力が、第4四半期の成長を規定する制約条件になっている"
+        for width in (44, 48, 52):
+            lines = renderer.wrap(text, width)
+            self.assertEqual("".join(lines), text, f"content lost at width {width}")
+            for line in lines:
+                self.assertNotIn("規定す", line[-3:], f"width {width}: mid-word break {line!r}")
+
+    def test_wrap_keeps_katakana_words_intact(self) -> None:
+        # Narrowest width = 16 units, the longest katakana run in the text
+        # (オンボーディング); below that a run cannot physically fit on one
+        # line and the overflow hard-break is the correct fallback.
+        text = "オンボーディング能力がエンタープライズの成長を規定する"
+        for width in range(16, 40, 2):
+            lines = renderer.wrap(text, width)
+            self.assertEqual("".join(lines), text)
+            for a, b in zip(lines, lines[1:]):
+                boundary_split = renderer._is_katakana(a[-1]) and renderer._is_katakana(b[0])
+                self.assertFalse(boundary_split, f"width {width}: katakana split {a!r}|{b!r}")
+
+    def test_wrap_never_ends_a_line_with_an_opening_bracket(self) -> None:
+        text = "承認事項は次の2点である「増強投資」と「価格改定」の実施"
+        for width in range(10, 40, 2):
+            lines = renderer.wrap(text, width)
+            self.assertEqual("".join(lines), text)
+            for line in lines[:-1]:
+                self.assertNotIn(line[-1], renderer.KINSOKU_TAIL, f"width {width}: opener at line end {line!r}")
+
     def test_wrap_never_starts_a_line_with_closing_punctuation(self) -> None:
         # 行頭禁則: closing punctuation hangs off the previous line instead
         # of starting its own, at every width where it would otherwise land

@@ -175,6 +175,19 @@ Six patterns are deck furniture rather than charts (see `references/visualizatio
 
 The conventional shape a full deck follows: `cover` → `agenda` → content slides (with `section_divider` marking each act boundary) → `closing` → `end_cover`. Not every deck needs every structural pattern, but a `section_divider` with no corresponding `agenda` entry, or a `closing` with no `cover`, reads as an unfinished deck rather than a deliberate one.
 
+## Word Budget
+
+Slides carry claims; prose belongs in the report mode. When text does not
+fit, the fix is fewer words or another slide — never smaller type (the type
+tokens are floors, not suggestions).
+
+- Headline: one proposition, target 40 half-width units or less (about 20
+  Japanese characters). Never two claims joined by a conjunction.
+- Bullets, takeaways, next-step actions: aim for one line at body size; two
+  lines is the ceiling. Sub-bullets: one line.
+- summary_strip: proof and implication each two lines or less at column width.
+- Agenda details, owner/timing metas: a phrase, not a sentence.
+
 ## Ink Discipline
 
 Every mark must carry information (data-ink rule) — with no exceptions. There is no sanctioned decorative motif: the navy "kicker" bar that used to sit above every headline carried no information and was removed (2026-08-03); the headline itself anchors the slide, and hierarchy comes from typography and position alone. Concretely, this rules out: any decorative bar, horizontal or vertical (a kicker stroke above a headline, a colored left-edge accent bar on a KPI card — `kpi_scorecard` reads status through the trend text color instead); a vertical divider line between `summary_strip` columns (whitespace does that job); and a `GREY_BORDER` stroke paired with a `GREY_FILL` fill on any bar or box (`gap`, `before_after`, `distribution`, `gantt`, `process_flow` — see Chart Rules).

@@ -173,7 +173,19 @@ def _tokens(text: str) -> list[tuple[str, bool]]:
     for chunk in str(text).split():
         first_in_chunk = True
         run = ""
+        kata = ""
         for char in chunk:
+            if _is_katakana(char):
+                # Katakana loanwords never break mid-word (「オンボーディ/ング」
+                # is a typographic defect) — a run wraps as one token.
+                if run:
+                    tokens.append((run, first_in_chunk))
+                    run, first_in_chunk = "", False
+                kata += char
+                continue
+            if kata:
+                tokens.append((kata, first_in_chunk))
+                kata, first_in_chunk = "", False
             if _char_width(char) == 2:
                 if run:
                     tokens.append((run, first_in_chunk))
@@ -182,18 +194,50 @@ def _tokens(text: str) -> list[tuple[str, bool]]:
                 first_in_chunk = False
             else:
                 run += char
-        if run:
+        if kata:
+            tokens.append((kata, first_in_chunk))
+        elif run:
             tokens.append((run, first_in_chunk))
     return tokens
+
+
+def _is_katakana(char: str) -> bool:
+    """Fullwidth katakana and the long-vowel mark; the middle dot (・)
+    stays out so it remains a legitimate break point between words."""
+    return ("ァ" <= char <= "ヺ") or char == "ー"
 
 
 # Line-start kinsoku (行頭禁則): closing punctuation that must not begin a
 # line. Resolved by hanging it off the previous line (ぶら下がり組) — a
 # one-character overhang reads better than orphaned punctuation.
 KINSOKU_HEAD = "。、．，）」』】〉》〕！？"
+# Line-end kinsoku (行末禁則): opening brackets that must not end a line —
+# they move down to rejoin what they open.
+KINSOKU_TAIL = "（「『【〈《〔"
+# Bunsetsu-ish break preference: when a Japanese line has to break, breaking
+# right after one of these (punctuation or a particle) reads as a phrase
+# boundary; breaking mid-word (「規定す/る」) is a defect. Heuristic, not
+# morphology — but particles ARE where Japanese phrases end, and the
+# backtrack is capped so a boundary-poor line still fills its width.
+_BREAK_AFTER = "、。．，）」』】〉》〕！？：；・のはがをにへとでも"
+
+
+def _prefer_boundary(line: str, min_width: int) -> tuple[str, str]:
+    """Split a full line at the rightmost phrase boundary that keeps the
+    line at least min_width wide. Returns (line, carry-to-next-line);
+    carry is empty when no acceptable boundary exists (line stays as-is)."""
+    for k in range(len(line) - 1, 0, -1):
+        if line[k - 1] in _BREAK_AFTER and _text_width(line[:k]) >= min_width:
+            return line[:k], line[k:]
+    return line, ""
 
 
 def _apply_kinsoku(lines: list[str]) -> list[str]:
+    # Tail pass first: an opener at a line end moves down to what it opens.
+    for i in range(len(lines) - 1):
+        while lines[i] and lines[i][-1] in KINSOKU_TAIL:
+            lines[i + 1] = lines[i][-1] + lines[i + 1]
+            lines[i] = lines[i][:-1]
     for i in range(1, len(lines)):
         moved = ""
         while lines[i] and lines[i][0] in KINSOKU_HEAD:
@@ -219,8 +263,12 @@ def wrap(text: str, width: int, max_lines: int = 0) -> list[str]:
     for token, needs_space in _tokens(text):
         candidate = f"{current} {token}" if (current and needs_space) else f"{current}{token}"
         if _text_width(candidate) > width and current:
-            lines.append(current)
-            current = token
+            # Break at a phrase boundary when one exists in the last 40% of
+            # the line (bunsetsu-ish wrapping); the carry rejoins the next
+            # line so no character is lost.
+            head, carry = _prefer_boundary(current, max(int(width * 0.6), 1))
+            lines.append(head)
+            current = f"{carry} {token}" if (carry and needs_space) else f"{carry}{token}"
         else:
             current = candidate
         while _text_width(current) > width:
