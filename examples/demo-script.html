@@ -24,7 +24,7 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-.page { max-width: 760px; margin: 0 auto; padding: 48px 32px; border-bottom: 1px solid var(--rule); }
+.page { max-width: 1160px; margin: 0 auto; padding: 48px 32px; border-bottom: 1px solid var(--rule); }
 .page:last-child { border-bottom: none; }
 
 /* Cover: a navy band for the script itself, in the report builder's own
@@ -41,8 +41,10 @@ body {
 
 .page-head { font-size: 13px; color: var(--muted); letter-spacing: 0.02em; margin-bottom: 20px; }
 
+/* Slide left, narration right -- the field-tested presenter layout
+   (current slide on the left, the script as the hero on the right). */
+.duo { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(300px, 1fr); gap: 44px; align-items: start; }
 .script-slide {
-  width: 62%; margin: 0 auto 28px;
   border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
   padding: 14px 0;
 }
@@ -53,20 +55,24 @@ body {
 .notes p.no-notes { color: var(--muted); font-style: italic; }
 body.lang-ja .notes p { line-height: 1.9; font-feature-settings: 'palt'; }
 
-@media (max-width: 640px) {
+@media (max-width: 900px) {
   .page { padding: 32px 20px; }
   .cover-inner { padding: 64px 20px; }
-  .script-slide { width: 100%; }
+  .duo { display: block; }
+  .script-slide { margin-bottom: 24px; }
 }
 
 @media print {
-  @page { size: A4; margin: 14mm; }
+  /* Landscape so the slide (left) and the script (right) share the page
+     the same way they share the presenter screen. */
+  @page { size: A4 landscape; margin: 12mm; }
   html, body { background: #FFFFFF; }
   .page { max-width: none; margin: 0; padding: 0; border-bottom: none; break-after: page; page-break-after: always; }
   .page:last-child { break-after: auto; page-break-after: auto; }
+  .duo { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10mm; }
   .cover-page {
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
-    min-height: 269mm; box-sizing: border-box;
+    min-height: 182mm; box-sizing: border-box;
     display: flex; align-items: center;
   }
   .cover-inner { max-width: none; padding: 0; width: 100%; }
@@ -77,14 +83,14 @@ body.lang-ja .notes p { line-height: 1.9; font-feature-settings: 'palt'; }
 </head>
 <body class="lang-ja">
 <section class="page cover-page"><div class="cover-inner"><p class="cover-kicker">発表原稿</p><h1>第3四半期 取締役会アップデート — デモデック</h1><p class="cover-date">2026年10月</p></div></section>
-<section class="page slide-page"><p class="page-head">1 / 9 &middot; 第3四半期 取締役会アップデート</p><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="第3四半期 取締役会アップデート">
+<section class="page slide-page"><p class="page-head">1 / 9 &middot; 第3四半期 取締役会アップデート</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="第3四半期 取締役会アップデート">
   <rect x="0.0" y="0.0" width="1280.0" height="720.0" fill="#15296B" stroke="none"/>
   <text x="80.0" y="264.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="54" fill="#FFFFFF" font-weight="normal" text-anchor="start">第3四半期 取締役会アップデート</text>
   <text x="80.0" y="338.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#E5E7EB" font-weight="normal" text-anchor="start">成長状況と稼働体制の説明</text>
   <text x="80.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">経営企画室 · 2026年10月</text>
   <text x="1200.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#E5E7EB" font-weight="normal" text-anchor="end">社外秘</text>
 </svg>
-</figure><div class="notes"><p>本日はお集まりいただきありがとうございます。第3四半期の成長状況と、それを支える稼働体制についてご報告します。結論から申し上げると、成長そのものは順調ですが、その先を支えるオンボーディング体制への投資判断を本日お願いしたいと考えています。</p></div></section><section class="page slide-page"><p class="page-head">2 / 9 &middot; 本日は4つの論点で稼働体制への投資判断を仰ぎます</p><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="本日は4つの論点で稼働体制への投資判断を仰ぎます">
+</figure><div class="notes"><p>本日はお集まりいただきありがとうございます。第3四半期の成長状況と、それを支える稼働体制についてご報告します。結論から申し上げると、成長そのものは順調ですが、その先を支えるオンボーディング体制への投資判断を本日お願いしたいと考えています。</p></div></div></section><section class="page slide-page"><p class="page-head">2 / 9 &middot; 本日は4つの論点で稼働体制への投資判断を仰ぎます</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="本日は4つの論点で稼働体制への投資判断を仰ぎます">
   <rect width="1280" height="720" fill="#FFFFFF"/>
   <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">本日は4つの論点で稼働体制への投資判断を仰ぎます</text>
   <line x1="80.0" y1="208.0" x2="1200.0" y2="208.0" stroke="#D1D5DB"/>
@@ -107,7 +113,7 @@ body.lang-ja .notes p { line-height: 1.9; font-feature-settings: 'palt'; }
   <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
   <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">2</text>
 </svg>
-</figure><div class="notes"><p>本日は4つの論点でお話しします。まず成長の中身、次に新ワークフローの導入状況、そして稼働リスクの所在、最後に本日ご承認いただきたい依頼事項です。この順にご説明していきます。</p></div></section><section class="page slide-page"><p class="page-head">3 / 9 &middot; 成長は本物だが、オンボーディング能力がその先の売上転換速度を規定している</p><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="成長は本物だが、オンボーディング能力がその先の売上転換速度を規定している">
+</figure><div class="notes"><p>本日は4つの論点でお話しします。まず成長の中身、次に新ワークフローの導入状況、そして稼働リスクの所在、最後に本日ご承認いただきたい依頼事項です。この順にご説明していきます。</p></div></div></section><section class="page slide-page"><p class="page-head">3 / 9 &middot; 成長は本物だが、オンボーディング能力がその先の売上転換速度を規定している</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="成長は本物だが、オンボーディング能力がその先の売上転換速度を規定している">
   <rect width="1280" height="720" fill="#FFFFFF"/>
   <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">成長は本物だが、オンボーディング能力がその先の</text>
   <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">売上転換速度を規定している</text>
@@ -139,7 +145,7 @@ body.lang-ja .notes p { line-height: 1.9; font-feature-settings: 'palt'; }
   <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
   <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">3</text>
 </svg>
-</figure><div class="notes"><p>まず全体像です。ARRは前四半期から5億円伸び、エンタープライズ主導の成長は本物だと言えます。一方で導入率も着実に上がっており、需要面の心配はありません。ただし、その先のオンボーディング能力が追いついておらず、これが今四半期最大の論点です。</p></div></section><section class="page slide-page"><p class="page-head">4 / 9 &middot; 成長指標はすべて計画通り、唯一の例外はエンジニアリングの稼働余力</p><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="成長指標はすべて計画通り、唯一の例外はエンジニアリングの稼働余力">
+</figure><div class="notes"><p>まず全体像です。ARRは前四半期から5億円伸び、エンタープライズ主導の成長は本物だと言えます。一方で導入率も着実に上がっており、需要面の心配はありません。ただし、その先のオンボーディング能力が追いついておらず、これが今四半期最大の論点です。</p></div></div></section><section class="page slide-page"><p class="page-head">4 / 9 &middot; 成長指標はすべて計画通り、唯一の例外はエンジニアリングの稼働余力</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="成長指標はすべて計画通り、唯一の例外はエンジニアリングの稼働余力">
   <rect width="1280" height="720" fill="#FFFFFF"/>
   <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">成長指標はすべて計画通り、唯一の</text>
   <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">例外はエンジニアリングの稼働余力</text>
@@ -178,7 +184,7 @@ body.lang-ja .notes p { line-height: 1.9; font-feature-settings: 'palt'; }
   <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
   <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">4</text>
 </svg>
-</figure><div class="notes"><p>主要指標を一つずつご覧いただくと、ARR成長率も新規契約数もNRRも、すべて目標を上回っています。赤信号はエンジニアリングの稼働率とオンボーディング待機件数の2つだけです。裏を返せば、問題の所在は極めて明確だということです。</p></div></section><section class="page slide-page"><p class="page-head">5 / 9 &middot; 新規エンタープライズ契約と既存拡大で+6.3億円、解約1.3億円を差し引いても純増5.0億円</p><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="新規エンタープライズ契約と既存拡大で+6.3億円、解約1.3億円を差し引いても純増5.0億円">
+</figure><div class="notes"><p>主要指標を一つずつご覧いただくと、ARR成長率も新規契約数もNRRも、すべて目標を上回っています。赤信号はエンジニアリングの稼働率とオンボーディング待機件数の2つだけです。裏を返せば、問題の所在は極めて明確だということです。</p></div></div></section><section class="page slide-page"><p class="page-head">5 / 9 &middot; 新規エンタープライズ契約と既存拡大で+6.3億円、解約1.3億円を差し引いても純増5.0億円</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="新規エンタープライズ契約と既存拡大で+6.3億円、解約1.3億円を差し引いても純増5.0億円">
   <rect width="1280" height="720" fill="#FFFFFF"/>
   <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">新規エンタープライズ契約と既存拡大で+6.3億円、</text>
   <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">解約1.3億円を差し引いても純増5.0億円</text>
@@ -209,7 +215,7 @@ body.lang-ja .notes p { line-height: 1.9; font-feature-settings: 'palt'; }
   <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
   <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">5</text>
 </svg>
-</figure><div class="notes"><p>ARRのブリッジをご覧ください。新規エンタープライズ契約で4.2億円、既存顧客の拡大で2.1億円を積み上げた一方、解約で1.3億円を失っています。差し引き5億円の純増ですが、成長が新規獲得と既存拡大の両輪で支えられている点にご注目ください。</p></div></section><section class="page slide-page"><p class="page-head">6 / 9 &middot; 導入率は3四半期連続で上昇し、過半数を大きく超えた</p><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="導入率は3四半期連続で上昇し、過半数を大きく超えた">
+</figure><div class="notes"><p>ARRのブリッジをご覧ください。新規エンタープライズ契約で4.2億円、既存顧客の拡大で2.1億円を積み上げた一方、解約で1.3億円を失っています。差し引き5億円の純増ですが、成長が新規獲得と既存拡大の両輪で支えられている点にご注目ください。</p></div></div></section><section class="page slide-page"><p class="page-head">6 / 9 &middot; 導入率は3四半期連続で上昇し、過半数を大きく超えた</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="導入率は3四半期連続で上昇し、過半数を大きく超えた">
   <rect width="1280" height="720" fill="#FFFFFF"/>
   <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">導入率は3四半期連続で上昇し、過半数を</text>
   <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">大きく超えた</text>
@@ -234,7 +240,7 @@ body.lang-ja .notes p { line-height: 1.9; font-feature-settings: 'palt'; }
   <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
   <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">6</text>
 </svg>
-</figure><div class="notes"><p>新ワークフローの導入率は、前年第4四半期の41%から今四半期は68%まで、3四半期連続で上昇しています。プロダクトへの需要は明らかに強く、問題は導入の広がりではなく、その先の処理能力にあります。</p></div></section><section class="page slide-page"><p class="page-head">7 / 9 &middot; 稼働リスクは3つに集約される</p><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="稼働リスクは3つに集約される">
+</figure><div class="notes"><p>新ワークフローの導入率は、前年第4四半期の41%から今四半期は68%まで、3四半期連続で上昇しています。プロダクトへの需要は明らかに強く、問題は導入の広がりではなく、その先の処理能力にあります。</p></div></div></section><section class="page slide-page"><p class="page-head">7 / 9 &middot; 稼働リスクは3つに集約される</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="稼働リスクは3つに集約される">
   <rect width="1280" height="720" fill="#FFFFFF"/>
   <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">稼働リスクは3つに集約される</text>
   <rect x="80.0" y="214.0" width="6.0" height="6.0" fill="#15296B" stroke="none"/>
@@ -248,7 +254,7 @@ body.lang-ja .notes p { line-height: 1.9; font-feature-settings: 'palt'; }
   <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
   <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">7</text>
 </svg>
-</figure><div class="notes"><p>稼働リスクは3点に集約されます。オンボーディング待機は14件で前四半期の2倍を超え、主因はエンジニアリングチームの稼働率が97%に達していることです。サポート体制自体は健全ですが、増員がなければ第4四半期に同じ問題が再発します。解約率はまだ低いものの、この状態が長引けば悪化するリスクがあります。</p></div></section><section class="page slide-page"><p class="page-head">8 / 9 &middot; 本日、オンボーディング要員の増員を承認しなければ第4四半期の成長は減速する</p><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="本日、オンボーディング要員の増員を承認しなければ第4四半期の成長は減速する">
+</figure><div class="notes"><p>稼働リスクは3点に集約されます。オンボーディング待機は14件で前四半期の2倍を超え、主因はエンジニアリングチームの稼働率が97%に達していることです。サポート体制自体は健全ですが、増員がなければ第4四半期に同じ問題が再発します。解約率はまだ低いものの、この状態が長引けば悪化するリスクがあります。</p></div></div></section><section class="page slide-page"><p class="page-head">8 / 9 &middot; 本日、オンボーディング要員の増員を承認しなければ第4四半期の成長は減速する</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="本日、オンボーディング要員の増員を承認しなければ第4四半期の成長は減速する">
   <rect width="1280" height="720" fill="#FFFFFF"/>
   <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">本日、オンボーディング要員の増員を</text>
   <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">承認しなければ第4四半期の成長は減速する</text>
@@ -274,7 +280,7 @@ body.lang-ja .notes p { line-height: 1.9; font-feature-settings: 'palt'; }
   <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
   <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">8</text>
 </svg>
-</figure><div class="notes"><p>結論として、本日オンボーディング要員の増員を承認いただけなければ、第4四半期の成長は減速します。ご依頼は3点です。今週中に2名の増員承認、契約金額順への待機列の並び替え、そして次回取締役会での稼働率の再確認です。ご審議のほど、よろしくお願いいたします。</p></div></section><section class="page slide-page"><p class="page-head">9 / 9 &middot; ご清聴ありがとうございました</p><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="ご清聴ありがとうございました">
+</figure><div class="notes"><p>結論として、本日オンボーディング要員の増員を承認いただけなければ、第4四半期の成長は減速します。ご依頼は3点です。今週中に2名の増員承認、契約金額順への待機列の並び替え、そして次回取締役会での稼働率の再確認です。ご審議のほど、よろしくお願いいたします。</p></div></div></section><section class="page slide-page"><p class="page-head">9 / 9 &middot; ご清聴ありがとうございました</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="ご清聴ありがとうございました">
   <rect x="0.0" y="0.0" width="1280.0" height="720.0" fill="#15296B" stroke="none"/>
   <text x="80.0" y="264.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="54" fill="#FFFFFF" font-weight="normal" text-anchor="start">ご清聴ありがとうございました</text>
   <text x="80.0" y="338.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#E5E7EB" font-weight="normal" text-anchor="start">質疑応答</text>
@@ -283,6 +289,6 @@ body.lang-ja .notes p { line-height: 1.9; font-feature-settings: 'palt'; }
   <text x="80.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">経営企画室 · 2026年10月</text>
   <text x="1200.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#E5E7EB" font-weight="normal" text-anchor="end">社外秘</text>
 </svg>
-</figure><div class="notes"><p>ご清聴ありがとうございました。ここからは質疑応答とさせていただきます。ご不明な点やご懸念があれば、遠慮なくお申し付けください。</p></div></section>
+</figure><div class="notes"><p>ご清聴ありがとうございました。ここからは質疑応答とさせていただきます。ご不明な点やご懸念があれば、遠慮なくお申し付けください。</p></div></div></section>
 </body>
 </html>

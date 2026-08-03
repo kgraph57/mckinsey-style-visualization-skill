@@ -25,7 +25,9 @@ Notes normalization:
       marker), it is never silently skipped.
 
 Output is a single self-contained HTML file, PRINT-FIRST:
-    - @page A4 portrait, ~14mm margins; one slide per printed page
+    - @page A4 landscape, ~12mm margins; one slide per printed page,
+      slide on the left and the narration on the right (the presenter-view
+      layout: the script is the hero, the slide is the reference)
       (break-after: page on every page except the last, which gets none).
     - A cover page for the script itself: deck title, a "Speaker script" /
       "発表原稿" kicker, and the date pulled from the deck's own cover spec
@@ -144,8 +146,10 @@ def _render_slide_page(index: int, total: int, label: str, svg: str, paragraphs:
     return (
         '<section class="page slide-page">'
         f"{header}"
+        '<div class="duo">'
         f'<figure class="script-slide">{svg}</figure>'
         f'<div class="notes">{notes_html}</div>'
+        "</div>"
         "</section>"
     )
 
@@ -187,7 +191,7 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-.page { max-width: 760px; margin: 0 auto; padding: 48px 32px; border-bottom: 1px solid var(--rule); }
+.page { max-width: 1160px; margin: 0 auto; padding: 48px 32px; border-bottom: 1px solid var(--rule); }
 .page:last-child { border-bottom: none; }
 
 /* Cover: a navy band for the script itself, in the report builder's own
@@ -204,8 +208,10 @@ body {
 
 .page-head { font-size: 13px; color: var(--muted); letter-spacing: 0.02em; margin-bottom: 20px; }
 
+/* Slide left, narration right -- the field-tested presenter layout
+   (current slide on the left, the script as the hero on the right). */
+.duo { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(300px, 1fr); gap: 44px; align-items: start; }
 .script-slide {
-  width: 62%; margin: 0 auto 28px;
   border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
   padding: 14px 0;
 }
@@ -216,20 +222,24 @@ body {
 .notes p.no-notes { color: var(--muted); font-style: italic; }
 body.lang-ja .notes p { line-height: 1.9; font-feature-settings: 'palt'; }
 
-@media (max-width: 640px) {
+@media (max-width: 900px) {
   .page { padding: 32px 20px; }
   .cover-inner { padding: 64px 20px; }
-  .script-slide { width: 100%; }
+  .duo { display: block; }
+  .script-slide { margin-bottom: 24px; }
 }
 
 @media print {
-  @page { size: A4; margin: 14mm; }
+  /* Landscape so the slide (left) and the script (right) share the page
+     the same way they share the presenter screen. */
+  @page { size: A4 landscape; margin: 12mm; }
   html, body { background: #FFFFFF; }
   .page { max-width: none; margin: 0; padding: 0; border-bottom: none; break-after: page; page-break-after: always; }
   .page:last-child { break-after: auto; page-break-after: auto; }
+  .duo { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10mm; }
   .cover-page {
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
-    min-height: 269mm; box-sizing: border-box;
+    min-height: 182mm; box-sizing: border-box;
     display: flex; align-items: center;
   }
   .cover-inner { max-width: none; padding: 0; width: 100%; }

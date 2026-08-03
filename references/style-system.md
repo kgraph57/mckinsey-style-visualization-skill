@@ -175,6 +175,30 @@ Six patterns are deck furniture rather than charts (see `references/visualizatio
 
 The conventional shape a full deck follows: `cover` → `agenda` → content slides (with `section_divider` marking each act boundary) → `closing` → `end_cover`. Not every deck needs every structural pattern, but a `section_divider` with no corresponding `agenda` entry, or a `closing` with no `cover`, reads as an unfinished deck rather than a deliberate one.
 
+## Document Layer (HTML outputs)
+
+The four HTML builders (deck, report, article, speaker script) share one
+design system with the slides. Tokens, so nothing drifts:
+
+| Token | Value | Used by |
+| --- | --- | --- |
+| Reading measure | 720px max-width for body text | report, article prose |
+| Column | report 820px (1220px with sticky TOC rail), article ~980px slides, script 1160px | per builder |
+| Body text | 16px, line-height 1.7 (en) / 1.9 + `palt` (ja) | report, article |
+| Script narration | 20px screen / ~13.5pt print, ja 1.9 | speaker script |
+| Title band | navy `#15296B`, serif title, meta in `#E5E7EB`-class light text | all covers/bands |
+| Rules | hairline `#D1D5DB`, strong `#9CA3AF`; no boxes, no shadows, no radius, no accent bars | all |
+| Exhibit/slide frames | hairline top+bottom, never a full border box | report, article, script |
+| List markers | 6px navy square (nested: 5px grey) | report, article |
+| Links | `#2563EB`, underline as a soft bottom border | report, article |
+| TOC | hairline band; sticky right rail ≥1240px with scroll tracking | report, article |
+| Print | report/article A4 portrait; script A4 landscape (slide left, narration right); deck 16:9 pages | per builder |
+
+Layout rules that repeat across builders: text on the measure, evidence
+(slides, tables) on the full column; section rhythm from hairlines and
+whitespace; chrome (sources, page numbers, classification) stays smallest;
+the Japanese sans stack always lists system faces before Noto Sans JP.
+
 ## Word Budget
 
 Slides carry claims; prose belongs in the report mode. When text does not

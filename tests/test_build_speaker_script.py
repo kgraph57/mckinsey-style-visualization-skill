@@ -254,7 +254,10 @@ class PageStructureTests(unittest.TestCase):
 
     def test_print_layout_is_a4_one_slide_per_page(self) -> None:
         html = builder.STYLE
-        self.assertIn("@page { size: A4; margin: 14mm; }", html)
+        self.assertIn("@page { size: A4 landscape; margin: 12mm; }", html)
+        # Slide left / script right: the side-by-side grid exists on screen
+        # and stays two-column in print.
+        self.assertIn(".duo { display: grid;", html)
         self.assertIn("break-after: page; page-break-after: always;", html)
         # The last page must not force a further break.
         self.assertIn(".page:last-child { break-after: auto; page-break-after: auto; }", html)

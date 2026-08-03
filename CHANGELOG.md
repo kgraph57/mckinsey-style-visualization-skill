@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 2.3.1 - 2026-08-03 - Speaker Script: Slide Left, Script Right
+
+- The speaker script layout now matches how it is actually used at a lectern (verified against a real conference script): the slide sits on the LEFT and the narration on the RIGHT, side by side — on screen and in print. Print switched from A4 portrait to A4 landscape, one slide per page, so the paper page mirrors the presenter screen. Below 900px the pair stacks.
+- `references/style-system.md` gains a "Document Layer (HTML outputs)" token table covering all four HTML builders (deck, report, article, speaker script) — measures, columns, band, rules, list markers, TOC, and per-builder print geometry — so the whole system lives in one document.
+
 ## 2.3.0 - 2026-08-03 - Speaker Script + Deck as Article
 
 Two new outputs from one new field: any slide spec may carry `"notes"` — the spoken narration for that slide. The renderer ignores it (committed SVGs stay byte-identical); two builders consume it.
