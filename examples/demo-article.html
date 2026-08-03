@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Q3 Board Update — demo deck</title>
+<style>
+/* Reading layer, sharing scripts/build_html_report.py's mechanics: the deck
+   read top-to-bottom as one article. Each slide's SVG runs the full ~980px
+   column (an "exhibit"); its narration sits below on a capped 720px
+   reading measure. Section rhythm from hairlines and whitespace only -- no
+   boxes, no left accent bars. The TOC is a sticky rail on wide screens,
+   otherwise the same hairline band build_html_report.py uses -- never a
+   third TOC style. */
+:root {
+  color-scheme: light;
+  --navy: #15296B;
+  --ink: #000000;
+  --body-ink: #1F2937;
+  --muted: #6B7280;
+  --rule: #D1D5DB;
+  --rule-strong: #9CA3AF;
+  --measure: 720px;
+  --serif: Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --sans: 'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: #FFFFFF; }
+body {
+  font-family: var(--sans);
+  color: var(--body-ink);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+body.lang-ja { line-height: 1.9; font-feature-settings: 'palt'; }
+h1 { color: var(--ink); font-family: var(--serif); font-weight: bold; }
+
+.title-band { background: var(--navy); color: #FFFFFF; }
+.title-band-inner { max-width: 1220px; margin: 0 auto; padding: 72px 32px 48px; }
+.title-band h1 { font-size: 42px; font-weight: normal; color: #FFFFFF; line-height: 1.25; max-width: 780px; text-wrap: balance; }
+.title-band .subtitle { margin-top: 14px; font-size: 18px; font-weight: normal; color: #E5E7EB; max-width: 720px; }
+.title-band .meta { margin-top: 24px; font-size: 14px; color: #E5E7EB; letter-spacing: 0.02em; }
+
+.doc { max-width: 1044px; margin: 0 auto; padding: 56px 32px 96px; }
+.doc-main { min-width: 0; }
+
+.toc { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); padding: 20px 0; margin-bottom: 56px; }
+.toc .toc-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.toc ol { list-style: none; padding-left: 0; }
+.toc li { margin: 4px 0; }
+.toc a { color: var(--body-ink); text-decoration: none; font-size: 15px; }
+.toc a:hover { color: var(--navy); }
+.toc a.active { color: var(--navy); font-weight: 600; }
+
+.slide-block { margin: 0 0 56px; }
+.slide-block:last-child { margin-bottom: 0; }
+.slide-figure { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 20px 0; margin: 0; }
+.slide-figure svg { display: block; width: 100%; height: auto; }
+.notes { max-width: var(--measure); margin-top: 20px; }
+.notes p { margin: 12px 0; }
+.notes p:first-child { margin-top: 0; }
+
+/* Wide screens: the TOC becomes a sticky rail, same mechanics as build_html_report.py. */
+@media (min-width: 1240px) {
+  .doc:has(nav.toc) { max-width: 1302px; display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 72px; align-items: start; }
+  .doc:has(nav.toc) .doc-main { grid-column: 1; grid-row: 1; }
+  .doc:has(nav.toc) .toc {
+    grid-column: 2; grid-row: 1;
+    position: sticky; top: 40px;
+    border-top: none; border-bottom: none;
+    border-left: 1px solid var(--rule);
+    padding: 4px 0 4px 28px;
+    margin: 0;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .title-band-inner { padding: 40px 20px 28px; }
+  .title-band h1 { font-size: 32px; }
+  .doc { padding: 32px 16px 64px; }
+}
+
+@media print {
+  @page { size: A4; margin: 20mm 18mm; }
+  html, body { background: #FFFFFF; font-size: 10.5pt; line-height: 1.65; }
+  .title-band {
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    min-height: 257mm; box-sizing: border-box;
+    display: flex; flex-direction: column; justify-content: center;
+    break-after: page; page-break-after: always;
+  }
+  .doc { display: block; max-width: none; padding: 0; }
+  .notes { max-width: none; }
+  .toc {
+    position: static; border-left: none;
+    border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong);
+    padding: 20px 0; margin: 0 0 32px;
+  }
+  /* Keep a slide's figure from splitting across a page break; the notes
+     below it may still flow onto the next page -- this is a continuous
+     read, not a one-slide-per-page script (see build_speaker_script.py). */
+  .slide-figure { break-inside: avoid; page-break-inside: avoid; }
+  p { orphans: 3; widows: 3; }
+}
+</style>
+</head>
+<body>
+<header class="title-band"><div class="title-band-inner"><h1>Q3 Board Update — demo deck</h1><p class="subtitle">Quarterly board update: growth story, KPI scorecard, ARR bridge, and a capacity ask.</p><p class="meta">Operating Team &middot; October 2026</p></div></header>
+<main class="doc">
+<nav class="toc" aria-label="Contents"><p class="toc-label">Contents</p><ol><li><a href="#four-topics-decide-today-s-capacity-vote">1. Four topics decide today's capacity vote</a></li><li><a href="#growth-is-real-but-onboarding-capacity-now-caps-how-fast-bookings-convert-to-revenue">2. Growth is real, but onboarding capacity now caps how fast bookings convert to revenue</a></li><li><a href="#every-growth-metric-is-on-plan-onboarding-capacity-is-the-outlier">3. Every growth metric is on plan; onboarding capacity is the outlier</a></li><li><a href="#new-enterprise-logos-and-expansion-added-6-3m-more-than-offsetting-1-3m-of-churn">4. New enterprise logos and expansion added $6.3M, more than offsetting $1.3M of churn</a></li><li><a href="#workflow-adoption-rose-27-points-in-three-quarters-and-is-still-accelerating">5. Workflow adoption rose 27 points in three quarters and is still accelerating</a></li><li><a href="#delivery-buffer-turns-negative-in-onboarding-by-q3-the-first-real-capacity-risk-this-year">6. Delivery buffer turns negative in onboarding by Q3, the first real capacity risk this year</a></li><li><a href="#approve-the-onboarding-capacity-investment-now-or-q4-growth-slows">7. Approve the onboarding capacity investment now, or Q4 growth slows</a></li></ol></nav>
+<div class="doc-main">
+<section class="slide-block"><figure class="slide-figure">
+<svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Q3 Board Update">
+  <rect x="0.0" y="0.0" width="1280.0" height="720.0" fill="#15296B" stroke="none"/>
+  <text x="80.0" y="264.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="54" fill="#FFFFFF" font-weight="normal" text-anchor="start">Q3 Board Update</text>
+  <text x="80.0" y="338.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#E5E7EB" font-weight="normal" text-anchor="start">Growth, capacity, and the investment decision</text>
+  <text x="80.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">Operating Team · October 2026</text>
+  <text x="1200.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#E5E7EB" font-weight="normal" text-anchor="end">CONFIDENTIAL — ILLUSTRATIVE</text>
+</svg>
+
+</figure><div class="notes"><p>This is the quarterly checkpoint the board uses to weigh growth against the operating constraints behind it. The story this quarter is a good one, but it arrives bundled with a capacity decision that cannot wait for the next meeting.</p></div></section>
+<section class="slide-block" id="four-topics-decide-today-s-capacity-vote"><figure class="slide-figure">
+<svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Four topics decide today's capacity vote">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Four topics decide today's capacity vote</text>
+  <line x1="80.0" y1="208.0" x2="1200.0" y2="208.0" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="296.0" x2="1200.0" y2="296.0" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="384.0" x2="1200.0" y2="384.0" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="472.0" x2="1200.0" y2="472.0" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="560.0" x2="1200.0" y2="560.0" stroke="#D1D5DB"/>
+  <text x="80.0" y="260.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="28" fill="#15296B" font-weight="normal" text-anchor="start">01</text>
+  <text x="134.0" y="260.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">Growth</text>
+  <text x="400.0" y="260.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Where the ARR and logo gains came from</text>
+  <text x="80.0" y="348.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="28" fill="#15296B" font-weight="normal" text-anchor="start">02</text>
+  <text x="134.0" y="348.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">Adoption</text>
+  <text x="400.0" y="348.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">How fast accounts are using the new workflow</text>
+  <text x="80.0" y="436.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="28" fill="#15296B" font-weight="normal" text-anchor="start">03</text>
+  <text x="134.0" y="436.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">Capacity risk</text>
+  <text x="400.0" y="436.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Why onboarding is now the bottleneck</text>
+  <text x="80.0" y="524.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="28" fill="#15296B" font-weight="normal" text-anchor="start">04</text>
+  <text x="134.0" y="524.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">The ask</text>
+  <text x="400.0" y="524.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">What we need approved today</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">Illustrative data — replace with your own metrics.</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">2</text>
+</svg>
+
+</figure><div class="notes"><p>The order here is deliberate: growth and adoption build the case, capacity risk explains the tension underneath it, and the ask closes the loop. Each topic hands off directly into the next, so the constraint is visible well before the request is.</p></div></section>
+<section class="slide-block" id="growth-is-real-but-onboarding-capacity-now-caps-how-fast-bookings-convert-to-revenue"><figure class="slide-figure">
+<svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Growth is real, but onboarding capacity now caps how fast bookings convert to revenue">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Growth is real, but onboarding capacity now caps</text>
+  <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">how fast bookings convert to revenue</text>
+  <text x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">Q3 board summary</text>
+  <text x="1200.0" y="40.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="600" text-anchor="end">CONFIDENTIAL — ILLUSTRATIVE</text>
+  <text x="108.0" y="251.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="bold" text-anchor="start">Growth remains</text>
+  <text x="108.0" y="281.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="bold" text-anchor="start">enterprise-led</text>
+  <text x="108.0" y="321.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">ARR grew from $32M to $37M</text>
+  <text x="108.0" y="345.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">this quarter; enterprise new</text>
+  <text x="108.0" y="369.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">logos accounted for $4.2M of</text>
+  <text x="108.0" y="393.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">the $6.3M gross increase.</text>
+  <text x="108.0" y="430.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">Protect the enterprise</text>
+  <text x="108.0" y="454.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">motion before diversifying</text>
+  <text x="108.0" y="478.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">spend.</text>
+  <text x="481.3" y="251.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="bold" text-anchor="start">Adoption keeps</text>
+  <text x="481.3" y="281.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="bold" text-anchor="start">compounding</text>
+  <text x="481.3" y="321.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Workflow adoption rose from</text>
+  <text x="481.3" y="345.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">41% to 68% of accounts over</text>
+  <text x="481.3" y="369.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">three quarters.</text>
+  <text x="481.3" y="406.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">The product motion scales;</text>
+  <text x="481.3" y="430.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">the constraint has moved</text>
+  <text x="481.3" y="454.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">downstream.</text>
+  <text x="854.7" y="251.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="bold" text-anchor="start">Onboarding capacity is</text>
+  <text x="854.7" y="281.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="bold" text-anchor="start">now the limiter</text>
+  <text x="854.7" y="321.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">14 signed accounts are</text>
+  <text x="854.7" y="345.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">queued for onboarding, more</text>
+  <text x="854.7" y="369.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">than double the prior</text>
+  <text x="854.7" y="393.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">quarter.</text>
+  <text x="854.7" y="430.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">Approve the two additional</text>
+  <text x="854.7" y="454.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">onboarding hires this</text>
+  <text x="854.7" y="478.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">quarter.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">Illustrative data — replace with your own metrics.</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">3</text>
+</svg>
+
+</figure><div class="notes"><p>None of these three points stands alone: growth funds the case for more onboarding capacity, and the adoption curve is what proves the demand is durable rather than a one-quarter spike. The open question is timing, not direction.</p></div></section>
+<section class="slide-block" id="every-growth-metric-is-on-plan-onboarding-capacity-is-the-outlier"><figure class="slide-figure">
+<svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Every growth metric is on plan; onboarding capacity is the outlier">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Every growth metric is on plan; onboarding</text>
+  <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">capacity is the outlier</text>
+  <text x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">Key metrics, Q3 vs. target</text>
+  <rect x="80.0" y="208.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text x="104.0" y="238.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">ARR GROWTH (QOQ)</text>
+  <text x="104.0" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">+15.6%</text>
+  <text x="419.3" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#2563EB" font-weight="600" text-anchor="end">+3.6 pts</text>
+  <text x="104.0" y="342.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: +12%</text>
+  <rect x="461.3" y="208.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text x="485.3" y="238.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">NEW ENTERPRISE LOGOS</text>
+  <text x="485.3" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">9</text>
+  <text x="800.7" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#2563EB" font-weight="600" text-anchor="end">+1</text>
+  <text x="485.3" y="342.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: 8</text>
+  <rect x="842.7" y="208.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text x="866.7" y="238.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">NET REVENUE RETENTION</text>
+  <text x="866.7" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">118%</text>
+  <text x="1182.0" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#2563EB" font-weight="600" text-anchor="end">+3 pts</text>
+  <text x="866.7" y="342.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: 115%</text>
+  <rect x="80.0" y="376.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text x="104.0" y="406.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">ONBOARDING QUEUE</text>
+  <text x="104.0" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">14</text>
+  <text x="419.3" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#B91C1C" font-weight="600" text-anchor="end">+9</text>
+  <text x="104.0" y="510.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: &lt;5</text>
+  <rect x="461.3" y="376.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text x="485.3" y="406.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">ENGINEERING UTILIZATION</text>
+  <text x="485.3" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">97%</text>
+  <text x="800.7" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#B91C1C" font-weight="600" text-anchor="end">+9 pts</text>
+  <text x="485.3" y="510.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: &lt;85%</text>
+  <rect x="842.7" y="376.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text x="866.7" y="406.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">SUPPORT BACKLOG</text>
+  <text x="866.7" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">62</text>
+  <text x="1182.0" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#2563EB" font-weight="600" text-anchor="end">-8</text>
+  <text x="866.7" y="510.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: &lt;80</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Onboarding queue and engineering utilization are the only two metrics in the red this quarter.</title>Onboarding queue and engineering utilization are the only two metrics in the red</text>
+  <text x="80.0" y="660.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Onboarding queue and engineering utilization are the only two metrics in the red this quarter.</title>this quarter.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">Illustrative data — replace with your own metrics.</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">4</text>
+</svg>
+
+</figure><div class="notes"><p>Five of six metrics would normally carry the whole meeting; the two in red are the ones worth lingering on instead. Engineering utilization running hot predates the onboarding queue and helps explain why that queue built up so fast.</p></div></section>
+<section class="slide-block" id="new-enterprise-logos-and-expansion-added-6-3m-more-than-offsetting-1-3m-of-churn"><figure class="slide-figure">
+<svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="New enterprise logos and expansion added $6.3M, more than offsetting $1.3M of churn">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">New enterprise logos and expansion added $6.3M,</text>
+  <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">more than offsetting $1.3M of churn</text>
+  <text x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">ARR bridge, Q2 to Q3</text>
+  <line x1="80.0" y1="560.0" x2="1200.0" y2="560.0" stroke="#374151"/>
+  <text x="70.0" y="564.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="end">0</text>
+  <rect x="137.0" y="310.8" width="110.0" height="249.2" fill="#15296B" stroke="none"/>
+  <text x="192.0" y="300.8" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">$32M</text>
+  <text x="192.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>Q2 ARR</title>Q2 ARR</text>
+  <rect x="361.0" y="278.1" width="110.0" height="32.7" fill="#2563EB" stroke="none"/>
+  <text x="416.0" y="268.1" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">+$4.2M</text>
+  <text x="416.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>New enterprise logos</title>New enterprise logos</text>
+  <line x1="247.0" y1="310.8" x2="361.0" y2="310.8" stroke="#D1D5DB" stroke-dasharray="4 3"/>
+  <rect x="585.0" y="261.7" width="110.0" height="16.4" fill="#2563EB" stroke="none"/>
+  <text x="640.0" y="251.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">+$2.1M</text>
+  <text x="640.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>Existing customer expansion</title>Existing customer</text>
+  <text x="640.0" y="602.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>Existing customer expansion</title>expansion</text>
+  <line x1="471.0" y1="278.1" x2="585.0" y2="278.1" stroke="#D1D5DB" stroke-dasharray="4 3"/>
+  <rect x="809.0" y="261.7" width="110.0" height="10.1" fill="#B91C1C" stroke="none"/>
+  <text x="864.0" y="251.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">−$1.3M</text>
+  <text x="864.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>Churn</title>Churn</text>
+  <line x1="695.0" y1="261.7" x2="809.0" y2="261.7" stroke="#D1D5DB" stroke-dasharray="4 3"/>
+  <line x1="919.0" y1="271.8" x2="1033.0" y2="271.8" stroke="#D1D5DB" stroke-dasharray="4 3"/>
+  <rect x="1033.0" y="271.8" width="110.0" height="288.2" fill="#15296B" stroke="none"/>
+  <text x="1088.0" y="261.8" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">$37M</text>
+  <text x="1088.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>Q3 ARR</title>Q3 ARR</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Net +$5.0M ARR this quarter; enterprise new-logo growth is the main engine.</title>Net +$5.0M ARR this quarter; enterprise new-logo growth is the main engine.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">Illustrative data — replace with your own metrics.</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">5</text>
+</svg>
+
+</figure><div class="notes"><p>The bridge shows this growth is concentrated, not diffuse: a handful of enterprise wins did most of the work. That concentration is good news for durability, but it also means the onboarding bottleneck sits squarely under the highest-value accounts.</p></div></section>
+<section class="slide-block" id="workflow-adoption-rose-27-points-in-three-quarters-and-is-still-accelerating"><figure class="slide-figure">
+<svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Workflow adoption rose 27 points in three quarters and is still accelerating">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Workflow adoption rose 27 points in three</text>
+  <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">quarters and is still accelerating</text>
+  <text x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">Share of accounts on the new workflow</text>
+  <line x1="80.0" y1="560.0" x2="1200.0" y2="560.0" stroke="#374151"/>
+  <text x="70.0" y="564.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="end">0</text>
+  <polyline points="80.0,383.1 453.3,335.7 826.7,296.9 1200.0,266.7" fill="none" stroke="#15296B" stroke-width="3"/>
+  <circle cx="80.0" cy="383.1" r="5" fill="#15296B"/>
+  <text x="80.0" y="365.1" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">41%</text>
+  <text x="80.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle">Q4 last year</text>
+  <circle cx="453.3" cy="335.7" r="5" fill="#15296B"/>
+  <text x="453.3" y="317.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">52%</text>
+  <text x="453.3" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle">Q1</text>
+  <circle cx="826.7" cy="296.9" r="5" fill="#15296B"/>
+  <text x="826.7" y="278.9" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">61%</text>
+  <text x="826.7" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle">Q2</text>
+  <circle cx="1200.0" cy="266.7" r="5" fill="#15296B"/>
+  <text x="1200.0" y="248.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">68%</text>
+  <text x="1200.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle">Q3</text>
+  <text x="80.0" y="196.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Adoption rate</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Momentum supports the growth case; the bottleneck is now onboarding throughput, not demand.</title>Momentum supports the growth case; the bottleneck is now onboarding throughput,</text>
+  <text x="80.0" y="660.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Momentum supports the growth case; the bottleneck is now onboarding throughput, not demand.</title>not demand.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">Illustrative data — replace with your own metrics.</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">6</text>
+</svg>
+
+</figure><div class="notes"><p>A steady three-quarter climb like this answers 'is this durable', not just 'is this working'. It also reframes the capacity conversation: this isn't a spike to wait out, it's the shape of demand going forward.</p></div></section>
+<section class="slide-block" id="delivery-buffer-turns-negative-in-onboarding-by-q3-the-first-real-capacity-risk-this-year"><figure class="slide-figure">
+<svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Delivery buffer turns negative in onboarding by Q3, the first real capacity risk this year">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Delivery buffer turns negative in onboarding by</text>
+  <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Q3, the first real capacity risk this year</text>
+  <text x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">Capacity buffer vs. committed volume, by team and quarter (percentage points)</text>
+  <text x="441.7" y="223.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="middle">Q1</text>
+  <text x="745.0" y="223.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="middle">Q2</text>
+  <text x="1048.3" y="223.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="middle">Q3</text>
+  <text x="80.0" y="276.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start"><title>Sales</title>Sales</text>
+  <rect x="292.0" y="236.0" width="299.3" height="68.0" fill="#737FA6" stroke="none"/>
+  <text x="441.7" y="276.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="600" text-anchor="middle">12pt</text>
+  <rect x="595.3" y="236.0" width="299.3" height="68.0" fill="#969FBC" stroke="none"/>
+  <text x="745.0" y="276.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="600" text-anchor="middle">9pt</text>
+  <rect x="898.7" y="236.0" width="299.3" height="68.0" fill="#B9BFD3" stroke="none"/>
+  <text x="1048.3" y="276.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="600" text-anchor="middle">6pt</text>
+  <text x="80.0" y="348.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start"><title>Onboarding</title>Onboarding</text>
+  <rect x="292.0" y="308.0" width="299.3" height="68.0" fill="#A1A9C4" stroke="none"/>
+  <text x="441.7" y="348.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="600" text-anchor="middle">8pt</text>
+  <rect x="595.3" y="308.0" width="299.3" height="68.0" fill="#F8E8E8" stroke="none"/>
+  <text x="745.0" y="348.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="600" text-anchor="middle">-2pt</text>
+  <rect x="898.7" y="308.0" width="299.3" height="68.0" fill="#CE6060" stroke="none"/>
+  <text x="1048.3" y="348.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="600" text-anchor="middle">-14pt</text>
+  <text x="80.0" y="420.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start"><title>Support</title>Support</text>
+  <rect x="292.0" y="380.0" width="299.3" height="68.0" fill="#505E90" stroke="none"/>
+  <text x="441.7" y="420.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#FFFFFF" font-weight="600" text-anchor="middle">15pt</text>
+  <rect x="595.3" y="380.0" width="299.3" height="68.0" fill="#5B6997" stroke="none"/>
+  <text x="745.0" y="420.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#FFFFFF" font-weight="600" text-anchor="middle">14pt</text>
+  <rect x="898.7" y="380.0" width="299.3" height="68.0" fill="#8A94B5" stroke="none"/>
+  <text x="1048.3" y="420.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="600" text-anchor="middle">10pt</text>
+  <text x="80.0" y="492.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start"><title>Product</title>Product</text>
+  <rect x="292.0" y="452.0" width="299.3" height="68.0" fill="#15296B" stroke="none"/>
+  <text x="441.7" y="492.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#FFFFFF" font-weight="600" text-anchor="middle">20pt</text>
+  <rect x="595.3" y="452.0" width="299.3" height="68.0" fill="#2C3E7A" stroke="none"/>
+  <text x="745.0" y="492.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#FFFFFF" font-weight="600" text-anchor="middle">18pt</text>
+  <rect x="898.7" y="452.0" width="299.3" height="68.0" fill="#384981" stroke="none"/>
+  <text x="1048.3" y="492.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#FFFFFF" font-weight="600" text-anchor="middle">17pt</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Add two onboarding leads before Q4 or the enterprise pipeline queues for a full quarter.</title>Add two onboarding leads before Q4 or the enterprise pipeline queues for a full</text>
+  <text x="80.0" y="660.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Add two onboarding leads before Q4 or the enterprise pipeline queues for a full quarter.</title>quarter.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">Illustrative data — replace with your own metrics.</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">7</text>
+</svg>
+
+</figure><div class="notes"><p>This is the slide that turns a growth story into a decision. Every other team still has buffer; onboarding alone has crossed into negative territory, and that's the constraint the rest of the deck has been building toward.</p></div></section>
+<section class="slide-block" id="approve-the-onboarding-capacity-investment-now-or-q4-growth-slows"><figure class="slide-figure">
+<svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Approve the onboarding capacity investment now, or Q4 growth slows">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Approve the onboarding capacity investment now,</text>
+  <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">or Q4 growth slows</text>
+  <text x="80.0" y="208.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="15" fill="#6B7280" font-weight="600" text-anchor="start">KEY TAKEAWAYS</text>
+  <text x="80.0" y="242.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="26" fill="#15296B" font-weight="bold" text-anchor="start">1</text>
+  <text x="122.0" y="242.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">Enterprise-led growth remains</text>
+  <text x="122.0" y="272.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">strong and durable</text>
+  <text x="80.0" y="348.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="26" fill="#15296B" font-weight="bold" text-anchor="start">2</text>
+  <text x="122.0" y="348.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">Adoption has crossed the majority</text>
+  <text x="122.0" y="378.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">mark across the base</text>
+  <text x="80.0" y="454.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="26" fill="#15296B" font-weight="bold" text-anchor="start">3</text>
+  <text x="122.0" y="454.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">Onboarding capacity, not demand</text>
+  <text x="122.0" y="484.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">or churn, is the binding</text>
+  <text x="122.0" y="514.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">constraint</text>
+  <text x="624.0" y="208.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="15" fill="#6B7280" font-weight="600" text-anchor="start">NEXT STEPS</text>
+  <text x="624.0" y="242.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">Approve two additional onboarding hires</text>
+  <text x="624.0" y="276.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">COO · This week</text>
+  <text x="624.0" y="348.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">Reprioritize the onboarding queue by</text>
+  <text x="624.0" y="378.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">contract value</text>
+  <text x="624.0" y="412.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Onboarding lead · Next two weeks</text>
+  <text x="624.0" y="454.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">Review capacity utilization at the Q4</text>
+  <text x="624.0" y="484.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">board meeting</text>
+  <text x="624.0" y="518.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Operating team · Q4</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Decision requested today: approve two onboarding hires this week.</title>Decision requested today: approve two onboarding hires this week.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">Illustrative data — replace with your own metrics.</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">8</text>
+</svg>
+
+</figure><div class="notes"><p>The three takeaways aren't new information; they're the same facts reordered as a decision. What matters on this slide is what's asked for by name and by owner, not just what's true.</p></div></section>
+<section class="slide-block"><figure class="slide-figure">
+<svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Thank you">
+  <rect x="0.0" y="0.0" width="1280.0" height="720.0" fill="#15296B" stroke="none"/>
+  <text x="80.0" y="264.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="54" fill="#FFFFFF" font-weight="normal" text-anchor="start">Thank you</text>
+  <text x="80.0" y="338.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#E5E7EB" font-weight="normal" text-anchor="start">Questions and discussion</text>
+  <text x="80.0" y="560.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">Operating Team</text>
+  <text x="80.0" y="589.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">ir@example.com</text>
+  <text x="80.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">Operating Team · October 2026</text>
+  <text x="1200.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#E5E7EB" font-weight="normal" text-anchor="end">CONFIDENTIAL — ILLUSTRATIVE</text>
+</svg>
+
+</figure><div class="notes"><p>The ask is intentionally narrow: two hires, timed to unblock the queue before Q4 pressure compounds it. Everything from here is the discussion the board actually needs to have.</p></div></section>
+</div>
+</main>
+<script>
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  if (!links.length || !window.IntersectionObserver) return;
+  var targets = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      var index = targets.indexOf(entry.target);
+      if (index === -1) return;
+      if (entry.isIntersecting) {
+        links.forEach(function (l) { l.classList.remove('active'); });
+        links[index].classList.add('active');
+      }
+    });
+  }, { rootMargin: '0px 0px -70% 0px' });
+  targets.forEach(function (t) { if (t) observer.observe(t); });
+})();
+</script>
+</body>
+</html>

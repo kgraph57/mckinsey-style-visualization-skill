@@ -4,14 +4,51 @@
   "subline": "Key metrics, Q3 vs. target",
   "columns": 3,
   "metrics": [
-    {"label": "ARR GROWTH (QOQ)", "value": "+15.6%", "target": "+12%", "trend": "+3.6 pts", "status": "good"},
-    {"label": "NEW ENTERPRISE LOGOS", "value": "9", "target": "8", "trend": "+1", "status": "good"},
-    {"label": "NET REVENUE RETENTION", "value": "118%", "target": "115%", "trend": "+3 pts", "status": "good"},
-    {"label": "ONBOARDING QUEUE", "value": "14", "target": "<5", "trend": "+9", "status": "risk"},
-    {"label": "ENGINEERING UTILIZATION", "value": "97%", "target": "<85%", "trend": "+9 pts", "status": "risk"},
-    {"label": "SUPPORT BACKLOG", "value": "62", "target": "<80", "trend": "-8", "status": "good"}
+    {
+      "label": "ARR GROWTH (QOQ)",
+      "value": "+15.6%",
+      "target": "+12%",
+      "trend": "+3.6 pts",
+      "status": "good"
+    },
+    {
+      "label": "NEW ENTERPRISE LOGOS",
+      "value": "9",
+      "target": "8",
+      "trend": "+1",
+      "status": "good"
+    },
+    {
+      "label": "NET REVENUE RETENTION",
+      "value": "118%",
+      "target": "115%",
+      "trend": "+3 pts",
+      "status": "good"
+    },
+    {
+      "label": "ONBOARDING QUEUE",
+      "value": "14",
+      "target": "<5",
+      "trend": "+9",
+      "status": "risk"
+    },
+    {
+      "label": "ENGINEERING UTILIZATION",
+      "value": "97%",
+      "target": "<85%",
+      "trend": "+9 pts",
+      "status": "risk"
+    },
+    {
+      "label": "SUPPORT BACKLOG",
+      "value": "62",
+      "target": "<80",
+      "trend": "-8",
+      "status": "good"
+    }
   ],
   "annotation": "Onboarding queue and engineering utilization are the only two metrics in the red this quarter.",
   "page_number": 4,
-  "source": "Illustrative data — replace with your own metrics."
+  "source": "Illustrative data — replace with your own metrics.",
+  "notes": "Five of six metrics would normally carry the whole meeting; the two in red are the ones worth lingering on instead. Engineering utilization running hot predates the onboarding queue and helps explain why that queue built up so fast."
 }

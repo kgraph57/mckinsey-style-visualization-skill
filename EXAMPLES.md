@@ -46,6 +46,27 @@ python3 scripts/build_html_report.py board-pre-read.md -o board-pre-read.html --
 
 **Use case:** Internal reports, one-pagers, and proposal memos where prose carries the argument and charts are numbered exhibits, not full slides. Start from `templates/reports/board-pre-read.md`, `templates/reports/one-pager.md`, or `templates/reports/proposal-memo.md`; see the committed [examples/demo-report.html](examples/demo-report.html) for the full shape of the output.
 
+### Build a Speaker Script
+
+**Scenario:** You are presenting the deck yourself and need a paper script for the podium.
+
+```bash
+# add a top-level "notes" field (string, or list of paragraphs) to each spec first
+python3 scripts/build_speaker_script.py --manifest my-deck/deck.json -o my-deck/script.html --lang en
+```
+
+**Use case:** Conference talks and board presentations where the presenter reads prepared narration slide by slide. The SVG renderer ignores `notes` entirely, so adding it never changes the rendered deck; a slide with no notes still gets its own printed page with a muted "(no script)" marker rather than being skipped. See the committed [examples/demo-script.html](examples/demo-script.html) (built with `--lang ja` from [templates/decks/board-update-ja/deck.json](templates/decks/board-update-ja/deck.json)).
+
+### Build a Deck-as-an-Article Page
+
+**Scenario:** The deck also needs to work as a page people read on their own, not click through live.
+
+```bash
+python3 scripts/build_html_article.py --manifest my-deck/deck.json -o my-deck/article.html --lang en
+```
+
+**Use case:** Publishing a deck as a self-serve web page — the M3-series reading experience — where every slide is followed by its `notes` as narrative prose and a "Contents" list jumps to each content slide's headline. See the committed [examples/demo-article.html](examples/demo-article.html) (built from [templates/decks/board-update/deck.json](templates/decks/board-update/deck.json)).
+
 ## Basic Usage
 
 ### Automatic Invocation
@@ -79,6 +100,7 @@ You can also invoke the skill directly using the slash command:
 **Scenario:** Show AI adoption growth over time
 
 **Prompt:**
+
 ```
 Create a professional consulting-style time-series growth chart in landscape 16:9 format.
 White background, black text, navy (#15296B) line chart.
@@ -99,6 +121,7 @@ Clean, minimal, institutional aesthetic. No gradients, no decorative elements.
 **Scenario:** Highlight the maturity gap in AI implementation
 
 **Prompt:**
+
 ```
 Create a professional consulting-style gap visualization in landscape 16:9 format.
 White background, black text. Serif headline in bold: "The AI Maturity Gap: Most Organizations Stuck in Pilot Phase"
@@ -120,6 +143,7 @@ Clean, minimal, institutional aesthetic. No gradients, no decorative elements.
 **Scenario:** Demonstrate training impact on diagnostic accuracy
 
 **Prompt:**
+
 ```
 Create a professional consulting-style before/after comparison chart in landscape 16:9 format.
 White background, black text. Serif headline in bold: "AI-Assisted Training Drives 58% Improvement in Diagnostic Accuracy"
@@ -141,6 +165,7 @@ Clean, minimal, institutional aesthetic. No gradients, no decorative elements.
 **Scenario:** Show medical school AI curriculum adoption
 
 **Prompt:**
+
 ```
 Create a professional consulting-style market share visualization in landscape 16:9 format.
 White background, black text. Serif headline in bold: "Three-Quarters of US Medical Schools Have Adopted AI Curriculum"
@@ -163,6 +188,7 @@ Clean, minimal, institutional aesthetic. No gradients, no decorative elements.
 **Scenario:** Compare healthcare AI investments
 
 **Prompt:**
+
 ```
 Create a professional consulting-style investment comparison infographic in landscape 16:9 format.
 White background, black text. Serif headline in bold: "Healthcare AI Investment: Scale vs. Scope"
@@ -190,6 +216,7 @@ Clean, minimal, institutional aesthetic. No gradients, no decorative elements.
 **Scenario:** Show 2025 medical education AI milestones
 
 **Prompt:**
+
 ```
 Create a professional consulting-style timeline visualization in landscape 16:9 format.
 White background, black text. Serif headline in bold: "2025: The Year AI Integration Became Standard in Medical Education"
@@ -211,6 +238,7 @@ Clean, minimal, institutional aesthetic. No gradients, no decorative elements.
 **Scenario:** Compare US vs. Japan AI adoption in healthcare
 
 **Prompt:**
+
 ```
 Create a professional consulting-style comparison diagram in landscape 16:9 format.
 White background, black text. Serif headline in bold: "AI in Healthcare: The US-Japan Implementation Gap"
@@ -240,6 +268,7 @@ Clean, minimal, institutional aesthetic. No gradients, no decorative elements.
 **Scenario:** Position GenAI video model competitors
 
 **Prompt:**
+
 ```
 Create a professional consulting-style 2×2 strategic framework in landscape 16:9 format.
 White background, black text. Serif headline in bold: "GenAI Video Market: Technical Leaders Face Ecosystem Challenges"
@@ -264,6 +293,7 @@ Clean, minimal, institutional aesthetic. No gradients, no decorative elements.
 **Scenario:** Compare GenAI video models across dimensions
 
 **Prompt:**
+
 ```
 Create a professional consulting-style competitive benchmarking table in landscape 16:9 format.
 White background, black text. Serif headline in bold: "GenAI Video Models: Technical Benchmarking Reveals Clear Leaders"
@@ -289,6 +319,7 @@ Clean, minimal, institutional aesthetic. No gradients, no decorative elements.
 **Scenario:** Show revenue bridge from Q1 to Q4
 
 **Prompt:**
+
 ```
 Create a professional consulting-style waterfall chart in landscape 16:9 format.
 White background, black text. Serif headline in bold: "Q4 Revenue Growth Driven by Enterprise Expansion"
@@ -313,6 +344,7 @@ Clean, minimal, institutional aesthetic. No gradients, no decorative elements.
 **Scenario:** Create opening slide for strategic presentation
 
 **Prompt:**
+
 ```
 Create a professional consulting-style cover slide in landscape 16:9 format.
 Navy background (#15296B), flat — no gradient.
@@ -337,6 +369,7 @@ Deck furniture — dividers, agendas, text slides, closings, quotes, and back co
 **Scenario:** Open the "How to win" act of a strategy deck
 
 **Prompt:**
+
 ```
 Create a professional consulting-style section divider slide in landscape 16:9 format.
 Navy background (#15296B), flat, full bleed.
@@ -357,6 +390,7 @@ Clean, institutional, boardroom-ready aesthetic. No gradients.
 **Scenario:** Orient the reader before the first content slide
 
 **Prompt:**
+
 ```
 Create a professional consulting-style agenda slide in landscape 16:9 format.
 White background, black text, standard header with serif headline: "Three questions decide this investment"
@@ -375,6 +409,7 @@ Clean, minimal, institutional aesthetic.
 **Scenario:** State the constraints before the next chart
 
 **Prompt:**
+
 ```
 Create a professional consulting-style text slide in landscape 16:9 format.
 White background, black text, standard header with serif headline: "Three constraints shape the rollout"
@@ -393,6 +428,7 @@ Clean, minimal, institutional aesthetic. No icons, no decorative elements.
 **Scenario:** Close the deck with the decision ask
 
 **Prompt:**
+
 ```
 Create a professional consulting-style closing slide in landscape 16:9 format.
 White background, black text, standard header with serif headline: "Decide the pilot now, scale in Q3"
@@ -410,6 +446,7 @@ Clean, minimal, institutional aesthetic.
 **Scenario:** Ground a claim in a customer's own words
 
 **Prompt:**
+
 ```
 Create a professional consulting-style quote slide in landscape 16:9 format.
 White background, black text, standard header with serif headline: "Customers already describe the switch as done"
@@ -429,6 +466,7 @@ Clean, minimal, institutional aesthetic. One quote only, no closing quotation ma
 **Scenario:** Close a deck with a way to follow up
 
 **Prompt:**
+
 ```
 Create a professional consulting-style closing cover slide in landscape 16:9 format.
 Navy background (#15296B), flat, full bleed, no decorative marks.
@@ -450,6 +488,7 @@ Minimal graphics — the quietest slide in the deck.
 **Objective:** Present Q4 performance to executive team
 
 **Visualizations needed:**
+
 1. Cover slide with presentation title
 2. Time-series growth chart showing quarterly revenue
 3. Waterfall chart explaining revenue drivers
@@ -457,6 +496,7 @@ Minimal graphics — the quietest slide in the deck.
 5. Gap visualization showing target vs. actual performance
 
 **Workflow:**
+
 ```
 /strategy-consulting-visualization Create a cover slide for Q4 2025 Business Review
 
@@ -476,12 +516,14 @@ Minimal graphics — the quietest slide in the deck.
 **Objective:** Evaluate entering the Japanese healthcare AI market
 
 **Visualizations needed:**
+
 1. Comparison diagram (US vs. Japan market maturity)
 2. Strategic framework (competitive positioning)
 3. Timeline (regulatory milestones)
 4. Investment infographic (required resources)
 
 **Workflow:**
+
 ```
 /strategy-consulting-visualization Create a comparison diagram showing US (mature, $5B market, 70% adoption) vs. Japan (emerging, $500M market, 15% adoption)
 
@@ -499,11 +541,13 @@ Minimal graphics — the quietest slide in the deck.
 **Objective:** Select GenAI video generation platform for marketing
 
 **Visualizations needed:**
+
 1. Competitive benchmarking table
 2. Strategic framework (positioning)
 3. Before/after comparison (expected improvement)
 
 **Workflow:**
+
 ```
 /strategy-consulting-visualization Create a competitive benchmarking table comparing 5 GenAI video models across architecture, consistency, prompt adherence, and pricing
 
@@ -559,6 +603,7 @@ Combine with other agent skills for enhanced workflows:
 ---
 
 For more information, see:
+
 - [README.md](README.md) - Overview and installation
 - [SKILL.md](SKILL.md) - Complete skill documentation
 - [INSTALLATION.md](INSTALLATION.md) - Installation guide

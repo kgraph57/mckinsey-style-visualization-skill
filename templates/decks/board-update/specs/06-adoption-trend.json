@@ -4,8 +4,9 @@
   "subline": "Share of accounts on the new workflow",
   "unit": "%",
   "x_labels": ["Q4 last year", "Q1", "Q2", "Q3"],
-  "series": [{"label": "Adoption rate", "values": [41, 52, 61, 68]}],
+  "series": [{ "label": "Adoption rate", "values": [41, 52, 61, 68] }],
   "annotation": "Momentum supports the growth case; the bottleneck is now onboarding throughput, not demand.",
   "page_number": 6,
-  "source": "Illustrative data — replace with your own metrics."
+  "source": "Illustrative data — replace with your own metrics.",
+  "notes": "A steady three-quarter climb like this answers 'is this durable', not just 'is this working'. It also reframes the capacity conversation: this isn't a spike to wait out, it's the shape of demand going forward."
 }

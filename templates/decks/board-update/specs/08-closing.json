@@ -7,11 +7,24 @@
     "Onboarding capacity, not demand or churn, is the binding constraint"
   ],
   "next_steps": [
-    {"action": "Approve two additional onboarding hires", "owner": "COO", "timing": "This week"},
-    {"action": "Reprioritize the onboarding queue by contract value", "owner": "Onboarding lead", "timing": "Next two weeks"},
-    {"action": "Review capacity utilization at the Q4 board meeting", "owner": "Operating team", "timing": "Q4"}
+    {
+      "action": "Approve two additional onboarding hires",
+      "owner": "COO",
+      "timing": "This week"
+    },
+    {
+      "action": "Reprioritize the onboarding queue by contract value",
+      "owner": "Onboarding lead",
+      "timing": "Next two weeks"
+    },
+    {
+      "action": "Review capacity utilization at the Q4 board meeting",
+      "owner": "Operating team",
+      "timing": "Q4"
+    }
   ],
   "call_to_action": "Decision requested today: approve two onboarding hires this week.",
   "page_number": 8,
-  "source": "Illustrative data — replace with your own metrics."
+  "source": "Illustrative data — replace with your own metrics.",
+  "notes": "The three takeaways aren't new information; they're the same facts reordered as a decision. What matters on this slide is what's asked for by name and by owner, not just what's true."
 }

@@ -55,6 +55,26 @@ python3 scripts/build_html_report.py my-report.md -o my-report.html --lang en
 
 Start from a template in `templates/reports/` (`board-pre-read.md`, `one-pager.md`, `proposal-memo.md`), or see the committed [examples/demo-report.html](examples/demo-report.html).
 
+## Fastest Path to a Speaker Script
+
+Add a top-level `"notes"` field (a string, or a list of paragraphs) to any slide spec — the renderer ignores it — then build the same deck manifest into a print-first, one-slide-per-page podium script:
+
+```bash
+python3 scripts/build_speaker_script.py --manifest my-deck/deck.json -o my-deck/script.html --lang en
+```
+
+See the committed [examples/demo-script.html](examples/demo-script.html).
+
+## Fastest Path to a Deck-as-an-Article Page
+
+Same `notes` field, read top-to-bottom instead: every slide followed by its narration as prose, like an M3-series web article.
+
+```bash
+python3 scripts/build_html_article.py --manifest my-deck/deck.json -o my-deck/article.html --lang en
+```
+
+See the committed [examples/demo-article.html](examples/demo-article.html).
+
 ## First Prompt
 
 ```text

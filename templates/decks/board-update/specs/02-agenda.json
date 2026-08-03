@@ -2,11 +2,18 @@
   "pattern": "agenda",
   "headline": "Four topics decide today's capacity vote",
   "items": [
-    {"title": "Growth", "detail": "Where the ARR and logo gains came from"},
-    {"title": "Adoption", "detail": "How fast accounts are using the new workflow"},
-    {"title": "Capacity risk", "detail": "Why onboarding is now the bottleneck"},
-    {"title": "The ask", "detail": "What we need approved today"}
+    { "title": "Growth", "detail": "Where the ARR and logo gains came from" },
+    {
+      "title": "Adoption",
+      "detail": "How fast accounts are using the new workflow"
+    },
+    {
+      "title": "Capacity risk",
+      "detail": "Why onboarding is now the bottleneck"
+    },
+    { "title": "The ask", "detail": "What we need approved today" }
   ],
   "page_number": 2,
-  "source": "Illustrative data — replace with your own metrics."
+  "source": "Illustrative data — replace with your own metrics.",
+  "notes": "The order here is deliberate: growth and adoption build the case, capacity risk explains the tension underneath it, and the ask closes the loop. Each topic hands off directly into the next, so the constraint is visible well before the request is."
 }

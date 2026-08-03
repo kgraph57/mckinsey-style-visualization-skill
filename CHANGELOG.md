@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## 2.3.0 - 2026-08-03 - Speaker Script + Deck as Article
+
+Two new outputs from one new field: any slide spec may carry `"notes"` — the spoken narration for that slide. The renderer ignores it (committed SVGs stay byte-identical); two builders consume it.
+
+- `scripts/build_speaker_script.py --manifest deck.json -o script.html [--lang ja]`: the conference-day paper script. Print-first single-file HTML — A4 portrait, one slide per page, the slide rendered small at the top, the narration below in podium-readable type (screen 20px / print ~13.5pt, 1.9 line-height for Japanese). Slides without notes show a muted marker, never vanish.
+- `scripts/build_html_article.py --manifest deck.json -o article.html [--lang en|ja]`: the deck as a readable web article — every slide full-width in order, its narration as prose on the reading measure beneath it, a TOC built from content-slide headlines (chromeless slides shown but not listed). Script and article come from the same source of truth.
+- Japanese line breaking upgraded on the way (shipped in the same release line): katakana loanwords never break mid-word, full lines backtrack to the nearest phrase boundary (punctuation or particle), and opening brackets no longer end a line — joining the existing line-start kinsoku. A Word Budget section in `references/style-system.md` makes the discipline explicit: cut words or split the slide, never shrink type.
+- Demo pairs committed and freshness-checked by the validator: `examples/demo-script.html` (Japanese board deck, natural spoken narration on all 9 slides) and `examples/demo-article.html` (English board deck, narrative notes on all 9 slides). Tests 144 -> 229.
+
 ## 2.2.0 - 2026-08-03 - Projection Type Scale
 
 - The whole renderer moved to a named type-token scale sized for projected presentations, not documents: body text 16 -> 22px (17pt equivalent), reading labels 13-15 -> 18px, content headline 30 -> 40px, section-divider title 40 -> 48px, cover title 54px, KPI hero numbers 44px, quote statements 32px — while chrome (sources, footnotes, page numbers, classification) deliberately stays at 13px so the hierarchy speaks. Sizes are a ratio system: headline:body 1.8:1, deck span (cover : chrome) about 4:1, asserted by a new test (headline/body >= 1.7, body/chrome >= 1.6).

@@ -4,28 +4,32 @@ The same visual discipline adapts to many document formats. Pick the profile tha
 
 **Rendering note**: `scripts/render_slide_spec.py` still produces the 16:9 canvas only (`references/style-system.md` → Canvas Formats) — every profile below other than the one noted next stays spec-only or image-generation-prompt-only for its native canvas. The exception is the **internal report / memo** profile (and the one-pager and proposal-memo variants of it): `scripts/build_html_report.py` renders it natively as a single self-contained, A4-print-ready HTML document, embedding 16:9 slide-spec exhibits as auto-numbered figures. See the Internal Report / Memo notes below and `templates/reports/` for starting points.
 
+Two more native outputs read the **board / executive deck** profile's own manifest and slide specs, not a separate canvas: add a top-level `"notes"` field (a string, or a list of paragraphs) to any slide — the renderer ignores it, so it never changes the rendered slide — then `scripts/build_speaker_script.py` renders a print-first, one-slide-per-page podium script (slide above, narration below), and `scripts/build_html_article.py` renders the same deck top-to-bottom as a single reading-mode article (slide, then its notes as prose, repeated in order). Both are self-contained HTML with zero external requests; see the Board / Executive Deck notes below.
+
 ## Profile Table
 
-| Profile | Canvas | Density | Tone | Preferred Patterns |
-| --- | --- | --- | --- | --- |
-| Board / executive deck | 16:9 landscape | High | Decisive, analytical | Waterfall, benchmark, 2x2, summary strip |
-| Internal report / memo | A4 portrait, inline figures | Medium | Neutral, factual | Time-series, gap, scorecard, tables |
-| Research report / whitepaper | A4 portrait, numbered figures | High | Cautious, sourced | Distribution, scatter, heatmap, methodology flow |
-| Sales proposal / pitch | 16:9 landscape | Medium | Confident, customer-framed | Before-after, contrast, timeline, funnel |
-| Project status / steering | 16:9 landscape or A4 | High | Direct, risk-aware | Gantt / roadmap, scorecard, heatmap, decision tree |
-| Training / education material | 16:9 or 4:3 landscape | Low-medium | Patient, sequential | Process flow, cycle, concept map, before-after |
-| Technical documentation | Inline figures, flexible width | Medium | Precise, unambiguous | Architecture / system map, process flow, decision tree, hierarchy |
-| One-pager / fact sheet | A4 portrait, single page | Very high | Compressed, scannable | Summary strip, scorecard, mini-charts |
-| Infographic / public explainer | Vertical 4:5 or 9:16 | Low | Accessible, plain-language | Pyramid, cycle, annotated map, big-number blocks |
-| Policy brief / public sector | A4 portrait | Medium | Balanced, evidence-led | Timeline, contrast, gap, distribution |
-| Academic / clinical summary | A4 portrait or poster | High | Conservative, caveated | Distribution, before-after, methodology flow, tables |
-| Personal notes / study aids | Flexible | Low | Informal but accurate | Concept map, hierarchy, checklist, timeline |
+| Profile                        | Canvas                         | Density    | Tone                       | Preferred Patterns                                                |
+| ------------------------------ | ------------------------------ | ---------- | -------------------------- | ----------------------------------------------------------------- |
+| Board / executive deck         | 16:9 landscape                 | High       | Decisive, analytical       | Waterfall, benchmark, 2x2, summary strip                          |
+| Internal report / memo         | A4 portrait, inline figures    | Medium     | Neutral, factual           | Time-series, gap, scorecard, tables                               |
+| Research report / whitepaper   | A4 portrait, numbered figures  | High       | Cautious, sourced          | Distribution, scatter, heatmap, methodology flow                  |
+| Sales proposal / pitch         | 16:9 landscape                 | Medium     | Confident, customer-framed | Before-after, contrast, timeline, funnel                          |
+| Project status / steering      | 16:9 landscape or A4           | High       | Direct, risk-aware         | Gantt / roadmap, scorecard, heatmap, decision tree                |
+| Training / education material  | 16:9 or 4:3 landscape          | Low-medium | Patient, sequential        | Process flow, cycle, concept map, before-after                    |
+| Technical documentation        | Inline figures, flexible width | Medium     | Precise, unambiguous       | Architecture / system map, process flow, decision tree, hierarchy |
+| One-pager / fact sheet         | A4 portrait, single page       | Very high  | Compressed, scannable      | Summary strip, scorecard, mini-charts                             |
+| Infographic / public explainer | Vertical 4:5 or 9:16           | Low        | Accessible, plain-language | Pyramid, cycle, annotated map, big-number blocks                  |
+| Policy brief / public sector   | A4 portrait                    | Medium     | Balanced, evidence-led     | Timeline, contrast, gap, distribution                             |
+| Academic / clinical summary    | A4 portrait or poster          | High       | Conservative, caveated     | Distribution, before-after, methodology flow, tables              |
+| Personal notes / study aids    | Flexible                       | Low        | Informal but accurate      | Concept map, hierarchy, checklist, timeline                       |
 
 ## Profile Notes
 
 ### Board / Executive Deck
 
 The default profile and the strictest. One message per slide, decision-linked headlines, and the full quality rubric. Use `references/iterative-review-loop.md` for polished work.
+
+The same deck manifest renders two further native outputs beyond the click-through HTML deck: `scripts/build_speaker_script.py` (a print-first, one-slide-per-page podium script) and `scripts/build_html_article.py` (the deck read top-to-bottom as a web article) — both driven by a shared top-level `"notes"` field on each slide spec (string or list of paragraphs) that the SVG renderer itself ignores.
 
 ### Internal Report / Memo
 
@@ -81,14 +85,14 @@ The lightest profile: speed over polish. Concept maps, hierarchies, and checklis
 
 Japanese workplaces use document formats with conventions of their own. Apply these on top of the base profiles; use sans-serif type for Japanese text and increase sizes 10-20% per the style system.
 
-| Profile | Base Profile | Key Conventions |
-| --- | --- | --- |
-| 稟議書 (ringi approval request) | Internal report / memo | A4 portrait, one page preferred. Lead with the request and amount, then background, options considered, risks, and approval line. One compact visual (cost comparison or gap) beats many. |
-| 週報・月報 (weekly/monthly report) | Internal report / memo | Fixed recurring structure: progress vs. plan, issues, next actions. Use the same KPI scorecard or gantt layout every period so deltas are instantly visible. |
-| 役員会・経営会議資料 (board/executive meeting) | Board / executive deck | Often A4 landscape or 16:9. One decision per page, conclusion first (結論ファースト). Appendix carries detail; the body stays at one message per visual. |
-| 学会抄録・抄読会 (conference abstract / journal club) | Academic / clinical summary | Methods and limitations stated explicitly. Before-after and distribution patterns; no claims beyond the cited study. Keep the original study's units and population visible. |
-| 社内勉強会資料 (internal study session) | Training / education material | Lower formality, one concept per slide, concrete examples. Concept maps and process flows; encourage questions with an explicit "discussion" slide. |
-| 提案書 (client proposal) | Sales proposal / pitch | Customer's issue first, proposal second, evidence third. Contrast and before-after patterns; pricing on its own page with assumptions itemized. |
+| Profile                                               | Base Profile                  | Key Conventions                                                                                                                                                                           |
+| ----------------------------------------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 稟議書 (ringi approval request)                       | Internal report / memo        | A4 portrait, one page preferred. Lead with the request and amount, then background, options considered, risks, and approval line. One compact visual (cost comparison or gap) beats many. |
+| 週報・月報 (weekly/monthly report)                    | Internal report / memo        | Fixed recurring structure: progress vs. plan, issues, next actions. Use the same KPI scorecard or gantt layout every period so deltas are instantly visible.                              |
+| 役員会・経営会議資料 (board/executive meeting)        | Board / executive deck        | Often A4 landscape or 16:9. One decision per page, conclusion first (結論ファースト). Appendix carries detail; the body stays at one message per visual.                                  |
+| 学会抄録・抄読会 (conference abstract / journal club) | Academic / clinical summary   | Methods and limitations stated explicitly. Before-after and distribution patterns; no claims beyond the cited study. Keep the original study's units and population visible.              |
+| 社内勉強会資料 (internal study session)               | Training / education material | Lower formality, one concept per slide, concrete examples. Concept maps and process flows; encourage questions with an explicit "discussion" slide.                                       |
+| 提案書 (client proposal)                              | Sales proposal / pitch        | Customer's issue first, proposal second, evidence third. Contrast and before-after patterns; pricing on its own page with assumptions itemized.                                           |
 
 ## Adapting the Output Contract
 

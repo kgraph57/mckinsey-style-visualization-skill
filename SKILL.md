@@ -28,7 +28,21 @@ python3 scripts/build_html_deck.py --manifest my-deck/deck.json -o my-deck/deck.
 python3 scripts/build_html_report.py my-report.md -o my-report.html --lang en
 ```
 
-`templates/reports/` has three starting points (board pre-read, one-pager, proposal memo). Both fast paths still obey the style system and quality rubric below — they only skip writing specs from a blank page. Fall back to the full workflow for anything the templates don't already cover.
+`templates/reports/` has three starting points (board pre-read, one-pager, proposal memo).
+
+**Speaker script** — the podium version of any deck: add a top-level `"notes"` field (a string, or a list of paragraph strings) to the slides that need narration, then build a print-first, one-slide-per-page HTML script with the narration set below each slide. The renderer ignores `notes` entirely, so adding it never changes the rendered slide, and a slide with no notes still gets its own page with a muted "no script" marker.
+
+```bash
+python3 scripts/build_speaker_script.py --manifest my-deck/deck.json -o my-deck/script.html --lang en
+```
+
+**Deck as an article** — the same deck read top-to-bottom as a web page instead of click-through slides: each slide's SVG followed by its `notes` as reading prose, with a "Contents" jump list built from the content slides' headlines.
+
+```bash
+python3 scripts/build_html_article.py --manifest my-deck/deck.json -o my-deck/article.html --lang en
+```
+
+All four fast paths still obey the style system and quality rubric below — they only skip writing specs from a blank page. Fall back to the full workflow for anything the templates don't already cover.
 
 ## Use When
 
@@ -102,3 +116,5 @@ Do not invent client names, confidential labels, benchmark data, or source citat
 - `references/iterative-review-loop.md` for draft, review, revise, and score cycles.
 - `templates/decks/` and `scripts/scaffold_deck.py` for ready-made deck archetypes (`--list` to see all six).
 - `templates/reports/` and `scripts/build_html_report.py` for Markdown-to-report documents with numbered exhibits.
+- `scripts/build_speaker_script.py` for a print-first, one-slide-per-page podium script built from a deck's `notes` field.
+- `scripts/build_html_article.py` for reading the same deck top-to-bottom as a single web-page article, slide by slide with its `notes` as prose.

@@ -124,6 +124,10 @@ REQUIRED_FILES = [
     "templates/reports/proposal-memo.md",
     "examples/demo-report.md",
     "examples/demo-report.html",
+    "scripts/build_speaker_script.py",
+    "scripts/build_html_article.py",
+    "examples/demo-script.html",
+    "examples/demo-article.html",
     "assets/readme/hero-before-after.svg",
     "assets/social/launch-card.svg",
     ".github/ISSUE_TEMPLATE/marketplace-listing.md",
@@ -231,7 +235,7 @@ def validate_manifest() -> None:
     expected = {
         "name": "strategy-consulting-visualization",
         "display_name": "Strategy Consulting Visualization Skill",
-        "version": "2.2.0",
+        "version": "2.3.0",
         "license": "MIT",
         "entrypoint": "SKILL.md",
     }
@@ -358,6 +362,53 @@ def validate_demo_report() -> None:
         fail("stale demo report: regenerate examples/demo-report.html with scripts/build_html_report.py")
 
 
+def validate_demo_script() -> None:
+    """The committed speaker script must match a fresh build from the
+    board-update-ja deck template -- the same deck-manifest shape
+    ``validate_demo_deck`` checks (imports the builder module directly and
+    calls its public build function), not the report builder's Markdown
+    source flow ``validate_demo_report`` shells out to.
+    """
+    module_path = ROOT / "scripts" / "build_speaker_script.py"
+    spec_loader = importlib.util.spec_from_file_location("build_speaker_script", module_path)
+    module = importlib.util.module_from_spec(spec_loader)
+    spec_loader.loader.exec_module(module)
+
+    manifest_path = ROOT / "templates" / "decks" / "board-update-ja" / "deck.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    spec_paths = [manifest_path.parent / p for p in manifest["slides"]]
+    fresh = module.build_script(spec_paths, manifest.get("title", "Slide Deck"), "ja")
+    committed = (ROOT / "examples" / "demo-script.html").read_text(encoding="utf-8")
+    if fresh != committed:
+        fail(
+            "stale demo script: regenerate examples/demo-script.html with "
+            "scripts/build_speaker_script.py --manifest templates/decks/board-update-ja/deck.json "
+            "-o examples/demo-script.html --lang ja"
+        )
+
+
+def validate_demo_article() -> None:
+    """The committed slide article must match a fresh build from the
+    board-update deck template, mirroring ``validate_demo_deck``'s
+    import-and-call-directly approach."""
+    module_path = ROOT / "scripts" / "build_html_article.py"
+    spec_loader = importlib.util.spec_from_file_location("build_html_article", module_path)
+    module = importlib.util.module_from_spec(spec_loader)
+    spec_loader.loader.exec_module(module)
+
+    manifest_path = ROOT / "templates" / "decks" / "board-update" / "deck.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    spec_paths = [manifest_path.parent / p for p in manifest["slides"]]
+    fresh = module.build_article(spec_paths, manifest.get("title", "Untitled"), manifest.get("description", ""), "en")
+    committed = (ROOT / "examples" / "demo-article.html").read_text(encoding="utf-8")
+    if fresh != committed:
+        fail(
+            "stale demo article: regenerate examples/demo-article.html with "
+            "scripts/build_html_article.py --manifest templates/decks/board-update/deck.json "
+            "-o examples/demo-article.html"
+        )
+
+
 def main() -> None:
     validate_required_files()
     validate_skill_frontmatter()
@@ -365,6 +416,8 @@ def main() -> None:
     validate_no_stale_or_risky_text()
     validate_demo_deck()
     validate_demo_report()
+    validate_demo_script()
+    validate_demo_article()
     validate_renderer()
     print("OK: skill package passed validation")
 

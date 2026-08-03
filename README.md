@@ -11,13 +11,13 @@ Python 3 standard library only. **Zero dependencies. Zero API keys. Zero network
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
 [![Skill Format](https://img.shields.io/badge/SKILL.md-ready-blue.svg)](SKILL.md)
-[![Release](https://img.shields.io/badge/Release-v2.2.0-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.2.0)
+[![Release](https://img.shields.io/badge/Release-v2.3.0-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.3.0)
 
 English | [日本語](README.ja.md)
 
 ![Six-slide board deck rendered by this skill](assets/readme/demo.gif)
 
-*An actual deck built by this repo: `specs (JSON) → SVG slides → animated HTML deck`. Nothing hand-drawn.*
+_An actual deck built by this repo: `specs (JSON) → SVG slides → animated HTML deck`. Nothing hand-drawn._
 
 </div>
 
@@ -72,24 +72,24 @@ Specs are plain JSON, so they diff, review, and version like code. The renderer 
 
 Every image is committed output of `scripts/render_slide_spec.py` — CI fails if any of them drifts from what the renderer actually produces. Specs live in [examples/render-specs/](examples/render-specs).
 
-| ARR Waterfall | Executive Summary Strip |
-| --- | --- |
+| ARR Waterfall                                                | Executive Summary Strip                                              |
+| ------------------------------------------------------------ | -------------------------------------------------------------------- |
 | ![Rendered ARR waterfall](assets/rendered/arr-waterfall.svg) | ![Rendered executive summary](assets/rendered/executive-summary.svg) |
 
-| Small Multiples | Scatter / Correlation |
-| --- | --- |
+| Small Multiples                                                             | Scatter / Correlation                                              |
+| --------------------------------------------------------------------------- | ------------------------------------------------------------------ |
 | ![Rendered small multiples](assets/rendered/segment-adoption-multiples.svg) | ![Rendered scatter](assets/rendered/pricing-retention-scatter.svg) |
 
-| Japanese Board Summary（役員会サマリー） | Cover Slide |
-| --- | --- |
+| Japanese Board Summary（役員会サマリー）                                 | Cover Slide                                                   |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------- |
 | ![Rendered Japanese board summary](assets/rendered/jp-board-summary.svg) | ![Rendered cover slide](assets/rendered/board-deck-cover.svg) |
 
-| Benchmark Table | Distribution |
-| --- | --- |
+| Benchmark Table                                                   | Distribution                                                         |
+| ----------------------------------------------------------------- | -------------------------------------------------------------------- |
 | ![Rendered benchmark table](assets/rendered/vendor-benchmark.svg) | ![Rendered distribution](assets/rendered/deal-size-distribution.svg) |
 
-| Capacity Gap | Process Flow |
-| --- | --- |
+| Capacity Gap                                               | Process Flow                                                  |
+| ---------------------------------------------------------- | ------------------------------------------------------------- |
 | ![Rendered capacity gap](assets/rendered/capacity-gap.svg) | ![Rendered process flow](assets/rendered/onboarding-flow.svg) |
 
 **22 patterns render to SVG**: `cover`, `section_divider`, `end_cover`, `agenda`, `bullet_list`, `closing`, `quote`, `waterfall`, `gap`, `before_after`, `time_series`, `benchmark_table`, `summary_strip`, `process_flow`, `funnel`, `heatmap`, `gantt`, `kpi_scorecard`, `two_by_two`, `scatter`, `distribution`, `small_multiples`. Thirteen more patterns (Sankey, pyramid, maps, decision trees, …) ship as structured specs and image-generation prompts — [the catalog says exactly which is which](references/visualization-patterns.md). We don't pretend.
@@ -126,14 +126,14 @@ python3 scripts/build_html_deck.py --manifest my-deck/deck.json -o my-deck/deck.
 
 Six deck archetypes ship pre-filled with a coherent illustrative storyline — every slide renders, nothing is a stub.
 
-| Archetype | Use For | Storyline |
-| --- | --- | --- |
-| `board-update` | Recurring board / steering updates | Cover → agenda → executive summary → KPI scorecard → ARR waterfall → trend → risk view → closing → end cover |
+| Archetype                 | Use For                                    | Storyline                                                                                                                                            |
+| ------------------------- | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `board-update`            | Recurring board / steering updates         | Cover → agenda → executive summary → KPI scorecard → ARR waterfall → trend → risk view → closing → end cover                                         |
 | `strategy-recommendation` | "Where to play, how to win" strategy decks | Cover → agenda → context → two section dividers (Where to play / How to win) → 2×2 → benchmark table → gap or bridge → roadmap → closing → end cover |
-| `project-status` | PMO / steering-committee status reviews | Cover → summary → roadmap → KPI scorecard → blockers → path-to-green flow → closing → end cover |
-| `market-entry` | Entry or expansion investment cases | Cover → agenda → market trend → competitor benchmark → segment 2×2 → entry-path flow → distribution or scatter → closing → end cover |
-| `sales-proposal` | Customer-facing proposals | Cover → client situation → before/after → approach flow → plan → why-us benchmark → customer quote → closing → end cover |
-| `board-update-ja` | 役員会向け月次アップデート（日本語） | `board-update` と同じ構成を、翻訳調ではなく自然な日本語の見出しで |
+| `project-status`          | PMO / steering-committee status reviews    | Cover → summary → roadmap → KPI scorecard → blockers → path-to-green flow → closing → end cover                                                      |
+| `market-entry`            | Entry or expansion investment cases        | Cover → agenda → market trend → competitor benchmark → segment 2×2 → entry-path flow → distribution or scatter → closing → end cover                 |
+| `sales-proposal`          | Customer-facing proposals                  | Cover → client situation → before/after → approach flow → plan → why-us benchmark → customer quote → closing → end cover                             |
+| `board-update-ja`         | 役員会向け月次アップデート（日本語）       | `board-update` と同じ構成を、翻訳調ではなく自然な日本語の見出しで                                                                                    |
 
 ## Report Mode: Markdown → Browser Document
 
@@ -151,27 +151,57 @@ python3 scripts/build_html_report.py my-report.md -o my-report.html --lang en
 
 Three starting points ship in `templates/reports/`: `board-pre-read.md`, `one-pager.md`, `proposal-memo.md`. See the committed demo: [examples/demo-report.html](examples/demo-report.html) (built from [examples/demo-report.md](examples/demo-report.md)).
 
+## Speaker Script: What You Read at the Podium
+
+Any slide spec can carry a top-level `"notes"` field — a string, or a list of paragraph strings — holding the spoken narration for that slide. The SVG renderer ignores it completely, so adding notes never changes a rendered slide. Build the same deck manifest into a print-first, one-slide-per-page script:
+
+```bash
+python3 scripts/build_speaker_script.py --manifest my-deck/deck.json -o my-deck/script.html --lang en
+```
+
+- One printed A4 page per slide: the slide rendered inline above, the narration in podium-readable type below (screen 20px, print ~13.5pt; `--lang ja` loosens line-height to 1.9 with `palt` for CJK).
+- A slide with no notes still gets its own page, with a muted "(no script)" / "（原稿なし）" marker — never silently skipped.
+- A cover page carries the deck title and the date from the deck's own cover slide, if present.
+- Zero external requests, no required JavaScript.
+
+See the committed demo: [examples/demo-script.html](examples/demo-script.html) (built with `--lang ja` from [templates/decks/board-update-ja/deck.json](templates/decks/board-update-ja/deck.json)).
+
+## Deck as an Article: Read It Top to Bottom Like a Web Page
+
+The same `notes` field also drives a reading-mode build: the whole deck laid out vertically, each slide's SVG followed by its narration as prose — a deck that reads like an article instead of click-through-one-slide-at-a-time.
+
+```bash
+python3 scripts/build_html_article.py --manifest my-deck/deck.json -o my-deck/article.html --lang en
+```
+
+- Every slide appears, in manifest order, on the full ~980px reading column, with its notes as prose on a 720px measure below it.
+- A slide with no notes renders frame-only — the article still shows every slide, like flipping through the deck.
+- A "Contents" list is built from each content slide's headline (cover / section divider / end-cover slides are skipped in the list but still shown in the flow), promoted to a sticky right rail on wide screens.
+- `--title` overrides the manifest title; zero external requests.
+
+See the committed demo: [examples/demo-article.html](examples/demo-article.html) (built from [templates/decks/board-update/deck.json](templates/decks/board-update/deck.json)).
+
 ## Export Anywhere
 
-| Target | How | Fidelity |
-| --- | --- | --- |
-| PDF | Open the HTML deck → print → save as PDF | Vector, one slide per page |
-| PowerPoint / Keynote / Word | Insert the SVG files as pictures | Vector, scales losslessly |
-| Google Slides / Docs | Render SVG → PNG in any browser, then insert | Raster at any resolution |
-| Design tools (Figma, Illustrator) | Open the SVG directly | Fully editable vectors |
-| Docs / wikis / GitHub | Embed the SVG — GitHub renders it inline | What you see in this README |
+| Target                            | How                                          | Fidelity                    |
+| --------------------------------- | -------------------------------------------- | --------------------------- |
+| PDF                               | Open the HTML deck → print → save as PDF     | Vector, one slide per page  |
+| PowerPoint / Keynote / Word       | Insert the SVG files as pictures             | Vector, scales losslessly   |
+| Google Slides / Docs              | Render SVG → PNG in any browser, then insert | Raster at any resolution    |
+| Design tools (Figma, Illustrator) | Open the SVG directly                        | Fully editable vectors      |
+| Docs / wikis / GitHub             | Embed the SVG — GitHub renders it inline     | What you see in this README |
 
 ## Roasted by Five Design Legends
 
 Most chart generators say "beautiful". We wanted **defensible**, so we convened a five-perspective design review panel (as rigorous AI personas) and told them to be merciless:
 
-| Reviewer lens | Verdict | Sharpest cut |
-| --- | --- | --- |
-| Edward Tufte — data-ink, honest scales | 5.5/10 | "Meaningless decorated rectangles baked into the renderer" |
-| Gene Zelazny — ex-McKinsey, *Say It With Charts* | 6.5/10 | "The flagship example violates its own headline rule" |
-| Vignelli × Müller-Brockmann — Swiss grid | 6/10 | "A corporate template, not a design system" |
-| Alan Smith — FT data journalism | 5.5/10 | "The waterfall draws off-canvas on negative bridges" (he proved it) |
-| Modern design engineering | 5.5/10 | "2016 visuals wearing a 2020s spec sheet" |
+| Reviewer lens                                    | Verdict | Sharpest cut                                                        |
+| ------------------------------------------------ | ------- | ------------------------------------------------------------------- |
+| Edward Tufte — data-ink, honest scales           | 5.5/10  | "Meaningless decorated rectangles baked into the renderer"          |
+| Gene Zelazny — ex-McKinsey, _Say It With Charts_ | 6.5/10  | "The flagship example violates its own headline rule"               |
+| Vignelli × Müller-Brockmann — Swiss grid         | 6/10    | "A corporate template, not a design system"                         |
+| Alan Smith — FT data journalism                  | 5.5/10  | "The waterfall draws off-canvas on negative bridges" (he proved it) |
+| Modern design engineering                        | 5.5/10  | "2016 visuals wearing a 2020s spec sheet"                           |
 
 Then we shipped **every fix** in [a prior release](CHANGELOG.md): zero-floor waterfalls, CJK-correct wrapping, no silent truncation, a single re-derived navy that survives greyscale printing, diverging heatmaps for signed data, WCAG-AA cell text asserted across the entire ramp, decoration stripped, a comparison-type gate before every chart choice, and a rubric that now measures data-ink integrity and deck-level storyline logic.
 
@@ -190,15 +220,15 @@ The renderer is the visible part. The skill underneath is a full operating syste
 
 The [persona playbook](references/persona-playbook.md) gives every role a copy-paste prompt and a rendered example:
 
-| Role | Ask For | Rendered Example |
-| --- | --- | --- |
-| Sales | Pipeline QBR, proposal visuals | ![Sales funnel](assets/rendered/sales-pipeline-funnel.svg) |
-| Project manager / PMO | Roadmap with critical path | ![PMO gantt](assets/rendered/pmo-rollout-gantt.svg) |
-| Marketing | Channel × segment performance | ![Marketing heatmap](assets/rendered/marketing-channel-heatmap.svg) |
-| HR / People ops | Talent scorecard | ![HR scorecard](assets/rendered/hr-talent-scorecard.svg) |
-| Product manager | Effort vs. impact prioritization | ![Product 2x2](assets/rendered/product-priority-two-by-two.svg) |
-| Engineer / Tech lead | Incident postmortem flow | ![Incident flow](assets/rendered/eng-incident-flow.svg) |
-| Researcher / Clinician | Study outcome summary | ![Research before-after](assets/rendered/research-outcomes-before-after.svg) |
+| Role                   | Ask For                          | Rendered Example                                                             |
+| ---------------------- | -------------------------------- | ---------------------------------------------------------------------------- |
+| Sales                  | Pipeline QBR, proposal visuals   | ![Sales funnel](assets/rendered/sales-pipeline-funnel.svg)                   |
+| Project manager / PMO  | Roadmap with critical path       | ![PMO gantt](assets/rendered/pmo-rollout-gantt.svg)                          |
+| Marketing              | Channel × segment performance    | ![Marketing heatmap](assets/rendered/marketing-channel-heatmap.svg)          |
+| HR / People ops        | Talent scorecard                 | ![HR scorecard](assets/rendered/hr-talent-scorecard.svg)                     |
+| Product manager        | Effort vs. impact prioritization | ![Product 2x2](assets/rendered/product-priority-two-by-two.svg)              |
+| Engineer / Tech lead   | Incident postmortem flow         | ![Incident flow](assets/rendered/eng-incident-flow.svg)                      |
+| Researcher / Clinician | Study outcome summary            | ![Research before-after](assets/rendered/research-outcomes-before-after.svg) |
 
 Japanese business formats (稟議書, 週報・月報, 役員会資料, 学会抄録, 提案書) have dedicated profiles in [document-type-profiles.md](references/document-type-profiles.md).
 
@@ -217,16 +247,16 @@ It returns a decision-framed spec — strategic question, single-proposition hea
 
 ## What You Can Point It At
 
-| Starting Point | You Get |
-| --- | --- |
-| Board update metrics | 5-slide story: cover, waterfall, trend, gap, recommendation |
-| Revenue bridge data | Waterfall with drivers, honest baselines, assumptions |
-| Competitor / vendor data | Benchmark table + 2×2 positioning with leader highlights |
-| KPI before/after data | Impact slide with deltas and an implication headline |
-| Process description / SOP | Process flow with owners and the bottleneck highlighted |
-| Segment metrics over time | Small-multiples grid on one honest shared scale |
-| Research notes / whitepaper | Numbered report figures with sources and distributions |
-| Any prose — "visualize this" | Input triage → right pattern → document profile → spec |
+| Starting Point               | You Get                                                     |
+| ---------------------------- | ----------------------------------------------------------- |
+| Board update metrics         | 5-slide story: cover, waterfall, trend, gap, recommendation |
+| Revenue bridge data          | Waterfall with drivers, honest baselines, assumptions       |
+| Competitor / vendor data     | Benchmark table + 2×2 positioning with leader highlights    |
+| KPI before/after data        | Impact slide with deltas and an implication headline        |
+| Process description / SOP    | Process flow with owners and the bottleneck highlighted     |
+| Segment metrics over time    | Small-multiples grid on one honest shared scale             |
+| Research notes / whitepaper  | Numbered report figures with sources and distributions      |
+| Any prose — "visualize this" | Input triage → right pattern → document profile → spec      |
 
 ## Install
 
@@ -262,22 +292,24 @@ Even better contributions:
 <details>
 <summary><strong>Repository map & package internals</strong></summary>
 
-| Layer | What It Does | File |
-| --- | --- | --- |
-| Skill entrypoint | Tells agents when and how to use the skill | [SKILL.md](SKILL.md) |
-| Input triage | Maps any input to a pattern family | [input-triage.md](references/input-triage.md) |
-| Document profiles | Adapts format and tone per deliverable | [document-type-profiles.md](references/document-type-profiles.md) |
-| Pattern library | Comparison-type gate + 35-pattern catalog | [visualization-patterns.md](references/visualization-patterns.md) |
-| Style system | Tokens, palette, typography, chart rules | [style-system.md](references/style-system.md) |
-| Prompt templates | Reproducible spec formats | [prompt-templates.md](references/prompt-templates.md) |
-| Quality rubric | 24-point scoring + blocking gates + deck check | [quality-rubric.md](references/quality-rubric.md) |
-| Expert review loop | Adversarial pre-publication review | [expert-review-loop.md](references/expert-review-loop.md) |
-| SVG renderer | Spec JSON → styled SVG slide (22 patterns) | [render_slide_spec.py](scripts/render_slide_spec.py) |
-| Deck builder | SVG slides → animated single-file HTML deck | [build_html_deck.py](scripts/build_html_deck.py) |
-| Deck scaffolder | Copies a ready-made deck archetype into a working directory | [scaffold_deck.py](scripts/scaffold_deck.py) |
-| Report builder | Markdown → self-contained, print-to-A4 HTML report | [build_html_report.py](scripts/build_html_report.py) |
-| Structural review | Lint a drafted spec document | [review_slide_spec.py](scripts/review_slide_spec.py) |
-| Validation | Package integrity + render parity | [validate_skill.py](scripts/validate_skill.py) |
+| Layer                  | What It Does                                                            | File                                                              |
+| ---------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Skill entrypoint       | Tells agents when and how to use the skill                              | [SKILL.md](SKILL.md)                                              |
+| Input triage           | Maps any input to a pattern family                                      | [input-triage.md](references/input-triage.md)                     |
+| Document profiles      | Adapts format and tone per deliverable                                  | [document-type-profiles.md](references/document-type-profiles.md) |
+| Pattern library        | Comparison-type gate + 35-pattern catalog                               | [visualization-patterns.md](references/visualization-patterns.md) |
+| Style system           | Tokens, palette, typography, chart rules                                | [style-system.md](references/style-system.md)                     |
+| Prompt templates       | Reproducible spec formats                                               | [prompt-templates.md](references/prompt-templates.md)             |
+| Quality rubric         | 24-point scoring + blocking gates + deck check                          | [quality-rubric.md](references/quality-rubric.md)                 |
+| Expert review loop     | Adversarial pre-publication review                                      | [expert-review-loop.md](references/expert-review-loop.md)         |
+| SVG renderer           | Spec JSON → styled SVG slide (22 patterns)                              | [render_slide_spec.py](scripts/render_slide_spec.py)              |
+| Deck builder           | SVG slides → animated single-file HTML deck                             | [build_html_deck.py](scripts/build_html_deck.py)                  |
+| Deck scaffolder        | Copies a ready-made deck archetype into a working directory             | [scaffold_deck.py](scripts/scaffold_deck.py)                      |
+| Report builder         | Markdown → self-contained, print-to-A4 HTML report                      | [build_html_report.py](scripts/build_html_report.py)              |
+| Speaker script builder | Deck manifest + `notes` → print-first, one-slide-per-page podium script | [build_speaker_script.py](scripts/build_speaker_script.py)        |
+| Slide article builder  | Deck manifest + `notes` → self-contained, top-to-bottom reading article | [build_html_article.py](scripts/build_html_article.py)            |
+| Structural review      | Lint a drafted spec document                                            | [review_slide_spec.py](scripts/review_slide_spec.py)              |
+| Validation             | Package integrity + render parity                                       | [validate_skill.py](scripts/validate_skill.py)                    |
 
 Iterative review-loop examples (draft → review → revision, four scenarios) live in [examples/review-loop/](examples/review-loop). Distribution and commercial docs: [MARKETPLACE.md](MARKETPLACE.md), [BUYER_BRIEF.md](BUYER_BRIEF.md), [ROADMAP.md](ROADMAP.md), [SECURITY.md](SECURITY.md), [CHANGELOG.md](CHANGELOG.md).
 

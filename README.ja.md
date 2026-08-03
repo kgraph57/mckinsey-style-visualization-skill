@@ -9,13 +9,13 @@ AIエージェントに載せるひとつのスキルで、メモ・数値・文
 Python 3 標準ライブラリのみ。**依存ゼロ・APIキー不要・ネットワーク通信なし。**
 
 [![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/badge/Release-v2.2.0-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.2.0)
+[![Release](https://img.shields.io/badge/Release-v2.3.0-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.3.0)
 
 [English](README.md) | 日本語
 
 ![このスキルで生成した6枚の役員会デッキ](assets/readme/demo.gif)
 
-*このリポジトリだけで作った実物のデッキ: `スペック(JSON) → SVGスライド → アニメ付きHTMLデッキ`。手描きは一切なし。*
+_このリポジトリだけで作った実物のデッキ: `スペック(JSON) → SVGスライド → アニメ付きHTMLデッキ`。手描きは一切なし。_
 
 </div>
 
@@ -70,16 +70,16 @@ flowchart LR
 
 すべて `scripts/render_slide_spec.py` の出力そのまま。CIがレンダラー出力との一致を検証するので、ギャラリーが静かに腐ることはありません。スペックは [examples/render-specs/](examples/render-specs) にあります。
 
-| 役員会サマリー（日本語） | ARRウォーターフォール |
-| --- | --- |
+| 役員会サマリー（日本語）                                      | ARRウォーターフォール                                    |
+| ------------------------------------------------------------- | -------------------------------------------------------- |
 | ![日本語役員会サマリー](assets/rendered/jp-board-summary.svg) | ![ウォーターフォール](assets/rendered/arr-waterfall.svg) |
 
-| スモールマルチプル | 散布図 |
-| --- | --- |
+| スモールマルチプル                                                    | 散布図                                                   |
+| --------------------------------------------------------------------- | -------------------------------------------------------- |
 | ![スモールマルチプル](assets/rendered/segment-adoption-multiples.svg) | ![散布図](assets/rendered/pricing-retention-scatter.svg) |
 
-| エグゼクティブサマリー | カバースライド |
-| --- | --- |
+| エグゼクティブサマリー                                       | カバースライド                                  |
+| ------------------------------------------------------------ | ----------------------------------------------- |
 | ![サマリーストリップ](assets/rendered/executive-summary.svg) | ![カバー](assets/rendered/board-deck-cover.svg) |
 
 **SVG化できるのは22パターン**: カバー、セクション区切り、裏表紙、アジェンダ、箇条書き、クロージング、引用、ウォーターフォール、ギャップ、ビフォーアフター、時系列、ベンチマーク表、サマリーストリップ、プロセスフロー、ファネル、ヒートマップ、ガント、KPIスコアカード、2x2、散布図、分布、スモールマルチプル。残りの13パターン（サンキー、ピラミッド、地図、デシジョンツリー等）はスペックと画像生成プロンプトとして出力され、[カタログにどちらか明記](references/visualization-patterns.md)しています。誇張はしません。
@@ -101,14 +101,14 @@ python3 scripts/build_html_deck.py --manifest my-deck/deck.json -o my-deck/deck.
 
 6つのデッキアーキタイプが、一貫したダミーストーリー入りで同梱されています。すべてのスライドが描画可能で、スタブはありません。
 
-| アーキタイプ | 用途 | ストーリーライン |
-| --- | --- | --- |
-| `board-update` | 定例の役員会・経営会議アップデート | カバー→アジェンダ→エグゼクティブサマリー→KPIスコアカード→ARRウォーターフォール→トレンド→リスク→クロージング→裏表紙 |
+| アーキタイプ              | 用途                                        | ストーリーライン                                                                                                                                    |
+| ------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `board-update`            | 定例の役員会・経営会議アップデート          | カバー→アジェンダ→エグゼクティブサマリー→KPIスコアカード→ARRウォーターフォール→トレンド→リスク→クロージング→裏表紙                                  |
 | `strategy-recommendation` | 「Where to play, How to win」型の戦略デック | カバー→アジェンダ→背景→セクション区切り2枚（Where to play / How to win）→2×2→ベンチマーク表→ギャップまたはブリッジ→ロードマップ→クロージング→裏表紙 |
-| `project-status` | PMO・ステアリングコミッティ向け進捗報告 | カバー→サマリー→ロードマップ→KPIスコアカード→ブロッカー→グリーン化への道筋フロー→クロージング→裏表紙 |
-| `market-entry` | 新規参入・拡張の投資判断 | カバー→アジェンダ→市場トレンド→競合ベンチマーク→セグメント2×2→参入方式フロー→分布または散布図→クロージング→裏表紙 |
-| `sales-proposal` | 顧客向け提案書 | カバー→顧客の状況→ビフォーアフター→アプローチフロー→計画→採用理由ベンチマーク→顧客の声→クロージング→裏表紙 |
-| `board-update-ja` | 役員会向け月次アップデート（日本語） | `board-update`と同じ構成を、翻訳調ではなく自然な日本語の見出しで |
+| `project-status`          | PMO・ステアリングコミッティ向け進捗報告     | カバー→サマリー→ロードマップ→KPIスコアカード→ブロッカー→グリーン化への道筋フロー→クロージング→裏表紙                                                |
+| `market-entry`            | 新規参入・拡張の投資判断                    | カバー→アジェンダ→市場トレンド→競合ベンチマーク→セグメント2×2→参入方式フロー→分布または散布図→クロージング→裏表紙                                   |
+| `sales-proposal`          | 顧客向け提案書                              | カバー→顧客の状況→ビフォーアフター→アプローチフロー→計画→採用理由ベンチマーク→顧客の声→クロージング→裏表紙                                          |
+| `board-update-ja`         | 役員会向け月次アップデート（日本語）        | `board-update`と同じ構成を、翻訳調ではなく自然な日本語の見出しで                                                                                    |
 
 ## レポートモード（Markdown→ブラウザ文書）
 
@@ -125,6 +125,36 @@ python3 scripts/build_html_report.py my-report.md -o my-report.html --lang ja
 - 外部リクエストはゼロ — HTMLデッキと同じ自己完結の保証です
 
 `templates/reports/` に3種類のひな形（`board-pre-read.md`・`one-pager.md`・`proposal-memo.md`）が同梱されています。コミット済みデモ: [examples/demo-report.html](examples/demo-report.html)（[examples/demo-report.md](examples/demo-report.md)からビルド）。
+
+## 発表原稿（登壇者が読む原稿）
+
+どのスライドスペックにも、トップレベルの `"notes"` フィールド（文字列、または段落ごとの文字列リスト）を付けられます — そのスライドの発表原稿（ナレーション）です。SVGレンダラーはこのフィールドを完全に無視するので、notesを足してもレンダリング結果は変わりません。同じデッキマニフェストから、印刷前提の「1スライド1ページ」原稿をビルドします:
+
+```bash
+python3 scripts/build_speaker_script.py --manifest my-deck/deck.json -o my-deck/script.html --lang ja
+```
+
+- A4印刷1ページにつきスライド1枚: 上にスライド本体、下に登壇者が読める文字サイズの原稿（画面20px・印刷約13.5pt。`--lang ja` は行間1.9・`palt`でCJK対応）
+- notesがないスライドも1ページとして表示され、薄いグレーで「（原稿なし）」と表示（無言でスキップしない）
+- 表紙ページにはデッキタイトルと、デッキ自身のカバースライドにある日付（あれば）
+- 外部リクエストゼロ、JavaScript不要
+
+コミット済みデモ: [examples/demo-script.html](examples/demo-script.html)（[templates/decks/board-update-ja/deck.json](templates/decks/board-update-ja/deck.json)から`--lang ja`でビルド）。
+
+## デッキを記事として読む（縦スクロール版）
+
+同じ `notes` フィールドで、読み物モードのビルドもできます: デッキ全体を縦に並べ、各スライドのSVGの下にnotesを地の文として続ける — クリックで1枚ずつめくるのではなく、記事として上から下まで読めるデッキです。
+
+```bash
+python3 scripts/build_html_article.py --manifest my-deck/deck.json -o my-deck/article.html --lang ja
+```
+
+- 全スライドがマニフェスト順に、約980px幅の読み物カラムで表示され、下に720px幅の本文欄でnotesが続きます
+- notesがないスライドは枠だけ表示 — デッキをめくるように、記事でも全スライドを省略せず表示します
+- 「目次（Contents）」は本文スライドの見出しから自動生成（カバー・セクション区切り・裏表紙は目次から省くが本文には表示）。広い画面ではスティッキーな右カラムに
+- `--title` でマニフェストのタイトルを上書き可能。外部リクエストゼロ
+
+コミット済みデモ: [examples/demo-article.html](examples/demo-article.html)（[templates/decks/board-update/deck.json](templates/decks/board-update/deck.json)からビルド）。
 
 ## アニメーション付きHTMLデッキ
 
@@ -143,25 +173,25 @@ python3 scripts/build_html_deck.py cover.json bridge.json summary.json -o deck.h
 
 ## どこへでも書き出せる
 
-| 出力先 | 方法 | 品質 |
-| --- | --- | --- |
-| PDF | HTMLデッキを開いて印刷 → PDF保存 | ベクター、1スライド1ページ |
-| PowerPoint / Keynote / Word | SVGを画像として挿入 | ベクター、拡大しても劣化なし |
-| Googleスライド / Docs | ブラウザでSVG→PNG化して挿入 | 任意解像度のラスター |
-| Figma / Illustrator | SVGを直接開く | 完全編集可能なベクター |
-| ドキュメント / wiki / GitHub | SVGをそのまま埋め込み | このREADMEで見ている通り |
+| 出力先                       | 方法                             | 品質                         |
+| ---------------------------- | -------------------------------- | ---------------------------- |
+| PDF                          | HTMLデッキを開いて印刷 → PDF保存 | ベクター、1スライド1ページ   |
+| PowerPoint / Keynote / Word  | SVGを画像として挿入              | ベクター、拡大しても劣化なし |
+| Googleスライド / Docs        | ブラウザでSVG→PNG化して挿入      | 任意解像度のラスター         |
+| Figma / Illustrator          | SVGを直接開く                    | 完全編集可能なベクター       |
+| ドキュメント / wiki / GitHub | SVGをそのまま埋め込み            | このREADMEで見ている通り     |
 
 ## 5人のデザイン巨匠に酷評された
 
 「きれいなチャート」ではなく**守り切れるチャート**を目指して、5視点のデザインレビューパネル（厳格なAIペルソナ）に容赦なく叩かせました:
 
-| レビュアーの流派 | 評点 | 一番鋭い一撃 |
-| --- | --- | --- |
-| Edward Tufte — データインク・正直な軸 | 5.5/10 | 「意味のない装飾矩形がレンダラーに焼き込まれている」 |
-| Gene Zelazny — 元McKinsey『Say It With Charts』 | 6.5/10 | 「旗艦サンプルが自分のヘッドライン規則に違反している」 |
-| Vignelli × Müller-Brockmann — スイス派 | 6/10 | 「デザインシステムではなく企業テンプレート」 |
-| Alan Smith — FTデータジャーナリズム | 5.5/10 | 「ウォーターフォールが負のブリッジで画面外に描画される」（実証付き） |
-| 現代デザインエンジニアリング | 5.5/10 | 「2020年代の仕様書を着た2016年のビジュアル」 |
+| レビュアーの流派                                | 評点   | 一番鋭い一撃                                                         |
+| ----------------------------------------------- | ------ | -------------------------------------------------------------------- |
+| Edward Tufte — データインク・正直な軸           | 5.5/10 | 「意味のない装飾矩形がレンダラーに焼き込まれている」                 |
+| Gene Zelazny — 元McKinsey『Say It With Charts』 | 6.5/10 | 「旗艦サンプルが自分のヘッドライン規則に違反している」               |
+| Vignelli × Müller-Brockmann — スイス派          | 6/10   | 「デザインシステムではなく企業テンプレート」                         |
+| Alan Smith — FTデータジャーナリズム             | 5.5/10 | 「ウォーターフォールが負のブリッジで画面外に描画される」（実証付き） |
+| 現代デザインエンジニアリング                    | 5.5/10 | 「2020年代の仕様書を着た2016年のビジュアル」                         |
 
 そして[以前のリリース](CHANGELOG.md)で**全部直しました**: ゼロフロアのウォーターフォール、CJK正対応の折返し、サイレント切り捨ての根絶、白黒印刷に耐える単一ネイビー、符号付きデータのdivergingヒートマップ、全色域WCAG AAのアサート、装飾の除去、チャート選択前の比較タイプゲート、データインク健全性とデッキ論理を測るルーブリック。
 
@@ -171,15 +201,15 @@ python3 scripts/build_html_deck.py cover.json bridge.json summary.json -o deck.h
 
 [ペルソナ・プレイブック](references/persona-playbook.md)に、職種ごとのコピペ用プロンプトと実例があります。
 
-| 職種 | 作れるもの | 実例 |
-| --- | --- | --- |
-| 営業 | パイプラインQBR、提案書ビジュアル | [ファネル](assets/rendered/sales-pipeline-funnel.svg) |
-| PM/PMO | クリティカルパス付きロードマップ | [ガント](assets/rendered/pmo-rollout-gantt.svg) |
-| マーケター | チャネル×セグメント分析 | [ヒートマップ](assets/rendered/marketing-channel-heatmap.svg) |
-| 人事 | タレントスコアカード | [スコアカード](assets/rendered/hr-talent-scorecard.svg) |
-| プロダクトマネージャー | 工数×インパクトの優先順位付け | [2x2](assets/rendered/product-priority-two-by-two.svg) |
-| エンジニア | 障害ポストモーテムのフロー | [プロセスフロー](assets/rendered/eng-incident-flow.svg) |
-| 研究職・医療職 | 研究アウトカムのサマリー | [ビフォーアフター](assets/rendered/research-outcomes-before-after.svg) |
+| 職種                   | 作れるもの                        | 実例                                                                   |
+| ---------------------- | --------------------------------- | ---------------------------------------------------------------------- |
+| 営業                   | パイプラインQBR、提案書ビジュアル | [ファネル](assets/rendered/sales-pipeline-funnel.svg)                  |
+| PM/PMO                 | クリティカルパス付きロードマップ  | [ガント](assets/rendered/pmo-rollout-gantt.svg)                        |
+| マーケター             | チャネル×セグメント分析           | [ヒートマップ](assets/rendered/marketing-channel-heatmap.svg)          |
+| 人事                   | タレントスコアカード              | [スコアカード](assets/rendered/hr-talent-scorecard.svg)                |
+| プロダクトマネージャー | 工数×インパクトの優先順位付け     | [2x2](assets/rendered/product-priority-two-by-two.svg)                 |
+| エンジニア             | 障害ポストモーテムのフロー        | [プロセスフロー](assets/rendered/eng-incident-flow.svg)                |
+| 研究職・医療職         | 研究アウトカムのサマリー          | [ビフォーアフター](assets/rendered/research-outcomes-before-after.svg) |
 
 日本特有のビジネス文書（稟議書・週報・月報・役員会資料・学会抄録・抄読会・社内勉強会・提案書）のプロファイルは [document-type-profiles.md](references/document-type-profiles.md) にあります。
 

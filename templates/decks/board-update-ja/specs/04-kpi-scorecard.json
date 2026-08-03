@@ -4,14 +4,51 @@
   "subline": "主要指標、第3四半期の実績と目標",
   "columns": 3,
   "metrics": [
-    {"label": "ARR成長率（前四半期比）", "value": "+15.6%", "target": "+12%", "trend": "+3.6pt", "status": "good"},
-    {"label": "新規エンタープライズ契約数", "value": "9件", "target": "8件", "trend": "+1件", "status": "good"},
-    {"label": "純収益維持率(NRR)", "value": "118%", "target": "115%", "trend": "+3pt", "status": "good"},
-    {"label": "オンボーディング待機件数", "value": "14件", "target": "5件未満", "trend": "+9件", "status": "risk"},
-    {"label": "エンジニアリング稼働率", "value": "97%", "target": "85%未満", "trend": "+9pt", "status": "risk"},
-    {"label": "サポート未対応件数", "value": "62件", "target": "80件未満", "trend": "-8件", "status": "good"}
+    {
+      "label": "ARR成長率（前四半期比）",
+      "value": "+15.6%",
+      "target": "+12%",
+      "trend": "+3.6pt",
+      "status": "good"
+    },
+    {
+      "label": "新規エンタープライズ契約数",
+      "value": "9件",
+      "target": "8件",
+      "trend": "+1件",
+      "status": "good"
+    },
+    {
+      "label": "純収益維持率(NRR)",
+      "value": "118%",
+      "target": "115%",
+      "trend": "+3pt",
+      "status": "good"
+    },
+    {
+      "label": "オンボーディング待機件数",
+      "value": "14件",
+      "target": "5件未満",
+      "trend": "+9件",
+      "status": "risk"
+    },
+    {
+      "label": "エンジニアリング稼働率",
+      "value": "97%",
+      "target": "85%未満",
+      "trend": "+9pt",
+      "status": "risk"
+    },
+    {
+      "label": "サポート未対応件数",
+      "value": "62件",
+      "target": "80件未満",
+      "trend": "-8件",
+      "status": "good"
+    }
   ],
   "annotation": "エンジニアリングの稼働余力だけが唯一の赤信号。",
   "page_number": 4,
-  "source": "出所: Illustrative data — 実データに置き換えてください。"
+  "source": "出所: Illustrative data — 実データに置き換えてください。",
+  "notes": "主要指標を一つずつご覧いただくと、ARR成長率も新規契約数もNRRも、すべて目標を上回っています。赤信号はエンジニアリングの稼働率とオンボーディング待機件数の2つだけです。裏を返せば、問題の所在は極めて明確だということです。"
 }
