@@ -123,7 +123,6 @@ section {
 }
 .btn-primary:hover {
   color: #fff;
-  box-shadow: var(--shadow-lift);
 }
 .btn-ghost {
   border-color: var(--grey-300);

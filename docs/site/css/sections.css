@@ -72,14 +72,39 @@
   display: block;
 }
 .hd-copy {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 2;
-  padding-top: calc(var(--u) * 14);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   pointer-events: none;
+}
+.hd-copy::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(var(--u) * -6);
+  transform: translateY(-50%);
+  width: min(46rem, 90vw);
+  height: 72%;
+  background: radial-gradient(
+    closest-side,
+    rgba(255, 255, 255, 0.94),
+    rgba(255, 255, 255, 0)
+  );
+  z-index: -1;
+}
+.hd-copy h1,
+.hd-copy .lede {
+  max-width: 36rem;
 }
 .hd-copy .btn,
 .hd-copy a {
   pointer-events: auto;
+}
+.hd-copy-hidden {
+  visibility: hidden;
 }
 .hd-actions {
   display: flex;
@@ -87,8 +112,29 @@
   flex-wrap: wrap;
   margin-top: calc(var(--u) * 3);
 }
+/* static fallback mode: no WebGL, no canvas — copy flows above the poster */
+#hero.hd-static {
+  min-height: 0;
+  padding-block: calc(var(--u) * 10);
+}
+#hero.hd-static .hd-stage {
+  position: static;
+  height: auto;
+  overflow: visible;
+}
+#hero.hd-static .hd-canvas {
+  display: none;
+}
+#hero.hd-static .hd-copy {
+  position: relative;
+  pointer-events: auto;
+}
+#hero.hd-static .hd-copy::before {
+  content: none;
+}
 .hd-fallback {
-  margin: calc(var(--u) * 4) 0;
+  margin: calc(var(--u) * 4) 0 0;
+  max-width: 56rem;
   border: 1px solid var(--grey-300);
   box-shadow: var(--shadow-card);
 }
@@ -232,8 +278,7 @@
 }
 
 .gal-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lift);
+  border-color: var(--navy);
 }
 
 .gal-card img {
@@ -290,7 +335,7 @@
   background: var(--paper);
   border: 1px solid var(--grey-300);
   border-radius: 6px;
-  box-shadow: var(--shadow-lift);
+  box-shadow: var(--shadow-card);
 }
 
 .gal-lightbox-header {
@@ -489,8 +534,7 @@
 }
 
 .md-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lift);
+  border-color: var(--navy);
   text-decoration: none;
 }
 

@@ -16,32 +16,37 @@ function webglAvailable() {
 
 function showHeroFallback(heroSection) {
   if (heroSection.querySelector(".hd-fallback")) return;
+  heroSection.classList.add("hd-static");
   const figure = document.createElement("figure");
-  figure.className = "hd-fallback wrap";
+  figure.className = "hd-fallback";
   const img = document.createElement("img");
   img.src = "./site/artifacts/rendered/arr-waterfall.svg";
   img.alt = "Rendered ARR waterfall slide produced by the skill";
   figure.appendChild(img);
-  heroSection.appendChild(figure);
+  const stage = heroSection.querySelector(".hd-stage");
+  (stage || heroSection).appendChild(figure);
 }
 
 async function initHeroSection() {
   const heroSection = document.getElementById("hero");
   if (!heroSection) return;
   const canvas = heroSection.querySelector(".hd-canvas");
-  if (reducedMotion || !webglAvailable() || !canvas) {
+  if (!webglAvailable() || !canvas) {
     showHeroFallback(heroSection);
     return;
   }
   let hero;
   try {
     const mod = await import("./hero.js");
-    hero = mod.initHero(canvas, { reducedMotion: false });
+    hero = mod.initHero(canvas, { reducedMotion });
   } catch {
     showHeroFallback(heroSection);
     return;
   }
   if (!hero || typeof hero.setProgress !== "function") return;
+  if (reducedMotion) return; // hero.js renders the final assembled state statically
+
+  const copyEl = heroSection.querySelector(".hd-copy");
 
   let active = true;
   new IntersectionObserver((entries) => {
@@ -56,6 +61,12 @@ async function initHeroSection() {
     const range = rect.height - window.innerHeight;
     const t = range > 0 ? Math.min(1, Math.max(0, -rect.top / range)) : 1;
     hero.setProgress(t);
+    if (copyEl) {
+      const fade = 1 - Math.min(1, Math.max(0, (t - 0.02) / 0.16));
+      copyEl.style.opacity = fade.toFixed(3);
+      copyEl.style.transform = `translateY(${(-24 * (1 - fade)).toFixed(1)}px)`;
+      copyEl.classList.toggle("hd-copy-hidden", fade < 0.05);
+    }
   };
   window.addEventListener(
     "scroll",
