@@ -1,0 +1,14 @@
+{
+  "pattern": "gap",
+  "headline": "Implementation capacity covers only 60% of the enterprise onboarding pipeline",
+  "subline": "Quarterly onboarding capacity vs. signed enterprise commitments",
+  "unit": "",
+  "items": [
+    {"label": "Signed commitments", "value": 45, "emphasis": true},
+    {"label": "Current capacity", "value": 27},
+    {"label": "Capacity after Q3 hiring plan", "value": 38}
+  ],
+  "gap_label": "Gap: 18 onboardings",
+  "annotation": "Without the capacity investment, 40% of signed enterprise deals wait a full quarter to onboard.",
+  "source": "Source: user-provided delivery and pipeline data."
+}

@@ -1,0 +1,15 @@
+{
+  "pattern": "process_flow",
+  "headline": "Onboarding stalls at integration setup, where one team owns every enterprise account",
+  "subline": "Enterprise onboarding flow with current owners",
+  "steps": [
+    {"label": "Contract signed", "detail": "Sales; same day"},
+    {"label": "Kickoff and scoping", "detail": "CS team; 3 days"},
+    {"label": "Integration setup", "detail": "Platform team; 21 days backlog"},
+    {"label": "Workflow training", "detail": "CS team; 5 days"},
+    {"label": "Go-live review", "detail": "CS + customer; 2 days"}
+  ],
+  "highlight": 2,
+  "annotation": "Integration setup holds 70% of total onboarding time; this is where the capacity investment lands.",
+  "source": "Source: user-provided delivery process data."
+}

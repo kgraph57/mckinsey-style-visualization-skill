@@ -1,0 +1,127 @@
+[
+  {
+    "file": "adoption-before-after.svg",
+    "pattern": "before_after",
+    "headline": "The AI workflow program lifted adoption 46 points and cut onboarding time nearly in half"
+  },
+  {
+    "file": "adoption-trend.svg",
+    "pattern": "time_series",
+    "headline": "AI workflow adoption rose 46 points in four quarters, creating a scalable operating base"
+  },
+  {
+    "file": "arr-waterfall.svg",
+    "pattern": "waterfall",
+    "headline": "Enterprise acquisition and expansion added $5.5M ARR, more than offsetting $0.5M churn"
+  },
+  {
+    "file": "board-closing.svg",
+    "pattern": "closing",
+    "headline": "Decide the pilot now, scale in Q3"
+  },
+  {
+    "file": "board-deck-cover.svg",
+    "pattern": "cover",
+    "headline": "FY26 Growth Review"
+  },
+  {
+    "file": "capacity-gap.svg",
+    "pattern": "gap",
+    "headline": "Implementation capacity covers only 60% of the enterprise onboarding pipeline"
+  },
+  {
+    "file": "customer-quote.svg",
+    "pattern": "quote",
+    "headline": "Customers already describe the switch as done"
+  },
+  {
+    "file": "deal-size-distribution.svg",
+    "pattern": "distribution",
+    "headline": "Most deals close below $50k; the tail funds the roadmap"
+  },
+  {
+    "file": "deck-end-cover.svg",
+    "pattern": "end_cover",
+    "headline": "Thank you"
+  },
+  {
+    "file": "eng-incident-flow.svg",
+    "pattern": "process_flow",
+    "headline": "Detection to mitigation took 62 minutes; 47 of them were spent finding the owner"
+  },
+  {
+    "file": "executive-summary.svg",
+    "pattern": "summary_strip",
+    "headline": "Capacity, not demand, is now the binding constraint on Q4 growth"
+  },
+  {
+    "file": "hr-talent-scorecard.svg",
+    "pattern": "kpi_scorecard",
+    "headline": "Hiring is on plan, but engineering attrition has crossed the risk threshold"
+  },
+  {
+    "file": "jp-board-summary.svg",
+    "pattern": "summary_strip",
+    "headline": "需要ではなく処理能力が、第4四半期の成長を規定する制約条件になっている"
+  },
+  {
+    "file": "marketing-channel-heatmap.svg",
+    "pattern": "heatmap",
+    "headline": "Paid search wins SMB volume, but enterprise leads come from events and referrals"
+  },
+  {
+    "file": "onboarding-flow.svg",
+    "pattern": "process_flow",
+    "headline": "Onboarding stalls at integration setup, where one team owns every enterprise account"
+  },
+  {
+    "file": "phase-divider.svg",
+    "pattern": "section_divider",
+    "headline": "Where to play"
+  },
+  {
+    "file": "pmo-rollout-gantt.svg",
+    "pattern": "gantt",
+    "headline": "ERP rollout slips two months unless data migration starts before vendor sign-off"
+  },
+  {
+    "file": "pricing-retention-scatter.svg",
+    "pattern": "scatter",
+    "headline": "Price level does not explain churn; onboarding depth does"
+  },
+  {
+    "file": "product-priority-two-by-two.svg",
+    "pattern": "two_by_two",
+    "headline": "Two features deliver high impact at low effort; ship them before the platform rewrite"
+  },
+  {
+    "file": "research-outcomes-before-after.svg",
+    "pattern": "before_after",
+    "headline": "The intervention group improved on all three endpoints; confirm with the full cohort"
+  },
+  {
+    "file": "rollout-constraints.svg",
+    "pattern": "bullet_list",
+    "headline": "Three constraints shape the rollout"
+  },
+  {
+    "file": "sales-pipeline-funnel.svg",
+    "pattern": "funnel",
+    "headline": "Half the pipeline is lost at proposal stage, before pricing is ever discussed"
+  },
+  {
+    "file": "segment-adoption-multiples.svg",
+    "pattern": "small_multiples",
+    "headline": "Adoption rises in every segment, but healthcare lags the pack"
+  },
+  {
+    "file": "strategy-agenda.svg",
+    "pattern": "agenda",
+    "headline": "Three questions decide this investment"
+  },
+  {
+    "file": "vendor-benchmark.svg",
+    "pattern": "benchmark_table",
+    "headline": "Vendor B leads on integration depth and support; Vendor A wins only on list price"
+  }
+]

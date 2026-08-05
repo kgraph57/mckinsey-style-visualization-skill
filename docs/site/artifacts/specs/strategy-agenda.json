@@ -1,0 +1,13 @@
+{
+  "pattern": "agenda",
+  "headline": "Three questions decide this investment",
+  "items": [
+    {"title": "Context", "detail": "What changed since January"},
+    {"title": "Options", "detail": "Three entry paths, one recommendation"},
+    {"title": "Economics", "detail": "Unit economics and payback at scale"},
+    {"title": "Risks", "detail": "What could break the plan"}
+  ],
+  "current": 2,
+  "page_number": 2,
+  "source": "Illustrative data — sample deck outline."
+}

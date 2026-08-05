@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第3四半期 取締役会アップデート — デモデック</title>
+<style>
+:root { color-scheme: light; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; background: #0B1220; }
+body { font-family: 'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif; }
+.deck { position: relative; height: 100%; display: flex; align-items: center; justify-content: center; }
+.slide {
+  position: absolute; inset: 0; display: none; align-items: center; justify-content: center;
+  padding: 24px;
+}
+.slide.active { display: flex; }
+.frame {
+  width: min(96vw, calc(96vh * 16 / 9)); aspect-ratio: 16 / 9;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55); border-radius: 6px; overflow: hidden; background: #fff;
+}
+.frame svg { display: block; width: 100%; height: 100%; }
+.slide.active .frame { animation: slidein 480ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.slide.active svg .el { opacity: 0; animation: reveal 420ms ease-out both; }
+@keyframes slidein { from { opacity: 0; transform: translateY(14px) scale(0.992); } to { opacity: 1; transform: none; } }
+@keyframes reveal { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .slide.active .frame, .slide.active svg .el { animation: none; opacity: 1; }
+}
+.hud {
+  position: fixed; left: 0; right: 0; bottom: 0; display: flex; align-items: center; gap: 14px;
+  padding: 12px 20px; color: #93A3BC; font-size: 12px; user-select: none;
+  transition: opacity 320ms ease;
+}
+/* Presenting: chrome gets out of the way. The HUD fades after a short idle
+   (or instantly on keyboard navigation) and returns on mouse movement. */
+body.hud-hidden .hud { opacity: 0; pointer-events: none; }
+body.hud-hidden { cursor: none; }
+.hud .dots { display: flex; gap: 7px; }
+.hud .dot { width: 7px; height: 7px; border-radius: 50%; background: #33415C; cursor: pointer; border: 0; padding: 0; }
+.hud .dot.on { background: #E5E7EB; }
+.hud .counter { margin-left: auto; font-variant-numeric: tabular-nums; letter-spacing: 0.06em; }
+.progress { position: fixed; top: 0; left: 0; height: 2px; background: #E5E7EB; width: 0; transition: width 240ms ease; }
+@media print {
+  /* One 16:9 page per slide. The deck must stop being a flex container:
+     flex items ignore forced page breaks, which collapsed the whole deck
+     onto a single page. */
+  @page { size: 13.333in 7.5in; margin: 0; }
+  html, body { background: #fff; height: auto; }
+  .hud, .progress { display: none; }
+  .deck { display: block; height: auto; }
+  .slide { display: block !important; position: static; padding: 0; page-break-after: always; break-after: page; }
+  .slide:last-of-type { page-break-after: auto; break-after: auto; }
+  .frame { width: 100%; box-shadow: none; border-radius: 0; }
+  .slide svg .el, .slide .frame { opacity: 1 !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="progress"></div>
+<main class="deck">
+<section class="slide" aria-label="第3四半期 取締役会アップデート"><div class="frame">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="第3四半期 取締役会アップデート">
+  <rect x="0.0" y="0.0" width="1280.0" height="720.0" fill="#15296B" stroke="none"/>
+  <text class="el" style="animation-delay:0ms" x="80.0" y="264.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="54" fill="#FFFFFF" font-weight="normal" text-anchor="start">第3四半期 取締役会アップデート</text>
+  <text class="el" style="animation-delay:28ms" x="80.0" y="338.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#E5E7EB" font-weight="normal" text-anchor="start">成長状況と稼働体制の説明</text>
+  <text class="el" style="animation-delay:56ms" x="80.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">経営企画室 · 2026年10月</text>
+  <text class="el" style="animation-delay:84ms" x="1200.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#E5E7EB" font-weight="normal" text-anchor="end">社外秘</text>
+</svg>
+</div></section>
+<section class="slide" aria-label="本日は4つの論点で稼働体制への投資判断を仰ぎます"><div class="frame">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="本日は4つの論点で稼働体制への投資判断を仰ぎます">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text class="el" style="animation-delay:0ms" x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">本日は4つの論点で稼働体制への投資判断を仰ぎます</text>
+  <line class="el" style="animation-delay:28ms" x1="80.0" y1="208.0" x2="1200.0" y2="208.0" stroke="#D1D5DB"/>
+  <line class="el" style="animation-delay:56ms" x1="80.0" y1="296.0" x2="1200.0" y2="296.0" stroke="#D1D5DB"/>
+  <line class="el" style="animation-delay:84ms" x1="80.0" y1="384.0" x2="1200.0" y2="384.0" stroke="#D1D5DB"/>
+  <line class="el" style="animation-delay:112ms" x1="80.0" y1="472.0" x2="1200.0" y2="472.0" stroke="#D1D5DB"/>
+  <line class="el" style="animation-delay:140ms" x1="80.0" y1="560.0" x2="1200.0" y2="560.0" stroke="#D1D5DB"/>
+  <text class="el" style="animation-delay:168ms" x="80.0" y="260.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="28" fill="#15296B" font-weight="normal" text-anchor="start">01</text>
+  <text class="el" style="animation-delay:196ms" x="134.0" y="260.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">成長</text>
+  <text class="el" style="animation-delay:224ms" x="400.0" y="260.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">ARRと新規契約がどこから伸びたか</text>
+  <text class="el" style="animation-delay:252ms" x="80.0" y="348.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="28" fill="#15296B" font-weight="normal" text-anchor="start">02</text>
+  <text class="el" style="animation-delay:280ms" x="134.0" y="348.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">導入状況</text>
+  <text class="el" style="animation-delay:308ms" x="400.0" y="348.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">新ワークフローの利用がどれだけ広がったか</text>
+  <text class="el" style="animation-delay:336ms" x="80.0" y="436.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="28" fill="#15296B" font-weight="normal" text-anchor="start">03</text>
+  <text class="el" style="animation-delay:364ms" x="134.0" y="436.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">稼働リスク</text>
+  <text class="el" style="animation-delay:392ms" x="400.0" y="436.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">オンボーディングがなぜボトルネックになったか</text>
+  <text class="el" style="animation-delay:420ms" x="80.0" y="524.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="28" fill="#15296B" font-weight="normal" text-anchor="start">04</text>
+  <text class="el" style="animation-delay:448ms" x="134.0" y="524.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">依頼事項</text>
+  <text class="el" style="animation-delay:476ms" x="400.0" y="524.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">本日承認いただきたい内容</text>
+  <text class="el" style="animation-delay:504ms" x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
+  <text class="el" style="animation-delay:532ms" x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">2</text>
+</svg>
+</div></section>
+<section class="slide" aria-label="成長は本物だが、オンボーディング能力がその先の売上転換速度を規定している"><div class="frame">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="成長は本物だが、オンボーディング能力がその先の売上転換速度を規定している">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text class="el" style="animation-delay:0ms" x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">成長は本物だが、オンボーディング能力がその先の</text>
+  <text class="el" style="animation-delay:28ms" x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">売上転換速度を規定している</text>
+  <text class="el" style="animation-delay:56ms" x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">第3四半期 取締役会向け要約</text>
+  <text class="el" style="animation-delay:84ms" x="1200.0" y="40.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="600" text-anchor="end">社外秘</text>
+  <text class="el" style="animation-delay:112ms" x="108.0" y="251.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="bold" text-anchor="start">成長はエンタープライズ</text>
+  <text class="el" style="animation-delay:140ms" x="108.0" y="281.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="bold" text-anchor="start">主導</text>
+  <text class="el" style="animation-delay:168ms" x="108.0" y="321.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">ARRは前四半期比+5.0億円（32</text>
+  <text class="el" style="animation-delay:196ms" x="108.0" y="345.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">億円→37億円）。うち新規</text>
+  <text class="el" style="animation-delay:224ms" x="108.0" y="369.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">エンタープライズが</text>
+  <text class="el" style="animation-delay:252ms" x="108.0" y="393.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">4.2億円を牽引。</text>
+  <text class="el" style="animation-delay:280ms" x="108.0" y="430.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">多角化より先に、</text>
+  <text class="el" style="animation-delay:308ms" x="108.0" y="454.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">エンタープライズの勢いを</text>
+  <text class="el" style="animation-delay:336ms" x="108.0" y="478.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">守る。</text>
+  <text class="el" style="animation-delay:364ms" x="481.3" y="251.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="bold" text-anchor="start">導入は加速を続けている</text>
+  <text class="el" style="animation-delay:392ms" x="481.3" y="291.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">新ワークフローの導入率は</text>
+  <text class="el" style="animation-delay:420ms" x="481.3" y="315.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">3四半期で41%から68%まで</text>
+  <text class="el" style="animation-delay:448ms" x="481.3" y="339.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">上昇。</text>
+  <text class="el" style="animation-delay:476ms" x="481.3" y="376.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">プロダクトの伸びしろは</text>
+  <text class="el" style="animation-delay:504ms" x="481.3" y="400.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">健在。制約は下流工程に</text>
+  <text class="el" style="animation-delay:532ms" x="481.3" y="424.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">移った。</text>
+  <text class="el" style="animation-delay:560ms" x="854.7" y="251.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="bold" text-anchor="start">オンボーディング能力が</text>
+  <text class="el" style="animation-delay:588ms" x="854.7" y="281.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="bold" text-anchor="start">現在の制約</text>
+  <text class="el" style="animation-delay:616ms" x="854.7" y="321.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">オンボーディング待ちの</text>
+  <text class="el" style="animation-delay:644ms" x="854.7" y="345.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">契約は14件。前四半期の</text>
+  <text class="el" style="animation-delay:672ms" x="854.7" y="369.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">2倍を超えた。</text>
+  <text class="el" style="animation-delay:700ms" x="854.7" y="406.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">今四半期中にオンボーディング</text>
+  <text class="el" style="animation-delay:728ms" x="854.7" y="430.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">要員を2名増やす。</text>
+  <text class="el" style="animation-delay:756ms" x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
+  <text class="el" style="animation-delay:784ms" x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">3</text>
+</svg>
+</div></section>
+<section class="slide" aria-label="成長指標はすべて計画通り、唯一の例外はエンジニアリングの稼働余力"><div class="frame">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="成長指標はすべて計画通り、唯一の例外はエンジニアリングの稼働余力">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text class="el" style="animation-delay:0ms" x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">成長指標はすべて計画通り、唯一の</text>
+  <text class="el" style="animation-delay:28ms" x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">例外はエンジニアリングの稼働余力</text>
+  <text class="el" style="animation-delay:56ms" x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">主要指標、第3四半期の実績と目標</text>
+  <rect class="el" style="animation-delay:84ms" x="80.0" y="208.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text class="el" style="animation-delay:112ms" x="104.0" y="238.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">ARR成長率（前四半期比）</text>
+  <text class="el" style="animation-delay:140ms" x="104.0" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">+15.6%</text>
+  <text class="el" style="animation-delay:168ms" x="419.3" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#2563EB" font-weight="600" text-anchor="end">+3.6pt</text>
+  <text class="el" style="animation-delay:196ms" x="104.0" y="342.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: +12%</text>
+  <rect class="el" style="animation-delay:224ms" x="461.3" y="208.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text class="el" style="animation-delay:252ms" x="485.3" y="238.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">新規エンタープライズ契約数</text>
+  <text class="el" style="animation-delay:280ms" x="485.3" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">9件</text>
+  <text class="el" style="animation-delay:308ms" x="800.7" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#2563EB" font-weight="600" text-anchor="end">+1件</text>
+  <text class="el" style="animation-delay:336ms" x="485.3" y="342.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: 8件</text>
+  <rect class="el" style="animation-delay:364ms" x="842.7" y="208.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text class="el" style="animation-delay:392ms" x="866.7" y="238.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">純収益維持率(NRR)</text>
+  <text class="el" style="animation-delay:420ms" x="866.7" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">118%</text>
+  <text class="el" style="animation-delay:448ms" x="1182.0" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#2563EB" font-weight="600" text-anchor="end">+3pt</text>
+  <text class="el" style="animation-delay:476ms" x="866.7" y="342.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: 115%</text>
+  <rect class="el" style="animation-delay:504ms" x="80.0" y="376.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text class="el" style="animation-delay:532ms" x="104.0" y="406.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">オンボーディング待機件数</text>
+  <text class="el" style="animation-delay:560ms" x="104.0" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">14件</text>
+  <text class="el" style="animation-delay:588ms" x="419.3" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#B91C1C" font-weight="600" text-anchor="end">+9件</text>
+  <text class="el" style="animation-delay:616ms" x="104.0" y="510.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: 5件未満</text>
+  <rect class="el" style="animation-delay:644ms" x="461.3" y="376.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text class="el" style="animation-delay:672ms" x="485.3" y="406.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">エンジニアリング稼働率</text>
+  <text class="el" style="animation-delay:700ms" x="485.3" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">97%</text>
+  <text class="el" style="animation-delay:728ms" x="800.7" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#B91C1C" font-weight="600" text-anchor="end">+9pt</text>
+  <text class="el" style="animation-delay:756ms" x="485.3" y="510.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: 85%未満</text>
+  <rect class="el" style="animation-delay:784ms" x="842.7" y="376.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text class="el" style="animation-delay:812ms" x="866.7" y="406.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">サポート未対応件数</text>
+  <text class="el" style="animation-delay:840ms" x="866.7" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">62件</text>
+  <text class="el" style="animation-delay:868ms" x="1182.0" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#2563EB" font-weight="600" text-anchor="end">-8件</text>
+  <text class="el" style="animation-delay:896ms" x="866.7" y="510.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: 80件未満</text>
+  <text class="el" style="animation-delay:924ms" x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>エンジニアリングの稼働余力だけが唯一の赤信号。</title>エンジニアリングの稼働余力だけが唯一の赤信号。</text>
+  <text class="el" style="animation-delay:952ms" x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
+  <text class="el" style="animation-delay:980ms" x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">4</text>
+</svg>
+</div></section>
+<section class="slide" aria-label="新規エンタープライズ契約と既存拡大で+6.3億円、解約1.3億円を差し引いても純増5.0億円"><div class="frame">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="新規エンタープライズ契約と既存拡大で+6.3億円、解約1.3億円を差し引いても純増5.0億円">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text class="el" style="animation-delay:0ms" x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">新規エンタープライズ契約と既存拡大で+6.3億円、</text>
+  <text class="el" style="animation-delay:28ms" x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">解約1.3億円を差し引いても純増5.0億円</text>
+  <text class="el" style="animation-delay:56ms" x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">ARRブリッジ、第2四半期から第3四半期</text>
+  <line class="el" style="animation-delay:84ms" x1="80.0" y1="560.0" x2="1200.0" y2="560.0" stroke="#374151"/>
+  <text class="el" style="animation-delay:112ms" x="70.0" y="564.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="end">0</text>
+  <rect class="el" style="animation-delay:140ms" x="137.0" y="310.8" width="110.0" height="249.2" fill="#15296B" stroke="none"/>
+  <text class="el" style="animation-delay:168ms" x="192.0" y="300.8" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">32億円</text>
+  <text class="el" style="animation-delay:196ms" x="192.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>第2四半期ARR</title>第2四半期ARR</text>
+  <rect class="el" style="animation-delay:224ms" x="361.0" y="278.1" width="110.0" height="32.7" fill="#2563EB" stroke="none"/>
+  <text class="el" style="animation-delay:252ms" x="416.0" y="268.1" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">+4.2億円</text>
+  <text class="el" style="animation-delay:280ms" x="416.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>新規エンタープライズ契約</title>新規エンタープライズ</text>
+  <text class="el" style="animation-delay:308ms" x="416.0" y="602.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>新規エンタープライズ契約</title>契約</text>
+  <line class="el" style="animation-delay:336ms" x1="247.0" y1="310.8" x2="361.0" y2="310.8" stroke="#D1D5DB" stroke-dasharray="4 3"/>
+  <rect class="el" style="animation-delay:364ms" x="585.0" y="261.7" width="110.0" height="16.4" fill="#2563EB" stroke="none"/>
+  <text class="el" style="animation-delay:392ms" x="640.0" y="251.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">+2.1億円</text>
+  <text class="el" style="animation-delay:420ms" x="640.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>既存顧客の拡大</title>既存顧客の拡大</text>
+  <line class="el" style="animation-delay:448ms" x1="471.0" y1="278.1" x2="585.0" y2="278.1" stroke="#D1D5DB" stroke-dasharray="4 3"/>
+  <rect class="el" style="animation-delay:476ms" x="809.0" y="261.7" width="110.0" height="10.1" fill="#B91C1C" stroke="none"/>
+  <text class="el" style="animation-delay:504ms" x="864.0" y="251.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">−1.3億円</text>
+  <text class="el" style="animation-delay:532ms" x="864.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>解約</title>解約</text>
+  <line class="el" style="animation-delay:560ms" x1="695.0" y1="261.7" x2="809.0" y2="261.7" stroke="#D1D5DB" stroke-dasharray="4 3"/>
+  <line class="el" style="animation-delay:588ms" x1="919.0" y1="271.8" x2="1033.0" y2="271.8" stroke="#D1D5DB" stroke-dasharray="4 3"/>
+  <rect class="el" style="animation-delay:616ms" x="1033.0" y="271.8" width="110.0" height="288.2" fill="#15296B" stroke="none"/>
+  <text class="el" style="animation-delay:644ms" x="1088.0" y="261.8" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">37億円</text>
+  <text class="el" style="animation-delay:672ms" x="1088.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>第3四半期ARR</title>第3四半期ARR</text>
+  <text class="el" style="animation-delay:700ms" x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>純増5.0億円。成長エンジンはエンタープライズ主導のまま。</title>純増5.0億円。成長エンジンはエンタープライズ主導のまま。</text>
+  <text class="el" style="animation-delay:728ms" x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
+  <text class="el" style="animation-delay:756ms" x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">5</text>
+</svg>
+</div></section>
+<section class="slide" aria-label="導入率は3四半期連続で上昇し、過半数を大きく超えた"><div class="frame">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="導入率は3四半期連続で上昇し、過半数を大きく超えた">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text class="el" style="animation-delay:0ms" x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">導入率は3四半期連続で上昇し、過半数を</text>
+  <text class="el" style="animation-delay:28ms" x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">大きく超えた</text>
+  <text class="el" style="animation-delay:56ms" x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">新ワークフローの利用率（対象アカウント比）</text>
+  <line class="el" style="animation-delay:84ms" x1="80.0" y1="560.0" x2="1200.0" y2="560.0" stroke="#374151"/>
+  <text class="el" style="animation-delay:112ms" x="70.0" y="564.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="end">0</text>
+  <polyline class="el" style="animation-delay:140ms" points="80.0,383.1 453.3,335.7 826.7,296.9 1200.0,266.7" fill="none" stroke="#15296B" stroke-width="3"/>
+  <circle class="el" style="animation-delay:168ms" cx="80.0" cy="383.1" r="5" fill="#15296B"/>
+  <text class="el" style="animation-delay:196ms" x="80.0" y="365.1" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">41%</text>
+  <text class="el" style="animation-delay:224ms" x="80.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle">前年Q4</text>
+  <circle class="el" style="animation-delay:252ms" cx="453.3" cy="335.7" r="5" fill="#15296B"/>
+  <text class="el" style="animation-delay:280ms" x="453.3" y="317.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">52%</text>
+  <text class="el" style="animation-delay:308ms" x="453.3" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle">Q1</text>
+  <circle class="el" style="animation-delay:336ms" cx="826.7" cy="296.9" r="5" fill="#15296B"/>
+  <text class="el" style="animation-delay:364ms" x="826.7" y="278.9" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">61%</text>
+  <text class="el" style="animation-delay:392ms" x="826.7" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle">Q2</text>
+  <circle class="el" style="animation-delay:420ms" cx="1200.0" cy="266.7" r="5" fill="#15296B"/>
+  <text class="el" style="animation-delay:448ms" x="1200.0" y="248.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">68%</text>
+  <text class="el" style="animation-delay:476ms" x="1200.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle">Q3</text>
+  <text class="el" style="animation-delay:504ms" x="80.0" y="196.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">導入率</text>
+  <text class="el" style="animation-delay:532ms" x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>需要はむしろ強い。制約はオンボーディングの処理速度に移った。</title>需要はむしろ強い。制約はオンボーディングの処理速度に移った。</text>
+  <text class="el" style="animation-delay:560ms" x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
+  <text class="el" style="animation-delay:588ms" x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">6</text>
+</svg>
+</div></section>
+<section class="slide" aria-label="稼働リスクは3つに集約される"><div class="frame">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="稼働リスクは3つに集約される">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text class="el" style="animation-delay:0ms" x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">稼働リスクは3つに集約される</text>
+  <rect class="el" style="animation-delay:28ms" x="80.0" y="214.0" width="6.0" height="6.0" fill="#15296B" stroke="none"/>
+  <text class="el" style="animation-delay:56ms" x="102.0" y="228.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start">オンボーディング待機件数が14件と、前四半期の2倍を超えている</text>
+  <text class="el" style="animation-delay:84ms" x="126.0" y="264.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">– 主因はエンジニアリングチームの稼働率が97%に達していること</text>
+  <rect class="el" style="animation-delay:112ms" x="80.0" y="324.7" width="6.0" height="6.0" fill="#15296B" stroke="none"/>
+  <text class="el" style="animation-delay:140ms" x="102.0" y="338.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">サポート体制は健全だが、増員なしでは第4四半期に同じ問題が再発する</text>
+  <rect class="el" style="animation-delay:168ms" x="80.0" y="435.3" width="6.0" height="6.0" fill="#15296B" stroke="none"/>
+  <text class="el" style="animation-delay:196ms" x="102.0" y="449.3" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">解約率は低いが、オンボーディング遅延が長期化すれば悪化するリスクがある</text>
+  <text class="el" style="animation-delay:224ms" x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>オンボーディング要員の増強が、最も効果の大きい対応策。</title>オンボーディング要員の増強が、最も効果の大きい対応策。</text>
+  <text class="el" style="animation-delay:252ms" x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
+  <text class="el" style="animation-delay:280ms" x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">7</text>
+</svg>
+</div></section>
+<section class="slide" aria-label="本日、オンボーディング要員の増員を承認しなければ第4四半期の成長は減速する"><div class="frame">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="本日、オンボーディング要員の増員を承認しなければ第4四半期の成長は減速する">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text class="el" style="animation-delay:0ms" x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">本日、オンボーディング要員の増員を</text>
+  <text class="el" style="animation-delay:28ms" x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">承認しなければ第4四半期の成長は減速する</text>
+  <text class="el" style="animation-delay:56ms" x="80.0" y="208.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="15" fill="#6B7280" font-weight="600" text-anchor="start">KEY TAKEAWAYS</text>
+  <text class="el" style="animation-delay:84ms" x="80.0" y="242.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="26" fill="#15296B" font-weight="bold" text-anchor="start">1</text>
+  <text class="el" style="animation-delay:112ms" x="122.0" y="242.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">エンタープライズ主導の成長は</text>
+  <text class="el" style="animation-delay:140ms" x="122.0" y="272.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">本物で持続的</text>
+  <text class="el" style="animation-delay:168ms" x="80.0" y="348.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="26" fill="#15296B" font-weight="bold" text-anchor="start">2</text>
+  <text class="el" style="animation-delay:196ms" x="122.0" y="348.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">導入率は基盤全体で過半数を</text>
+  <text class="el" style="animation-delay:224ms" x="122.0" y="378.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">大きく超えた</text>
+  <text class="el" style="animation-delay:252ms" x="80.0" y="454.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="26" fill="#15296B" font-weight="bold" text-anchor="start">3</text>
+  <text class="el" style="animation-delay:280ms" x="122.0" y="454.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">制約は需要でも解約でも</text>
+  <text class="el" style="animation-delay:308ms" x="122.0" y="484.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">なくオンボーディング能力</text>
+  <text class="el" style="animation-delay:336ms" x="624.0" y="208.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="15" fill="#6B7280" font-weight="600" text-anchor="start">NEXT STEPS</text>
+  <text class="el" style="animation-delay:364ms" x="624.0" y="242.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">オンボーディング要員を2名増員承認</text>
+  <text class="el" style="animation-delay:392ms" x="624.0" y="276.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">COO · 今週中</text>
+  <text class="el" style="animation-delay:420ms" x="624.0" y="348.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">契約金額順にオンボーディング待機列を</text>
+  <text class="el" style="animation-delay:448ms" x="624.0" y="378.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">並び替え</text>
+  <text class="el" style="animation-delay:476ms" x="624.0" y="412.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">オンボーディング責任者 · 2週間以内</text>
+  <text class="el" style="animation-delay:504ms" x="624.0" y="454.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">第4四半期の取締役会で稼働率を再確認</text>
+  <text class="el" style="animation-delay:532ms" x="624.0" y="488.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">経営企画室 · 第4四半期</text>
+  <text class="el" style="animation-delay:560ms" x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>本日の決定事項: オンボーディング要員2名の増員を承認する。</title>本日の決定事項: オンボーディング要員2名の増員を承認する。</text>
+  <text class="el" style="animation-delay:588ms" x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
+  <text class="el" style="animation-delay:616ms" x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">8</text>
+</svg>
+</div></section>
+<section class="slide" aria-label="ご清聴ありがとうございました"><div class="frame">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="ご清聴ありがとうございました">
+  <rect x="0.0" y="0.0" width="1280.0" height="720.0" fill="#15296B" stroke="none"/>
+  <text class="el" style="animation-delay:0ms" x="80.0" y="264.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="54" fill="#FFFFFF" font-weight="normal" text-anchor="start">ご清聴ありがとうございました</text>
+  <text class="el" style="animation-delay:28ms" x="80.0" y="338.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#E5E7EB" font-weight="normal" text-anchor="start">質疑応答</text>
+  <text class="el" style="animation-delay:56ms" x="80.0" y="560.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">経営企画室</text>
+  <text class="el" style="animation-delay:84ms" x="80.0" y="589.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">ir@example.com</text>
+  <text class="el" style="animation-delay:112ms" x="80.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">経営企画室 · 2026年10月</text>
+  <text class="el" style="animation-delay:140ms" x="1200.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#E5E7EB" font-weight="normal" text-anchor="end">社外秘</text>
+</svg>
+</div></section>
+</main>
+<footer class="hud">
+  <div class="dots"><button class="dot" aria-label="Slide 1"></button><button class="dot" aria-label="Slide 2"></button><button class="dot" aria-label="Slide 3"></button><button class="dot" aria-label="Slide 4"></button><button class="dot" aria-label="Slide 5"></button><button class="dot" aria-label="Slide 6"></button><button class="dot" aria-label="Slide 7"></button><button class="dot" aria-label="Slide 8"></button><button class="dot" aria-label="Slide 9"></button></div>
+  <span>&#8592; &#8594; navigate &middot; p = print / PDF</span>
+  <span class="counter"></span>
+</footer>
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var dots = Array.prototype.slice.call(document.querySelectorAll('.dot'));
+  var bar = document.querySelector('.progress');
+  var counter = document.querySelector('.counter');
+  var current = Math.min(Math.max((parseInt(location.hash.slice(1), 10) || 1) - 1, 0), slides.length - 1);
+  function show(index) {
+    current = Math.min(Math.max(index, 0), slides.length - 1);
+    slides.forEach(function (slide, i) {
+      slide.classList.toggle('active', i === current);
+      if (i === current) {
+        // restart the reveal animation on revisit
+        slide.querySelectorAll('.el').forEach(function (el) {
+          el.style.animation = 'none';
+          void el.getBoundingClientRect();
+          el.style.animation = '';
+        });
+      }
+    });
+    dots.forEach(function (dot, i) { dot.classList.toggle('on', i === current); });
+    bar.style.width = (100 * (current + 1) / slides.length) + '%';
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+    history.replaceState(null, '', '#' + (current + 1));
+  }
+  // Presentation chrome: fade the HUD after a short idle, bring it back on
+  // mouse movement, and drop it instantly when the keyboard takes over.
+  var hudTimer = null;
+  function hideHud() { document.body.classList.add('hud-hidden'); }
+  function wakeHud() {
+    document.body.classList.remove('hud-hidden');
+    clearTimeout(hudTimer);
+    hudTimer = setTimeout(hideHud, 2500);
+  }
+  document.addEventListener('mousemove', wakeHud);
+  document.addEventListener('keydown', function (event) {
+    var navigated = true;
+    if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'PageDown') { show(current + 1); event.preventDefault(); }
+    else if (event.key === 'ArrowLeft' || event.key === 'PageUp') { show(current - 1); event.preventDefault(); }
+    else if (event.key === 'Home') show(0);
+    else if (event.key === 'End') show(slides.length - 1);
+    else if (event.key === 'p') window.print();
+    else navigated = false;
+    if (navigated) { clearTimeout(hudTimer); hideHud(); }
+  });
+  document.querySelector('.deck').addEventListener('click', function (event) {
+    if (event.target.closest('.hud')) return;
+    var x = event.clientX / window.innerWidth;
+    show(x < 0.33 ? current - 1 : current + 1);
+  });
+  dots.forEach(function (dot, i) { dot.addEventListener('click', function () { show(i); }); });
+  show(current);
+  wakeHud();
+})();
+</script>
+</body>
+</html>

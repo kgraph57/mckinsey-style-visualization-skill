@@ -1,0 +1,17 @@
+{
+  "pattern": "closing",
+  "headline": "Decide the pilot now, scale in Q3",
+  "takeaways": [
+    "Unit economics clear the bar",
+    "Risk is concentrated in supply",
+    "Capacity is the binding constraint, not demand"
+  ],
+  "next_steps": [
+    {"action": "Approve pilot budget", "owner": "CFO", "timing": "This week"},
+    {"action": "Confirm Vendor A capacity commitment", "owner": "Ops lead", "timing": "Next two weeks"},
+    {"action": "Review pilot results at the Q3 board meeting", "owner": "Strategy team", "timing": "Q3"}
+  ],
+  "call_to_action": "Decision requested today: approve the Q2 pilot",
+  "page_number": 12,
+  "source": "Illustrative data — hypothetical Q2 pilot decision."
+}

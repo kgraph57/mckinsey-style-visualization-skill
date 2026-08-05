@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第3四半期 取締役会アップデート — デモデック</title>
+<style>
+:root {
+  color-scheme: light;
+  --navy: #15296B;
+  --ink: #000000;
+  --body-ink: #1F2937;
+  --muted: #6B7280;
+  --rule: #D1D5DB;
+  --serif: Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --sans: 'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: #FFFFFF; }
+body {
+  font-family: var(--sans);
+  color: var(--body-ink);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+.page { max-width: 1160px; margin: 0 auto; padding: 48px 32px; border-bottom: 1px solid var(--rule); }
+.page:last-child { border-bottom: none; }
+
+/* Cover: a navy band for the script itself, in the report builder's own
+   tokens (navy, Georgia) -- no decorative bars, no boxes, no left accents. */
+.cover-page { max-width: none; padding: 0; border-bottom: none; background: var(--navy); }
+.cover-inner { position: relative; max-width: 760px; margin: 0 auto; padding: 96px 32px; }
+.cover-kicker {
+  position: absolute; top: 40px; right: 32px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #E5E7EB;
+}
+.cover-inner h1 { font-family: var(--serif); font-weight: normal; font-size: 40px; line-height: 1.3; color: #FFFFFF; max-width: 620px; }
+.cover-date { margin-top: 20px; font-size: 16px; color: #E5E7EB; }
+
+.page-head { font-size: 13px; color: var(--muted); letter-spacing: 0.02em; margin-bottom: 20px; }
+
+/* Slide left, narration right -- the field-tested presenter layout
+   (current slide on the left, the script as the hero on the right). */
+.duo { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(300px, 1fr); gap: 44px; align-items: start; }
+.script-slide {
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  padding: 14px 0;
+}
+.script-slide svg { display: block; width: 100%; height: auto; }
+
+.notes p { font-size: 20px; line-height: 1.7; margin: 0 0 16px; }
+.notes p:last-child { margin-bottom: 0; }
+.notes p.no-notes { color: var(--muted); font-style: italic; }
+body.lang-ja .notes p { line-height: 1.9; font-feature-settings: 'palt'; }
+
+@media (max-width: 900px) {
+  .page { padding: 32px 20px; }
+  .cover-inner { padding: 64px 20px; }
+  .duo { display: block; }
+  .script-slide { margin-bottom: 24px; }
+}
+
+@media print {
+  /* Landscape so the slide (left) and the script (right) share the page
+     the same way they share the presenter screen. */
+  @page { size: A4 landscape; margin: 12mm; }
+  html, body { background: #FFFFFF; }
+  .page { max-width: none; margin: 0; padding: 0; border-bottom: none; break-after: page; page-break-after: always; }
+  .page:last-child { break-after: auto; page-break-after: auto; }
+  .duo { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10mm; }
+  .cover-page {
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    min-height: 182mm; box-sizing: border-box;
+    display: flex; align-items: center;
+  }
+  .cover-inner { max-width: none; padding: 0; width: 100%; }
+  .notes p { font-size: 13.5pt; }
+  .script-slide, .notes p { break-inside: avoid; page-break-inside: avoid; }
+}
+</style>
+</head>
+<body class="lang-ja">
+<section class="page cover-page"><div class="cover-inner"><p class="cover-kicker">発表原稿</p><h1>第3四半期 取締役会アップデート — デモデック</h1><p class="cover-date">2026年10月</p></div></section>
+<section class="page slide-page"><p class="page-head">1 / 9 &middot; 第3四半期 取締役会アップデート</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="第3四半期 取締役会アップデート">
+  <rect x="0.0" y="0.0" width="1280.0" height="720.0" fill="#15296B" stroke="none"/>
+  <text x="80.0" y="264.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="54" fill="#FFFFFF" font-weight="normal" text-anchor="start">第3四半期 取締役会アップデート</text>
+  <text x="80.0" y="338.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#E5E7EB" font-weight="normal" text-anchor="start">成長状況と稼働体制の説明</text>
+  <text x="80.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">経営企画室 · 2026年10月</text>
+  <text x="1200.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#E5E7EB" font-weight="normal" text-anchor="end">社外秘</text>
+</svg>
+</figure><div class="notes"><p>本日はお集まりいただきありがとうございます。第3四半期の成長状況と、それを支える稼働体制についてご報告します。結論から申し上げると、成長そのものは順調ですが、その先を支えるオンボーディング体制への投資判断を本日お願いしたいと考えています。</p></div></div></section><section class="page slide-page"><p class="page-head">2 / 9 &middot; 本日は4つの論点で稼働体制への投資判断を仰ぎます</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="本日は4つの論点で稼働体制への投資判断を仰ぎます">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">本日は4つの論点で稼働体制への投資判断を仰ぎます</text>
+  <line x1="80.0" y1="208.0" x2="1200.0" y2="208.0" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="296.0" x2="1200.0" y2="296.0" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="384.0" x2="1200.0" y2="384.0" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="472.0" x2="1200.0" y2="472.0" stroke="#D1D5DB"/>
+  <line x1="80.0" y1="560.0" x2="1200.0" y2="560.0" stroke="#D1D5DB"/>
+  <text x="80.0" y="260.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="28" fill="#15296B" font-weight="normal" text-anchor="start">01</text>
+  <text x="134.0" y="260.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">成長</text>
+  <text x="400.0" y="260.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">ARRと新規契約がどこから伸びたか</text>
+  <text x="80.0" y="348.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="28" fill="#15296B" font-weight="normal" text-anchor="start">02</text>
+  <text x="134.0" y="348.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">導入状況</text>
+  <text x="400.0" y="348.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">新ワークフローの利用がどれだけ広がったか</text>
+  <text x="80.0" y="436.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="28" fill="#15296B" font-weight="normal" text-anchor="start">03</text>
+  <text x="134.0" y="436.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">稼働リスク</text>
+  <text x="400.0" y="436.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">オンボーディングがなぜボトルネックになったか</text>
+  <text x="80.0" y="524.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="28" fill="#15296B" font-weight="normal" text-anchor="start">04</text>
+  <text x="134.0" y="524.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">依頼事項</text>
+  <text x="400.0" y="524.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">本日承認いただきたい内容</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">2</text>
+</svg>
+</figure><div class="notes"><p>本日は4つの論点でお話しします。まず成長の中身、次に新ワークフローの導入状況、そして稼働リスクの所在、最後に本日ご承認いただきたい依頼事項です。この順にご説明していきます。</p></div></div></section><section class="page slide-page"><p class="page-head">3 / 9 &middot; 成長は本物だが、オンボーディング能力がその先の売上転換速度を規定している</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="成長は本物だが、オンボーディング能力がその先の売上転換速度を規定している">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">成長は本物だが、オンボーディング能力がその先の</text>
+  <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">売上転換速度を規定している</text>
+  <text x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">第3四半期 取締役会向け要約</text>
+  <text x="1200.0" y="40.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="600" text-anchor="end">社外秘</text>
+  <text x="108.0" y="251.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="bold" text-anchor="start">成長はエンタープライズ</text>
+  <text x="108.0" y="281.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="bold" text-anchor="start">主導</text>
+  <text x="108.0" y="321.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">ARRは前四半期比+5.0億円（32</text>
+  <text x="108.0" y="345.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">億円→37億円）。うち新規</text>
+  <text x="108.0" y="369.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">エンタープライズが</text>
+  <text x="108.0" y="393.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">4.2億円を牽引。</text>
+  <text x="108.0" y="430.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">多角化より先に、</text>
+  <text x="108.0" y="454.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">エンタープライズの勢いを</text>
+  <text x="108.0" y="478.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">守る。</text>
+  <text x="481.3" y="251.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="bold" text-anchor="start">導入は加速を続けている</text>
+  <text x="481.3" y="291.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">新ワークフローの導入率は</text>
+  <text x="481.3" y="315.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">3四半期で41%から68%まで</text>
+  <text x="481.3" y="339.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">上昇。</text>
+  <text x="481.3" y="376.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">プロダクトの伸びしろは</text>
+  <text x="481.3" y="400.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">健在。制約は下流工程に</text>
+  <text x="481.3" y="424.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">移った。</text>
+  <text x="854.7" y="251.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="bold" text-anchor="start">オンボーディング能力が</text>
+  <text x="854.7" y="281.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="bold" text-anchor="start">現在の制約</text>
+  <text x="854.7" y="321.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">オンボーディング待ちの</text>
+  <text x="854.7" y="345.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">契約は14件。前四半期の</text>
+  <text x="854.7" y="369.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">2倍を超えた。</text>
+  <text x="854.7" y="406.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">今四半期中にオンボーディング</text>
+  <text x="854.7" y="430.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">要員を2名増やす。</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">3</text>
+</svg>
+</figure><div class="notes"><p>まず全体像です。ARRは前四半期から5億円伸び、エンタープライズ主導の成長は本物だと言えます。一方で導入率も着実に上がっており、需要面の心配はありません。ただし、その先のオンボーディング能力が追いついておらず、これが今四半期最大の論点です。</p></div></div></section><section class="page slide-page"><p class="page-head">4 / 9 &middot; 成長指標はすべて計画通り、唯一の例外はエンジニアリングの稼働余力</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="成長指標はすべて計画通り、唯一の例外はエンジニアリングの稼働余力">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">成長指標はすべて計画通り、唯一の</text>
+  <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">例外はエンジニアリングの稼働余力</text>
+  <text x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">主要指標、第3四半期の実績と目標</text>
+  <rect x="80.0" y="208.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text x="104.0" y="238.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">ARR成長率（前四半期比）</text>
+  <text x="104.0" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">+15.6%</text>
+  <text x="419.3" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#2563EB" font-weight="600" text-anchor="end">+3.6pt</text>
+  <text x="104.0" y="342.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: +12%</text>
+  <rect x="461.3" y="208.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text x="485.3" y="238.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">新規エンタープライズ契約数</text>
+  <text x="485.3" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">9件</text>
+  <text x="800.7" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#2563EB" font-weight="600" text-anchor="end">+1件</text>
+  <text x="485.3" y="342.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: 8件</text>
+  <rect x="842.7" y="208.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text x="866.7" y="238.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">純収益維持率(NRR)</text>
+  <text x="866.7" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">118%</text>
+  <text x="1182.0" y="296.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#2563EB" font-weight="600" text-anchor="end">+3pt</text>
+  <text x="866.7" y="342.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: 115%</text>
+  <rect x="80.0" y="376.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text x="104.0" y="406.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">オンボーディング待機件数</text>
+  <text x="104.0" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">14件</text>
+  <text x="419.3" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#B91C1C" font-weight="600" text-anchor="end">+9件</text>
+  <text x="104.0" y="510.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: 5件未満</text>
+  <rect x="461.3" y="376.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text x="485.3" y="406.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">エンジニアリング稼働率</text>
+  <text x="485.3" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">97%</text>
+  <text x="800.7" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#B91C1C" font-weight="600" text-anchor="end">+9pt</text>
+  <text x="485.3" y="510.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: 85%未満</text>
+  <rect x="842.7" y="376.0" width="357.3" height="150.0" fill="#FFFFFF" stroke="none"/>
+  <text x="866.7" y="406.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="start">サポート未対応件数</text>
+  <text x="866.7" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="44" fill="#000000" font-weight="bold" text-anchor="start">62件</text>
+  <text x="1182.0" y="464.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#2563EB" font-weight="600" text-anchor="end">-8件</text>
+  <text x="866.7" y="510.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">Target: 80件未満</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>エンジニアリングの稼働余力だけが唯一の赤信号。</title>エンジニアリングの稼働余力だけが唯一の赤信号。</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">4</text>
+</svg>
+</figure><div class="notes"><p>主要指標を一つずつご覧いただくと、ARR成長率も新規契約数もNRRも、すべて目標を上回っています。赤信号はエンジニアリングの稼働率とオンボーディング待機件数の2つだけです。裏を返せば、問題の所在は極めて明確だということです。</p></div></div></section><section class="page slide-page"><p class="page-head">5 / 9 &middot; 新規エンタープライズ契約と既存拡大で+6.3億円、解約1.3億円を差し引いても純増5.0億円</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="新規エンタープライズ契約と既存拡大で+6.3億円、解約1.3億円を差し引いても純増5.0億円">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">新規エンタープライズ契約と既存拡大で+6.3億円、</text>
+  <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">解約1.3億円を差し引いても純増5.0億円</text>
+  <text x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">ARRブリッジ、第2四半期から第3四半期</text>
+  <line x1="80.0" y1="560.0" x2="1200.0" y2="560.0" stroke="#374151"/>
+  <text x="70.0" y="564.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="end">0</text>
+  <rect x="137.0" y="310.8" width="110.0" height="249.2" fill="#15296B" stroke="none"/>
+  <text x="192.0" y="300.8" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">32億円</text>
+  <text x="192.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>第2四半期ARR</title>第2四半期ARR</text>
+  <rect x="361.0" y="278.1" width="110.0" height="32.7" fill="#2563EB" stroke="none"/>
+  <text x="416.0" y="268.1" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">+4.2億円</text>
+  <text x="416.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>新規エンタープライズ契約</title>新規エンタープライズ</text>
+  <text x="416.0" y="602.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>新規エンタープライズ契約</title>契約</text>
+  <line x1="247.0" y1="310.8" x2="361.0" y2="310.8" stroke="#D1D5DB" stroke-dasharray="4 3"/>
+  <rect x="585.0" y="261.7" width="110.0" height="16.4" fill="#2563EB" stroke="none"/>
+  <text x="640.0" y="251.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">+2.1億円</text>
+  <text x="640.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>既存顧客の拡大</title>既存顧客の拡大</text>
+  <line x1="471.0" y1="278.1" x2="585.0" y2="278.1" stroke="#D1D5DB" stroke-dasharray="4 3"/>
+  <rect x="809.0" y="261.7" width="110.0" height="10.1" fill="#B91C1C" stroke="none"/>
+  <text x="864.0" y="251.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">−1.3億円</text>
+  <text x="864.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>解約</title>解約</text>
+  <line x1="695.0" y1="261.7" x2="809.0" y2="261.7" stroke="#D1D5DB" stroke-dasharray="4 3"/>
+  <line x1="919.0" y1="271.8" x2="1033.0" y2="271.8" stroke="#D1D5DB" stroke-dasharray="4 3"/>
+  <rect x="1033.0" y="271.8" width="110.0" height="288.2" fill="#15296B" stroke="none"/>
+  <text x="1088.0" y="261.8" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">37億円</text>
+  <text x="1088.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>第3四半期ARR</title>第3四半期ARR</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>純増5.0億円。成長エンジンはエンタープライズ主導のまま。</title>純増5.0億円。成長エンジンはエンタープライズ主導のまま。</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">5</text>
+</svg>
+</figure><div class="notes"><p>ARRのブリッジをご覧ください。新規エンタープライズ契約で4.2億円、既存顧客の拡大で2.1億円を積み上げた一方、解約で1.3億円を失っています。差し引き5億円の純増ですが、成長が新規獲得と既存拡大の両輪で支えられている点にご注目ください。</p></div></div></section><section class="page slide-page"><p class="page-head">6 / 9 &middot; 導入率は3四半期連続で上昇し、過半数を大きく超えた</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="導入率は3四半期連続で上昇し、過半数を大きく超えた">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">導入率は3四半期連続で上昇し、過半数を</text>
+  <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">大きく超えた</text>
+  <text x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">新ワークフローの利用率（対象アカウント比）</text>
+  <line x1="80.0" y1="560.0" x2="1200.0" y2="560.0" stroke="#374151"/>
+  <text x="70.0" y="564.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="end">0</text>
+  <polyline points="80.0,383.1 453.3,335.7 826.7,296.9 1200.0,266.7" fill="none" stroke="#15296B" stroke-width="3"/>
+  <circle cx="80.0" cy="383.1" r="5" fill="#15296B"/>
+  <text x="80.0" y="365.1" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">41%</text>
+  <text x="80.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle">前年Q4</text>
+  <circle cx="453.3" cy="335.7" r="5" fill="#15296B"/>
+  <text x="453.3" y="317.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">52%</text>
+  <text x="453.3" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle">Q1</text>
+  <circle cx="826.7" cy="296.9" r="5" fill="#15296B"/>
+  <text x="826.7" y="278.9" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">61%</text>
+  <text x="826.7" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle">Q2</text>
+  <circle cx="1200.0" cy="266.7" r="5" fill="#15296B"/>
+  <text x="1200.0" y="248.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">68%</text>
+  <text x="1200.0" y="578.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle">Q3</text>
+  <text x="80.0" y="196.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">導入率</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>需要はむしろ強い。制約はオンボーディングの処理速度に移った。</title>需要はむしろ強い。制約はオンボーディングの処理速度に移った。</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">6</text>
+</svg>
+</figure><div class="notes"><p>新ワークフローの導入率は、前年第4四半期の41%から今四半期は68%まで、3四半期連続で上昇しています。プロダクトへの需要は明らかに強く、問題は導入の広がりではなく、その先の処理能力にあります。</p></div></div></section><section class="page slide-page"><p class="page-head">7 / 9 &middot; 稼働リスクは3つに集約される</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="稼働リスクは3つに集約される">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">稼働リスクは3つに集約される</text>
+  <rect x="80.0" y="214.0" width="6.0" height="6.0" fill="#15296B" stroke="none"/>
+  <text x="102.0" y="228.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start">オンボーディング待機件数が14件と、前四半期の2倍を超えている</text>
+  <text x="126.0" y="264.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">– 主因はエンジニアリングチームの稼働率が97%に達していること</text>
+  <rect x="80.0" y="324.7" width="6.0" height="6.0" fill="#15296B" stroke="none"/>
+  <text x="102.0" y="338.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">サポート体制は健全だが、増員なしでは第4四半期に同じ問題が再発する</text>
+  <rect x="80.0" y="435.3" width="6.0" height="6.0" fill="#15296B" stroke="none"/>
+  <text x="102.0" y="449.3" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">解約率は低いが、オンボーディング遅延が長期化すれば悪化するリスクがある</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>オンボーディング要員の増強が、最も効果の大きい対応策。</title>オンボーディング要員の増強が、最も効果の大きい対応策。</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">7</text>
+</svg>
+</figure><div class="notes"><p>稼働リスクは3点に集約されます。オンボーディング待機は14件で前四半期の2倍を超え、主因はエンジニアリングチームの稼働率が97%に達していることです。サポート体制自体は健全ですが、増員がなければ第4四半期に同じ問題が再発します。解約率はまだ低いものの、この状態が長引けば悪化するリスクがあります。</p></div></div></section><section class="page slide-page"><p class="page-head">8 / 9 &middot; 本日、オンボーディング要員の増員を承認しなければ第4四半期の成長は減速する</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="本日、オンボーディング要員の増員を承認しなければ第4四半期の成長は減速する">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">本日、オンボーディング要員の増員を</text>
+  <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">承認しなければ第4四半期の成長は減速する</text>
+  <text x="80.0" y="208.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="15" fill="#6B7280" font-weight="600" text-anchor="start">KEY TAKEAWAYS</text>
+  <text x="80.0" y="242.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="26" fill="#15296B" font-weight="bold" text-anchor="start">1</text>
+  <text x="122.0" y="242.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">エンタープライズ主導の成長は</text>
+  <text x="122.0" y="272.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">本物で持続的</text>
+  <text x="80.0" y="348.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="26" fill="#15296B" font-weight="bold" text-anchor="start">2</text>
+  <text x="122.0" y="348.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">導入率は基盤全体で過半数を</text>
+  <text x="122.0" y="378.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">大きく超えた</text>
+  <text x="80.0" y="454.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="26" fill="#15296B" font-weight="bold" text-anchor="start">3</text>
+  <text x="122.0" y="454.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">制約は需要でも解約でも</text>
+  <text x="122.0" y="484.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">なくオンボーディング能力</text>
+  <text x="624.0" y="208.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="15" fill="#6B7280" font-weight="600" text-anchor="start">NEXT STEPS</text>
+  <text x="624.0" y="242.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">オンボーディング要員を2名増員承認</text>
+  <text x="624.0" y="276.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">COO · 今週中</text>
+  <text x="624.0" y="348.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">契約金額順にオンボーディング待機列を</text>
+  <text x="624.0" y="378.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">並び替え</text>
+  <text x="624.0" y="412.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">オンボーディング責任者 · 2週間以内</text>
+  <text x="624.0" y="454.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">第4四半期の取締役会で稼働率を再確認</text>
+  <text x="624.0" y="488.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">経営企画室 · 第4四半期</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>本日の決定事項: オンボーディング要員2名の増員を承認する。</title>本日の決定事項: オンボーディング要員2名の増員を承認する。</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">出所: Illustrative data — 実データに置き換えてください。</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">8</text>
+</svg>
+</figure><div class="notes"><p>結論として、本日オンボーディング要員の増員を承認いただけなければ、第4四半期の成長は減速します。ご依頼は3点です。今週中に2名の増員承認、契約金額順への待機列の並び替え、そして次回取締役会での稼働率の再確認です。ご審議のほど、よろしくお願いいたします。</p></div></div></section><section class="page slide-page"><p class="page-head">9 / 9 &middot; ご清聴ありがとうございました</p><div class="duo"><figure class="script-slide"><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="ご清聴ありがとうございました">
+  <rect x="0.0" y="0.0" width="1280.0" height="720.0" fill="#15296B" stroke="none"/>
+  <text x="80.0" y="264.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="54" fill="#FFFFFF" font-weight="normal" text-anchor="start">ご清聴ありがとうございました</text>
+  <text x="80.0" y="338.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#E5E7EB" font-weight="normal" text-anchor="start">質疑応答</text>
+  <text x="80.0" y="560.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">経営企画室</text>
+  <text x="80.0" y="589.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">ir@example.com</text>
+  <text x="80.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">経営企画室 · 2026年10月</text>
+  <text x="1200.0" y="640.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#E5E7EB" font-weight="normal" text-anchor="end">社外秘</text>
+</svg>
+</figure><div class="notes"><p>ご清聴ありがとうございました。ここからは質疑応答とさせていただきます。ご不明な点やご懸念があれば、遠慮なくお申し付けください。</p></div></div></section>
+</body>
+</html>

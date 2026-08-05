@@ -1,0 +1,31 @@
+{
+  "pattern": "distribution",
+  "headline": "Most deals close below $50k; the tail funds the roadmap",
+  "subline": "Closed-won deals by contract size, trailing 12 months",
+  "unit": "",
+  "bins": [
+    {
+      "label": "<$25k",
+      "value": 48
+    },
+    {
+      "label": "$25-50k",
+      "value": 61
+    },
+    {
+      "label": "$50-100k",
+      "value": 27
+    },
+    {
+      "label": "$100-250k",
+      "value": 12
+    },
+    {
+      "label": "$250k+",
+      "value": 5
+    }
+  ],
+  "highlight": 1,
+  "annotation": "The $25-50k band is the volume engine; staff onboarding for it first.",
+  "source": "Source: user-provided CRM export."
+}
