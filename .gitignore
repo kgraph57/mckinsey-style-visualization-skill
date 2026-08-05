@@ -31,3 +31,6 @@ outputs/
 *.jpg
 *.jpeg
 *.pdf
+
+# Landing site OGP image (committed intentionally)
+!docs/site/og.png
