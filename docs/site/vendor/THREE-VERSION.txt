@@ -2,3 +2,7 @@ three.js 0.185.1
 source: https://unpkg.com/three@0.185.1/build/three.module.js
 sha256: bbf5ed13fe4373f5bd38b14ea8e62e9f157327da5638edc6d3863e08b167c9c7
 vendored: 2026-08-06
+three.core.js 0.185.1
+source: https://unpkg.com/three@0.185.1/build/three.core.js
+sha256: 3718df126d69c125362a03340913204470d8c50238605150e57f808840fb7759
+vendored: 2026-08-06 (split-build sibling required by three.module.js r185)
