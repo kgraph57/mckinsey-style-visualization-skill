@@ -2,6 +2,7 @@ import { openLightbox } from "./lightbox.js";
 
 const MANIFEST_URL = "./site/artifacts/gallery-manifest.json";
 const RENDERED_BASE = "./site/artifacts/rendered/";
+const SAFE_FILENAME = /^[\w-]+\.svg$/;
 
 function buildCard(item, onOpen) {
   const card = document.createElement("button");
@@ -39,10 +40,16 @@ export function initGallery(section) {
       const items = await response.json();
       if (!Array.isArray(items)) return;
 
+      const safeItems = items.filter(
+        (item) =>
+          item &&
+          typeof item.file === "string" &&
+          SAFE_FILENAME.test(item.file),
+      );
       const fragment = document.createDocumentFragment();
-      items.forEach((item, index) => {
+      safeItems.forEach((item, index) => {
         const open = dialog
-          ? () => openLightbox(dialog, items, index)
+          ? () => openLightbox(dialog, safeItems, index)
           : () => {};
         fragment.appendChild(buildCard(item, open));
       });

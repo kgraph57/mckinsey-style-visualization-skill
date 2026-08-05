@@ -1,5 +1,6 @@
 const RENDERED_BASE = "./site/artifacts/rendered/";
 const SPECS_BASE = "./site/artifacts/specs/";
+const SAFE_FILENAME = /^[\w-]+\.svg$/;
 
 function createLightbox(dialog) {
   const stage = dialog.querySelector(".gal-lightbox-stage");
@@ -20,7 +21,7 @@ function createLightbox(dialog) {
 
   async function render() {
     const item = items[index];
-    if (!item) return;
+    if (!item || !SAFE_FILENAME.test(item.file || "")) return;
 
     const img = document.createElement("img");
     img.src = `${RENDERED_BASE}${item.file}`;
