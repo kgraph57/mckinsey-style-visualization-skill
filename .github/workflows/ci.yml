@@ -29,8 +29,11 @@ jobs:
       - name: Validate package
         run: python3 scripts/validate_skill.py
 
+      - name: Check site artifacts are fresh
+        run: python3 scripts/build_site.py --check
+
       - name: Compile Python scripts
-        run: python3 -m py_compile scripts/render_slide_spec.py scripts/validate_skill.py scripts/review_slide_spec.py tests/test_render_slide_spec.py tests/test_review_slide_spec.py tests/test_validate_skill.py
+        run: python3 -m py_compile scripts/render_slide_spec.py scripts/validate_skill.py scripts/review_slide_spec.py scripts/build_site.py tests/test_render_slide_spec.py tests/test_review_slide_spec.py tests/test_validate_skill.py tests/test_build_site.py
 
       - name: Check whitespace
         run: git diff --check
