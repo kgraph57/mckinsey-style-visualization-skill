@@ -401,5 +401,36 @@
         </div>
       </div>
     </footer>
+    <script>
+      /* file:// fallback: ES modules are blocked on file origins in Chrome.
+         If main.js never booted, show the poster and explain the gallery. */
+      setTimeout(function () {
+        if (window.__siteBooted) return;
+        var hero = document.getElementById("hero");
+        if (hero && !hero.querySelector(".hd-fallback")) {
+          hero.classList.add("hd-static");
+          var fig = document.createElement("figure");
+          fig.className = "hd-fallback";
+          var img = document.createElement("img");
+          img.src = "./site/artifacts/rendered/arr-waterfall.svg";
+          img.alt = "Rendered ARR waterfall slide produced by the skill";
+          fig.appendChild(img);
+          var stage = hero.querySelector(".hd-stage");
+          (stage || hero).appendChild(fig);
+        }
+        var grid = document.querySelector(".gal-grid");
+        if (
+          grid &&
+          !grid.querySelector(".gal-card") &&
+          !grid.querySelector(".gal-offline")
+        ) {
+          var p = document.createElement("p");
+          p.className = "gal-offline";
+          p.textContent =
+            "The interactive gallery needs to be served over HTTP — every render also lives in the repo under assets/rendered/.";
+          grid.appendChild(p);
+        }
+      }, 2500);
+    </script>
   </body>
 </html>

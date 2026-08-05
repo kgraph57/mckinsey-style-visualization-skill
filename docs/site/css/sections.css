@@ -280,6 +280,10 @@
 .gal-card:hover {
   border-color: var(--navy);
 }
+.gal-offline {
+  font-size: 0.75rem;
+  color: var(--grey-500);
+}
 
 .gal-card img {
   width: 100%;

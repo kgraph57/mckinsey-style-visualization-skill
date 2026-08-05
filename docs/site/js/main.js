@@ -1,6 +1,8 @@
 /* Site orchestrator: progressive enhancement only.
    Every feature degrades to static content when JS, WebGL, or motion is unavailable. */
 
+window.__siteBooted = true;
+
 const reducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
 ).matches;
