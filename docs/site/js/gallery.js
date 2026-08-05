@@ -8,7 +8,6 @@ function buildCard(item, onOpen) {
   const card = document.createElement("button");
   card.type = "button";
   card.className = "gal-card";
-  card.setAttribute("role", "listitem");
 
   const img = document.createElement("img");
   img.loading = "lazy";

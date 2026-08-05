@@ -70,6 +70,10 @@ class SiteTests(unittest.TestCase):
         self.assertIn("og:image", self.parser.metas)
         self.assertIn("og:title", self.parser.metas)
 
+    def test_og_image_exists(self):
+        og_path = self.parser.metas.get("og:image", "")
+        self.assertTrue((DOCS / og_path).resolve().exists(), f"og:image missing: {og_path}")
+
     def test_three_vendored(self):
         self.assertTrue((DOCS / "site" / "vendor" / "three.module.js").exists())
 

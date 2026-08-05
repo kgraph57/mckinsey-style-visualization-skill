@@ -84,7 +84,8 @@ function createLightbox(dialog) {
     open(nextItems, startIndex) {
       items = Array.isArray(nextItems) ? nextItems : [];
       if (!items.length) return;
-      index = ((startIndex % items.length) + items.length) % items.length;
+      const si = Number.isFinite(startIndex) ? startIndex : 0;
+      index = ((si % items.length) + items.length) % items.length;
       if (!dialog.open) {
         originator = document.activeElement;
         previousOverflow = document.body.style.overflow;

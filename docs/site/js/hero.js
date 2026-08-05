@@ -378,12 +378,6 @@ export function initHero(
     },
   ];
 
-  console.info(
-    "[hero-concept-a] fragments:",
-    plan.shards.length + plan.scraps.length + plan.dots.length,
-    `(shards ${plan.shards.length} / scraps ${plan.scraps.length} / dots ${plan.dots.length})`,
-  );
-
   const state = { t: reducedMotion ? 1 : 0, time: 0 };
   let lastMatrixT = -1;
   let lastMatrixTime = -1;
