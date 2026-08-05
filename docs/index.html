@@ -9,7 +9,7 @@
     </title>
     <meta
       name="description"
-      content="One skill for your AI agent: turn notes, metrics, and prose into consulting-grade visuals — real SVG slides, an animated HTML deck, or a spec any designer can execute. Python standard library only."
+      content="One skill for your AI agent: turn notes, metrics, and prose into consulting-grade visuals: real SVG slides, an animated HTML deck, or a spec any designer can execute. Python standard library only."
     />
     <meta
       property="og:title"
@@ -61,9 +61,9 @@
           <h1>Messy notes in.<br />Board-ready slides out.</h1>
           <p class="lede">
             One skill for your AI agent: turn notes, metrics, and prose into
-            consulting-grade visuals — as real SVG slides, an animated HTML
-            deck, or a spec any designer can execute. Python standard library
-            only. Zero dependencies, zero API keys, zero network calls.
+            consulting-grade visuals: real SVG slides, an animated HTML deck, or
+            a spec any designer can execute. Python standard library only. Zero
+            dependencies, zero API keys, zero network calls.
           </p>
           <p class="hd-actions">
             <a class="btn btn-primary" href="#start">Install in 60 seconds</a>
@@ -81,7 +81,27 @@
         <div class="wrap">
           <span class="kicker">It actually renders</span>
           <h2>A deck built by this repo, driving itself in your browser</h2>
-          <!-- @fragment:live-deck -->
+          <figure class="ld-frame">
+            <iframe
+              src="./site/artifacts/demo-deck.html"
+              title="Animated demo deck built by this repo"
+              loading="lazy"
+            ></iframe>
+            <figcaption class="ld-caption">
+              <span
+                >A real deck built by this repo: specs (JSON) → SVG slides →
+                animated HTML. Click it, then drive with arrow keys; press p to
+                print to PDF.</span
+              >
+              <a
+                class="ld-open"
+                href="./site/artifacts/demo-deck.html"
+                target="_blank"
+                rel="noopener"
+                >Open full screen ↗</a
+              >
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -89,7 +109,18 @@
         <div class="wrap">
           <span class="kicker">The pipeline</span>
           <h2>Notes in, board-ready out</h2>
-          <!-- @fragment:pipeline -->
+          <ol class="pl-flow">
+            <li class="pl-step">Messy notes, metrics, prose</li>
+            <li class="pl-step pl-step-spec">
+              <code class="pl-code">Slide spec (JSON)</code>
+            </li>
+            <li class="pl-step">SVG slides</li>
+            <li class="pl-step">Animated HTML deck / PDF</li>
+          </ol>
+          <p class="pl-note">
+            Single-file Python scripts, standard library only. Specs version
+            like code.
+          </p>
         </div>
       </section>
 
@@ -98,11 +129,56 @@
           <span class="kicker">Gallery</span>
           <h2>22 patterns, rendered and verified on every push</h2>
           <p class="lede">
-            Every image below is committed renderer output — CI fails if any of
+            Every image below is committed renderer output; CI fails if any of
             them drifts. Click one to see the spec JSON that produced it, side
             by side.
           </p>
-          <!-- @fragment:gallery -->
+          <div class="gal-grid" role="list">
+            <noscript>
+              <p class="gal-noscript">
+                The gallery requires JavaScript. Every render also lives in the
+                repo under assets/rendered/.
+              </p>
+            </noscript>
+          </div>
+
+          <dialog class="gal-lightbox" aria-label="Render and spec viewer">
+            <div class="gal-lightbox-inner">
+              <div class="gal-lightbox-header">
+                <p class="gal-lightbox-caption">
+                  <span class="gal-card-pattern"></span> ·
+                  <span class="gal-lightbox-headline"></span>
+                </p>
+                <button
+                  type="button"
+                  class="gal-lightbox-close"
+                  aria-label="Close"
+                >
+                  ×
+                </button>
+              </div>
+              <div class="gal-lightbox-stage"></div>
+              <div class="gal-lightbox-spec">
+                <pre><code></code></pre>
+              </div>
+              <div class="gal-lightbox-nav">
+                <button
+                  type="button"
+                  class="gal-lightbox-prev"
+                  aria-label="Previous render"
+                >
+                  ← Previous
+                </button>
+                <button
+                  type="button"
+                  class="gal-lightbox-next"
+                  aria-label="Next render"
+                >
+                  Next →
+                </button>
+              </div>
+            </div>
+          </dialog>
         </div>
       </section>
 
@@ -110,7 +186,23 @@
         <div class="wrap">
           <span class="kicker">Japanese, first-class</span>
           <h2>日本語のビジネス文書が、そのまま動く</h2>
-          <!-- @fragment:cjk -->
+          <figure class="cjk-frame">
+            <iframe
+              src="./site/artifacts/ja-deck.html"
+              title="Japanese board update demo deck"
+              loading="lazy"
+            ></iframe>
+            <figcaption class="cjk-caption">
+              The board-update-ja archetype rendering live. CJK text wraps
+              measured per fullwidth character, never by spaces.
+            </figcaption>
+          </figure>
+          <ul class="cjk-profiles" aria-label="Japanese document profiles">
+            <li class="cjk-chip">稟議書</li>
+            <li class="cjk-chip">役員会資料</li>
+            <li class="cjk-chip">週報・月報</li>
+            <li class="cjk-chip">学会抄録</li>
+          </ul>
         </div>
       </section>
 
@@ -118,7 +210,56 @@
         <div class="wrap">
           <span class="kicker">Four output modes</span>
           <h2>One spec system, four deliverables</h2>
-          <!-- @fragment:modes -->
+          <div class="md-grid">
+            <a
+              class="md-card"
+              href="./site/artifacts/demo-deck.html"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="md-title">Deck</span>
+              <span class="md-desc"
+                >Animated, self-contained, prints to PDF</span
+              >
+              <span class="md-open">Open demo ↗</span>
+            </a>
+            <a
+              class="md-card"
+              href="./site/artifacts/demo-report.html"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="md-title">Report</span>
+              <span class="md-desc"
+                >Markdown in, print-to-A4 board document out</span
+              >
+              <span class="md-open">Open demo ↗</span>
+            </a>
+            <a
+              class="md-card"
+              href="./site/artifacts/demo-script.html"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="md-title">Speaker script</span>
+              <span class="md-desc"
+                >One A4 page per slide, podium-readable</span
+              >
+              <span class="md-open">Open demo ↗</span>
+            </a>
+            <a
+              class="md-card"
+              href="./site/artifacts/demo-article.html"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="md-title">Article</span>
+              <span class="md-desc"
+                >The deck as a top-to-bottom reading column</span
+              >
+              <span class="md-open">Open demo ↗</span>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -126,7 +267,55 @@
         <div class="wrap">
           <span class="kicker">Roasted, then fixed</span>
           <h2>Five design legends scored it 5.8/10. We shipped every fix.</h2>
-          <!-- @fragment:roast -->
+          <div class="ro-grid">
+            <div class="ro-card">
+              <p class="ro-score">5.5<span class="ro-of">/10</span></p>
+              <p class="ro-name">Edward Tufte</p>
+              <p class="ro-lens">Data-ink, honest scales</p>
+              <blockquote class="ro-quote">
+                Meaningless decorated rectangles baked into the renderer
+              </blockquote>
+            </div>
+            <div class="ro-card">
+              <p class="ro-score">6.5<span class="ro-of">/10</span></p>
+              <p class="ro-name">Gene Zelazny</p>
+              <p class="ro-lens">Ex-McKinsey, Say It With Charts</p>
+              <blockquote class="ro-quote">
+                The flagship example violates its own headline rule
+              </blockquote>
+            </div>
+            <div class="ro-card">
+              <p class="ro-score">6<span class="ro-of">/10</span></p>
+              <p class="ro-name">Vignelli × Müller-Brockmann</p>
+              <p class="ro-lens">Swiss grid</p>
+              <blockquote class="ro-quote">
+                A corporate template, not a design system
+              </blockquote>
+            </div>
+            <div class="ro-card">
+              <p class="ro-score">5.5<span class="ro-of">/10</span></p>
+              <p class="ro-name">Alan Smith</p>
+              <p class="ro-lens">FT data journalism</p>
+              <blockquote class="ro-quote">
+                The waterfall draws off-canvas on negative bridges
+              </blockquote>
+            </div>
+            <div class="ro-card">
+              <p class="ro-score">5.5<span class="ro-of">/10</span></p>
+              <p class="ro-name">Modern design engineering</p>
+              <blockquote class="ro-quote">
+                2016 visuals wearing a 2020s spec sheet
+              </blockquote>
+            </div>
+          </div>
+          <p class="ro-closing">
+            Then we shipped every fix: zero-floor waterfalls, CJK-correct
+            wrapping, WCAG-AA cell text asserted across the whole ramp.
+            <a
+              href="https://github.com/kgraph57/mckinsey-style-visualization-skill/blob/main/CHANGELOG.md"
+              >Read the receipts</a
+            >.
+          </p>
         </div>
       </section>
 
@@ -134,13 +323,81 @@
         <div class="wrap">
           <span class="kicker">60-second start</span>
           <h2>Install it. Render it. Deck it.</h2>
-          <!-- @fragment:start -->
+          <div class="st-shell">
+            <pre
+              class="st-term"
+            ><code id="st-commands"><span class="st-line">git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization</span>
+<span class="st-line">python3 scripts/render_slide_spec.py examples/render-specs/arr-waterfall.json -o slide.svg</span>
+<span class="st-line">python3 scripts/build_html_deck.py --manifest examples/demo-deck.json -o deck.html</span></code></pre>
+            <button class="st-copy" type="button" data-copy="#st-commands">
+              Copy
+            </button>
+          </div>
+          <p class="st-ask">Or skip the terminal and just ask your agent.</p>
+          <p class="st-prompt">
+            Use the strategy consulting visualization skill to turn these notes
+            into a board slide…
+          </p>
         </div>
       </section>
     </main>
 
     <footer id="footer" class="site-footer">
-      <!-- @fragment:footer -->
+      <div class="ft-shell">
+        <div class="wrap">
+          <p class="ft-cta">
+            If this turned your rough notes into a usable slide, star the repo.
+            Stars are how people find tools that actually render.
+          </p>
+          <p class="ft-actions">
+            <a
+              class="btn btn-primary"
+              href="https://github.com/kgraph57/mckinsey-style-visualization-skill"
+              rel="noopener"
+              >★ Star on GitHub</a
+            >
+          </p>
+          <hr class="ft-divider" />
+          <div class="ft-small">
+            <p class="ft-line">MIT License.</p>
+            <p class="ft-line">
+              This is an independent skill package. It is not affiliated with,
+              endorsed by, or sponsored by McKinsey & Company, Boston Consulting
+              Group, Bain & Company, or any other consulting firm.
+            </p>
+            <ul class="ft-links">
+              <li>
+                <a
+                  href="https://github.com/kgraph57/mckinsey-style-visualization-skill"
+                  rel="noopener"
+                  >Repository</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://github.com/kgraph57/mckinsey-style-visualization-skill/issues"
+                  rel="noopener"
+                  >Issues</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://github.com/kgraph57/mckinsey-style-visualization-skill/discussions"
+                  rel="noopener"
+                  >Discussions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://github.com/kgraph57/mckinsey-style-visualization-skill/releases"
+                  rel="noopener"
+                  >Releases</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </footer>
   </body>
 </html>
