@@ -25,9 +25,6 @@
     <link rel="stylesheet" href="./site/css/tokens.css" />
     <link rel="stylesheet" href="./site/css/base.css" />
     <link rel="stylesheet" href="./site/css/sections.css" />
-    <script type="importmap">
-      { "imports": { "three": "./site/vendor/three.module.js" } }
-    </script>
     <script type="module" src="./site/js/main.js"></script>
     <script type="module" src="./site/js/try/console.js"></script>
   </head>
@@ -59,9 +56,8 @@
 
     <main id="main">
       <section id="hero" aria-label="Introduction">
-        <div class="hd-stage">
-          <canvas class="hd-canvas" aria-hidden="true"></canvas>
-          <div class="wrap hd-copy">
+        <div class="wrap hd-grid">
+          <div class="hd-copy">
             <h1>Messy notes in.<br />Board-ready slides out.</h1>
             <p class="lede">
               One skill for your AI agent: turn notes, metrics, and prose into
@@ -79,6 +75,15 @@
               >
             </p>
           </div>
+          <figure class="hd-visual">
+            <img
+              src="./site/artifacts/rendered/arr-waterfall.svg"
+              alt="ARR waterfall slide rendered by this repo's own renderer"
+            />
+            <figcaption class="hd-visual-caption">
+              Rendered by this repo, not by a designer.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -687,21 +692,9 @@
     </footer>
     <script>
       /* file:// fallback: ES modules are blocked on file origins in Chrome.
-         If main.js never booted, show the poster and explain the gallery. */
+         If main.js never booted, explain the gallery. */
       setTimeout(function () {
         if (window.__siteBooted) return;
-        var hero = document.getElementById("hero");
-        if (hero && !hero.querySelector(".hd-fallback")) {
-          hero.classList.add("hd-static");
-          var fig = document.createElement("figure");
-          fig.className = "hd-fallback";
-          var img = document.createElement("img");
-          img.src = "./site/artifacts/rendered/arr-waterfall.svg";
-          img.alt = "Rendered ARR waterfall slide produced by the skill";
-          fig.appendChild(img);
-          var stage = hero.querySelector(".hd-stage");
-          (stage || hero).appendChild(fig);
-        }
         var grid = document.querySelector(".gal-grid");
         if (
           grid &&

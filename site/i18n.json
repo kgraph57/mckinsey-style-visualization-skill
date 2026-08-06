@@ -41,6 +41,8 @@
     "#hero .lede": "AIエージェントに1つのスキルを。メモ・数値・文章を、コンサルティング品質のビジュアルに変えます——本物のSVGスライド、アニメーションするHTMLデッキ、あるいはデザイナーがそのまま実行できるspecとして。Python標準ライブラリのみ。依存ゼロ、APIキーゼロ、ネットワーク通信ゼロ。",
     "#hero .hd-actions .btn-primary": "60秒でインストール",
     "#hero .hd-actions .btn-ghost": "★ GitHubでスター",
+    "#hero .hd-visual img@alt": "このリポジトリのレンダラーが描いたARRウォーターフォールのスライド",
+    "#hero .hd-visual-caption": "デザイナーではなく、このリポジトリが描画。",
     "#live-deck .kicker": "実際にレンダリングされる",
     "#live-deck h2": "このリポジトリが作ったデッキが、ブラウザの中で動いている",
     "#live-deck .chrome-url": "demo-deck.html — 自己完結、外部リクエストゼロ",
@@ -113,10 +115,6 @@
     ".ft-small .ft-line:nth-of-type(2)": "これは独立したスキルパッケージです。McKinsey & Company、Boston Consulting Group、Bain & Company、その他いかなるコンサルティングファームとも提携・支持・後援の関係はありません。<br /><span lang=\"en\">This is an independent skill package. It is not affiliated with, endorsed by, or sponsored by McKinsey & Company, Boston Consulting Group, Bain & Company, or any other consulting firm.</span>"
   },
   "scriptReplacements": [
-    [
-      "Rendered ARR waterfall slide produced by the skill",
-      "このスキルが生成したARRウォーターフォールのスライド"
-    ],
     [
       "The interactive gallery needs to be served over HTTP — every render also lives in the repo under assets/rendered/.",
       "インタラクティブなギャラリーはHTTP経由で開く必要があります。すべてのレンダリングはリポジトリの assets/rendered/ にもあります。"

@@ -74,9 +74,6 @@ class SiteChecks:
         og_path = self.parser.metas.get("og:image", "")
         self.assertTrue((self.BASE / og_path).resolve().exists(), f"og:image missing: {og_path}")
 
-    def test_three_vendored(self):
-        self.assertTrue((DOCS / "site" / "vendor" / "three.module.js").exists())
-
     def test_iframe_targets_exist(self):
         for tag, ref in self.parser.refs:
             if tag == "iframe":

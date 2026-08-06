@@ -13,9 +13,6 @@
     <link rel="stylesheet" href="../site/css/tokens.css" />
     <link rel="stylesheet" href="../site/css/base.css" />
     <link rel="stylesheet" href="../site/css/sections.css" />
-    <script type="importmap">
-      { "imports": { "three": "../site/vendor/three.module.js" } }
-    </script>
     <script type="module" src="../site/js/main.js"></script>
     <script type="module" src="../site/js/try/console.js"></script>
   </head>
@@ -40,9 +37,8 @@
 
     <main id="main">
       <section id="hero" aria-label="Introduction">
-        <div class="hd-stage">
-          <canvas class="hd-canvas" aria-hidden="true"></canvas>
-          <div class="wrap hd-copy">
+        <div class="wrap hd-grid">
+          <div class="hd-copy">
             <h1>メモがそのまま、<br />役員会のスライドになる。</h1>
             <p class="lede">AIエージェントに1つのスキルを。メモ・数値・文章を、コンサルティング品質のビジュアルに変えます——本物のSVGスライド、アニメーションするHTMLデッキ、あるいはデザイナーがそのまま実行できるspecとして。Python標準ライブラリのみ。依存ゼロ、APIキーゼロ、ネットワーク通信ゼロ。</p>
             <p class="hd-actions">
@@ -50,6 +46,10 @@
               <a class="btn btn-ghost" href="https://github.com/kgraph57/mckinsey-style-visualization-skill" rel="noopener">★ GitHubでスター</a>
             </p>
           </div>
+          <figure class="hd-visual">
+            <img src="../site/artifacts/rendered/arr-waterfall.svg" alt="このリポジトリのレンダラーが描いたARRウォーターフォールのスライド" />
+            <figcaption class="hd-visual-caption">デザイナーではなく、このリポジトリが描画。</figcaption>
+          </figure>
         </div>
       </section>
 
@@ -359,21 +359,9 @@
     </footer>
     <script>
       /* file:// fallback: ES modules are blocked on file origins in Chrome.
-         If main.js never booted, show the poster and explain the gallery. */
+         If main.js never booted, explain the gallery. */
       setTimeout(function () {
         if (window.__siteBooted) return;
-        var hero = document.getElementById("hero");
-        if (hero && !hero.querySelector(".hd-fallback")) {
-          hero.classList.add("hd-static");
-          var fig = document.createElement("figure");
-          fig.className = "hd-fallback";
-          var img = document.createElement("img");
-          img.src = "../site/artifacts/rendered/arr-waterfall.svg";
-          img.alt = "このスキルが生成したARRウォーターフォールのスライド";
-          fig.appendChild(img);
-          var stage = hero.querySelector(".hd-stage");
-          (stage || hero).appendChild(fig);
-        }
         var grid = document.querySelector(".gal-grid");
         if (
           grid &&
