@@ -1,0 +1,10 @@
+{
+  "pattern": "time_series",
+  "headline": "AI workflow adoption rose 46 points in four quarters, creating a scalable operating base",
+  "subline": "Share of accounts on AI workflows",
+  "unit": "%",
+  "x_labels": ["Q1", "Q2", "Q3", "Q4"],
+  "series": [{"label": "Adoption rate", "values": [18, 31, 49, 64]}],
+  "annotation": "Adoption has crossed the majority threshold; delivery capacity is now the constraint.",
+  "source": "Source: user-provided product telemetry."
+}

@@ -52,6 +52,8 @@ class BuildHtmlDeckTests(unittest.TestCase):
         # navigation so it never lingers over a projected slide.
         self.assertIn("body.hud-hidden .hud { opacity: 0; pointer-events: none; }", html)
         self.assertIn("hudTimer = setTimeout(hideHud, 2500)", html)
+        self.assertIn("body.embed .hud", html)
+        self.assertIn("embed=1", html)
         self.assertIn("page-break-after: always", html)
 
     def test_animate_svg_tags_elements_but_not_background(self) -> None:

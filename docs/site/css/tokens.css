@@ -1,0 +1,25 @@
+:root {
+  --navy: #15296b;
+  --blue: #2563eb;
+  --ink: #000000;
+  --grey-700: #374151;
+  --grey-500: #6b7280;
+  --grey-300: #d1d5db;
+  --fill: #f3f4f6;
+  --tint: #eff3fb;
+  --risk: #b91c1c;
+  --paper: #ffffff;
+
+  --serif:
+    Georgia, "Times New Roman", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --sans:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
+    "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+
+  --u: 8px;
+  --measure: 72rem;
+
+  --shadow-card:
+    0 1px 2px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(21, 41, 107, 0.08);
+}

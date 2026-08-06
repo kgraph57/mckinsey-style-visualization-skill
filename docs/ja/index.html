@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Strategy Consulting Visualization Skill — メモがそのまま、役員会のスライドになる。</title>
+    <meta name="description" content="AIエージェントのための1つのスキル。メモ・数値・文章を、コンサルティング品質のビジュアルに変換します。本物のSVGスライド、アニメーションするHTMLデッキ、あるいはデザイナーがそのまま実行できるspecとして。Python標準ライブラリのみ。" />
+    <meta property="og:title" content="Strategy Consulting Visualization Skill" />
+    <meta property="og:description" content="メモがそのまま、役員会のスライドになる。依存ゼロ、APIキーゼロ、ネットワーク通信ゼロ。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="../site/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="../site/css/tokens.css" />
+    <link rel="stylesheet" href="../site/css/base.css" />
+    <link rel="stylesheet" href="../site/css/sections.css" />
+    <script type="module" src="../site/js/main.js"></script>
+    <script type="module" src="../site/js/theater.js"></script>
+    <script type="module" src="../site/js/chat-demo.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+
+    <header class="site-header">
+      <div class="wrap site-header-inner">
+        <a class="wordmark" href="#hero">Consulting&nbsp;Visualization&nbsp;Skill</a>
+        <nav class="site-nav" aria-label="サイト">
+          <a href="./examples/">実例</a>
+          <a href="./try/">試す</a>
+          <a href="#start">導入</a>
+          <a href="../" id="lang-toggle" hreflang="en">EN</a>
+        </nav>
+        <a class="btn btn-ghost star-link" href="https://github.com/kgraph57/mckinsey-style-visualization-skill" rel="noopener">★ GitHubでスター</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="hero" aria-label="はじめに">
+        <div class="wrap">
+          <div class="hd-intro">
+            <h1>メモがそのまま、<br />役員会のスライドになる。</h1>
+            <p class="lede">AIエージェントに1つのスキルを。メモ・数値・文章を、コンサルティング品質のビジュアルに変えます——本物のSVGスライド、アニメーションするHTMLデッキ、あるいはデザイナーがそのまま実行できるspecとして。Python標準ライブラリのみ。依存ゼロ、APIキーゼロ、ネットワーク通信ゼロ。</p>
+            <p class="hd-actions">
+              <a class="btn btn-primary" href="#start">60秒でインストール</a>
+              <a class="btn btn-ghost" href="https://github.com/kgraph57/mckinsey-style-visualization-skill" rel="noopener">★ GitHubでスター</a>
+            </p>
+          </div>
+
+          <div class="hd-theater" id="hd-theater" data-theater>
+            <div class="hd-tabs" role="tablist" aria-label="製品デモ">
+              <button type="button" class="hd-tab is-active" role="tab" id="hd-tab-deck" aria-selected="true" aria-controls="hd-panel-deck" data-panel="deck"><span class="hd-num">01</span> ライブデッキ</button>
+              <button type="button" class="hd-tab" role="tab" id="hd-tab-slides" aria-selected="false" aria-controls="hd-panel-slides" data-panel="slides" tabindex="-1"><span class="hd-num">02</span> ボードスライド</button>
+              <button type="button" class="hd-tab" role="tab" id="hd-tab-ja" aria-selected="false" aria-controls="hd-panel-ja" data-panel="ja" tabindex="-1"><span class="hd-num">03</span> 日本語</button>
+              <button type="button" class="hd-tab" role="tab" id="hd-tab-try" aria-selected="false" aria-controls="hd-panel-try" data-panel="try" tabindex="-1"><span class="hd-num">04</span> 試す</button>
+            </div>
+
+            <div class="hd-stage">
+              <div id="hd-panel-deck" class="hd-panel is-active" role="tabpanel" aria-labelledby="hd-tab-deck" data-panel="deck">
+                <div class="chrome hd-chrome">
+                  <div class="chrome-bar" aria-hidden="true">
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-url">ja-deck.html — 自動再生、外部リクエストゼロ</span>
+                  </div>
+                  <iframe id="hd-deck-frame" src="../site/artifacts/ja-deck.html?embed=1" title="このリポジトリが生成した日本語デモデッキ" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+                </div>
+              </div>
+
+              <div id="hd-panel-slides" class="hd-panel" role="tabpanel" aria-labelledby="hd-tab-slides" data-panel="slides" hidden>
+                <div class="hd-slide-show" data-slideshow>
+                  <img class="is-on" src="../site/artifacts/rendered/ja/05-arr-waterfall.svg" alt="このリポジトリが描いたARRウォーターフォールのスライド" />
+                  <img src="../site/artifacts/rendered/ja/03-executive-summary.svg" alt="このリポジトリが描いたエグゼクティブサマリーのスライド" hidden />
+                  <img src="../site/artifacts/rendered/ja/04-kpi-scorecard.svg" alt="このリポジトリが描いたKPIスコアカードのスライド" hidden />
+                  <img src="../site/artifacts/rendered/ja/07-risks.svg" alt="このリポジトリが描いたリスク整理のスライド" hidden />
+                </div>
+              </div>
+
+              <div id="hd-panel-ja" class="hd-panel" role="tabpanel" aria-labelledby="hd-tab-ja" data-panel="ja" hidden>
+                <div class="chrome hd-chrome">
+                  <div class="chrome-bar" aria-hidden="true">
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-url">ja-deck.html — 役員会アップデート（日本語）、ライブ</span>
+                  </div>
+                  <iframe id="hd-ja-frame" data-src="../site/artifacts/ja-deck.html?embed=1" title="日本語の役員会アップデート・デモデッキ" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+                </div>
+              </div>
+
+              <div id="hd-panel-try" class="hd-panel" role="tabpanel" aria-labelledby="hd-tab-try" data-panel="try" hidden>
+                <div class="hd-try" aria-hidden="true">
+                  <div class="hd-try-notes">
+                    <span class="hd-try-label">散らかったメモ</span>
+                    <pre class="hd-try-typed" id="hd-try-typed"></pre>
+                  </div>
+                  <div class="hd-try-arrow" aria-hidden="true">→</div>
+                  <div class="hd-try-out">
+                    <span class="hd-try-label">ボードスライド</span>
+                    <img src="../site/artifacts/rendered/arr-waterfall.svg" alt="" />
+                  </div>
+                </div>
+                <p class="hd-try-cta">
+                  <a class="btn btn-primary" href="#console">体験を見る</a>
+                  <a class="btn btn-ghost" href="./try/">自分のメモで試す ↗</a>
+                </p>
+              </div>
+            </div>
+            <p class="hd-stage-caption">モックではなく、本物のレンダラー出力がブラウザで動いています。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="console" aria-label="チャットでの体験">
+        <div class="wrap">
+          <div class="con-intro">
+            <span class="kicker">こんな感じで使う</span>
+            <h2>チャットで頼む。スキルがデッキで返す。</h2>
+            <p class="lede">フォームではない。エージェントに頼めば、このスキルが役員会品質のスライドで返してくる——それが体験です。</p>
+          </div>
+
+          <div class="chat-demo" id="chat-demo" data-chat-demo>
+            <div class="chat-chrome" aria-hidden="true">
+              <span class="chrome-dot"></span>
+              <span class="chrome-dot"></span>
+              <span class="chrome-dot"></span>
+              <span class="chat-chrome-title">エージェント · strategy-consulting-visualization</span>
+            </div>
+
+            <div class="chat-thread" aria-live="polite">
+              <div class="chat-msg chat-msg-user" data-step="user" hidden>
+                <span class="chat-who" data-i18n="who-user">あなた</span>
+                <div class="chat-bubble" id="chat-user-text"></div>
+              </div>
+
+              <div class="chat-msg chat-msg-agent" data-step="thinking" hidden>
+                <span class="chat-who" data-i18n="who-agent">エージェント</span>
+                <div class="chat-bubble chat-bubble-status">
+                  <span class="chat-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span id="chat-status-text">strategy-consulting-visualization スキルを実行中…</span>
+                </div>
+              </div>
+
+              <div class="chat-msg chat-msg-agent" data-step="reply" hidden>
+                <span class="chat-who" data-i18n="who-agent">エージェント</span>
+                <div class="chat-bubble">
+                  <p id="chat-reply-text">できた。メモから 9 枚の役員会デッキを描いた。下で枚が進んでいく。</p>
+                  <ol class="chat-stack" id="chat-stack" aria-label="生成されたデッキのスライド"></ol>
+                  <figure class="chat-slide">
+                    <div class="chat-slide-stage">
+                      <iframe id="chat-deck-frame" data-src="../site/artifacts/ja-deck.html?embed=1" title="チャット依頼から生成された役員会デッキ" sandbox="allow-scripts allow-same-origin" loading="lazy"></iframe>
+                    </div>
+                    <figcaption>
+                      <span id="chat-slide-count">0 / 9 枚</span>
+                      <span aria-hidden="true"> · </span>
+                      <span id="chat-slide-caption">自動再生</span>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+            </div>
+
+            <div class="chat-composer" aria-hidden="true">
+              <span class="chat-composer-fake">役員会スライドを依頼…</span>
+            </div>
+          </div>
+
+          <p class="chat-cta">
+            <a class="btn btn-primary" href="./try/">自分のメモで試す</a>
+            <a class="btn btn-ghost" href="./examples/">ほかの実例を見る</a>
+          </p>
+        </div>
+      </section>
+
+      <section id="pipeline" aria-label="パイプライン">
+        <div class="pl-pin">
+          <div class="wrap">
+            <span class="kicker">パイプライン</span>
+            <h2>メモを入れる。役員会資料が出てくる</h2>
+            <ol class="pl-flow">
+              <li class="pl-step">
+                <span class="pl-num">01</span>
+                <span class="pl-label">散らかったメモ、数値、文章</span>
+              </li>
+              <li class="pl-step pl-step-spec">
+                <span class="pl-num">02</span>
+                <span class="pl-label"><code class="pl-code">スライドspec（JSON）</code></span>
+              </li>
+              <li class="pl-step">
+                <span class="pl-num">03</span>
+                <span class="pl-label">SVGスライド</span>
+              </li>
+              <li class="pl-step">
+                <span class="pl-num">04</span>
+                <span class="pl-label">アニメーションHTMLデッキ／PDF</span>
+              </li>
+            </ol>
+            <div class="pl-track" aria-hidden="true">
+              <span class="pl-track-fill"></span>
+            </div>
+            <p class="pl-note">単一ファイルのPythonスクリプト、標準ライブラリのみ。specはコードのように版を重ねられます。</p>
+            <p class="pl-more">
+              <a href="./examples/">ライブ実例を見る →</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="start" aria-label="はじめる">
+        <div class="wrap">
+          <span class="kicker">60秒で始める</span>
+          <h2>インストールして、レンダリングして、デッキにする。</h2>
+          <div class="st-shell">
+            <pre class="st-term"><code id="st-commands"><span class="st-line">git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization</span>
+<span class="st-line">python3 scripts/render_slide_spec.py examples/render-specs/arr-waterfall.json -o slide.svg</span>
+<span class="st-line">python3 scripts/build_html_deck.py --manifest examples/demo-deck.json -o deck.html</span></code></pre>
+            <button class="st-copy" type="button" data-copy="#st-commands">コピー</button>
+          </div>
+          <p class="st-ask">ターミナルを使わず、エージェントに頼むだけでも。</p>
+          <p class="st-prompt">strategy consulting visualizationスキルで、このメモを役員会スライドにして…</p>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer" class="site-footer">
+      <div class="ft-shell">
+        <div class="wrap">
+          <p class="ft-cta">このスキルでラフなメモが使えるスライドになったら、リポジトリにスターを。スターは、「実際に描画できるツール」を人が見つけるための道標です。</p>
+          <p class="ft-actions">
+            <a class="btn btn-primary" href="https://github.com/kgraph57/mckinsey-style-visualization-skill" rel="noopener">★ GitHubでスター</a>
+          </p>
+          <hr class="ft-divider" />
+          <div class="ft-small">
+            <p class="ft-line">MITライセンス。</p>
+            <p class="ft-line">これは独立したスキルパッケージです。McKinsey & Company、Boston Consulting Group、Bain & Company、その他いかなるコンサルティングファームとも提携・支持・後援の関係はありません。<br /><span lang="en">This is an independent skill package. It is not affiliated with, endorsed by, or sponsored by McKinsey & Company, Boston Consulting Group, Bain & Company, or any other consulting firm.</span></p>
+            <ul class="ft-links">
+              <li>
+                <a href="https://github.com/kgraph57/mckinsey-style-visualization-skill" rel="noopener">リポジトリ</a>
+              </li>
+              <li>
+                <a href="https://github.com/kgraph57/mckinsey-style-visualization-skill/issues" rel="noopener">課題</a>
+              </li>
+              <li>
+                <a href="https://github.com/kgraph57/mckinsey-style-visualization-skill/discussions" rel="noopener">ディスカッション</a>
+              </li>
+              <li>
+                <a href="https://github.com/kgraph57/mckinsey-style-visualization-skill/releases" rel="noopener">リリース</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      /* file:// fallback: ES modules are blocked on file origins in Chrome.
+         If main.js never booted, explain the gallery. */
+      setTimeout(function () {
+        if (window.__siteBooted) return;
+        var grid = document.querySelector(".gal-grid");
+        if (
+          grid &&
+          !grid.querySelector(".gal-card") &&
+          !grid.querySelector(".gal-offline")
+        ) {
+          var p = document.createElement("p");
+          p.className = "gal-offline";
+          p.textContent =
+            "インタラクティブなギャラリーはHTTP経由で開く必要があります。すべてのレンダリングはリポジトリの assets/rendered/ にもあります。";
+          grid.appendChild(p);
+        }
+      }, 2500);
+    </script>
+  </body>
+</html>

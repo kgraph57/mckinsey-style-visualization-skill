@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Three constraints shape the rollout">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Three constraints shape the rollout</text>
+  <rect x="80.0" y="214.0" width="6.0" height="6.0" fill="#15296B" stroke="none"/>
+  <text x="102.0" y="228.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start">Capacity is fixed until Q3</text>
+  <text x="126.0" y="264.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">– Hiring freeze through June</text>
+  <text x="126.0" y="288.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">– Onboarding team caps at 40 accounts a month</text>
+  <rect x="80.0" y="324.7" width="6.0" height="6.0" fill="#15296B" stroke="none"/>
+  <text x="102.0" y="338.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">Vendor A's integration is not yet certified</text>
+  <text x="126.0" y="374.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">– Certification expected in eight weeks</text>
+  <rect x="80.0" y="435.3" width="6.0" height="6.0" fill="#15296B" stroke="none"/>
+  <text x="102.0" y="449.3" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="normal" text-anchor="start">Regional pricing has not been finalized</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Sequence the rollout around the capacity constraint, not around demand.</title>Sequence the rollout around the capacity constraint, not around demand.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">Illustrative data — hypothetical rollout plan.</text>
+</svg>

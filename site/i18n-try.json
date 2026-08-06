@@ -1,0 +1,39 @@
+{
+  "source": "docs/try/index.html",
+  "output": "docs/ja/try/index.html",
+  "pathRewrite": [
+    ["\"../site/", "\"../../site/"],
+    ["'../site/", "'../../site/"]
+  ],
+  "htmlLang": "ja",
+  "selectors": {
+    "title": "試してみる — メモを入れる、資料が出てくる | Strategy Consulting Visualization Skill",
+    "meta[name='description']@content": "散らかったメモを貼るだけ。Claudeがデッキのspecに変換し、このリポジトリのレンダラー本体がブラウザのWebAssemblyでスライドを描画します。スマホでも。",
+    "meta[property='og:title']@content": "Strategy Consulting Visualization Skill を試す",
+    "meta[property='og:description']@content": "メモを入れる、資料が出てくる。インストール不要、サーバーなし——ブラウザとあなたのキーだけ。",
+    "meta[property='og:image']@content": "../../site/og.png",
+    ".skip-link": "本文へスキップ",
+    ".try-back": "← サイトへ",
+    "#lang-toggle": "EN",
+    "#lang-toggle@href": "../../try/",
+    "#lang-toggle@hreflang": "en",
+    "#try-intro h1": "メモを入れる。資料が出てくる。",
+    "#try-intro .lede": "散らかったメモを貼るだけ。Claudeがデッキのspecに変換し、このリポジトリのレンダラー本体が——同じPythonファイルがWebAssemblyとしてブラウザで動き——スライドを描画します。スマホでも使えます。",
+    "#try-key .try-h2": "Anthropic APIキー",
+    "#try-key-save": "キーを保存",
+    "#try-key .try-note:nth-of-type(2)": "BYOK（自分のキーを持ち込む）方式です。キーはこのブラウザのlocalStorageにのみ保存され、api.anthropic.comにだけ送信されます。間にサーバーはありません。<a href=\"https://console.anthropic.com/\" rel=\"noopener\">キーを取得 ↗</a>",
+    "#try-key .try-note:nth-of-type(3)": "キーがない場合は<a href=\"../#start\">スキルをインストール</a>してください——同じレンダラーがエージェントの中で動きます。",
+    "#try-notes .try-h2": "メモ",
+    "#try-notes-input@aria-label": "メモ",
+    "#try-notes-input@placeholder": "会議メモ、数値、ラフな企画メモなどを貼ってください…",
+    "#try-sample": "サンプルメモを使う",
+    "#try-generate": "デッキを生成",
+    "#try-notes .try-note": "キーを使ってClaude Sonnet 5を呼びます（数セント）。初回のみ、約12MBのレンダラーランタイムも一度だけダウンロードします。",
+    "#try-dl-deck": "deck.html をダウンロード",
+    "#try-dl-svg": "このスライド（.svg）",
+    "#try-copy-spec": "spec JSONをコピー",
+    "#try-reset": "やり直す",
+    "#try-privacy .try-note": "Generateを押すまでは通信ゼロ。押した後は、メモとキーを載せたapi.anthropic.comへの1回の呼び出しと、初回のみjsDelivrへの1回のWASM Pythonランタイム取得だけです。それ以外は一切ありません。",
+    ".ft-line": "MIT License. これは独立したスキルパッケージです。McKinsey & Company、Boston Consulting Group、Bain & Company、その他いかなるコンサルティングファームとも提携・支持・後援の関係はありません。"
+  }
+}

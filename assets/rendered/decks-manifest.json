@@ -1,0 +1,120 @@
+{
+  "en": {
+    "deck": "demo-deck.html",
+    "slides": [
+      {
+        "file": "rendered/en/01-board-deck-cover.svg",
+        "label_en": "Cover",
+        "label_ja": "表紙",
+        "headline": "FY26 Growth Review"
+      },
+      {
+        "file": "rendered/en/02-strategy-agenda.svg",
+        "label_en": "Agenda",
+        "label_ja": "アジェンダ",
+        "headline": "Three questions decide this investment"
+      },
+      {
+        "file": "rendered/en/03-phase-divider.svg",
+        "label_en": "Divider",
+        "label_ja": "区切り",
+        "headline": "Where to play"
+      },
+      {
+        "file": "rendered/en/04-executive-summary.svg",
+        "label_en": "Exec summary",
+        "label_ja": "役員要約",
+        "headline": "Capacity, not demand, is now the binding constraint on Q4 growth"
+      },
+      {
+        "file": "rendered/en/05-arr-waterfall.svg",
+        "label_en": "ARR bridge",
+        "label_ja": "ARR橋渡し",
+        "headline": "Enterprise acquisition and expansion added $5.5M ARR, more than offsetting $0.5M churn"
+      },
+      {
+        "file": "rendered/en/06-segment-adoption-multiples.svg",
+        "label_en": "Segments",
+        "label_ja": "セグメント",
+        "headline": "Adoption rises in every segment, but healthcare lags the pack"
+      },
+      {
+        "file": "rendered/en/07-product-priority-two-by-two.svg",
+        "label_en": "Priorities",
+        "label_ja": "優先度",
+        "headline": "Two features deliver high impact at low effort; ship them before the platform rewrite"
+      },
+      {
+        "file": "rendered/en/08-board-closing.svg",
+        "label_en": "Asks",
+        "label_ja": "決議事項",
+        "headline": "Decide the pilot now, scale in Q3"
+      },
+      {
+        "file": "rendered/en/09-deck-end-cover.svg",
+        "label_en": "Close",
+        "label_ja": "クローズ",
+        "headline": "Thank you"
+      }
+    ]
+  },
+  "ja": {
+    "deck": "ja-deck.html",
+    "slides": [
+      {
+        "file": "rendered/ja/01-cover.svg",
+        "label_en": "Cover",
+        "label_ja": "表紙",
+        "headline": "第3四半期 取締役会アップデート"
+      },
+      {
+        "file": "rendered/ja/02-agenda.svg",
+        "label_en": "Agenda",
+        "label_ja": "アジェンダ",
+        "headline": "本日は4つの論点で稼働体制への投資判断を仰ぎます"
+      },
+      {
+        "file": "rendered/ja/03-executive-summary.svg",
+        "label_en": "Exec summary",
+        "label_ja": "役員要約",
+        "headline": "成長は本物だが、オンボーディング能力がその先の売上転換速度を規定している"
+      },
+      {
+        "file": "rendered/ja/04-kpi-scorecard.svg",
+        "label_en": "KPI",
+        "label_ja": "KPI",
+        "headline": "成長指標はすべて計画通り、唯一の例外はエンジニアリングの稼働余力"
+      },
+      {
+        "file": "rendered/ja/05-arr-waterfall.svg",
+        "label_en": "ARR bridge",
+        "label_ja": "ARR橋渡し",
+        "headline": "新規エンタープライズ契約と既存拡大で+6.3億円、解約1.3億円を差し引いても純増5.0億円"
+      },
+      {
+        "file": "rendered/ja/06-adoption-trend.svg",
+        "label_en": "Adoption",
+        "label_ja": "導入率",
+        "headline": "導入率は3四半期連続で上昇し、過半数を大きく超えた"
+      },
+      {
+        "file": "rendered/ja/07-risks.svg",
+        "label_en": "Risks",
+        "label_ja": "リスク",
+        "headline": "稼働リスクは3つに集約される"
+      },
+      {
+        "file": "rendered/ja/08-closing.svg",
+        "label_en": "Asks",
+        "label_ja": "決議",
+        "headline": "本日、オンボーディング要員の増員を承認しなければ第4四半期の成長は減速する"
+      },
+      {
+        "file": "rendered/ja/09-end-cover.svg",
+        "label_en": "Close",
+        "label_ja": "クローズ",
+        "headline": "ご清聴ありがとうございました"
+      }
+    ]
+  }
+}

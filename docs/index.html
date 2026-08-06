@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Strategy Consulting Visualization Skill — Messy notes in. Board-ready
+      slides out.
+    </title>
+    <meta
+      name="description"
+      content="One skill for your AI agent: turn notes, metrics, and prose into consulting-grade visuals: real SVG slides, an animated HTML deck, or a spec any designer can execute. Python standard library only."
+    />
+    <meta
+      property="og:title"
+      content="Strategy Consulting Visualization Skill"
+    />
+    <meta
+      property="og:description"
+      content="Messy notes in. Board-ready slides out. Zero dependencies, zero API keys, zero network calls."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="site/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="./site/css/tokens.css" />
+    <link rel="stylesheet" href="./site/css/base.css" />
+    <link rel="stylesheet" href="./site/css/sections.css" />
+    <script type="module" src="./site/js/main.js"></script>
+    <script type="module" src="./site/js/theater.js"></script>
+    <script type="module" src="./site/js/chat-demo.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap site-header-inner">
+        <a class="wordmark" href="#hero"
+          >Consulting&nbsp;Visualization&nbsp;Skill</a
+        >
+        <nav class="site-nav" aria-label="Site">
+          <a href="./examples/">Examples</a>
+          <a href="./try/">Try</a>
+          <a href="#start">Install</a>
+          <a href="./ja/" id="lang-toggle" hreflang="ja">日本語</a>
+        </nav>
+        <a
+          class="btn btn-ghost star-link"
+          href="https://github.com/kgraph57/mckinsey-style-visualization-skill"
+          rel="noopener"
+          >★ Star on GitHub</a
+        >
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="hero" aria-label="Introduction">
+        <div class="wrap">
+          <div class="hd-intro">
+            <h1>Messy notes in.<br />Board-ready slides out.</h1>
+            <p class="lede">
+              One skill for your AI agent: turn notes, metrics, and prose into
+              consulting-grade visuals: real SVG slides, an animated HTML deck,
+              or a spec any designer can execute. Python standard library only.
+              Zero dependencies, zero API keys, zero network calls.
+            </p>
+            <p class="hd-actions">
+              <a class="btn btn-primary" href="#start">Install in 60 seconds</a>
+              <a
+                class="btn btn-ghost"
+                href="https://github.com/kgraph57/mckinsey-style-visualization-skill"
+                rel="noopener"
+                >★ Star on GitHub</a
+              >
+            </p>
+          </div>
+
+          <div class="hd-theater" id="hd-theater" data-theater>
+            <div class="hd-tabs" role="tablist" aria-label="Product demos">
+              <button
+                type="button"
+                class="hd-tab is-active"
+                role="tab"
+                id="hd-tab-deck"
+                aria-selected="true"
+                aria-controls="hd-panel-deck"
+                data-panel="deck"
+              >
+                <span class="hd-num">01</span> Live deck
+              </button>
+              <button
+                type="button"
+                class="hd-tab"
+                role="tab"
+                id="hd-tab-slides"
+                aria-selected="false"
+                aria-controls="hd-panel-slides"
+                data-panel="slides"
+                tabindex="-1"
+              >
+                <span class="hd-num">02</span> Board slides
+              </button>
+              <button
+                type="button"
+                class="hd-tab"
+                role="tab"
+                id="hd-tab-ja"
+                aria-selected="false"
+                aria-controls="hd-panel-ja"
+                data-panel="ja"
+                tabindex="-1"
+              >
+                <span class="hd-num">03</span> Japanese
+              </button>
+              <button
+                type="button"
+                class="hd-tab"
+                role="tab"
+                id="hd-tab-try"
+                aria-selected="false"
+                aria-controls="hd-panel-try"
+                data-panel="try"
+                tabindex="-1"
+              >
+                <span class="hd-num">04</span> Try it
+              </button>
+            </div>
+
+            <div class="hd-stage">
+              <div
+                id="hd-panel-deck"
+                class="hd-panel is-active"
+                role="tabpanel"
+                aria-labelledby="hd-tab-deck"
+                data-panel="deck"
+              >
+                <div class="chrome hd-chrome">
+                  <div class="chrome-bar" aria-hidden="true">
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-url"
+                      >demo-deck.html — autoplaying, zero requests</span
+                    >
+                  </div>
+                  <iframe
+                    id="hd-deck-frame"
+                    src="./site/artifacts/demo-deck.html?embed=1"
+                    title="Animated demo deck built by this repo"
+                    sandbox="allow-scripts allow-same-origin allow-popups"
+                  ></iframe>
+                </div>
+              </div>
+
+              <div
+                id="hd-panel-slides"
+                class="hd-panel"
+                role="tabpanel"
+                aria-labelledby="hd-tab-slides"
+                data-panel="slides"
+                hidden
+              >
+                <div class="hd-slide-show" data-slideshow>
+                  <img
+                    class="is-on"
+                    src="./site/artifacts/rendered/arr-waterfall.svg"
+                    alt="ARR waterfall slide rendered by this repo"
+                  />
+                  <img
+                    src="./site/artifacts/rendered/executive-summary.svg"
+                    alt="Executive summary slide rendered by this repo"
+                    hidden
+                  />
+                  <img
+                    src="./site/artifacts/rendered/sales-pipeline-funnel.svg"
+                    alt="Sales pipeline funnel slide rendered by this repo"
+                    hidden
+                  />
+                  <img
+                    src="./site/artifacts/rendered/product-priority-two-by-two.svg"
+                    alt="Product priority 2x2 slide rendered by this repo"
+                    hidden
+                  />
+                </div>
+              </div>
+
+              <div
+                id="hd-panel-ja"
+                class="hd-panel"
+                role="tabpanel"
+                aria-labelledby="hd-tab-ja"
+                data-panel="ja"
+                hidden
+              >
+                <div class="chrome hd-chrome">
+                  <div class="chrome-bar" aria-hidden="true">
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-url"
+                      >ja-deck.html — board-update-ja, live</span
+                    >
+                  </div>
+                  <iframe
+                    id="hd-ja-frame"
+                    data-src="./site/artifacts/ja-deck.html?embed=1"
+                    title="Japanese board-update demo deck"
+                    sandbox="allow-scripts allow-same-origin allow-popups"
+                  ></iframe>
+                </div>
+              </div>
+
+              <div
+                id="hd-panel-try"
+                class="hd-panel"
+                role="tabpanel"
+                aria-labelledby="hd-tab-try"
+                data-panel="try"
+                hidden
+              >
+                <div class="hd-try" aria-hidden="true">
+                  <div class="hd-try-notes">
+                    <span class="hd-try-label">messy notes</span>
+                    <pre class="hd-try-typed" id="hd-try-typed"></pre>
+                  </div>
+                  <div class="hd-try-arrow" aria-hidden="true">→</div>
+                  <div class="hd-try-out">
+                    <span class="hd-try-label">board slide</span>
+                    <img
+                      src="./site/artifacts/rendered/arr-waterfall.svg"
+                      alt=""
+                    />
+                  </div>
+                </div>
+                <p class="hd-try-cta">
+                  <a class="btn btn-primary" href="#console"
+                    >See how it feels</a
+                  >
+                  <a class="btn btn-ghost" href="./try/"
+                    >Try with your notes ↗</a
+                  >
+                </p>
+              </div>
+            </div>
+            <p class="hd-stage-caption">
+              Real renderer output, playing in your browser — not a mockup.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="console" aria-label="How it feels in chat">
+        <div class="wrap">
+          <div class="con-intro">
+            <span class="kicker">How it feels</span>
+            <h2>You ask in chat. The skill answers with a deck.</h2>
+            <p class="lede">
+              Not a form. The experience is: tell your agent what you need, and
+              it comes back with board-ready slides from this skill.
+            </p>
+          </div>
+
+          <div class="chat-demo" id="chat-demo" data-chat-demo>
+            <div class="chat-chrome" aria-hidden="true">
+              <span class="chrome-dot"></span>
+              <span class="chrome-dot"></span>
+              <span class="chrome-dot"></span>
+              <span class="chat-chrome-title"
+                >Agent · strategy-consulting-visualization</span
+              >
+            </div>
+
+            <div class="chat-thread" aria-live="polite">
+              <div class="chat-msg chat-msg-user" data-step="user" hidden>
+                <span class="chat-who" data-i18n="who-user">You</span>
+                <div class="chat-bubble" id="chat-user-text"></div>
+              </div>
+
+              <div class="chat-msg chat-msg-agent" data-step="thinking" hidden>
+                <span class="chat-who" data-i18n="who-agent">Agent</span>
+                <div class="chat-bubble chat-bubble-status">
+                  <span class="chat-dots" aria-hidden="true"
+                    ><i></i><i></i><i></i
+                  ></span>
+                  <span id="chat-status-text"
+                    >Using the visualization skill…</span
+                  >
+                </div>
+              </div>
+
+              <div class="chat-msg chat-msg-agent" data-step="reply" hidden>
+                <span class="chat-who" data-i18n="who-agent">Agent</span>
+                <div class="chat-bubble">
+                  <p id="chat-reply-text"></p>
+                  <ol
+                    class="chat-stack"
+                    id="chat-stack"
+                    aria-label="Slides in the generated deck"
+                  ></ol>
+                  <figure class="chat-slide">
+                    <div class="chat-slide-stage">
+                      <iframe
+                        id="chat-deck-frame"
+                        data-src="./site/artifacts/demo-deck.html?embed=1"
+                        title="Board deck generated from the chat request"
+                        sandbox="allow-scripts allow-same-origin"
+                        loading="lazy"
+                      ></iframe>
+                    </div>
+                    <figcaption>
+                      <span id="chat-slide-count">9 slides</span>
+                      <span aria-hidden="true"> · </span>
+                      <span id="chat-slide-caption">autoplaying</span>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+            </div>
+
+            <div class="chat-composer" aria-hidden="true">
+              <span class="chat-composer-fake">Ask for a board slide…</span>
+            </div>
+          </div>
+
+          <p class="chat-cta">
+            <a class="btn btn-primary" href="./try/">Try it with your notes</a>
+            <a class="btn btn-ghost" href="./examples/">See more examples</a>
+          </p>
+        </div>
+      </section>
+
+      <section id="pipeline" aria-label="Pipeline">
+        <div class="pl-pin">
+          <div class="wrap">
+            <span class="kicker">The pipeline</span>
+            <h2>Notes in, board-ready out</h2>
+            <ol class="pl-flow">
+              <li class="pl-step">
+                <span class="pl-num">01</span>
+                <span class="pl-label">Messy notes, metrics, prose</span>
+              </li>
+              <li class="pl-step pl-step-spec">
+                <span class="pl-num">02</span>
+                <span class="pl-label"
+                  ><code class="pl-code">Slide spec (JSON)</code></span
+                >
+              </li>
+              <li class="pl-step">
+                <span class="pl-num">03</span>
+                <span class="pl-label">SVG slides</span>
+              </li>
+              <li class="pl-step">
+                <span class="pl-num">04</span>
+                <span class="pl-label">Animated HTML deck / PDF</span>
+              </li>
+            </ol>
+            <div class="pl-track" aria-hidden="true">
+              <span class="pl-track-fill"></span>
+            </div>
+            <p class="pl-note">
+              Single-file Python scripts, standard library only. Specs version
+              like code.
+            </p>
+            <p class="pl-more">
+              <a href="./examples/">Browse live examples →</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="start" aria-label="Get started">
+        <div class="wrap">
+          <span class="kicker">60-second start</span>
+          <h2>Install it. Render it. Deck it.</h2>
+          <div class="st-shell">
+            <pre
+              class="st-term"
+            ><code id="st-commands"><span class="st-line">git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization</span>
+<span class="st-line">python3 scripts/render_slide_spec.py examples/render-specs/arr-waterfall.json -o slide.svg</span>
+<span class="st-line">python3 scripts/build_html_deck.py --manifest examples/demo-deck.json -o deck.html</span></code></pre>
+            <button class="st-copy" type="button" data-copy="#st-commands">
+              Copy
+            </button>
+          </div>
+          <p class="st-ask">Or skip the terminal and just ask your agent.</p>
+          <p class="st-prompt">
+            Use the strategy consulting visualization skill to turn these notes
+            into a board slide…
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer" class="site-footer">
+      <div class="ft-shell">
+        <div class="wrap">
+          <p class="ft-cta">
+            If this turned your rough notes into a usable slide, star the repo.
+            Stars are how people find tools that actually render.
+          </p>
+          <p class="ft-actions">
+            <a
+              class="btn btn-primary"
+              href="https://github.com/kgraph57/mckinsey-style-visualization-skill"
+              rel="noopener"
+              >★ Star on GitHub</a
+            >
+          </p>
+          <hr class="ft-divider" />
+          <div class="ft-small">
+            <p class="ft-line">MIT License.</p>
+            <p class="ft-line">
+              This is an independent skill package. It is not affiliated with,
+              endorsed by, or sponsored by McKinsey & Company, Boston Consulting
+              Group, Bain & Company, or any other consulting firm.
+            </p>
+            <ul class="ft-links">
+              <li>
+                <a
+                  href="https://github.com/kgraph57/mckinsey-style-visualization-skill"
+                  rel="noopener"
+                  >Repository</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://github.com/kgraph57/mckinsey-style-visualization-skill/issues"
+                  rel="noopener"
+                  >Issues</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://github.com/kgraph57/mckinsey-style-visualization-skill/discussions"
+                  rel="noopener"
+                  >Discussions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://github.com/kgraph57/mckinsey-style-visualization-skill/releases"
+                  rel="noopener"
+                  >Releases</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      /* file:// fallback: ES modules are blocked on file origins in Chrome.
+         If main.js never booted, explain the gallery. */
+      setTimeout(function () {
+        if (window.__siteBooted) return;
+        var grid = document.querySelector(".gal-grid");
+        if (
+          grid &&
+          !grid.querySelector(".gal-card") &&
+          !grid.querySelector(".gal-offline")
+        ) {
+          var p = document.createElement("p");
+          p.className = "gal-offline";
+          p.textContent =
+            "The interactive gallery needs to be served over HTTP — every render also lives in the repo under assets/rendered/.";
+          grid.appendChild(p);
+        }
+      }, 2500);
+    </script>
+  </body>
+</html>

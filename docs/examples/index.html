@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Examples — Strategy Consulting Visualization Skill</title>
+    <meta
+      name="description"
+      content="Watch a live board deck, browse chart patterns, or open report / script / article formats — all real renderer output."
+    />
+    <meta
+      property="og:title"
+      content="Examples — Strategy Consulting Visualization Skill"
+    />
+    <meta
+      property="og:description"
+      content="Watch a deck, browse patterns, or open other formats. No long scroll."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="../site/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="../site/css/tokens.css" />
+    <link rel="stylesheet" href="../site/css/base.css" />
+    <link rel="stylesheet" href="../site/css/sections.css" />
+    <script type="module" src="../site/js/main.js"></script>
+    <script type="module" src="../site/js/examples.js"></script>
+  </head>
+  <body class="page-examples">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap site-header-inner">
+        <a class="wordmark" href="../"
+          >Consulting&nbsp;Visualization&nbsp;Skill</a
+        >
+        <nav class="site-nav" aria-label="Site">
+          <a href="./" aria-current="page">Examples</a>
+          <a href="../try/">Try</a>
+          <a href="../#start">Install</a>
+          <a href="../ja/examples/" id="lang-toggle" hreflang="ja">日本語</a>
+        </nav>
+        <a
+          class="btn btn-ghost star-link"
+          href="https://github.com/kgraph57/mckinsey-style-visualization-skill"
+          rel="noopener"
+          >★ Star on GitHub</a
+        >
+      </div>
+    </header>
+
+    <main id="main" class="ex-main">
+      <div class="wrap ex-head">
+        <span class="kicker">Examples</span>
+        <h1>See the product, not a mockup</h1>
+        <p class="lede">
+          Three views. Every frame is real renderer output from this repo.
+        </p>
+        <div class="ex-tabs" role="tablist" aria-label="What to look at">
+          <button
+            type="button"
+            class="ex-tab is-active"
+            role="tab"
+            id="ex-tab-deck"
+            aria-selected="true"
+            aria-controls="live-deck"
+            data-panel="live-deck"
+          >
+            Watch a deck
+          </button>
+          <button
+            type="button"
+            class="ex-tab"
+            role="tab"
+            id="ex-tab-patterns"
+            aria-selected="false"
+            aria-controls="patterns"
+            data-panel="patterns"
+            tabindex="-1"
+          >
+            Chart patterns
+          </button>
+          <button
+            type="button"
+            class="ex-tab"
+            role="tab"
+            id="ex-tab-formats"
+            aria-selected="false"
+            aria-controls="formats"
+            data-panel="formats"
+            tabindex="-1"
+          >
+            Other formats
+          </button>
+        </div>
+      </div>
+
+      <section
+        id="live-deck"
+        class="ex-panel is-active"
+        aria-label="Watch a deck"
+      >
+        <div class="wrap">
+          <div class="ex-deck-head">
+            <div>
+              <span class="kicker">Watch a deck</span>
+              <h2>A board deck this repo built, playing itself</h2>
+            </div>
+            <div class="ex-lang" role="group" aria-label="Deck language">
+              <button
+                type="button"
+                class="ex-lang-btn is-on"
+                data-lang="en"
+                aria-pressed="true"
+              >
+                English
+              </button>
+              <button
+                type="button"
+                class="ex-lang-btn"
+                data-lang="ja"
+                aria-pressed="false"
+              >
+                日本語
+              </button>
+            </div>
+          </div>
+
+          <figure class="ld-frame" data-deck-lang="en">
+            <div class="chrome">
+              <div class="chrome-bar" aria-hidden="true">
+                <span class="chrome-dot"></span>
+                <span class="chrome-dot"></span>
+                <span class="chrome-dot"></span>
+                <span class="chrome-url" id="ex-deck-url"
+                  >demo-deck.html — autoplaying</span
+                >
+                <span class="cjk-live" aria-hidden="true">LIVE</span>
+              </div>
+              <iframe
+                id="ex-deck-frame"
+                src="../site/artifacts/demo-deck.html?embed=1"
+                title="Animated demo deck built by this repo"
+                sandbox="allow-scripts allow-same-origin allow-popups"
+              ></iframe>
+            </div>
+            <figcaption class="ld-caption">
+              <span id="ex-deck-caption"
+                >English board story: specs → SVG → animated HTML. Arrow keys
+                work after you click the frame.</span
+              >
+              <a
+                class="ld-open"
+                id="ex-deck-open"
+                href="../site/artifacts/demo-deck.html"
+                target="_blank"
+                rel="noopener"
+                >Open full screen ↗</a
+              >
+            </figcaption>
+          </figure>
+
+          <ul
+            class="cjk-profiles"
+            id="ex-deck-profiles"
+            aria-label="Japanese document profiles"
+            hidden
+          >
+            <li class="cjk-chip is-on">稟議書</li>
+            <li class="cjk-chip">役員会資料</li>
+            <li class="cjk-chip">週報・月報</li>
+            <li class="cjk-chip">学会抄録</li>
+          </ul>
+        </div>
+      </section>
+
+      <section
+        id="patterns"
+        class="ex-panel"
+        aria-label="Chart patterns"
+        hidden
+      >
+        <div class="wrap">
+          <span class="kicker">Chart patterns</span>
+          <h2>22 patterns, rendered and verified on every push</h2>
+          <p class="lede">
+            Every image below is committed renderer output; CI fails if any of
+            them drifts. Click one to see the spec JSON that produced it, side
+            by side.
+          </p>
+          <div
+            class="gal-filters"
+            role="group"
+            aria-label="Filter by pattern family"
+          >
+            <button
+              type="button"
+              class="gal-chip is-active"
+              data-filter="all"
+              aria-pressed="true"
+            >
+              All <span class="gal-count">25</span>
+            </button>
+            <button
+              type="button"
+              class="gal-chip"
+              data-filter="charts"
+              aria-pressed="false"
+            >
+              Charts <span class="gal-count">10</span>
+            </button>
+            <button
+              type="button"
+              class="gal-chip"
+              data-filter="scorecards"
+              aria-pressed="false"
+            >
+              Scorecards <span class="gal-count">4</span>
+            </button>
+            <button
+              type="button"
+              class="gal-chip"
+              data-filter="flows"
+              aria-pressed="false"
+            >
+              Flows <span class="gal-count">4</span>
+            </button>
+            <button
+              type="button"
+              class="gal-chip"
+              data-filter="deck"
+              aria-pressed="false"
+            >
+              Deck pages <span class="gal-count">7</span>
+            </button>
+          </div>
+          <div class="gal-grid">
+            <noscript>
+              <p class="gal-noscript">
+                The gallery requires JavaScript. Every render also lives in the
+                repo under assets/rendered/.
+              </p>
+            </noscript>
+          </div>
+
+          <dialog class="gal-lightbox" aria-label="Render and spec viewer">
+            <div class="gal-lightbox-inner">
+              <div class="gal-lightbox-header">
+                <p class="gal-lightbox-caption">
+                  <span class="gal-card-pattern"></span> ·
+                  <span class="gal-lightbox-headline"></span>
+                </p>
+                <button
+                  type="button"
+                  class="gal-lightbox-close"
+                  aria-label="Close"
+                >
+                  ×
+                </button>
+              </div>
+              <div class="gal-lightbox-stage"></div>
+              <div class="gal-lightbox-spec">
+                <pre><code></code></pre>
+              </div>
+              <div class="gal-lightbox-nav">
+                <button
+                  type="button"
+                  class="gal-lightbox-prev"
+                  aria-label="Previous render"
+                >
+                  ← Previous
+                </button>
+                <button
+                  type="button"
+                  class="gal-lightbox-next"
+                  aria-label="Next render"
+                >
+                  Next →
+                </button>
+              </div>
+            </div>
+          </dialog>
+        </div>
+      </section>
+
+      <section id="formats" class="ex-panel" aria-label="Other formats" hidden>
+        <div class="wrap">
+          <span class="kicker">Other formats</span>
+          <h2>Same specs, four ways to ship</h2>
+          <div class="md-tabs" role="tablist" aria-label="Deliverable format">
+            <button
+              role="tab"
+              class="md-tab is-active"
+              data-mode="deck"
+              id="md-tab-deck"
+              aria-controls="md-panel-deck"
+              aria-selected="true"
+              type="button"
+            >
+              <span class="md-num">01</span> Deck
+            </button>
+            <button
+              role="tab"
+              class="md-tab"
+              data-mode="report"
+              id="md-tab-report"
+              aria-controls="md-panel-report"
+              aria-selected="false"
+              type="button"
+            >
+              <span class="md-num">02</span> Report
+            </button>
+            <button
+              role="tab"
+              class="md-tab"
+              data-mode="script"
+              id="md-tab-script"
+              aria-controls="md-panel-script"
+              aria-selected="false"
+              type="button"
+            >
+              <span class="md-num">03</span> Speaker script
+            </button>
+            <button
+              role="tab"
+              class="md-tab"
+              data-mode="article"
+              id="md-tab-article"
+              aria-controls="md-panel-article"
+              aria-selected="false"
+              type="button"
+            >
+              <span class="md-num">04</span> Article
+            </button>
+          </div>
+          <div class="md-panels">
+            <div
+              role="tabpanel"
+              id="md-panel-deck"
+              class="md-panel is-active"
+              aria-labelledby="md-tab-deck"
+            >
+              <div class="chrome">
+                <div class="chrome-bar" aria-hidden="true">
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-url">demo-deck.html</span>
+                </div>
+                <iframe
+                  src="../site/artifacts/demo-deck.html?embed=1"
+                  title="Deck output demo"
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin allow-popups"
+                ></iframe>
+              </div>
+              <p class="md-desc">
+                Animated, self-contained, prints to PDF.
+                <a
+                  class="md-open"
+                  href="../site/artifacts/demo-deck.html"
+                  target="_blank"
+                  rel="noopener"
+                  >Open demo ↗</a
+                >
+              </p>
+            </div>
+            <div
+              role="tabpanel"
+              id="md-panel-report"
+              class="md-panel"
+              aria-labelledby="md-tab-report"
+              hidden
+            >
+              <div class="chrome">
+                <div class="chrome-bar" aria-hidden="true">
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-url">demo-report.html</span>
+                </div>
+                <iframe
+                  data-src="../site/artifacts/demo-report.html"
+                  title="Report output demo"
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin allow-popups"
+                ></iframe>
+              </div>
+              <p class="md-desc">
+                Markdown in, print-to-A4 board document out.
+                <a
+                  class="md-open"
+                  href="../site/artifacts/demo-report.html"
+                  target="_blank"
+                  rel="noopener"
+                  >Open demo ↗</a
+                >
+              </p>
+            </div>
+            <div
+              role="tabpanel"
+              id="md-panel-script"
+              class="md-panel"
+              aria-labelledby="md-tab-script"
+              hidden
+            >
+              <div class="chrome">
+                <div class="chrome-bar" aria-hidden="true">
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-url">demo-script.html</span>
+                </div>
+                <iframe
+                  data-src="../site/artifacts/demo-script.html"
+                  title="Speaker script output demo"
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin allow-popups"
+                ></iframe>
+              </div>
+              <p class="md-desc">
+                One A4 page per slide, podium-readable.
+                <a
+                  class="md-open"
+                  href="../site/artifacts/demo-script.html"
+                  target="_blank"
+                  rel="noopener"
+                  >Open demo ↗</a
+                >
+              </p>
+            </div>
+            <div
+              role="tabpanel"
+              id="md-panel-article"
+              class="md-panel"
+              aria-labelledby="md-tab-article"
+              hidden
+            >
+              <div class="chrome">
+                <div class="chrome-bar" aria-hidden="true">
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-url">demo-article.html</span>
+                </div>
+                <iframe
+                  data-src="../site/artifacts/demo-article.html"
+                  title="Article output demo"
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin allow-popups"
+                ></iframe>
+              </div>
+              <p class="md-desc">
+                The deck as a top-to-bottom reading column.
+                <a
+                  class="md-open"
+                  href="../site/artifacts/demo-article.html"
+                  target="_blank"
+                  rel="noopener"
+                  >Open demo ↗</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer" class="site-footer">
+      <div class="ft-shell">
+        <div class="wrap">
+          <p class="ft-actions">
+            <a class="btn btn-primary" href="../try/">Try it with your notes</a>
+            <a class="btn btn-ghost" href="../#start">Install</a>
+          </p>
+          <p class="ft-line">
+            MIT License. Independent skill package — not affiliated with
+            McKinsey, BCG, or Bain.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
