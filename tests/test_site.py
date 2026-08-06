@@ -17,6 +17,11 @@ EXAMPLES_IDS = {"live-deck", "patterns", "formats", "footer"}
 REFERENCE_ATTRS = {"img": "src", "script": "src", "link": "href", "iframe": "src"}
 
 
+def _local_path(ref: str) -> str:
+    """Strip query/hash so Path.exists() checks the on-disk file."""
+    return ref.split("?", 1)[0].split("#", 1)[0]
+
+
 class IndexParser(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -54,7 +59,8 @@ class SiteChecks:
         for tag, ref in self.parser.refs:
             if ref.startswith(("http://", "https://", "#", "data:")):
                 continue
-            if not (self.BASE / ref).resolve().exists():
+            path = _local_path(ref)
+            if not (self.BASE / path).resolve().exists():
                 missing.append(f"{tag}: {ref}")
         self.assertEqual(missing, [])
 
@@ -78,7 +84,10 @@ class SiteChecks:
     def test_iframe_targets_exist(self):
         for tag, ref in self.parser.refs:
             if tag == "iframe":
-                self.assertTrue((self.BASE / ref).resolve().exists(), f"iframe missing: {ref}")
+                path = _local_path(ref)
+                self.assertTrue(
+                    (self.BASE / path).resolve().exists(), f"iframe missing: {ref}"
+                )
 
 
 @unittest.skipUnless((DOCS / "index.html").exists(), "site not built yet")
