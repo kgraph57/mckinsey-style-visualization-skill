@@ -734,3 +734,225 @@
 .ft-links a:hover {
   color: var(--navy);
 }
+
+/* ---------- scroll-rich layer ---------- */
+
+/* reveal on scroll (main.js adds .js to <html> and .rv to targets;
+   gated to no-preference so reduced-motion users see content immediately) */
+@media (prefers-reduced-motion: no-preference) {
+  .js .rv {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--rv-d, 0ms);
+  }
+  .js .rv.rv-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* scrollspy */
+.site-nav a.is-current {
+  color: var(--navy);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* alternating section rhythm */
+#live-deck,
+#gallery,
+#modes {
+  background: var(--fill);
+}
+
+/* browser chrome frame (carries the border/shadow the bare iframe had) */
+.chrome {
+  border: 1px solid var(--grey-300);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+}
+.chrome-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: calc(var(--u) * 1.25) calc(var(--u) * 2);
+  background: var(--fill);
+}
+.chrome-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--grey-300);
+  flex: none;
+}
+.chrome-url {
+  margin-left: calc(var(--u));
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--grey-500);
+  background: var(--paper);
+  border: 1px solid var(--grey-300);
+  border-radius: 999px;
+  padding: calc(var(--u) * 0.5) calc(var(--u) * 1.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.chrome iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-top: 1px solid var(--grey-300);
+  background: var(--paper);
+}
+/* the cjk figure no longer carries its own frame — chrome owns it */
+.cjk-frame {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+.cjk-caption {
+  padding: calc(var(--u) * 2) 0 0;
+  border-top: 0;
+}
+
+/* pipeline: step numbers + track, chevrons retire */
+.pl-step {
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: calc(var(--u));
+  transition:
+    opacity 0.4s ease,
+    border-color 0.4s ease,
+    background 0.4s ease,
+    transform 0.4s ease;
+}
+.pl-step::after {
+  content: none;
+}
+.pl-num {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--grey-500);
+}
+.pl-track {
+  display: none;
+}
+/* live (pinned) mode, enabled by main.js when motion + width allow */
+.js #pipeline.pl-live {
+  min-height: 280vh;
+  padding-block: 0;
+}
+.js #pipeline.pl-live .pl-pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.js #pipeline.pl-live .pl-step {
+  opacity: 0.3;
+}
+.js #pipeline.pl-live .pl-step.pl-active {
+  opacity: 1;
+  border-color: var(--navy);
+  background: var(--tint);
+  transform: translateY(-2px);
+}
+.js #pipeline.pl-live .pl-step.pl-active .pl-num {
+  color: var(--navy);
+}
+.js #pipeline.pl-live .pl-track {
+  display: block;
+  height: 2px;
+  background: var(--grey-300);
+  margin-top: calc(var(--u) * 4);
+}
+.js #pipeline.pl-live .pl-track-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--navy);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js #pipeline.pl-live .pl-track-fill {
+    transition: width 0.15s linear;
+  }
+}
+
+/* gallery filters */
+.gal-filters {
+  display: none;
+}
+.js .gal-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--u));
+  margin-bottom: calc(var(--u) * 3);
+}
+.gal-chip {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--grey-700);
+  background: var(--paper);
+  border: 1px solid var(--grey-300);
+  border-radius: 999px;
+  padding: calc(var(--u)) calc(var(--u) * 2);
+  cursor: pointer;
+}
+.gal-chip.is-active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+}
+.gal-count {
+  font-family: var(--mono);
+  opacity: 0.7;
+}
+.gal-card[hidden] {
+  display: none;
+}
+
+/* roast: the navy moment */
+#roast {
+  background: var(--navy);
+}
+#roast .kicker {
+  color: rgba(255, 255, 255, 0.55);
+}
+#roast h2 {
+  color: #fff;
+}
+#roast .ro-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: none;
+}
+#roast .ro-score,
+#roast .ro-name {
+  color: #fff;
+}
+#roast .ro-of,
+#roast .ro-lens {
+  color: rgba(255, 255, 255, 0.55);
+}
+#roast .ro-quote {
+  color: rgba(255, 255, 255, 0.85);
+  border-left-color: rgba(255, 255, 255, 0.3);
+}
+#roast .ro-closing {
+  color: rgba(255, 255, 255, 0.75);
+}
+#roast .ro-closing a {
+  color: #fff;
+}

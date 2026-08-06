@@ -84,12 +84,22 @@
           <span class="kicker">It actually renders</span>
           <h2>A deck built by this repo, driving itself in your browser</h2>
           <figure class="ld-frame">
-            <iframe
-              src="./site/artifacts/demo-deck.html"
-              title="Animated demo deck built by this repo"
-              loading="lazy"
-              sandbox="allow-scripts allow-same-origin allow-popups"
-            ></iframe>
+            <div class="chrome">
+              <div class="chrome-bar" aria-hidden="true">
+                <span class="chrome-dot"></span>
+                <span class="chrome-dot"></span>
+                <span class="chrome-dot"></span>
+                <span class="chrome-url"
+                  >demo-deck.html — self-contained, zero requests</span
+                >
+              </div>
+              <iframe
+                src="./site/artifacts/demo-deck.html"
+                title="Animated demo deck built by this repo"
+                loading="lazy"
+                sandbox="allow-scripts allow-same-origin allow-popups"
+              ></iframe>
+            </div>
             <figcaption class="ld-caption">
               <span
                 >A real deck built by this repo: specs (JSON) → SVG slides →
@@ -109,21 +119,38 @@
       </section>
 
       <section id="pipeline" aria-label="Pipeline">
-        <div class="wrap">
-          <span class="kicker">The pipeline</span>
-          <h2>Notes in, board-ready out</h2>
-          <ol class="pl-flow">
-            <li class="pl-step">Messy notes, metrics, prose</li>
-            <li class="pl-step pl-step-spec">
-              <code class="pl-code">Slide spec (JSON)</code>
-            </li>
-            <li class="pl-step">SVG slides</li>
-            <li class="pl-step">Animated HTML deck / PDF</li>
-          </ol>
-          <p class="pl-note">
-            Single-file Python scripts, standard library only. Specs version
-            like code.
-          </p>
+        <div class="pl-pin">
+          <div class="wrap">
+            <span class="kicker">The pipeline</span>
+            <h2>Notes in, board-ready out</h2>
+            <ol class="pl-flow">
+              <li class="pl-step">
+                <span class="pl-num">01</span>
+                <span class="pl-label">Messy notes, metrics, prose</span>
+              </li>
+              <li class="pl-step pl-step-spec">
+                <span class="pl-num">02</span>
+                <span class="pl-label"
+                  ><code class="pl-code">Slide spec (JSON)</code></span
+                >
+              </li>
+              <li class="pl-step">
+                <span class="pl-num">03</span>
+                <span class="pl-label">SVG slides</span>
+              </li>
+              <li class="pl-step">
+                <span class="pl-num">04</span>
+                <span class="pl-label">Animated HTML deck / PDF</span>
+              </li>
+            </ol>
+            <div class="pl-track" aria-hidden="true">
+              <span class="pl-track-fill"></span>
+            </div>
+            <p class="pl-note">
+              Single-file Python scripts, standard library only. Specs version
+              like code.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -136,6 +163,52 @@
             them drifts. Click one to see the spec JSON that produced it, side
             by side.
           </p>
+          <div
+            class="gal-filters"
+            role="group"
+            aria-label="Filter by pattern family"
+          >
+            <button
+              type="button"
+              class="gal-chip is-active"
+              data-filter="all"
+              aria-pressed="true"
+            >
+              All <span class="gal-count">25</span>
+            </button>
+            <button
+              type="button"
+              class="gal-chip"
+              data-filter="charts"
+              aria-pressed="false"
+            >
+              Charts <span class="gal-count">10</span>
+            </button>
+            <button
+              type="button"
+              class="gal-chip"
+              data-filter="scorecards"
+              aria-pressed="false"
+            >
+              Scorecards <span class="gal-count">4</span>
+            </button>
+            <button
+              type="button"
+              class="gal-chip"
+              data-filter="flows"
+              aria-pressed="false"
+            >
+              Flows <span class="gal-count">4</span>
+            </button>
+            <button
+              type="button"
+              class="gal-chip"
+              data-filter="deck"
+              aria-pressed="false"
+            >
+              Deck pages <span class="gal-count">7</span>
+            </button>
+          </div>
           <div class="gal-grid">
             <noscript>
               <p class="gal-noscript">
@@ -190,12 +263,23 @@
           <span class="kicker">Japanese, first-class</span>
           <h2>日本語のビジネス文書が、そのまま動く</h2>
           <figure class="cjk-frame">
-            <iframe
-              src="./site/artifacts/ja-deck.html"
-              title="Japanese board update demo deck"
-              loading="lazy"
-              sandbox="allow-scripts allow-same-origin allow-popups"
-            ></iframe>
+            <div class="chrome">
+              <div class="chrome-bar" aria-hidden="true">
+                <span class="chrome-dot"></span>
+                <span class="chrome-dot"></span>
+                <span class="chrome-dot"></span>
+                <span class="chrome-url"
+                  >ja-deck.html — board-update-ja, built from committed
+                  specs</span
+                >
+              </div>
+              <iframe
+                src="./site/artifacts/ja-deck.html"
+                title="Japanese board update demo deck"
+                loading="lazy"
+                sandbox="allow-scripts allow-same-origin allow-popups"
+              ></iframe>
+            </div>
             <figcaption class="cjk-caption">
               The board-update-ja archetype rendering live. CJK text wraps
               measured per fullwidth character, never by spaces.

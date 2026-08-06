@@ -3,11 +3,36 @@ import { openLightbox } from "./lightbox.js";
 const MANIFEST_URL = "./site/artifacts/gallery-manifest.json";
 const RENDERED_BASE = "./site/artifacts/rendered/";
 const SAFE_FILENAME = /^[\w-]+\.svg$/;
+const FAMILY_OF = {
+  waterfall: "charts",
+  gap: "charts",
+  before_after: "charts",
+  time_series: "charts",
+  scatter: "charts",
+  distribution: "charts",
+  small_multiples: "charts",
+  funnel: "charts",
+  heatmap: "charts",
+  benchmark_table: "scorecards",
+  kpi_scorecard: "scorecards",
+  summary_strip: "scorecards",
+  process_flow: "flows",
+  gantt: "flows",
+  two_by_two: "flows",
+  cover: "deck",
+  section_divider: "deck",
+  end_cover: "deck",
+  agenda: "deck",
+  bullet_list: "deck",
+  closing: "deck",
+  quote: "deck",
+};
 
 function buildCard(item, onOpen) {
   const card = document.createElement("button");
   card.type = "button";
   card.className = "gal-card";
+  card.dataset.family = FAMILY_OF[item.pattern] || "charts";
 
   const img = document.createElement("img");
   img.loading = "lazy";
