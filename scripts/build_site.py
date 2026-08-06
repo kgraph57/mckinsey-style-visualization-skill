@@ -2,10 +2,16 @@
 
 Sources (all committed, CI-verified elsewhere):
   assets/rendered/*.svg        -> <dest>/rendered/
+  assets/rendered/en/*.svg     -> <dest>/rendered/en/   (EN landing deck thumbs)
+  assets/rendered/ja/*.svg     -> <dest>/rendered/ja/   (JA landing deck thumbs)
+  assets/rendered/decks-manifest.json -> <dest>/decks-manifest.json
   examples/render-specs/*.json -> <dest>/specs/
   examples/demo-*.html         -> <dest>/
   templates/decks/board-update-ja/deck.json -> <dest>/ja-deck.html (rendered)
   specs -> <dest>/gallery-manifest.json (derived)
+
+Pre-render EN/JA landing thumbs with:
+  python3 scripts/render_landing_decks.py
 
 --check regenerates into a temp dir and diffs against the committed artifacts,
 so the site cannot silently drift from what the renderer actually produces.
@@ -67,6 +73,23 @@ def _build_ja_deck(root: Path, dest: Path) -> None:
     build_deck = _load_deck_builder(root)
     html = build_deck(spec_paths, manifest.get("title", "Slide Deck"))
     (dest / "ja-deck.html").write_text(html, encoding="utf-8")
+
+
+def _copy_landing_deck_svgs(root: Path, dest: Path) -> None:
+    """Copy pre-rendered EN/JA landing deck thumbs (assets/rendered/{en,ja})."""
+    for lang in ("en", "ja"):
+        src = root / "assets" / "rendered" / lang
+        if not src.is_dir():
+            raise FileNotFoundError(
+                f"missing {src.relative_to(root)} — run scripts/render_landing_decks.py"
+            )
+        _copy_tree_files(src, dest / "rendered" / lang, "*.svg")
+    manifest = root / "assets" / "rendered" / "decks-manifest.json"
+    if not manifest.exists():
+        raise FileNotFoundError(
+            "missing assets/rendered/decks-manifest.json — run scripts/render_landing_decks.py"
+        )
+    shutil.copyfile(manifest, dest / "decks-manifest.json")
 
 
 def _build_gallery_manifest(dest: Path) -> None:
@@ -305,6 +328,7 @@ def build(root: Path, dest: Path) -> Path:
     for name in PROMPT_REFS:
         shutil.copyfile(root / "references" / name, dest / "prompt" / name)
     _build_ja_deck(root, dest)
+    _copy_landing_deck_svgs(root, dest)
     _build_gallery_manifest(dest)
     return dest
 

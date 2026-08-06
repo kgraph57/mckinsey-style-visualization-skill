@@ -12,7 +12,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 
-REQUIRED_IDS = {"hero", "live-deck", "pipeline", "gallery", "cjk", "modes", "roast", "start", "footer"}
+REQUIRED_IDS = {"hero", "console", "pipeline", "start", "footer"}
+EXAMPLES_IDS = {"live-deck", "patterns", "formats", "footer"}
 REFERENCE_ATTRS = {"img": "src", "script": "src", "link": "href", "iframe": "src"}
 
 
@@ -107,6 +108,22 @@ class JaTrySiteTests(SiteChecks, unittest.TestCase):
     INDEX = DOCS / "ja" / "try" / "index.html"
     BASE = DOCS / "ja" / "try"
     IDS = TRY_IDS
+
+
+@unittest.skipUnless((DOCS / "examples" / "index.html").exists(), "examples page not built yet")
+class ExamplesSiteTests(SiteChecks, unittest.TestCase):
+    INDEX = DOCS / "examples" / "index.html"
+    BASE = DOCS / "examples"
+    IDS = EXAMPLES_IDS
+
+
+@unittest.skipUnless(
+    (DOCS / "ja" / "examples" / "index.html").exists(), "ja examples page not built yet"
+)
+class JaExamplesSiteTests(SiteChecks, unittest.TestCase):
+    INDEX = DOCS / "ja" / "examples" / "index.html"
+    BASE = DOCS / "ja" / "examples"
+    IDS = EXAMPLES_IDS
 
 
 if __name__ == "__main__":

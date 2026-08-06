@@ -106,32 +106,39 @@ function initScrollspy() {
 
 function initPipeline() {
   const section = document.getElementById("pipeline");
-  if (!section || reducedMotion || window.innerWidth < 761) return;
-  section.classList.add("pl-live");
+  if (!section) return;
   const steps = [...section.querySelectorAll(".pl-step")];
   const fill = section.querySelector(".pl-track-fill");
-  let ticking = false;
-  const update = () => {
-    ticking = false;
-    const rect = section.getBoundingClientRect();
-    const range = rect.height - window.innerHeight;
-    const t = range > 0 ? Math.min(1, Math.max(0, -rect.top / range)) : 1;
-    steps.forEach((s, i) =>
-      s.classList.toggle("pl-active", t >= 0.12 + i * 0.22),
-    );
-    if (fill) fill.style.transform = `scaleX(${t.toFixed(3)})`;
+  if (!steps.length) return;
+
+  // Light one-shot reveal — no sticky / multi-viewport scroll hijack.
+  section.classList.add("pl-live");
+  if (reducedMotion) {
+    steps.forEach((s) => s.classList.add("pl-active"));
+    if (fill) fill.style.transform = "scaleX(1)";
+    return;
+  }
+
+  const play = () => {
+    steps.forEach((s, i) => {
+      window.setTimeout(() => s.classList.add("pl-active"), i * 140);
+    });
+    if (fill) {
+      fill.style.transition = "transform 520ms ease";
+      fill.style.transform = "scaleX(1)";
+    }
   };
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        play();
+        io.disconnect();
       }
     },
-    { passive: true },
+    { threshold: 0.35 },
   );
-  update();
+  io.observe(section);
 }
 
 function initGalleryFilters() {
@@ -155,13 +162,20 @@ function initGalleryFilters() {
 function initModeTabs() {
   const tabs = [...document.querySelectorAll(".md-tab")];
   if (!tabs.length) return;
+  const section = document.getElementById("modes");
   const panels = new Map(
     [...document.querySelectorAll(".md-panel")].map((p) => [
       p.id.replace("md-panel-", ""),
       p,
     ]),
   );
-  function activate(tab) {
+  let userPaused = false;
+  let tabTimer = null;
+  const TAB_MS = 8000;
+
+  function activate(tab, { fromAuto = false } = {}) {
+    if (!fromAuto) userPaused = true;
+    clearTimeout(tabTimer);
     tabs.forEach((t) => {
       const on = t === tab;
       t.classList.toggle("is-active", on);
@@ -179,6 +193,16 @@ function initModeTabs() {
         }
       }
     });
+    if (
+      !reducedMotion &&
+      !userPaused &&
+      section?.classList.contains("md-live")
+    ) {
+      tabTimer = setTimeout(() => {
+        const i = tabs.indexOf(tab);
+        activate(tabs[(i + 1) % tabs.length], { fromAuto: true });
+      }, TAB_MS);
+    }
   }
   tabs.forEach((tab, i) => {
     tab.addEventListener("click", () => activate(tab));
@@ -195,6 +219,22 @@ function initModeTabs() {
       }
     });
   });
+  if (!section || reducedMotion) return;
+  const io = new IntersectionObserver(
+    (entries) => {
+      const on = entries.some((e) => e.isIntersecting);
+      section.classList.toggle("md-live", on);
+      if (on && !userPaused) {
+        const current =
+          tabs.find((t) => t.classList.contains("is-active")) || tabs[0];
+        activate(current, { fromAuto: true });
+      } else {
+        clearTimeout(tabTimer);
+      }
+    },
+    { threshold: 0.4 },
+  );
+  io.observe(section);
 }
 
 initGallerySection();

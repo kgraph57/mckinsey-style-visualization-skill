@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>実例 — Strategy Consulting Visualization Skill</title>
+    <meta name="description" content="ライブの役員会デッキを見る、チャートパターンを眺める、レポート／スクリプト／記事を開く。すべてこのリポジトリの実レンダラー出力です。" />
+    <meta property="og:title" content="実例 — Strategy Consulting Visualization Skill" />
+    <meta property="og:description" content="デッキを見る、パターンを眺める、他の形式を開く。長いスクロールなし。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="../../site/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="../../site/css/tokens.css" />
+    <link rel="stylesheet" href="../../site/css/base.css" />
+    <link rel="stylesheet" href="../../site/css/sections.css" />
+    <script type="module" src="../../site/js/main.js"></script>
+    <script type="module" src="../../site/js/examples.js"></script>
+  </head>
+  <body class="page-examples">
+    <a class="skip-link" href="#main">本文へスキップ</a>
+
+    <header class="site-header">
+      <div class="wrap site-header-inner">
+        <a class="wordmark" href="../">Consulting&nbsp;Visualization&nbsp;Skill</a>
+        <nav class="site-nav" aria-label="サイト">
+          <a href="./" aria-current="page">実例</a>
+          <a href="../try/">試す</a>
+          <a href="../#start">導入</a>
+          <a href="../../examples/" id="lang-toggle" hreflang="en">EN</a>
+        </nav>
+        <a class="btn btn-ghost star-link" href="https://github.com/kgraph57/mckinsey-style-visualization-skill" rel="noopener">★ GitHubでスター</a>
+      </div>
+    </header>
+
+    <main id="main" class="ex-main">
+      <div class="wrap ex-head">
+        <span class="kicker">実例</span>
+        <h1>モックではなく、製品を見る</h1>
+        <p class="lede">見る場所は3つ。どのフレームも、このリポジトリの実レンダラー出力です。</p>
+        <div class="ex-tabs" role="tablist" aria-label="見る場所">
+          <button type="button" class="ex-tab is-active" role="tab" id="ex-tab-deck" aria-selected="true" aria-controls="live-deck" data-panel="live-deck">デッキを見る</button>
+          <button type="button" class="ex-tab" role="tab" id="ex-tab-patterns" aria-selected="false" aria-controls="patterns" data-panel="patterns" tabindex="-1">チャートパターン</button>
+          <button type="button" class="ex-tab" role="tab" id="ex-tab-formats" aria-selected="false" aria-controls="formats" data-panel="formats" tabindex="-1">ほかの形式</button>
+        </div>
+      </div>
+
+      <section id="live-deck" class="ex-panel is-active" aria-label="デッキを見る">
+        <div class="wrap">
+          <div class="ex-deck-head">
+            <div>
+              <span class="kicker">デッキを見る</span>
+              <h2>このリポジトリが作った役員会デッキが、自ら動いている</h2>
+            </div>
+            <div class="ex-lang" role="group" aria-label="デッキの言語">
+              <button type="button" class="ex-lang-btn is-on" data-lang="en" aria-pressed="true">English</button>
+              <button type="button" class="ex-lang-btn" data-lang="ja" aria-pressed="false">日本語</button>
+            </div>
+          </div>
+
+          <figure class="ld-frame" data-deck-lang="en">
+            <div class="chrome">
+              <div class="chrome-bar" aria-hidden="true">
+                <span class="chrome-dot"></span>
+                <span class="chrome-dot"></span>
+                <span class="chrome-dot"></span>
+                <span class="chrome-url" id="ex-deck-url">ja-deck.html — 役員会アップデート（日本語）、自動再生</span>
+                <span class="cjk-live" aria-hidden="true">LIVE</span>
+              </div>
+              <iframe id="ex-deck-frame" src="../../site/artifacts/ja-deck.html?embed=1" title="日本語の役員会アップデート・デモデッキ" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+            </div>
+            <figcaption class="ld-caption">
+              <span id="ex-deck-caption">日本語の役員会デッキ。CJKは全角文字単位で折り返します（スペースでは割りません）。</span>
+              <a class="ld-open" id="ex-deck-open" href="../../site/artifacts/ja-deck.html" target="_blank" rel="noopener">全画面で開く ↗</a>
+            </figcaption>
+          </figure>
+
+          <ul class="cjk-profiles" id="ex-deck-profiles" aria-label="日本語ドキュメントプロファイル" hidden>
+            <li class="cjk-chip is-on">稟議書</li>
+            <li class="cjk-chip">役員会資料</li>
+            <li class="cjk-chip">週報・月報</li>
+            <li class="cjk-chip">学会抄録</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="patterns" class="ex-panel" aria-label="チャートパターン" hidden>
+        <div class="wrap">
+          <span class="kicker">チャートパターン</span>
+          <h2>22パターン。すべて実レンダリング、プッシュのたびに検証</h2>
+          <p class="lede">ここにある画像はすべて、コミット済みのレンダラー出力です。driftすればCIが落ちます。クリックすると、それを生成したspec JSONが横に並んで表示されます。</p>
+          <div class="gal-filters" role="group" aria-label="パターン系統で絞り込み">
+            <button type="button" class="gal-chip is-active" data-filter="all" aria-pressed="true">すべて <span class="gal-count">25</span></button>
+            <button type="button" class="gal-chip" data-filter="charts" aria-pressed="false">チャート <span class="gal-count">10</span></button>
+            <button type="button" class="gal-chip" data-filter="scorecards" aria-pressed="false">スコアカード <span class="gal-count">4</span></button>
+            <button type="button" class="gal-chip" data-filter="flows" aria-pressed="false">フロー <span class="gal-count">4</span></button>
+            <button type="button" class="gal-chip" data-filter="deck" aria-pressed="false">デッキページ <span class="gal-count">7</span></button>
+          </div>
+          <div class="gal-grid">
+            <noscript>
+              <p class="gal-noscript">ギャラリーにはJavaScriptが必要です。すべてのレンダリングはリポジトリの assets/rendered/ にもあります。</p>
+            </noscript>
+          </div>
+
+          <dialog class="gal-lightbox" aria-label="レンダリングとspecビューア">
+            <div class="gal-lightbox-inner">
+              <div class="gal-lightbox-header">
+                <p class="gal-lightbox-caption">
+                  <span class="gal-card-pattern"></span> ·
+                  <span class="gal-lightbox-headline"></span>
+                </p>
+                <button type="button" class="gal-lightbox-close" aria-label="閉じる">
+                  ×
+                </button>
+              </div>
+              <div class="gal-lightbox-stage"></div>
+              <div class="gal-lightbox-spec">
+                <pre><code></code></pre>
+              </div>
+              <div class="gal-lightbox-nav">
+                <button type="button" class="gal-lightbox-prev" aria-label="前のレンダリング">← 前へ</button>
+                <button type="button" class="gal-lightbox-next" aria-label="次のレンダリング">次へ →</button>
+              </div>
+            </div>
+          </dialog>
+        </div>
+      </section>
+
+      <section id="formats" class="ex-panel" aria-label="ほかの形式" hidden>
+        <div class="wrap">
+          <span class="kicker">ほかの形式</span>
+          <h2>同じspecから、4つの出し方</h2>
+          <div class="md-tabs" role="tablist" aria-label="成果物の形式">
+            <button role="tab" class="md-tab is-active" data-mode="deck" id="md-tab-deck" aria-controls="md-panel-deck" aria-selected="true" type="button"><span class="md-num">01</span> デッキ</button>
+            <button role="tab" class="md-tab" data-mode="report" id="md-tab-report" aria-controls="md-panel-report" aria-selected="false" type="button"><span class="md-num">02</span> レポート</button>
+            <button role="tab" class="md-tab" data-mode="script" id="md-tab-script" aria-controls="md-panel-script" aria-selected="false" type="button"><span class="md-num">03</span> スピーカースクリプト</button>
+            <button role="tab" class="md-tab" data-mode="article" id="md-tab-article" aria-controls="md-panel-article" aria-selected="false" type="button"><span class="md-num">04</span> 記事</button>
+          </div>
+          <div class="md-panels">
+            <div role="tabpanel" id="md-panel-deck" class="md-panel is-active" aria-labelledby="md-tab-deck">
+              <div class="chrome">
+                <div class="chrome-bar" aria-hidden="true">
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-url">demo-deck.html</span>
+                </div>
+                <iframe src="../../site/artifacts/demo-deck.html?embed=1" title="Deck output demo" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+              </div>
+              <p class="md-desc">アニメーション、自己完結、PDF印刷可。<a class="md-open" href="../../site/artifacts/demo-deck.html" target="_blank" rel="noopener">デモを開く ↗</a></p>
+            </div>
+            <div role="tabpanel" id="md-panel-report" class="md-panel" aria-labelledby="md-tab-report" hidden>
+              <div class="chrome">
+                <div class="chrome-bar" aria-hidden="true">
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-url">demo-report.html</span>
+                </div>
+                <iframe data-src="../../site/artifacts/demo-report.html" title="Report output demo" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+              </div>
+              <p class="md-desc">Markdownから、A4印刷の役員会資料へ。<a class="md-open" href="../../site/artifacts/demo-report.html" target="_blank" rel="noopener">デモを開く ↗</a></p>
+            </div>
+            <div role="tabpanel" id="md-panel-script" class="md-panel" aria-labelledby="md-tab-script" hidden>
+              <div class="chrome">
+                <div class="chrome-bar" aria-hidden="true">
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-url">demo-script.html</span>
+                </div>
+                <iframe data-src="../../site/artifacts/demo-script.html" title="Speaker script output demo" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+              </div>
+              <p class="md-desc">1スライド1枚のA4。壇上で読める字の大きさ。<a class="md-open" href="../../site/artifacts/demo-script.html" target="_blank" rel="noopener">デモを開く ↗</a></p>
+            </div>
+            <div role="tabpanel" id="md-panel-article" class="md-panel" aria-labelledby="md-tab-article" hidden>
+              <div class="chrome">
+                <div class="chrome-bar" aria-hidden="true">
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-url">demo-article.html</span>
+                </div>
+                <iframe data-src="../../site/artifacts/demo-article.html" title="Article output demo" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+              </div>
+              <p class="md-desc">デッキがそのまま、上から下へ読める記事に。<a class="md-open" href="../../site/artifacts/demo-article.html" target="_blank" rel="noopener">デモを開く ↗</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer" class="site-footer">
+      <div class="ft-shell">
+        <div class="wrap">
+          <p class="ft-actions">
+            <a class="btn btn-primary" href="../try/">メモで試す</a>
+            <a class="btn btn-ghost" href="../#start">導入</a>
+          </p>
+          <p class="ft-line">MITライセンス。独立したスキルパッケージです。McKinsey、BCG、Bainとは提携していません。</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

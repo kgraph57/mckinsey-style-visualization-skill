@@ -102,6 +102,19 @@ body.hud-hidden { cursor: none; }
 .hud .dot.on { background: #E5E7EB; }
 .hud .counter { margin-left: auto; font-variant-numeric: tabular-nums; letter-spacing: 0.06em; }
 .progress { position: fixed; top: 0; left: 0; height: 2px; background: #E5E7EB; width: 0; transition: width 240ms ease; }
+/* Embedded in the landing site: no presentation chrome.
+   Keep the frame entrance; skip per-element opacity:0 reveals — those
+   freeze invisible when the iframe is display:none during chat choreography. */
+body.embed .hud,
+body.embed .progress { display: none !important; }
+body.embed { cursor: default; }
+body.embed .slide.active svg .el {
+  opacity: 1 !important;
+  animation: none !important;
+}
+body.embed .frame {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
 @media print {
   /* One 16:9 page per slide. The deck must stop being a flex container:
      flex items ignore forced page breaks, which collapsed the whole deck
@@ -123,6 +136,8 @@ SCRIPT = """
   var dots = Array.prototype.slice.call(document.querySelectorAll('.dot'));
   var bar = document.querySelector('.progress');
   var counter = document.querySelector('.counter');
+  var embed = /(?:^|[?&])embed=1(?:&|$)/.test(location.search);
+  if (embed) document.body.classList.add('embed');
   var current = Math.min(Math.max((parseInt(location.hash.slice(1), 10) || 1) - 1, 0), slides.length - 1);
   function show(index) {
     current = Math.min(Math.max(index, 0), slides.length - 1);
@@ -138,29 +153,31 @@ SCRIPT = """
       }
     });
     dots.forEach(function (dot, i) { dot.classList.toggle('on', i === current); });
-    bar.style.width = (100 * (current + 1) / slides.length) + '%';
-    counter.textContent = (current + 1) + ' / ' + slides.length;
-    history.replaceState(null, '', '#' + (current + 1));
+    if (bar) bar.style.width = (100 * (current + 1) / slides.length) + '%';
+    if (counter) counter.textContent = (current + 1) + ' / ' + slides.length;
+    history.replaceState(null, '', location.pathname + location.search + '#' + (current + 1));
   }
   // Presentation chrome: fade the HUD after a short idle, bring it back on
   // mouse movement, and drop it instantly when the keyboard takes over.
+  // Skipped entirely in embed mode (landing-page iframes).
   var hudTimer = null;
   function hideHud() { document.body.classList.add('hud-hidden'); }
   function wakeHud() {
+    if (embed) return;
     document.body.classList.remove('hud-hidden');
     clearTimeout(hudTimer);
     hudTimer = setTimeout(hideHud, 2500);
   }
-  document.addEventListener('mousemove', wakeHud);
+  if (!embed) document.addEventListener('mousemove', wakeHud);
   document.addEventListener('keydown', function (event) {
     var navigated = true;
     if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'PageDown') { show(current + 1); event.preventDefault(); }
     else if (event.key === 'ArrowLeft' || event.key === 'PageUp') { show(current - 1); event.preventDefault(); }
     else if (event.key === 'Home') show(0);
     else if (event.key === 'End') show(slides.length - 1);
-    else if (event.key === 'p') window.print();
+    else if (event.key === 'p' && !embed) window.print();
     else navigated = false;
-    if (navigated) { clearTimeout(hudTimer); hideHud(); }
+    if (navigated && !embed) { clearTimeout(hudTimer); hideHud(); }
   });
   document.querySelector('.deck').addEventListener('click', function (event) {
     if (event.target.closest('.hud')) return;
@@ -168,8 +185,21 @@ SCRIPT = """
     show(x < 0.33 ? current - 1 : current + 1);
   });
   dots.forEach(function (dot, i) { dot.addEventListener('click', function () { show(i); }); });
+  // Parent pages (landing theater) can drive the deck without reloading.
+  window.addEventListener('hashchange', function () {
+    var n = parseInt(location.hash.slice(1), 10);
+    if (!isNaN(n)) show(n - 1);
+  });
+  window.addEventListener('message', function (event) {
+    var data = event.data;
+    if (!data || data.type !== 'deck-control') return;
+    if (data.action === 'next') show(current + 1 >= slides.length ? 0 : current + 1);
+    else if (data.action === 'prev') show(current <= 0 ? slides.length - 1 : current - 1);
+    else if (data.action === 'goto' && typeof data.index === 'number') show(data.index);
+  });
   show(current);
-  wakeHud();
+  if (!embed) wakeHud();
+  else hideHud();
 })();
 """
 

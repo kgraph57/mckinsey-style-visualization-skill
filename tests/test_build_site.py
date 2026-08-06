@@ -23,6 +23,15 @@ class BuildSiteTests(unittest.TestCase):
             self.mod.build(ROOT, Path(td))
             svgs = sorted((Path(td) / "rendered").glob("*.svg"))
             self.assertEqual(len(svgs), len(list((ROOT / "assets" / "rendered").glob("*.svg"))))
+            en = sorted((Path(td) / "rendered" / "en").glob("*.svg"))
+            ja = sorted((Path(td) / "rendered" / "ja").glob("*.svg"))
+            self.assertEqual(len(en), 9)
+            self.assertEqual(len(ja), 9)
+            man = json.loads((Path(td) / "decks-manifest.json").read_text(encoding="utf-8"))
+            self.assertEqual(len(man["en"]["slides"]), 9)
+            self.assertEqual(len(man["ja"]["slides"]), 9)
+            self.assertTrue(man["en"]["slides"][0]["file"].startswith("rendered/en/"))
+            self.assertTrue(man["ja"]["slides"][0]["file"].startswith("rendered/ja/"))
 
     def test_build_creates_ja_deck(self):
         with tempfile.TemporaryDirectory() as td:
@@ -47,8 +56,11 @@ class BuildSiteTests(unittest.TestCase):
         self.assertIn('lang="ja"', html)
         self.assertIn("メモがそのまま", html)
         self.assertNotIn('"./site/', html)
-        self.assertIn('"../site/artifacts/demo-deck.html"', html)
+        self.assertIn('"../site/artifacts/ja-deck.html?embed=1"', html)
+        self.assertIn("チャットで頼む", html)
         self.assertIn('href="../"', html)
+        self.assertIn("リポジトリ", html)
+        self.assertIn("MITライセンス", html)
 
     def test_ja_try_page_generation(self):
         html = self.mod.build_ja_html(ROOT, ROOT / "site" / "i18n-try.json")
