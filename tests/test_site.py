@@ -79,7 +79,24 @@ class SiteChecks:
 
     def test_og_image_exists(self):
         og_path = self.parser.metas.get("og:image", "")
-        self.assertTrue((self.BASE / og_path).resolve().exists(), f"og:image missing: {og_path}")
+        # Social crawlers require an absolute URL; map ours back to the committed asset.
+        if og_path.startswith("https://"):
+            suffix = "/site/og.png"
+            self.assertTrue(
+                og_path.endswith(suffix),
+                f"og:image absolute URL must end with {suffix}: {og_path}",
+            )
+            local = DOCS / "site" / "og.png"
+        else:
+            local = (self.BASE / _local_path(og_path)).resolve()
+        self.assertTrue(local.exists(), f"og:image missing: {og_path}")
+
+    def test_og_image_is_absolute(self):
+        og_path = self.parser.metas.get("og:image", "")
+        self.assertTrue(
+            og_path.startswith("https://"),
+            f"og:image must be absolute for X/OG previews: {og_path}",
+        )
 
     def test_iframe_targets_exist(self):
         for tag, ref in self.parser.refs:

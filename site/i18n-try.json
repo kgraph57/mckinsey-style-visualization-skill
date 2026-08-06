@@ -2,8 +2,14 @@
   "source": "docs/try/index.html",
   "output": "docs/ja/try/index.html",
   "pathRewrite": [
-    ["\"../site/", "\"../../site/"],
-    ["'../site/", "'../../site/"]
+    [
+      "\"../site/",
+      "\"../../site/"
+    ],
+    [
+      "'../site/",
+      "'../../site/"
+    ]
   ],
   "htmlLang": "ja",
   "selectors": {
@@ -11,7 +17,7 @@
     "meta[name='description']@content": "散らかったメモを貼るだけ。Claudeがデッキのspecに変換し、このリポジトリのレンダラー本体がブラウザのWebAssemblyでスライドを描画します。スマホでも。",
     "meta[property='og:title']@content": "Strategy Consulting Visualization Skill を試す",
     "meta[property='og:description']@content": "メモを入れる、資料が出てくる。インストール不要、サーバーなし——ブラウザとあなたのキーだけ。",
-    "meta[property='og:image']@content": "../../site/og.png",
+    "meta[property='og:image']@content": "https://kgraph57.github.io/mckinsey-style-visualization-skill/site/og.png",
     ".skip-link": "本文へスキップ",
     ".try-back": "← サイトへ",
     "#lang-toggle": "EN",

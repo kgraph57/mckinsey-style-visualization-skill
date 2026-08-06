@@ -2,8 +2,14 @@
   "source": "docs/index.html",
   "output": "docs/ja/index.html",
   "pathRewrite": [
-    ["\"./site/", "\"../site/"],
-    ["'./site/", "'../site/"]
+    [
+      "\"./site/",
+      "\"../site/"
+    ],
+    [
+      "'./site/",
+      "'../site/"
+    ]
   ],
   "htmlLang": "ja",
   "selectors": {
@@ -11,7 +17,7 @@
     "meta[name='description']@content": "AIエージェントのための1つのスキル。メモ・数値・文章を、コンサルティング品質のビジュアルに変換します。本物のSVGスライド、アニメーションするHTMLデッキ、あるいはデザイナーがそのまま実行できるspecとして。Python標準ライブラリのみ。",
     "meta[property='og:title']@content": "Strategy Consulting Visualization Skill",
     "meta[property='og:description']@content": "メモがそのまま、役員会のスライドになる。依存ゼロ、APIキーゼロ、ネットワーク通信ゼロ。",
-    "meta[property='og:image']@content": "../site/og.png",
+    "meta[property='og:image']@content": "https://kgraph57.github.io/mckinsey-style-visualization-skill/site/og.png",
     ".skip-link": "本文へスキップ",
     ".site-header .star-link": "★ GitHubでスター",
     ".site-nav a[href='./examples/']": "実例",

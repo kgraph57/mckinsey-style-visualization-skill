@@ -2,8 +2,14 @@
   "source": "docs/examples/index.html",
   "output": "docs/ja/examples/index.html",
   "pathRewrite": [
-    ["\"../site/", "\"../../site/"],
-    ["'../site/", "'../../site/"]
+    [
+      "\"../site/",
+      "\"../../site/"
+    ],
+    [
+      "'../site/",
+      "'../../site/"
+    ]
   ],
   "htmlLang": "ja",
   "selectors": {
@@ -11,7 +17,7 @@
     "meta[name='description']@content": "ライブの役員会デッキを見る、チャートパターンを眺める、レポート／スクリプト／記事を開く。すべてこのリポジトリの実レンダラー出力です。",
     "meta[property='og:title']@content": "実例 — Strategy Consulting Visualization Skill",
     "meta[property='og:description']@content": "デッキを見る、パターンを眺める、他の形式を開く。長いスクロールなし。",
-    "meta[property='og:image']@content": "../../site/og.png",
+    "meta[property='og:image']@content": "https://kgraph57.github.io/mckinsey-style-visualization-skill/site/og.png",
     ".skip-link": "本文へスキップ",
     ".site-header .star-link": "★ GitHubでスター",
     ".site-nav@aria-label": "サイト",
