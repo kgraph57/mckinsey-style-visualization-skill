@@ -38,6 +38,7 @@ class IndexParser(HTMLParser):
 class SiteChecks:
     INDEX: Path = None
     BASE: Path = None  # directory the page's relative URLs resolve against
+    IDS = REQUIRED_IDS
 
     @classmethod
     def setUpClass(cls):
@@ -45,7 +46,7 @@ class SiteChecks:
         cls.parser.feed(cls.INDEX.read_text(encoding="utf-8"))
 
     def test_required_sections_present(self):
-        self.assertEqual(REQUIRED_IDS - self.parser.ids, set())
+        self.assertEqual(self.IDS - self.parser.ids, set())
 
     def test_local_references_resolve(self):
         missing = []
@@ -92,6 +93,23 @@ class SiteTests(SiteChecks, unittest.TestCase):
 class JaSiteTests(SiteChecks, unittest.TestCase):
     INDEX = DOCS / "ja" / "index.html"
     BASE = DOCS / "ja"
+
+
+TRY_IDS = {"try-intro", "try-key", "try-notes", "try-output", "try-privacy", "footer"}
+
+
+@unittest.skipUnless((DOCS / "try" / "index.html").exists(), "try page not built yet")
+class TrySiteTests(SiteChecks, unittest.TestCase):
+    INDEX = DOCS / "try" / "index.html"
+    BASE = DOCS / "try"
+    IDS = TRY_IDS
+
+
+@unittest.skipUnless((DOCS / "ja" / "try" / "index.html").exists(), "ja try page not built yet")
+class JaTrySiteTests(SiteChecks, unittest.TestCase):
+    INDEX = DOCS / "ja" / "try" / "index.html"
+    BASE = DOCS / "ja" / "try"
+    IDS = TRY_IDS
 
 
 if __name__ == "__main__":

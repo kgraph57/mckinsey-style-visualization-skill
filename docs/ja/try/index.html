@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>試してみる — メモを入れる、資料が出てくる | Strategy Consulting Visualization Skill</title>
+    <meta name="description" content="散らかったメモを貼るだけ。Claudeがデッキのspecに変換し、このリポジトリのレンダラー本体がブラウザのWebAssemblyでスライドを描画します。スマホでも。" />
+    <meta property="og:title" content="Strategy Consulting Visualization Skill を試す" />
+    <meta property="og:description" content="メモを入れる、資料が出てくる。インストール不要、サーバーなし——ブラウザとあなたのキーだけ。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="../../site/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="../../site/css/tokens.css" />
+    <link rel="stylesheet" href="../../site/css/base.css" />
+    <link rel="stylesheet" href="../../site/css/sections.css" />
+    <link rel="stylesheet" href="../../site/css/try.css" />
+    <script type="module" src="../../site/js/try/try.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+
+    <header class="site-header">
+      <div class="wrap site-header-inner">
+        <a class="wordmark" href="../">Consulting&nbsp;Visualization&nbsp;Skill</a>
+        <nav class="site-nav" aria-label="Sections">
+          <a href="../" class="try-back">← サイトへ</a>
+          <a href="../../try/" id="lang-toggle" hreflang="en">EN</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="try-intro" aria-label="Introduction">
+        <div class="wrap">
+          <h1>メモを入れる。資料が出てくる。</h1>
+          <p class="lede">散らかったメモを貼るだけ。Claudeがデッキのspecに変換し、このリポジトリのレンダラー本体が——同じPythonファイルがWebAssemblyとしてブラウザで動き——スライドを描画します。スマホでも使えます。</p>
+        </div>
+      </section>
+
+      <section id="try-key" aria-label="API key">
+        <div class="wrap">
+          <div class="try-card">
+            <h2 class="try-h2">Anthropic APIキー</h2>
+            <div class="try-key-form">
+              <input type="password" id="try-key-input" autocomplete="off" placeholder="sk-ant-…" aria-label="Anthropic API key" />
+              <button type="button" class="btn btn-primary" id="try-key-save">キーを保存</button>
+            </div>
+            <p class="try-key-state" id="try-key-state" hidden></p>
+            <p class="try-note">BYOK（自分のキーを持ち込む）方式です。キーはこのブラウザのlocalStorageにのみ保存され、api.anthropic.comにだけ送信されます。間にサーバーはありません。<a href="https://console.anthropic.com/" rel="noopener">キーを取得 ↗</a></p>
+            <p class="try-note">キーがない場合は<a href="../#start">スキルをインストール</a>してください——同じレンダラーがエージェントの中で動きます。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="try-notes" aria-label="Notes">
+        <div class="wrap">
+          <div class="try-card">
+            <h2 class="try-h2">メモ</h2>
+            <textarea id="try-notes-input" rows="9" placeholder="会議メモ、数値、ラフな企画メモなどを貼ってください…" aria-label="メモ"></textarea>
+            <div class="try-notes-actions">
+              <button type="button" class="btn btn-ghost" id="try-sample">サンプルメモを使う</button>
+              <button type="button" class="btn btn-primary try-generate" id="try-generate">デッキを生成</button>
+            </div>
+            <p class="try-note">キーを使ってClaude Sonnet 5を呼びます（数セント）。初回のみ、約12MBのレンダラーランタイムも一度だけダウンロードします。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="try-output" aria-label="Your deck" hidden>
+        <div class="wrap">
+          <h2 class="try-h2" id="try-output-title">Your deck</h2>
+          <div class="try-carousel" id="try-carousel"></div>
+          <div class="try-actions">
+            <button type="button" class="btn btn-primary" id="try-dl-deck">deck.html をダウンロード</button>
+            <button type="button" class="btn btn-ghost" id="try-dl-svg">このスライド（.svg）</button>
+            <button type="button" class="btn btn-ghost" id="try-copy-spec" data-copy-target="#try-spec-json">spec JSONをコピー</button>
+            <button type="button" class="btn btn-ghost" id="try-reset">やり直す</button>
+          </div>
+          <pre class="try-spec" id="try-spec-wrap" hidden><code id="try-spec-json"></code></pre>
+        </div>
+      </section>
+
+      <p class="try-status" id="try-status" role="status" aria-live="polite" hidden></p>
+      <p class="try-error" id="try-error" role="alert" hidden></p>
+
+      <section id="try-privacy" aria-label="Privacy">
+        <div class="wrap">
+          <p class="try-note">Generateを押すまでは通信ゼロ。押した後は、メモとキーを載せたapi.anthropic.comへの1回の呼び出しと、初回のみjsDelivrへの1回のWASM Pythonランタイム取得だけです。それ以外は一切ありません。</p>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer" class="site-footer">
+      <div class="ft-shell">
+        <div class="wrap">
+          <p class="ft-line">MIT License. これは独立したスキルパッケージです。McKinsey & Company、Boston Consulting Group、Bain & Company、その他いかなるコンサルティングファームとも提携・支持・後援の関係はありません。</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

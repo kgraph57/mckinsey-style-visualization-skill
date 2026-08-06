@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Try it — notes in, materials out | Strategy Consulting Visualization Skill
+    </title>
+    <meta
+      name="description"
+      content="Paste messy notes. Claude turns them into a deck spec, and this repo's own renderer — running in your browser via WebAssembly — draws the slides. Works on your phone."
+    />
+    <meta
+      property="og:title"
+      content="Try the Strategy Consulting Visualization Skill"
+    />
+    <meta
+      property="og:description"
+      content="Notes in, materials out. No install, no server — your browser, your key."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="../site/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="../site/css/tokens.css" />
+    <link rel="stylesheet" href="../site/css/base.css" />
+    <link rel="stylesheet" href="../site/css/sections.css" />
+    <link rel="stylesheet" href="../site/css/try.css" />
+    <script type="module" src="../site/js/try/try.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap site-header-inner">
+        <a class="wordmark" href="../"
+          >Consulting&nbsp;Visualization&nbsp;Skill</a
+        >
+        <nav class="site-nav" aria-label="Sections">
+          <a href="../" class="try-back">← Site</a>
+          <a href="../ja/try/" id="lang-toggle" hreflang="ja">日本語</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="try-intro" aria-label="Introduction">
+        <div class="wrap">
+          <h1>Notes in. Materials out.</h1>
+          <p class="lede">
+            Paste messy notes. Claude turns them into a deck spec, then this
+            repo's own renderer — the same Python file, running in your browser
+            via WebAssembly — draws the slides. Works on your phone.
+          </p>
+        </div>
+      </section>
+
+      <section id="try-key" aria-label="API key">
+        <div class="wrap">
+          <div class="try-card">
+            <h2 class="try-h2">Anthropic API key</h2>
+            <div class="try-key-form">
+              <input
+                type="password"
+                id="try-key-input"
+                autocomplete="off"
+                placeholder="sk-ant-…"
+                aria-label="Anthropic API key"
+              />
+              <button type="button" class="btn btn-primary" id="try-key-save">
+                Save key
+              </button>
+            </div>
+            <p class="try-key-state" id="try-key-state" hidden></p>
+            <p class="try-note">
+              Bring your own key: it is stored only in this browser's
+              localStorage and sent only to api.anthropic.com. No server in
+              between.
+              <a href="https://console.anthropic.com/" rel="noopener"
+                >Get a key ↗</a
+              >
+            </p>
+            <p class="try-note">
+              No key? <a href="../#start">Install the skill instead</a> — the
+              same renderer runs inside your agent.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="try-notes" aria-label="Notes">
+        <div class="wrap">
+          <div class="try-card">
+            <h2 class="try-h2">Your notes</h2>
+            <textarea
+              id="try-notes-input"
+              rows="9"
+              placeholder="Paste meeting notes, metrics, or a rough brief…"
+              aria-label="Your notes"
+            ></textarea>
+            <div class="try-notes-actions">
+              <button type="button" class="btn btn-ghost" id="try-sample">
+                Use sample notes
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary try-generate"
+                id="try-generate"
+              >
+                Generate deck
+              </button>
+            </div>
+            <p class="try-note">
+              Calls Claude Sonnet 5 with your key (a few cents). First run also
+              downloads the ~12 MB renderer runtime, once.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="try-output" aria-label="Your deck" hidden>
+        <div class="wrap">
+          <h2 class="try-h2" id="try-output-title">Your deck</h2>
+          <div class="try-carousel" id="try-carousel"></div>
+          <div class="try-actions">
+            <button type="button" class="btn btn-primary" id="try-dl-deck">
+              Download deck.html
+            </button>
+            <button type="button" class="btn btn-ghost" id="try-dl-svg">
+              Download this slide (.svg)
+            </button>
+            <button
+              type="button"
+              class="btn btn-ghost"
+              id="try-copy-spec"
+              data-copy-target="#try-spec-json"
+            >
+              Copy spec JSON
+            </button>
+            <button type="button" class="btn btn-ghost" id="try-reset">
+              Start over
+            </button>
+          </div>
+          <pre
+            class="try-spec"
+            id="try-spec-wrap"
+            hidden
+          ><code id="try-spec-json"></code></pre>
+        </div>
+      </section>
+
+      <p
+        class="try-status"
+        id="try-status"
+        role="status"
+        aria-live="polite"
+        hidden
+      ></p>
+      <p class="try-error" id="try-error" role="alert" hidden></p>
+
+      <section id="try-privacy" aria-label="Privacy">
+        <div class="wrap">
+          <p class="try-note">
+            Zero requests until you press Generate. Then: one call to
+            api.anthropic.com carrying your notes and your key, and — on first
+            use only — one jsDelivr fetch for the WebAssembly Python runtime.
+            Nothing else, ever.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer" class="site-footer">
+      <div class="ft-shell">
+        <div class="wrap">
+          <p class="ft-line">
+            MIT License. This is an independent skill package. It is not
+            affiliated with, endorsed by, or sponsored by McKinsey & Company,
+            Boston Consulting Group, Bain & Company, or any other consulting
+            firm.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

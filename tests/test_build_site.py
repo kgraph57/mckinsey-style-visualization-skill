@@ -50,6 +50,22 @@ class BuildSiteTests(unittest.TestCase):
         self.assertIn('"../site/artifacts/demo-deck.html"', html)
         self.assertIn('href="../"', html)
 
+    def test_ja_try_page_generation(self):
+        html = self.mod.build_ja_html(ROOT, ROOT / "site" / "i18n-try.json")
+        self.assertIn('lang="ja"', html)
+        self.assertIn("メモを入れる", html)
+        self.assertNotIn('"./site/', html)
+        self.assertNotIn('"../site/', html)
+        self.assertIn('"../../site/css/try.css"', html)
+        self.assertIn('href="../../try/"', html)
+
+    def test_try_runtime_assets_copied(self):
+        with tempfile.TemporaryDirectory() as td:
+            self.mod.build(ROOT, Path(td))
+            self.assertTrue((Path(td) / "py" / "render_slide_spec.py").exists())
+            self.assertTrue((Path(td) / "py" / "build_html_deck.py").exists())
+            self.assertTrue((Path(td) / "prompt" / "visualization-patterns.md").exists())
+
     def test_check_passes_on_fresh_build(self):
         with tempfile.TemporaryDirectory() as td:
             self.mod.build(ROOT, Path(td))

@@ -28,11 +28,18 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_DEST = ROOT / "docs" / "site" / "artifacts"
-I18N_PATH = ROOT / "site" / "i18n.json"
-JA_PAGE = ROOT / "docs" / "ja" / "index.html"
+I18N_DIR = ROOT / "site"
+
+
+def iter_i18n(root: Path) -> list[Path]:
+    return sorted((root / "site").glob("i18n*.json"))
 
 DEMO_HTML = ("demo-deck.html", "demo-report.html", "demo-article.html", "demo-script.html")
 JA_MANIFEST = Path("templates/decks/board-update-ja/deck.json")
+# Only what /try runs in the browser (copying all scripts/references trips the
+# package validator's forbidden-text scan over docs/).
+PY_RUNTIME = ("render_slide_spec.py", "build_html_deck.py")
+PROMPT_REFS = ("prompt-templates.md", "input-triage.md", "visualization-patterns.md")
 
 VOID_TAGS = frozenset(
     "area base br col embed hr img input link meta param source track wbr".split()
@@ -254,16 +261,18 @@ class _JaRewriter(HTMLParser):
         return all_keys - self.used
 
 
-def build_ja_html(root: Path) -> str:
-    i18n = json.loads((root / "site" / "i18n.json").read_text(encoding="utf-8"))
-    source = (root / "docs" / "index.html").read_text(encoding="utf-8")
+def build_ja_html(root: Path, i18n_path: Path | None = None) -> str:
+    i18n_path = i18n_path or I18N_DIR / "i18n.json"
+    i18n = json.loads(i18n_path.read_text(encoding="utf-8"))
+    source = (root / i18n["source"]).read_text(encoding="utf-8")
     selectors = dict(i18n["selectors"])
     selectors["html@lang"] = i18n["htmlLang"]
     rewriter = _JaRewriter(selectors)
     rewriter.feed(source)
     rewriter.close()
     html = "".join(rewriter.out)
-    html = html.replace('"./site/', '"../site/').replace("'./site/", "'../site/")
+    for old, new in i18n.get("pathRewrite", []):
+        html = html.replace(old, new)
     for en, ja in i18n.get("scriptReplacements", []):
         if en not in html:
             raise RuntimeError(f"script replacement source not found: {en[:60]}")
@@ -274,10 +283,13 @@ def build_ja_html(root: Path) -> str:
     return html
 
 
-def write_ja_page(root: Path) -> Path:
-    JA_PAGE.parent.mkdir(parents=True, exist_ok=True)
-    JA_PAGE.write_text(build_ja_html(root), encoding="utf-8")
-    return JA_PAGE
+def write_ja_page(root: Path, i18n_path: Path | None = None) -> Path:
+    i18n_path = i18n_path or I18N_DIR / "i18n.json"
+    i18n = json.loads(i18n_path.read_text(encoding="utf-8"))
+    output = root / i18n["output"]
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(build_ja_html(root, i18n_path), encoding="utf-8")
+    return output
 
 
 def build(root: Path, dest: Path) -> Path:
@@ -286,6 +298,12 @@ def build(root: Path, dest: Path) -> Path:
     _copy_tree_files(root / "examples" / "render-specs", dest / "specs", "*.json")
     for name in DEMO_HTML:
         shutil.copyfile(root / "examples" / name, dest / name)
+    (dest / "py").mkdir(parents=True, exist_ok=True)
+    for name in PY_RUNTIME:
+        shutil.copyfile(root / "scripts" / name, dest / "py" / name)
+    (dest / "prompt").mkdir(parents=True, exist_ok=True)
+    for name in PROMPT_REFS:
+        shutil.copyfile(root / "references" / name, dest / "prompt" / name)
     _build_ja_deck(root, dest)
     _build_gallery_manifest(dest)
     return dest
@@ -304,11 +322,15 @@ def check(root: Path, dest: Path) -> list[str]:
         for rel in sorted(fresh_files & dest_files):
             if not filecmp.cmp(fresh / rel, dest / rel, shallow=False):
                 diffs.append(f"stale: {rel}")
-    if JA_PAGE.exists():
-        if JA_PAGE.read_text(encoding="utf-8") != build_ja_html(root):
-            diffs.append("stale: ja/index.html")
-    else:
-        diffs.append("missing: ja/index.html")
+    for i18n_path in iter_i18n(root):
+        i18n = json.loads(i18n_path.read_text(encoding="utf-8"))
+        output = root / i18n["output"]
+        rel = i18n["output"].replace("docs/", "", 1)
+        if output.exists():
+            if output.read_text(encoding="utf-8") != build_ja_html(root, i18n_path):
+                diffs.append(f"stale: {rel}")
+        else:
+            diffs.append(f"missing: {rel}")
     return diffs
 
 
@@ -325,9 +347,10 @@ def main() -> None:
         print("OK: site artifacts fresh")
         return
     build(ROOT, DEFAULT_DEST)
-    write_ja_page(ROOT)
+    for i18n_path in iter_i18n(ROOT):
+        out = write_ja_page(ROOT, i18n_path)
+        print(f"OK: built {out.relative_to(ROOT)} (from {i18n_path.name})")
     print(f"OK: built site artifacts at {DEFAULT_DEST.relative_to(ROOT)}")
-    print(f"OK: built ja page at {JA_PAGE.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

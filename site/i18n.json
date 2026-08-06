@@ -1,4 +1,12 @@
 {
+  "source": "docs/index.html",
+  "output": "docs/ja/index.html",
+  "pathRewrite": [
+    ["\"./site/", "\"../site/"],
+    ["'./site/", "'../site/"],
+    ["\"./try/", "\"../try/"],
+    ["'./try/", "'../try/"]
+  ],
   "htmlLang": "ja",
   "selectors": {
     "title": "Strategy Consulting Visualization Skill — メモがそのまま、役員会のスライドになる。",
@@ -12,6 +20,7 @@
     ".site-nav a[href='#gallery']": "ギャラリー",
     ".site-nav a[href='#cjk']": "日本語",
     ".site-nav a[href='#roast']": "ロースト",
+    ".site-nav a[href='./try/']": "試す",
     ".site-nav a[href='#start']": "導入",
     "#lang-toggle": "EN",
     "#lang-toggle@href": "../",
