@@ -42,6 +42,14 @@ class BuildSiteTests(unittest.TestCase):
             wf = [e for e in manifest if e["file"] == "arr-waterfall.svg"]
             self.assertEqual(wf[0]["pattern"], "waterfall")
 
+    def test_ja_page_generation(self):
+        html = self.mod.build_ja_html(ROOT)
+        self.assertIn('lang="ja"', html)
+        self.assertIn("メモがそのまま", html)
+        self.assertNotIn('"./site/', html)
+        self.assertIn('"../site/artifacts/demo-deck.html"', html)
+        self.assertIn('href="../"', html)
+
     def test_check_passes_on_fresh_build(self):
         with tempfile.TemporaryDirectory() as td:
             self.mod.build(ROOT, Path(td))

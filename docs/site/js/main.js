@@ -3,6 +3,14 @@
 
 window.__siteBooted = true;
 
+const isJa = document.documentElement.lang === "ja";
+const STR = {
+  fallbackAlt: isJa
+    ? "このスキルが生成したARRウォーターフォールのスライド"
+    : "Rendered ARR waterfall slide produced by the skill",
+  copied: isJa ? "コピーしました" : "Copied",
+};
+
 const reducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
 ).matches;
@@ -23,7 +31,7 @@ function showHeroFallback(heroSection) {
   figure.className = "hd-fallback";
   const img = document.createElement("img");
   img.src = "./site/artifacts/rendered/arr-waterfall.svg";
-  img.alt = "Rendered ARR waterfall slide produced by the skill";
+  img.alt = STR.fallbackAlt;
   figure.appendChild(img);
   const stage = heroSection.querySelector(".hd-stage");
   (stage || heroSection).appendChild(figure);
@@ -112,7 +120,7 @@ function initCopyButtons() {
       area.remove();
     }
     const label = button.textContent;
-    button.textContent = "Copied";
+    button.textContent = STR.copied;
     setTimeout(() => {
       button.textContent = label;
     }, 1600);

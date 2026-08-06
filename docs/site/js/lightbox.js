@@ -1,6 +1,9 @@
 const RENDERED_BASE = "./site/artifacts/rendered/";
 const SPECS_BASE = "./site/artifacts/specs/";
 const SAFE_FILENAME = /^[\w-]+\.svg$/;
+const IS_JA = document.documentElement.lang === "ja";
+const STR_LOADING = IS_JA ? "specを読み込み中…" : "Loading spec…";
+const STR_UNAVAILABLE = IS_JA ? "specを表示できません。" : "Spec unavailable.";
 
 function createLightbox(dialog) {
   const stage = dialog.querySelector(".gal-lightbox-stage");
@@ -33,7 +36,7 @@ function createLightbox(dialog) {
 
     const stem = item.file.replace(/\.svg$/, "");
     const requestId = ++specRequest;
-    code.textContent = "Loading spec…";
+    code.textContent = STR_LOADING;
     try {
       const response = await fetch(`${SPECS_BASE}${stem}.json`);
       if (!response.ok) throw new Error(`spec ${response.status}`);
@@ -41,7 +44,7 @@ function createLightbox(dialog) {
       if (requestId !== specRequest) return; // stale: user navigated away
       code.textContent = JSON.stringify(data, null, 2);
     } catch {
-      if (requestId === specRequest) code.textContent = "Spec unavailable.";
+      if (requestId === specRequest) code.textContent = STR_UNAVAILABLE;
     }
   }
 

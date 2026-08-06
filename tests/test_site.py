@@ -1,8 +1,8 @@
 """Static validation for the GitHub Pages site (docs/).
 
-Parses docs/index.html and asserts the guarantees the repo brand makes:
-every local reference resolves, runtime makes no external requests,
-required sections exist, and OGP meta is present.
+Parses docs/index.html (English) and docs/ja/index.html (Japanese) and asserts
+the guarantees the repo brand makes: every local reference resolves, runtime
+makes no external requests, required sections exist, and OGP meta is present.
 """
 
 import unittest
@@ -11,7 +11,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
-INDEX = DOCS / "index.html"
 
 REQUIRED_IDS = {"hero", "live-deck", "pipeline", "gallery", "cjk", "modes", "roast", "start", "footer"}
 REFERENCE_ATTRS = {"img": "src", "script": "src", "link": "href", "iframe": "src"}
@@ -23,7 +22,6 @@ class IndexParser(HTMLParser):
         self.ids = set()
         self.refs = []  # (tag, value)
         self.metas = {}
-        self.importmap_srcs = []
 
     def handle_starttag(self, tag, attrs):
         attr = dict(attrs)
@@ -37,12 +35,14 @@ class IndexParser(HTMLParser):
                 self.metas[key] = attr.get("content", "")
 
 
-@unittest.skipUnless(INDEX.exists(), "site not built yet")
-class SiteTests(unittest.TestCase):
+class SiteChecks:
+    INDEX: Path = None
+    BASE: Path = None  # directory the page's relative URLs resolve against
+
     @classmethod
     def setUpClass(cls):
         cls.parser = IndexParser()
-        cls.parser.feed(INDEX.read_text(encoding="utf-8"))
+        cls.parser.feed(cls.INDEX.read_text(encoding="utf-8"))
 
     def test_required_sections_present(self):
         self.assertEqual(REQUIRED_IDS - self.parser.ids, set())
@@ -52,13 +52,12 @@ class SiteTests(unittest.TestCase):
         for tag, ref in self.parser.refs:
             if ref.startswith(("http://", "https://", "#", "data:")):
                 continue
-            if not (DOCS / ref).resolve().exists():
+            if not (self.BASE / ref).resolve().exists():
                 missing.append(f"{tag}: {ref}")
         self.assertEqual(missing, [])
 
     def test_no_external_runtime_requests(self):
-        # <a> links may go anywhere; src/href of assets must be local
-        # (the only exception: the og:image meta is a path, and <link> stylesheets are local).
+        # <a> links may go anywhere; src/href of assets must be local.
         external = [
             f"{tag}: {ref}"
             for tag, ref in self.parser.refs
@@ -72,7 +71,7 @@ class SiteTests(unittest.TestCase):
 
     def test_og_image_exists(self):
         og_path = self.parser.metas.get("og:image", "")
-        self.assertTrue((DOCS / og_path).resolve().exists(), f"og:image missing: {og_path}")
+        self.assertTrue((self.BASE / og_path).resolve().exists(), f"og:image missing: {og_path}")
 
     def test_three_vendored(self):
         self.assertTrue((DOCS / "site" / "vendor" / "three.module.js").exists())
@@ -80,7 +79,19 @@ class SiteTests(unittest.TestCase):
     def test_iframe_targets_exist(self):
         for tag, ref in self.parser.refs:
             if tag == "iframe":
-                self.assertTrue((DOCS / ref).resolve().exists(), f"iframe missing: {ref}")
+                self.assertTrue((self.BASE / ref).resolve().exists(), f"iframe missing: {ref}")
+
+
+@unittest.skipUnless((DOCS / "index.html").exists(), "site not built yet")
+class SiteTests(SiteChecks, unittest.TestCase):
+    INDEX = DOCS / "index.html"
+    BASE = DOCS
+
+
+@unittest.skipUnless((DOCS / "ja" / "index.html").exists(), "ja page not built yet")
+class JaSiteTests(SiteChecks, unittest.TestCase):
+    INDEX = DOCS / "ja" / "index.html"
+    BASE = DOCS / "ja"
 
 
 if __name__ == "__main__":
