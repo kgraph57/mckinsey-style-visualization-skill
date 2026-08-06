@@ -6,17 +6,31 @@ import * as THREE from "three";
  * docs/site/artifacts/specs/arr-waterfall.json (Q1 10.0, +3.0, +2.5, -0.5, Q4 15.0).
  */
 
-const PALETTE = {
-  navy: 0x15296b,
-  blue: 0x2563eb,
-  ink: 0x000000,
-  grey700: 0x374151,
-  grey500: 0x6b7280,
-  grey300: 0xd1d5db,
-  fill: 0xf3f4f6,
-  tint: 0xeff3fb,
-  risk: 0xb91c1c,
-  paper: 0xffffff,
+const THEMES = {
+  light: {
+    bg: 0xffffff,
+    bar: 0x15296b,
+    risk: 0xb91c1c,
+    ink: 0x000000,
+    accent: 0x2563eb,
+    grey700: 0x374151,
+    grey500: 0x6b7280,
+    grey300: 0xd1d5db,
+    scrapA: 0xeff3fb,
+    scrapB: 0xf3f4f6,
+  },
+  dark: {
+    bg: 0x15296b,
+    bar: 0xffffff,
+    risk: 0xf87171,
+    ink: 0xffffff,
+    accent: 0x7fa8f5,
+    grey700: 0xb8c2ea,
+    grey500: 0x6b7cc0,
+    grey300: 0x4a5b9e,
+    scrapA: 0xeff3fb,
+    scrapB: 0xffffff,
+  },
 };
 
 const UNIT = 0.29; // world units per $1M
@@ -79,21 +93,23 @@ const X_AXIS = new THREE.Vector3(1, 0, 0);
 const Y_AXIS = new THREE.Vector3(0, 1, 0);
 const IDENTITY_Q = new THREE.Quaternion();
 
+let PALETTE = THEMES.light;
+
 function buildPlan() {
   const rand = mulberry32(1337);
   const shards = [];
   const scraps = [];
   const dots = [];
 
-  const C_NAVY = new THREE.Color(PALETTE.navy);
+  const C_NAVY = new THREE.Color(PALETTE.bar);
   const C_RISK = new THREE.Color(PALETTE.risk);
   const C_INK = new THREE.Color(PALETTE.ink);
-  const C_BLUE = new THREE.Color(PALETTE.blue);
+  const C_BLUE = new THREE.Color(PALETTE.accent);
   const C_GREY700 = new THREE.Color(PALETTE.grey700);
   const C_GREY500 = new THREE.Color(PALETTE.grey500);
   const C_GREY300 = new THREE.Color(PALETTE.grey300);
-  const C_FILL = new THREE.Color(PALETTE.fill);
-  const C_TINT = new THREE.Color(PALETTE.tint);
+  const C_FILL = new THREE.Color(PALETTE.scrapB);
+  const C_TINT = new THREE.Color(PALETTE.scrapA);
 
   const chaos = (targetScale) => {
     const axis = new THREE.Vector3(
@@ -322,25 +338,26 @@ function buildPlan() {
 
 export function initHero(
   canvas,
-  { reducedMotion = false, staticMode = false } = {},
+  { reducedMotion = false, staticMode = false, theme = "light" } = {},
 ) {
+  PALETTE = THEMES[theme] || THEMES.light;
   const renderer = new THREE.WebGLRenderer({
     canvas,
     antialias: true,
     powerPreference: "high-performance",
   });
-  renderer.setClearColor(PALETTE.paper, 1);
+  renderer.setClearColor(PALETTE.bg, 1);
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(PALETTE.paper);
-  scene.fog = new THREE.Fog(PALETTE.paper, 13, 24);
+  scene.background = new THREE.Color(PALETTE.bg);
+  scene.fog = new THREE.Fog(PALETTE.bg, 13, 24);
 
   const camera = new THREE.PerspectiveCamera(37, 1, 0.1, 60);
   camera.position.copy(CAM_BASE);
   camera.lookAt(CAM_TARGET);
 
-  scene.add(new THREE.HemisphereLight(PALETTE.paper, PALETTE.tint, 1.0));
-  const dir = new THREE.DirectionalLight(PALETTE.paper, 2.1);
+  scene.add(new THREE.HemisphereLight(0xffffff, PALETTE.scrapA, 1.0));
+  const dir = new THREE.DirectionalLight(0xffffff, 2.1);
   dir.position.set(5, 9, 6);
   scene.add(dir);
 

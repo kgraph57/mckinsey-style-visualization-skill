@@ -17,6 +17,7 @@
       { "imports": { "three": "../site/vendor/three.module.js" } }
     </script>
     <script type="module" src="../site/js/main.js"></script>
+    <script type="module" src="../site/js/try/console.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">本文へスキップ</a>
@@ -48,6 +49,42 @@
               <a class="btn btn-primary" href="#start">60秒でインストール</a>
               <a class="btn btn-ghost" href="https://github.com/kgraph57/mckinsey-style-visualization-skill" rel="noopener">★ GitHubでスター</a>
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="console" aria-label="Try it now">
+        <div class="wrap">
+          <div class="con-grid">
+            <div class="con-copy">
+              <span class="kicker">今すぐ試す</span>
+              <h2>メモがここでデッキになる</h2>
+              <p class="lede">下にメモを貼ってください。Claudeがspecを起案し、このリポジトリのレンダラーがブラウザ内でスライドを描画します。Anthropicキー持ち寄り（BYOK）。キーはAnthropicにしか届きません。</p>
+              <p class="con-full">
+                <a href="../try/">フルスクリーン版 ↗</a>
+              </p>
+            </div>
+            <div class="con-card">
+              <div class="con-key-row">
+                <input type="password" id="con-key-input" autocomplete="off" placeholder="sk-ant-…" aria-label="Anthropic APIキー" />
+                <button id="con-key-save" class="btn btn-ghost" type="button">保存</button>
+              </div>
+              <p class="con-key-state" id="con-key-state" hidden></p>
+              <textarea id="con-notes" rows="6" placeholder="メモ、数値、ラフな企画を貼ってください…" aria-label="メモ"></textarea>
+              <div class="con-actions">
+                <button id="con-sample" class="btn btn-ghost" type="button">サンプル</button>
+                <button id="con-generate" class="btn btn-primary" type="button">デッキを生成</button>
+              </div>
+              <p class="con-status" id="con-status" role="status" aria-live="polite" hidden></p>
+              <p class="con-error" id="con-error" role="alert" hidden></p>
+            </div>
+          </div>
+          <div class="con-results" id="con-results" hidden>
+            <div class="try-carousel" id="con-carousel"></div>
+            <div class="con-dl">
+              <button id="con-dl-deck" class="btn btn-primary" type="button">deck.html をダウンロード</button>
+              <a href="../try/" class="con-more">フルスクリーンで開く ↗</a>
+            </div>
           </div>
         </div>
       </section>
@@ -176,27 +213,61 @@
         <div class="wrap">
           <span class="kicker">4つのアウトプット</span>
           <h2>1つのspecシステム、4つの成果物</h2>
-          <div class="md-grid">
-            <a class="md-card" href="../site/artifacts/demo-deck.html" target="_blank" rel="noopener">
-              <span class="md-title">デッキ</span>
-              <span class="md-desc">アニメーション、自己完結、PDF印刷可</span>
-              <span class="md-open">デモを開く ↗</span>
-            </a>
-            <a class="md-card" href="../site/artifacts/demo-report.html" target="_blank" rel="noopener">
-              <span class="md-title">レポート</span>
-              <span class="md-desc">Markdownから、A4印刷の役員会資料へ</span>
-              <span class="md-open">デモを開く ↗</span>
-            </a>
-            <a class="md-card" href="../site/artifacts/demo-script.html" target="_blank" rel="noopener">
-              <span class="md-title">スピーカースクリプト</span>
-              <span class="md-desc">1スライド1枚のA4。壇上で読める字の大きさ</span>
-              <span class="md-open">デモを開く ↗</span>
-            </a>
-            <a class="md-card" href="../site/artifacts/demo-article.html" target="_blank" rel="noopener">
-              <span class="md-title">記事</span>
-              <span class="md-desc">デッキがそのまま、上から下へ読める記事に</span>
-              <span class="md-open">デモを開く ↗</span>
-            </a>
+          <div class="md-tabs" role="tablist" aria-label="Output modes">
+            <button role="tab" class="md-tab is-active" data-mode="deck" id="md-tab-deck" aria-controls="md-panel-deck" aria-selected="true" type="button"><span class="md-num">01</span> デッキ</button>
+            <button role="tab" class="md-tab" data-mode="report" id="md-tab-report" aria-controls="md-panel-report" aria-selected="false" type="button"><span class="md-num">02</span> レポート</button>
+            <button role="tab" class="md-tab" data-mode="script" id="md-tab-script" aria-controls="md-panel-script" aria-selected="false" type="button"><span class="md-num">03</span> スピーカースクリプト</button>
+            <button role="tab" class="md-tab" data-mode="article" id="md-tab-article" aria-controls="md-panel-article" aria-selected="false" type="button"><span class="md-num">04</span> 記事</button>
+          </div>
+          <div class="md-panels">
+            <div role="tabpanel" id="md-panel-deck" class="md-panel is-active" aria-labelledby="md-tab-deck">
+              <div class="chrome">
+                <div class="chrome-bar" aria-hidden="true">
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-url">demo-deck.html</span>
+                </div>
+                <iframe src="../site/artifacts/demo-deck.html" title="Deck output demo" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+              </div>
+              <p class="md-desc">アニメーション、自己完結、PDF印刷可。<a class="md-open" href="../site/artifacts/demo-deck.html" target="_blank" rel="noopener">デモを開く ↗</a></p>
+            </div>
+            <div role="tabpanel" id="md-panel-report" class="md-panel" aria-labelledby="md-tab-report" hidden>
+              <div class="chrome">
+                <div class="chrome-bar" aria-hidden="true">
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-url">demo-report.html</span>
+                </div>
+                <iframe data-src="../site/artifacts/demo-report.html" title="Report output demo" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+              </div>
+              <p class="md-desc">Markdownから、A4印刷の役員会資料へ。<a class="md-open" href="../site/artifacts/demo-report.html" target="_blank" rel="noopener">デモを開く ↗</a></p>
+            </div>
+            <div role="tabpanel" id="md-panel-script" class="md-panel" aria-labelledby="md-tab-script" hidden>
+              <div class="chrome">
+                <div class="chrome-bar" aria-hidden="true">
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-url">demo-script.html</span>
+                </div>
+                <iframe data-src="../site/artifacts/demo-script.html" title="Speaker script output demo" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+              </div>
+              <p class="md-desc">1スライド1枚のA4。壇上で読める字の大きさ。<a class="md-open" href="../site/artifacts/demo-script.html" target="_blank" rel="noopener">デモを開く ↗</a></p>
+            </div>
+            <div role="tabpanel" id="md-panel-article" class="md-panel" aria-labelledby="md-tab-article" hidden>
+              <div class="chrome">
+                <div class="chrome-bar" aria-hidden="true">
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-url">demo-article.html</span>
+                </div>
+                <iframe data-src="../site/artifacts/demo-article.html" title="Article output demo" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+              </div>
+              <p class="md-desc">デッキがそのまま、上から下へ読める記事に。<a class="md-open" href="../site/artifacts/demo-article.html" target="_blank" rel="noopener">デモを開く ↗</a></p>
+            </div>
           </div>
         </div>
       </section>

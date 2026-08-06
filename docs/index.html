@@ -29,6 +29,7 @@
       { "imports": { "three": "./site/vendor/three.module.js" } }
     </script>
     <script type="module" src="./site/js/main.js"></script>
+    <script type="module" src="./site/js/try/console.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -41,7 +42,7 @@
         <nav class="site-nav" aria-label="Sections">
           <a href="#live-deck">Deck</a>
           <a href="#gallery">Gallery</a>
-          <a href="#cjk">日本語</a>
+          <a href="#cjk">Japanese</a>
           <a href="#roast">Roast</a>
           <a href="./try/">Try</a>
           <a href="#start">Install</a>
@@ -77,6 +78,71 @@
                 >★ Star on GitHub</a
               >
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="console" aria-label="Try it now">
+        <div class="wrap">
+          <div class="con-grid">
+            <div class="con-copy">
+              <span class="kicker">Try it now</span>
+              <h2>Your notes become a deck, right here</h2>
+              <p class="lede">
+                Paste notes below. Claude drafts the spec, then this repo's own
+                renderer draws the slides in your browser. Bring your own
+                Anthropic key: it reaches Anthropic and nothing else.
+              </p>
+              <p class="con-full">
+                <a href="./try/">Full screen version ↗</a>
+              </p>
+            </div>
+            <div class="con-card">
+              <div class="con-key-row">
+                <input
+                  type="password"
+                  id="con-key-input"
+                  autocomplete="off"
+                  placeholder="sk-ant-…"
+                  aria-label="Anthropic API key"
+                />
+                <button id="con-key-save" class="btn btn-ghost" type="button">
+                  Save
+                </button>
+              </div>
+              <p class="con-key-state" id="con-key-state" hidden></p>
+              <textarea
+                id="con-notes"
+                rows="6"
+                placeholder="Paste notes, metrics, or a rough brief…"
+                aria-label="Your notes"
+              ></textarea>
+              <div class="con-actions">
+                <button id="con-sample" class="btn btn-ghost" type="button">
+                  Sample
+                </button>
+                <button id="con-generate" class="btn btn-primary" type="button">
+                  Generate deck
+                </button>
+              </div>
+              <p
+                class="con-status"
+                id="con-status"
+                role="status"
+                aria-live="polite"
+                hidden
+              ></p>
+              <p class="con-error" id="con-error" role="alert" hidden></p>
+            </div>
+          </div>
+          <div class="con-results" id="con-results" hidden>
+            <div class="try-carousel" id="con-carousel"></div>
+            <div class="con-dl">
+              <button id="con-dl-deck" class="btn btn-primary" type="button">
+                Download deck.html
+              </button>
+              <a href="./try/" class="con-more">Open in full screen ↗</a>
+            </div>
           </div>
         </div>
       </section>
@@ -300,55 +366,180 @@
         <div class="wrap">
           <span class="kicker">Four output modes</span>
           <h2>One spec system, four deliverables</h2>
-          <div class="md-grid">
-            <a
-              class="md-card"
-              href="./site/artifacts/demo-deck.html"
-              target="_blank"
-              rel="noopener"
+          <div class="md-tabs" role="tablist" aria-label="Output modes">
+            <button
+              role="tab"
+              class="md-tab is-active"
+              data-mode="deck"
+              id="md-tab-deck"
+              aria-controls="md-panel-deck"
+              aria-selected="true"
+              type="button"
             >
-              <span class="md-title">Deck</span>
-              <span class="md-desc"
-                >Animated, self-contained, prints to PDF</span
-              >
-              <span class="md-open">Open demo ↗</span>
-            </a>
-            <a
-              class="md-card"
-              href="./site/artifacts/demo-report.html"
-              target="_blank"
-              rel="noopener"
+              <span class="md-num">01</span> Deck
+            </button>
+            <button
+              role="tab"
+              class="md-tab"
+              data-mode="report"
+              id="md-tab-report"
+              aria-controls="md-panel-report"
+              aria-selected="false"
+              type="button"
             >
-              <span class="md-title">Report</span>
-              <span class="md-desc"
-                >Markdown in, print-to-A4 board document out</span
-              >
-              <span class="md-open">Open demo ↗</span>
-            </a>
-            <a
-              class="md-card"
-              href="./site/artifacts/demo-script.html"
-              target="_blank"
-              rel="noopener"
+              <span class="md-num">02</span> Report
+            </button>
+            <button
+              role="tab"
+              class="md-tab"
+              data-mode="script"
+              id="md-tab-script"
+              aria-controls="md-panel-script"
+              aria-selected="false"
+              type="button"
             >
-              <span class="md-title">Speaker script</span>
-              <span class="md-desc"
-                >One A4 page per slide, podium-readable</span
-              >
-              <span class="md-open">Open demo ↗</span>
-            </a>
-            <a
-              class="md-card"
-              href="./site/artifacts/demo-article.html"
-              target="_blank"
-              rel="noopener"
+              <span class="md-num">03</span> Speaker script
+            </button>
+            <button
+              role="tab"
+              class="md-tab"
+              data-mode="article"
+              id="md-tab-article"
+              aria-controls="md-panel-article"
+              aria-selected="false"
+              type="button"
             >
-              <span class="md-title">Article</span>
-              <span class="md-desc"
-                >The deck as a top-to-bottom reading column</span
-              >
-              <span class="md-open">Open demo ↗</span>
-            </a>
+              <span class="md-num">04</span> Article
+            </button>
+          </div>
+          <div class="md-panels">
+            <div
+              role="tabpanel"
+              id="md-panel-deck"
+              class="md-panel is-active"
+              aria-labelledby="md-tab-deck"
+            >
+              <div class="chrome">
+                <div class="chrome-bar" aria-hidden="true">
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-url">demo-deck.html</span>
+                </div>
+                <iframe
+                  src="./site/artifacts/demo-deck.html"
+                  title="Deck output demo"
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin allow-popups"
+                ></iframe>
+              </div>
+              <p class="md-desc">
+                Animated, self-contained, prints to PDF.
+                <a
+                  class="md-open"
+                  href="./site/artifacts/demo-deck.html"
+                  target="_blank"
+                  rel="noopener"
+                  >Open demo ↗</a
+                >
+              </p>
+            </div>
+            <div
+              role="tabpanel"
+              id="md-panel-report"
+              class="md-panel"
+              aria-labelledby="md-tab-report"
+              hidden
+            >
+              <div class="chrome">
+                <div class="chrome-bar" aria-hidden="true">
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-url">demo-report.html</span>
+                </div>
+                <iframe
+                  data-src="./site/artifacts/demo-report.html"
+                  title="Report output demo"
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin allow-popups"
+                ></iframe>
+              </div>
+              <p class="md-desc">
+                Markdown in, print-to-A4 board document out.
+                <a
+                  class="md-open"
+                  href="./site/artifacts/demo-report.html"
+                  target="_blank"
+                  rel="noopener"
+                  >Open demo ↗</a
+                >
+              </p>
+            </div>
+            <div
+              role="tabpanel"
+              id="md-panel-script"
+              class="md-panel"
+              aria-labelledby="md-tab-script"
+              hidden
+            >
+              <div class="chrome">
+                <div class="chrome-bar" aria-hidden="true">
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-url">demo-script.html</span>
+                </div>
+                <iframe
+                  data-src="./site/artifacts/demo-script.html"
+                  title="Speaker script output demo"
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin allow-popups"
+                ></iframe>
+              </div>
+              <p class="md-desc">
+                One A4 page per slide, podium-readable.
+                <a
+                  class="md-open"
+                  href="./site/artifacts/demo-script.html"
+                  target="_blank"
+                  rel="noopener"
+                  >Open demo ↗</a
+                >
+              </p>
+            </div>
+            <div
+              role="tabpanel"
+              id="md-panel-article"
+              class="md-panel"
+              aria-labelledby="md-tab-article"
+              hidden
+            >
+              <div class="chrome">
+                <div class="chrome-bar" aria-hidden="true">
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-dot"></span>
+                  <span class="chrome-url">demo-article.html</span>
+                </div>
+                <iframe
+                  data-src="./site/artifacts/demo-article.html"
+                  title="Article output demo"
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin allow-popups"
+                ></iframe>
+              </div>
+              <p class="md-desc">
+                The deck as a top-to-bottom reading column.
+                <a
+                  class="md-open"
+                  href="./site/artifacts/demo-article.html"
+                  target="_blank"
+                  rel="noopener"
+                  >Open demo ↗</a
+                >
+              </p>
+            </div>
           </div>
         </div>
       </section>

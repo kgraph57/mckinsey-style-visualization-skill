@@ -1,38 +1,10 @@
 /* /try page controller: key management, notes -> Claude -> Pyodide render -> downloads. */
 
-import { generateDeck, MODEL } from "./llm.js";
+import { generateDeck } from "./llm.js";
 import { ensurePyodide, renderSlides, buildDeckHtml } from "./py-render.js";
-
-const IS_JA = document.documentElement.lang === "ja";
-const STR = {
-  keySaved: IS_JA ? "保存済み" : "saved",
-  keyChange: IS_JA ? "変更" : "Change",
-  keyClear: IS_JA ? "消去" : "Clear",
-  needKey: IS_JA
-    ? "先にAPIキーを保存してください。"
-    : "Save your API key first.",
-  needNotes: IS_JA ? "メモを入力してください。" : "Paste some notes first.",
-  stRefs: IS_JA
-    ? "レンダラーのルールブックを読み込み中…"
-    : "Reading the renderer's rulebook…",
-  stClaude: IS_JA
-    ? `Claude（${MODEL}）にメモを渡しています…`
-    : `Handing your notes to Claude (${MODEL})…`,
-  stRenderer: IS_JA
-    ? "レンダラーを起動しています（初回のみ約12MB）…"
-    : "Starting the renderer (first time only, ~12 MB)…",
-  stDraw: IS_JA ? "スライドを描画しています…" : "Drawing slides…",
-  stDone: IS_JA ? "できました。" : "Done.",
-  stRetry: IS_JA ? "specの修復を試みています…" : "Attempting one repair pass…",
-  copied: IS_JA ? "コピーしました" : "Copied",
-  slideOf: IS_JA ? "枚目" : "",
-  sampleNotes: IS_JA
-    ? "ARRは$10Mから$15Mに成長した。エンタープライズ新規が+$3M、既存顧客の拡大が+$2.5M、チャーンが-$0.5M。AIワークフローの導入率は18%から64%に上昇。取締役会で実装キャパシティへの投資判断が必要。"
-    : "ARR grew from $10M to $15M. Enterprise added $3M, expansion $2.5M, churn -$0.5M. AI workflow adoption grew from 18% to 64%. The board must decide on implementation capacity investment.",
-};
-
-const KEY_STORAGE = "scv-anthropic-key";
-const ARTIFACTS = new URL("../../artifacts/", import.meta.url);
+import { getKey, initKeyField } from "./keymgr.js";
+import { fetchRefs } from "./refs.js";
+import { STR } from "./strings.js";
 
 const els = {
   keyInput: document.getElementById("try-key-input"),
@@ -54,81 +26,14 @@ const els = {
   reset: document.getElementById("try-reset"),
 };
 
-function getKey() {
-  return localStorage.getItem(KEY_STORAGE) || "";
-}
-
-function maskKey(key) {
-  return key.length > 10 ? `${key.slice(0, 7)}…${key.slice(-4)}` : "…";
-}
-
-function refreshKeyState() {
-  const key = getKey();
-  if (!key) {
-    els.keyState.hidden = true;
-    els.keyInput.value = "";
-    return;
-  }
-  els.keyInput.value = "";
-  els.keyInput.placeholder = maskKey(key);
-  els.keyState.hidden = false;
-  els.keyState.textContent = "";
-  const label = document.createElement("span");
-  label.textContent = `${STR.keySaved}: ${maskKey(key)}`;
-  const change = document.createElement("button");
-  change.type = "button";
-  change.className = "btn btn-ghost";
-  change.textContent = STR.keyChange;
-  change.addEventListener("click", () => {
-    els.keyState.hidden = true;
-    els.keyInput.value = key;
-    els.keyInput.focus();
-  });
-  const clear = document.createElement("button");
-  clear.type = "button";
-  clear.className = "btn btn-ghost";
-  clear.textContent = STR.keyClear;
-  clear.addEventListener("click", () => {
-    localStorage.removeItem(KEY_STORAGE);
-    refreshKeyState();
-  });
-  els.keyState.append(label, change, clear);
-}
-
 function setStatus(text) {
-  if (!text) {
-    els.status.hidden = true;
-    els.status.textContent = "";
-    return;
-  }
-  els.status.hidden = false;
-  els.status.textContent = text;
+  els.status.hidden = !text;
+  els.status.textContent = text || "";
 }
 
 function setError(text) {
-  if (!text) {
-    els.error.hidden = true;
-    els.error.textContent = "";
-    return;
-  }
-  els.error.hidden = false;
-  els.error.textContent = text;
-}
-
-async function fetchRefs() {
-  const files = {
-    patterns: "prompt/visualization-patterns.md",
-    templates: "prompt/prompt-templates.md",
-    triage: "prompt/input-triage.md",
-  };
-  const entries = await Promise.all(
-    Object.entries(files).map(async ([k, p]) => {
-      const res = await fetch(new URL(p, ARTIFACTS));
-      if (!res.ok) throw new Error(`failed to load ${p}: ${res.status}`);
-      return [k, await res.text()];
-    }),
-  );
-  return Object.fromEntries(entries);
+  els.error.hidden = !text;
+  els.error.textContent = text || "";
 }
 
 function download(filename, content, type) {
@@ -189,17 +94,7 @@ async function onGenerate() {
     const refs = await refsPromise;
 
     setStatus(STR.stClaude);
-    let deck;
-    try {
-      deck = await generateDeck(getKey(), els.notes.value.trim(), refs);
-    } catch (firstError) {
-      setStatus(STR.stRetry);
-      deck = await generateDeck(getKey(), els.notes.value.trim(), refs).catch(
-        () => {
-          throw firstError;
-        },
-      );
-    }
+    const deck = await generateDeck(getKey(), els.notes.value.trim(), refs);
     state.deck = deck;
 
     setStatus(STR.stRenderer);
@@ -223,11 +118,6 @@ async function onGenerate() {
   }
 }
 
-els.keySave.addEventListener("click", () => {
-  const value = els.keyInput.value.trim();
-  if (value) localStorage.setItem(KEY_STORAGE, value);
-  refreshKeyState();
-});
 els.sample.addEventListener("click", () => {
   els.notes.value = STR.sampleNotes;
   els.notes.focus();
@@ -267,4 +157,4 @@ els.reset.addEventListener("click", () => {
   els.notes.focus();
 });
 
-refreshKeyState();
+initKeyField({ input: els.keyInput, save: els.keySave, state: els.keyState });

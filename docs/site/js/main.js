@@ -48,7 +48,7 @@ async function initHeroSection() {
   let hero;
   try {
     const mod = await import("./hero.js");
-    hero = mod.initHero(canvas, { reducedMotion });
+    hero = mod.initHero(canvas, { reducedMotion, theme: "dark" });
   } catch {
     showHeroFallback(heroSection);
     return;
@@ -200,7 +200,7 @@ function initPipeline() {
     steps.forEach((s, i) =>
       s.classList.toggle("pl-active", t >= 0.12 + i * 0.22),
     );
-    if (fill) fill.style.width = `${(t * 100).toFixed(1)}%`;
+    if (fill) fill.style.transform = `scaleX(${t.toFixed(3)})`;
   };
   window.addEventListener(
     "scroll",
@@ -233,6 +233,51 @@ function initGalleryFilters() {
   });
 }
 
+function initModeTabs() {
+  const tabs = [...document.querySelectorAll(".md-tab")];
+  if (!tabs.length) return;
+  const panels = new Map(
+    [...document.querySelectorAll(".md-panel")].map((p) => [
+      p.id.replace("md-panel-", ""),
+      p,
+    ]),
+  );
+  function activate(tab) {
+    tabs.forEach((t) => {
+      const on = t === tab;
+      t.classList.toggle("is-active", on);
+      t.setAttribute("aria-selected", String(on));
+    });
+    panels.forEach((panel, key) => {
+      const on = key === tab.dataset.mode;
+      panel.hidden = !on;
+      panel.classList.toggle("is-active", on);
+      if (on) {
+        const iframe = panel.querySelector("iframe[data-src]");
+        if (iframe) {
+          iframe.src = iframe.dataset.src;
+          iframe.removeAttribute("data-src");
+        }
+      }
+    });
+  }
+  tabs.forEach((tab, i) => {
+    tab.addEventListener("click", () => activate(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+        event.preventDefault();
+        const next =
+          tabs[
+            (i + (event.key === "ArrowRight" ? 1 : tabs.length - 1)) %
+              tabs.length
+          ];
+        next.focus();
+        activate(next);
+      }
+    });
+  });
+}
+
 initHeroSection();
 initGallerySection();
 initCopyButtons();
@@ -240,3 +285,4 @@ initReveals();
 initScrollspy();
 initPipeline();
 initGalleryFilters();
+initModeTabs();
