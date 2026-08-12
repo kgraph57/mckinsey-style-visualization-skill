@@ -18,6 +18,7 @@ English | [日本語](README.ja.md)
 ![Six-slide board deck rendered by this skill](assets/readme/demo.gif)
 
 _An actual deck built by this repo: `specs (JSON) → SVG slides → animated HTML deck`. Nothing hand-drawn._
+_Reproduce it: `python3 scripts/scaffold_deck.py board-update -o demo && python3 scripts/build_html_deck.py --manifest demo/deck.json -o demo/deck.html`_
 
 </div>
 
@@ -35,7 +36,14 @@ _An actual deck built by this repo: `specs (JSON) → SVG slides → animated HT
 ## 60-Second Start
 
 ```bash
-# 1. Get it (this is also how you install it as an agent skill)
+# 1. Install it as an agent skill (Claude Code, Cursor, Codex, and 70+ agents)
+npx skills add kgraph57/mckinsey-style-visualization-skill
+```
+
+Or clone it directly (also gets you the runnable scripts below):
+
+```bash
+# 1. Get it (Claude Code clone install)
 git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization
 cd ~/.claude/skills/strategy-consulting-visualization
 
@@ -246,6 +254,10 @@ The board needs to decide whether to invest in implementation capacity.
 
 It returns a decision-framed spec — strategic question, single-proposition headline, pattern choice with reasoning, exact values and labels, assumptions, and a rubric score — that renders to the waterfall you saw in the gallery. See the full worked proof: [input](examples/board-update-input.md) → [slide specs](examples/board-update-slide-spec.md) → [evaluation](examples/evaluation-report.md).
 
+### Case Study: the full loop in two minutes
+
+**[SaaS Board Update — Raw Notes to a Board-Ready Slide](examples/case-studies/saas-board-update.md)** walks one real pass end to end: anonymized founder notes → weak first draft → the packaged reviewer rejects it (14/20) → decision-first revision passes (20/20) → the committed rendered slides. Every artifact is in this repo and reproducible with two commands.
+
 ## What You Can Point It At
 
 | Starting Point               | You Get                                                     |
@@ -260,6 +272,13 @@ It returns a decision-framed spec — strategic question, single-proposition hea
 | Any prose — "visualize this" | Input triage → right pattern → document profile → spec      |
 
 ## Install
+
+```bash
+# Skills CLI (skills.sh) — works with Claude Code, Cursor, Codex, and 70+ agents
+npx skills add kgraph57/mckinsey-style-visualization-skill
+```
+
+Alternative — Claude Code clone install:
 
 ```bash
 # Personal skill (Claude Code)

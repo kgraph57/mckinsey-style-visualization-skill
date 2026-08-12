@@ -29,7 +29,7 @@
     "#lang-toggle@hreflang": "en",
     ".ex-head .kicker": "実例",
     ".ex-head h1": "モックではなく、製品を見る",
-    ".ex-head .lede": "見る場所は3つ。どのフレームも、このリポジトリの実レンダラー出力です。",
+    ".ex-head .lede": "見る場所は3つ。どのフレームも、このリポジトリの実レンダラー出力です。読み物なら、<a href=\"https://github.com/kgraph57/mckinsey-style-visualization-skill/blob/main/examples/case-studies/saas-board-update.md\" rel=\"noopener\">2分ケーススタディ ↗</a> をどうぞ。",
     ".ex-tabs@aria-label": "見る場所",
     "#ex-tab-deck": "デッキを見る",
     "#ex-tab-patterns": "チャートパターン",

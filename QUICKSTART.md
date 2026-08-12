@@ -4,7 +4,13 @@ Get started with Strategy Consulting Visualization Skill in five minutes.
 
 ## Install
 
-### Recommended
+### Recommended (Skills CLI — Claude Code, Cursor, Codex, and 70+ agents)
+
+```bash
+npx skills add kgraph57/mckinsey-style-visualization-skill
+```
+
+### Alternative (Claude Code clone install)
 
 ```bash
 git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization
