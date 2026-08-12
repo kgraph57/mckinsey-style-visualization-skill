@@ -44,6 +44,7 @@ strategy, consulting, executive presentations, board slides, visualization, data
 - `references/` files cover style, patterns, templates, and quality scoring.
 - `examples/` includes sample input, expected output, and evaluation.
 - `examples/review-loop/` demonstrates draft, review, revision, and pass criteria.
+- `examples/case-studies/saas-board-update.md` is the public end-to-end case study (input → draft → review → revision → rendered proof).
 - `scripts/validate_skill.py` verifies required marketplace files.
 - `scripts/review_slide_spec.py` provides a lightweight structural review for slide specs.
 - `SECURITY.md` discloses permissions and data handling.
