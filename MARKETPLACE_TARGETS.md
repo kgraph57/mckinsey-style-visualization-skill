@@ -24,7 +24,7 @@ Primary buyer/user intent: a founder, consultant, analyst, or operator wants an 
 
 ## Submission Fields
 
-Use these values unless a marketplace has stricter limits.
+Use these values unless a marketplace has stricter limits. Note that some targets do not take these fields at all: SkillsMP is crawl-only (GitHub topics drive discovery), SkillsMarket asks only for the GitHub repository URL, and SkillHQ takes CLI flags with fixed categories.
 
 | Field | Copy |
 | --- | --- |
@@ -51,9 +51,9 @@ Reference these proof points in marketplace forms:
 
 | Target | Status | Date | Notes |
 | --- | --- | --- | --- |
-| SkillsMP | Not submitted |  |  |
-| SkillHQ | Not submitted |  |  |
-| SkillsMarket | Not submitted |  |  |
+| SkillsMP | Live (crawled) | 2026-08-12 | Listed at https://skillsmp.com/creators/kgraph57/mckinsey-style-visualization-skill/skill. Crawl-only (no submit form): keep a GitHub topic `claude-skills` or `claude-code-skill` (repo already has `claude-skills`) and a SKILL.md with frontmatter; updates arrive via daily sync. |
+| SkillHQ | Not submitted |  | Publish via CLI: `npx @skill-hq/cli publish . --price 0 --category productivity` (Starter tier, no KYC). Categories are only `development`/`productivity`/`security`/`devops`; `--short-description` max 200 chars. |
+| SkillsMarket | Not submitted |  | Form (after sign-in at https://aiskillsmarket.com/submit) asks only for the GitHub repository URL (SKILL.md must be at repo root) plus optional notes; no category/title/tags/ZIP. |
 | Skill Vault | Not submitted |  |  |
 | skill.broker | Not submitted |  |  |
 | ClaudSkills | Not submitted |  |  |
