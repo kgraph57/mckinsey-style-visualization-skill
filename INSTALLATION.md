@@ -5,9 +5,19 @@ This guide installs Strategy Consulting Visualization Skill for agent tools that
 ## Prerequisites
 
 - An agent tool that can load local skills.
-- Git for clone-based installation, or `curl` for direct download.
+- Node.js 18+ for the Skills CLI install, Git for clone-based installation, or `curl` for direct download.
 
-## Personal Installation
+## Skills CLI (Recommended)
+
+The fastest path, and it works across Claude Code, Cursor, Codex, and 70+ other agents ([skills.sh](https://skills.sh/)):
+
+```bash
+npx skills add kgraph57/mckinsey-style-visualization-skill
+```
+
+Add `-g` to install at the user level instead of the current project.
+
+## Personal Installation (Claude Code clone install)
 
 Use this when you want the skill available across projects.
 
