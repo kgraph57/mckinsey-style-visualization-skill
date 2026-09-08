@@ -31,8 +31,8 @@
     ".hd-tabs@aria-label": "製品デモ",
     "#pipeline@aria-label": "パイプライン",
     "#start@aria-label": "はじめる",
-    "#hero h1": "その考えを、<br /><em>伝わる資料に。</em>",
-    "#hero .lede": "手元のメモから、会議で使えるスライドへ。読みやすい図表と、一貫したストーリーで、伝えたいことを形にします。",
+    "#hero h1": "メモを、<br /><em>コンサル型スライドに。</em>",
+    "#hero .lede": "AIエージェントに追加する無料スキル。ビジネスのメモから、図表・プレゼンスライド・A4のPDF資料を作れます。",
     "#hero .hd-actions .btn-primary": "自分のメモで試す <span aria-hidden=\"true\">↗</span>",
     "#hero .hd-actions .btn-ghost": "無料で導入する",
     "#hd-tab-deck": "<span class=\"hd-num\">01</span> ライブデッキ",
@@ -79,7 +79,7 @@
     ".ft-links a[href$='/discussions']": "ディスカッション",
     ".ft-links a[href$='/releases']": "リリース",
     ".ft-small .ft-line:nth-of-type(2)": "これは独立したスキルパッケージです。McKinsey & Company、Boston Consulting Group、Bain & Company、その他いかなるコンサルティングファームとも提携・支持・後援の関係はありません。<br /><span lang=\"en\">This is an independent skill package. It is not affiliated with, endorsed by, or sponsored by McKinsey & Company, Boston Consulting Group, Bain & Company, or any other consulting firm.</span>",
-    ".hero-badge": "<span class=\"status-dot\" aria-hidden=\"true\"></span> オープンソースの資料作成スキル",
+    ".hero-badge": "<span class=\"status-dot\" aria-hidden=\"true\"></span> CLAUDE CODE・CODEX・CURSOR用の無料スキル",
     ".agent-strip": "Claude Code・Codex・Cursorで使えます。",
     "#library .kicker": "ビジュアルライブラリ",
     "#library-title": "伝えたいことに合う、一枚を。",
@@ -108,7 +108,7 @@
     "#sample-board-deck-cover img@alt": "役員会プレゼンテーション",
     "#sample-jp-board-summary .sample-title": "日本語の役員会サマリー<span aria-hidden=\"true\">↗</span>",
     "#sample-jp-board-summary img@alt": "日本語の役員会サマリー",
-    ".showcase-label": "ラフなメモから、伝わる一枚へ",
+    ".showcase-label": "メモ → スライド → PDF",
     ".showcase-switches@aria-label": "実例を選ぶ",
     "button[data-example='growth']": "成長の要因",
     "button[data-example='summary']": "役員会の判断",
@@ -186,7 +186,9 @@
     ".proof-slide-main@alt": "ARRが1,000万ドルから1,500万ドルに伸びた要因を示す英語スライド",
     ".proof-summary@alt": "意思決定に必要な三つの指標をまとめた英語のエグゼクティブサマリー",
     ".proof-closing@alt": "提言と次の行動をまとめた英語の締めくくりスライド",
-    ".brief-stage img@alt": "提言、供給能力の図表、担当者をまとめた英語のA4意思決定資料"
+    ".brief-stage img@alt": "提言、供給能力の図表、担当者をまとめた英語のA4意思決定資料",
+    ".showcase-play": "デモを停止",
+    ".showcase-play@aria-label": "実例アニメーションを停止"
   },
   "scriptReplacements": [
     [

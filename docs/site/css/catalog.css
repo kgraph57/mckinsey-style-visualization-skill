@@ -201,3 +201,43 @@
 .proof-slide-strip { height:100%; min-height:0; }
 .proof-slide-strip img { height:100%; min-height:0; object-fit:contain; }
 @media(max-width:600px) { .deck-stage { height:320px; } }
+
+/* Explain the product and show its actual output in the first viewport. */
+.catalog-home #hero { padding-top:42px; }
+.hero-top { grid-template-columns:minmax(0,.85fr) minmax(0,1.3fr); gap:40px; align-items:center; margin-bottom:20px; }
+.catalog-home #hero h1 { font-size:clamp(2.1rem,3.5vw,3.5rem); line-height:1.08; }
+.hero-badge { font-size:9px; letter-spacing:.08em; margin-bottom:22px; }
+.catalog-home #hero .lede { font-size:16px; margin-top:22px; }
+.hero-top .showcase { min-width:0; }
+.hero-top .showcase-toolbar { flex-wrap:wrap; padding:14px 16px; gap:10px; }
+.hero-top .showcase-case { display:flex; flex-direction:column; }
+.hero-top .showcase-case[hidden] { display:none; }
+.hero-top .raw-note { padding:12px 16px; border:0; border-bottom:1px solid var(--border); background:var(--surface-soft); }
+.hero-top .raw-note pre { font-size:10px; line-height:1.5; margin:8px 0 0; white-space:pre-wrap; }
+.hero-top .note-foot { display:none; }
+.hero-top .result-slide { padding:14px 16px; order:0; }
+.hero-top .result-heading { margin-bottom:8px; }
+.hero-top .result-slide figcaption { padding-top:8px; }
+.hero-top .showcase-bottom { padding:10px 16px; gap:10px; flex-wrap:wrap; }
+.showcase-play { border:0; padding:0; background:none; color:var(--accent); font:inherit; cursor:pointer; text-decoration:underline; text-underline-offset:3px; }
+.showcase-play[hidden] { display:none; }
+.showcase.is-playing .result-slide { animation:slide-proof-in 6s ease both; }
+@keyframes slide-proof-in { 0% {opacity:.15;transform:translateY(8px)} 18%,100% {opacity:1;transform:translateY(0)} }
+@media(max-width:950px) { .hero-top { gap:24px; } .catalog-home #hero h1 { font-size:32px; } .catalog-home .hd-actions { flex-wrap:wrap; } }
+@media(max-width:700px) {
+ .catalog-home #hero { padding-top:26px; }
+ .hero-top { grid-template-columns:1fr; gap:24px; }
+ .hero-badge { margin-bottom:14px; font-size:8px; }
+ .catalog-home #hero h1 { font-size:clamp(29px,7.8vw,42px); }
+ .catalog-home #hero .lede { font-size:14px; margin-top:14px; line-height:1.55; }
+ .catalog-home .hd-actions { margin:14px 0 8px; }
+ .hero-top .raw-note pre { max-height:46px; overflow:auto; }
+ .hero-top .showcase-toolbar { padding:10px 12px; }
+ .hero-top .showcase-switches button { font-size:10px; padding:5px; }
+ .hero-top .result-slide { padding:10px; }
+ .hero-top .showcase-bottom { font-size:9px; }
+}
+@media(prefers-reduced-motion:reduce) { .showcase.is-playing .result-slide { animation:none; } }
+
+.hero-top .raw-note pre { white-space:normal; line-height:1.6; }
+.hero-top #case-priority .note-foot { display:block; font-size:9px; margin-top:5px; }
