@@ -1,0 +1,342 @@
+{
+  "review_date": "2026-09-08",
+  "scope": "Six firms; nine public documents. Eight local PDFs: 229 total pages, 36 selected pages visually inspected; McKinsey: three official web exhibits visually inspected and PDF text consulted. No native Word originals verified.",
+  "method": "Official-source discovery, local PDF raster review or official web screenshots, PDF text-span measurement where available. Observations describe sampled publications, not global brand standards.",
+  "sources": [
+    {
+      "id": "mgi-productivity",
+      "firm": "McKinsey Global Institute",
+      "title": "Investing in productivity growth",
+      "date": "2024-03-27",
+      "date_basis": "Official report landing page",
+      "url": "https://www.mckinsey.com/mgi/our-research/investing-in-productivity-growth",
+      "format": "Report; selected web exhibits visually inspected",
+      "page_count": 58,
+      "observed_pages": [],
+      "observed_exhibits": [
+        1,
+        5,
+        8
+      ],
+      "observations": [
+        "Exhibit 1 separates figure number, assertion headline, measure definition, plot, notes and source. Blue and grey distributions have direct year labels and median arrows.",
+        "Exhibit 5 aligns shared region rows across stacked contribution bars, change markers and a multiplier column. Group labels and section rules preserve scanning across panels.",
+        "Exhibit 8 combines a bridge, numbered explanatory brackets and a lower comparison matrix. Colour communicates signed impact, not merely decoration."
+      ],
+      "measurements": {
+        "method": "Official web exhibit screenshots; report PDF text checked with web reader"
+      },
+      "limitations": "PDF download failed locally; no PDF page geometry or native Word document verified. Web exhibit inspection must not be counted as PDF page inspection."
+    },
+    {
+      "id": "bain-deck",
+      "firm": "Bain & Company",
+      "title": "2023 Global Private Equity Report — roadshow deck",
+      "date": "2023",
+      "date_basis": "Document cover; PDF creation date recorded separately",
+      "url": "https://www.bain.com/globalassets/about/2023-global-pe-report---roadshow-deck.pdf",
+      "format": "16:9 presentation",
+      "page_count": 17,
+      "observed_pages": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        9
+      ],
+      "observations": [
+        "Pages 5 and 9 use assertion titles, neutral historical bars and a selective endpoint emphasis. Direct values sit at the decision-relevant endpoint.",
+        "Page 7 uses stacked categories, a side legend and a callout total. Page 4 combines a time series with time-span brackets. Cover and summary pages use photography and dark blocks; analytical pages remain white."
+      ],
+      "measurements": {
+        "page_points": [
+          960.0,
+          540.0
+        ],
+        "frequent_text_sizes_pt": [
+          24.0,
+          20.0,
+          14.0,
+          14.1,
+          36.0
+        ],
+        "pdf_created": "D:20230224120719+01'00'",
+        "method": "PyMuPDF page geometry and text-span character counts on PDF pages 2, 4, 5, 7, 9"
+      },
+      "limitations": "Representative pages visually inspected, not a universal firm template. Font-size extraction omits rasterized chart text. Public PDF, not an editable source file."
+    },
+    {
+      "id": "bcg-deck",
+      "firm": "Boston Consulting Group",
+      "title": "2025 Annual Sustainability Report — Executive Summary",
+      "date": "2026-06",
+      "date_basis": "Document cover; PDF creation date recorded separately",
+      "url": "https://www.bcg.com/ja-jp/assets/2026/annual-sustainability-report-slideshow-2025.pdf",
+      "format": "16:9 executive summary",
+      "page_count": 15,
+      "observed_pages": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        9
+      ],
+      "observations": [
+        "Page 2 groups multiple KPIs in two tinted fields. Page 4 uses three text columns and light separating rules.",
+        "Page 7 combines a photo with challenge and outcome columns. Page 9 places a narrow KPI rail beside a line chart and endpoint gap annotation.",
+        "Serif display headings coexist with sans-serif body copy in this publication; this differs from the AI report."
+      ],
+      "measurements": {
+        "page_points": [
+          1760.0,
+          990.0
+        ],
+        "frequent_text_sizes_pt": [
+          26.0,
+          23.0,
+          18.0,
+          44.0,
+          24.1
+        ],
+        "pdf_created": "D:20260601142359-04'00'",
+        "method": "PyMuPDF page geometry and text-span character counts on PDF pages 2, 4, 5, 7, 9"
+      },
+      "limitations": "Representative pages visually inspected, not a universal firm template. Font-size extraction omits rasterized chart text. Public PDF, not an editable source file."
+    },
+    {
+      "id": "bcg-report",
+      "firm": "Boston Consulting Group",
+      "title": "The Widening AI Value Gap",
+      "date": "2025-09",
+      "date_basis": "Document cover; PDF creation date recorded separately",
+      "url": "https://www.bcg.com/assets/2025/the-widening-ai-value-gap.pdf",
+      "format": "A4 portrait report",
+      "page_count": 24,
+      "observed_pages": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        9
+      ],
+      "observations": [
+        "Pages 4, 7 and 9 put a numbered exhibit above two-column prose. Figure headline, measure definition, chart and small source notes form distinct tiers.",
+        "Page 7 combines a contribution bridge with grouped totals and change callouts. Page 9 uses row-aligned tabular comparisons with miniature chart marks.",
+        "Section opener page 5 uses a large photograph, coloured section heading and two text columns. Cover date and later PDF creation date differ."
+      ],
+      "measurements": {
+        "page_points": [
+          595.28,
+          841.89
+        ],
+        "frequent_text_sizes_pt": [
+          10.0,
+          7.9,
+          7.5,
+          8.7,
+          18.0
+        ],
+        "pdf_created": "D:20251016184126+08'00'",
+        "method": "PyMuPDF page geometry and text-span character counts on PDF pages 2, 4, 5, 7, 9"
+      },
+      "limitations": "Representative pages visually inspected, not a universal firm template. Font-size extraction omits rasterized chart text. Public PDF, not an editable source file."
+    },
+    {
+      "id": "strategy-report",
+      "firm": "Strategy&",
+      "title": "UK Legal Services Market Report",
+      "date": "2025 summer",
+      "date_basis": "Document cover; PDF creation date recorded separately",
+      "url": "https://www.strategyand.pwc.com/uk/en/reports/uk-legal-services-market-report-2025.pdf",
+      "format": "16:9 report presentation",
+      "page_count": 17,
+      "observed_pages": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        9
+      ],
+      "observations": [
+        "Page 4 pairs a large numbered topic and wide chart with a narrow interpretation rail. Page 5 repeats a chart/interpretation split with shared category rows.",
+        "Page 7 uses a dense comparison matrix on a dark page. Page 9 combines a distribution, summary indicators and explanatory prose.",
+        "Running document labels and page numbers remain stable; the large section number conveys navigation, not decoration."
+      ],
+      "measurements": {
+        "page_points": [
+          960.0,
+          540.0
+        ],
+        "frequent_text_sizes_pt": [
+          12.0,
+          9.8,
+          8.2,
+          9.0,
+          15.8
+        ],
+        "pdf_created": "D:20250818042441-07'00'",
+        "method": "PyMuPDF page geometry and text-span character counts on PDF pages 2, 4, 5, 7, 9"
+      },
+      "limitations": "Representative pages visually inspected, not a universal firm template. Font-size extraction omits rasterized chart text. Public PDF, not an editable source file."
+    },
+    {
+      "id": "rb-trend-tech-2025",
+      "firm": "Roland Berger",
+      "title": "Trend Compendium 2050: Technology and Innovation, 2025 Edition",
+      "date": "2025-05-06",
+      "date_basis": "2025 edition; exact date is PDF creation metadata, not verified publication day.",
+      "url": "https://www.rolandberger.com/publications/publication_pdf/roland_berger_trend_compendium_2050_trend_5_technology_and_innovation.pdf",
+      "format": "Landscape 16:9 PDF; metadata creator Microsoft PowerPoint",
+      "page_count": 72,
+      "observed_pages": [
+        5,
+        11,
+        68
+      ],
+      "observations": [
+        "Page 5 combines a fixed chapter navigation rail with a central triangular relationship diagram and connected explanations.",
+        "Page 11 places a conclusion headline above a chart subtitle; grouped bars occupy roughly three quarters of the main region, with interpretation on the right.",
+        "Page 11 directly labels bars and percentage changes, with legend and sources below.",
+        "Page 68 retains the navigation rail and uses two stacked analytical sections plus a reference-material rail on the right."
+      ],
+      "measurements": {
+        "page_points": [
+          960,
+          540
+        ],
+        "page_11_headline_font_size_pt": 20,
+        "typical_chart_body_size_pt": 10,
+        "typical_note_size_pt": 9,
+        "page_11_headline_left_pt": 153.9,
+        "fonts_observed": [
+          "RBOffice-Bold",
+          "RBOffice-Regular"
+        ],
+        "method": "Visual inspection of rendered PDF pages plus PyMuPDF text-span extraction."
+      },
+      "limitations": "Three selected pages inspected, not all 72. Font measurements are page-specific observations, not a corporate standard. Proprietary fonts and branding were not copied."
+    },
+    {
+      "id": "rb-auto-supplier-2025",
+      "firm": "Roland Berger and Lazard",
+      "title": "Global Automotive Supplier Study 2025",
+      "date": "2025-04-30",
+      "date_basis": "2025 report; exact date is PDF creation metadata, not verified publication day.",
+      "url": "https://content.rolandberger.com/hubfs/07_presse/RB_Global_automotive_supplier_study_final.pdf",
+      "format": "Portrait A4 PDF; metadata creator Adobe InDesign 20.3",
+      "page_count": 28,
+      "observed_pages": [
+        2,
+        7,
+        18
+      ],
+      "observations": [
+        "Page 2 uses a pale blue field, a high-positioned title, a narrow body column, a vertical white rule, and a drop cap.",
+        "Page 7 aligns three comparison columns across two chart rows, followed by one takeaway region per column.",
+        "Page 7 groups exhibit identifier, conclusion, units, charts, footnote, and source strip into one coherent exhibit.",
+        "Page 18 combines a chart with an explanatory table above a new prose section, demonstrating integrated figures and narrative."
+      ],
+      "measurements": {
+        "page_points": [
+          595.276,
+          841.89
+        ],
+        "body_size_pt": 8,
+        "chart_text_size_pt": 7.2,
+        "exhibit_heading_size_pt": 10,
+        "fonts_observed": [
+          "RBDesign-Medium",
+          "RBDesign-Bold",
+          "RBDesign-Semibold"
+        ],
+        "method": "Visual inspection of rendered PDF pages plus PyMuPDF text-span extraction."
+      },
+      "limitations": "Three selected pages inspected. Dense report typography should not be transferred unchanged to projected slides. This is an InDesign-produced PDF, not a verified Word original."
+    },
+    {
+      "id": "ow-vortex-2025",
+      "firm": "Oliver Wyman",
+      "title": "Navigating the Vortex: 2025 Global Performance Transformation Report",
+      "date": "2025-05-08",
+      "date_basis": "2025 edition; official article URL is under 2025/apr, but PDF creation metadata is May 8. Exact publication day not verified.",
+      "url": "https://www.oliverwyman.com/content/dam/oliver-wyman/v2/publications/2025/apr/oliver-wyman-2025-global-performance-transformation-report.pdf",
+      "format": "Portrait PDF; metadata creator Adobe InDesign 19.5",
+      "page_count": 22,
+      "observed_pages": [
+        3,
+        7,
+        18
+      ],
+      "observations": [
+        "Page 3 uses a dark background, two-column introduction, and ruled KPI rows with a narrow metric column and wider explanation column.",
+        "Page 7 places exhibit title and survey unit above paired horizontal bars; prior-period bars are gray hatched, current-period bars black, with direct values and small change arrows.",
+        "Page 7 continues with two-column prose beneath the exhibit.",
+        "Page 18 gives a ranked horizontal bar chart most of the page and closes with a dark conclusion band.",
+        "Running heads use a thin horizontal rule; page numbers remain consistently positioned."
+      ],
+      "measurements": {
+        "page_points": [
+          595.276,
+          792
+        ],
+        "body_size_pt": 9,
+        "chart_text_size_pt": 8,
+        "note_size_pt": 7,
+        "fonts_observed": [
+          "NotoSans-Regular",
+          "NotoSans-Bold",
+          "NotoSans-Light",
+          "MMCDisplayCondensed-Bold"
+        ],
+        "method": "Visual inspection of rendered PDF pages plus PyMuPDF text-span extraction."
+      },
+      "limitations": "Three selected pages inspected. Font sizes vary by role and page. Current PDF modification metadata is later than original creation. This is not a verified Word source document."
+    },
+    {
+      "id": "ow-designing-2035",
+      "firm": "Oliver Wyman",
+      "title": "Designing for 2035",
+      "date": "2023-12-20",
+      "date_basis": "PDF creation metadata and /2023/dec/ asset path; linked from a separate official February 2025 article. Do not label this PDF a 2025 publication.",
+      "url": "https://www.oliverwyman.com/content/dam/oliver-wyman/v2/publications/2023/dec/designing-for-2035/owhic-designing-for-2035.pdf",
+      "format": "Portrait PDF; metadata creator Adobe InDesign 19.0",
+      "page_count": 34,
+      "observed_pages": [
+        2,
+        7,
+        12
+      ],
+      "observations": [
+        "Page 2 uses a purple condensed heading, a single prose column, generous remaining whitespace, and a running head with a fine rule.",
+        "Page 7 integrates a three-column comparison table into prose; only horizontal rules are used, and left-side labels receive purple bold emphasis.",
+        "Page 12 divides prose with compact purple section headings and bold time-context labels within paragraphs.",
+        "The hierarchy is carried by typography, spacing, and rules rather than cards or decorative icons."
+      ],
+      "measurements": {
+        "page_points": [
+          595.276,
+          792
+        ],
+        "page_2_heading_size_pt": 32,
+        "page_7_heading_size_pt": 18,
+        "page_12_section_heading_size_pt": 13,
+        "body_size_pt": 9,
+        "page_2_body_line_step_pt": 14,
+        "page_2_body_left_pt": 97.8,
+        "page_2_body_width_approx_pt": 400,
+        "heading_color": "#453282",
+        "fonts_observed": [
+          "NotoSans-Regular",
+          "NotoSans-Bold",
+          "MMCDisplayCondensed-Bold"
+        ],
+        "method": "Visual inspection of rendered PDF pages plus PyMuPDF text-span extraction; body width is approximate."
+      },
+      "limitations": "Three selected pages inspected. Word-style refers to reusable document layout conventions, not the source application; PDF metadata identifies InDesign."
+    }
+  ]
+}

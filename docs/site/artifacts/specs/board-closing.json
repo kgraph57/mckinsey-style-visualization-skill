@@ -1,17 +1,30 @@
 {
   "pattern": "closing",
-  "headline": "Decide the pilot now, scale in Q3",
+  "headline": "Close the capacity gap before raising growth targets",
   "takeaways": [
-    "Unit economics clear the bar",
-    "Risk is concentrated in supply",
-    "Capacity is the binding constraint, not demand"
+    "ARR grew 50%, led by enterprise acquisition",
+    "Adoption increased in all six segments",
+    "Capacity covers 60% of signed commitments"
   ],
   "next_steps": [
-    {"action": "Approve pilot budget", "owner": "CFO", "timing": "This week"},
-    {"action": "Confirm Vendor A capacity commitment", "owner": "Ops lead", "timing": "Next two weeks"},
-    {"action": "Review pilot results at the Q3 board meeting", "owner": "Strategy team", "timing": "Q3"}
+    {
+      "action": "Cost the capacity gap",
+      "owner": "Operations",
+      "timing": "Within 2 weeks"
+    },
+    {
+      "action": "Prioritize SSO and bulk export",
+      "owner": "Product",
+      "timing": "Q4 planning"
+    },
+    {
+      "action": "Review funding and delivery milestones",
+      "owner": "Board",
+      "timing": "Next meeting"
+    }
   ],
-  "call_to_action": "Decision requested today: approve the Q2 pilot",
-  "page_number": 12,
-  "source": "Illustrative data — hypothetical Q2 pilot decision."
+  "call_to_action": "Decision today: commission a costed capacity plan for Q4.",
+  "page_number": 8,
+  "source": "Source: illustrative board decision; funding amount not yet specified.",
+  "theme": "executive"
 }

@@ -1,8 +1,13 @@
 {
   "pattern": "section_divider",
-  "section_number": 2,
-  "title": "Where to play",
-  "subtitle": "Market selection and entry sequence",
-  "sections": ["Context", "Where to play", "How to win", "Roadmap"],
-  "classification": "Draft — illustrative"
+  "section_number": 1,
+  "title": "Growth, then capacity.",
+  "subtitle": "The evidence behind the Q4 decision",
+  "sections": [
+    "Growth",
+    "Adoption",
+    "Capacity"
+  ],
+  "classification": "Illustrative example",
+  "theme": "executive"
 }

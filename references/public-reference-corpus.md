@@ -1,8 +1,12 @@
 # Public Reference Corpus
 
-This corpus lists public strategy and executive-insight sources to study for structure, argument flow, and visualization patterns. Do not copy proprietary text, layouts, images, or branded assets. Use these sources to identify reusable patterns, then create original slide specs with explicit assumptions.
+This corpus lists public strategy and executive-insight sources to study for structure, argument flow, and visualization patterns. For requested reproduction, inspect a specific page and reproduce its structural hierarchy and geometry using the user’s content. Keep provenance explicit; do not bundle third-party branded assets.
 
-## Source List
+## Page-level verified study
+
+The [September 2026 study](consulting-design-study.md) contains nine reviewed public documents from McKinsey, BCG, Bain, Strategy&, Roland Berger and Oliver Wyman. The [evidence registry](consulting-reference-evidence.json) distinguishes PDF page inspection, web exhibit inspection and metadata measurement. Use the [reproduction workflow](reference-reproduction.md) for source-specific work.
+
+## Discovery list (not all reverified in the current study)
 
 | Source | Why It Matters | Patterns To Study |
 | --- | --- | --- |
@@ -35,4 +39,4 @@ Never extract:
 
 ## Reference Notes
 
-Use this corpus to improve the skill's standards, not to imitate a firm. Public references are learning material for pattern recognition. Final outputs must be original, source-aware, and non-affiliated.
+Use the page-level study to improve reproducibility, not just aesthetic resemblance. State observed properties and remaining deviations. Final outputs use original content and clearly identified ownership.

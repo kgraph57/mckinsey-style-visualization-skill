@@ -7,7 +7,7 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--header-bg);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--fill);
 }
@@ -174,7 +174,7 @@
   border: 0;
   box-shadow: none;
   border-radius: 0;
-  background: #0b1220;
+  background: var(--dark);
 }
 .hd-chrome .chrome-bar {
   background: rgba(255, 255, 255, 0.06);
@@ -188,12 +188,12 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   border: 0;
-  background: #0b1220;
+  background: var(--dark);
 }
 .hd-slide-show {
   position: relative;
   aspect-ratio: 16 / 9;
-  background: #0b1220;
+  background: var(--dark);
 }
 .hd-slide-show img {
   position: absolute;
@@ -216,7 +216,7 @@
   align-items: center;
   padding: calc(var(--u) * 4);
   min-height: min(52vw, 420px);
-  background: linear-gradient(160deg, #0f1c3d 0%, #15296b 55%, #1a3378 100%);
+  background: var(--dark);
 }
 @media (max-width: 720px) {
   .hd-try {
@@ -299,7 +299,7 @@
   flex-wrap: wrap;
   justify-content: center;
   padding: calc(var(--u) * 3) calc(var(--u) * 2) calc(var(--u) * 4);
-  background: #0b1220;
+  background: var(--dark);
   margin: 0;
 }
 .hd-stage-caption {
@@ -1073,7 +1073,7 @@
 .chat-demo {
   max-width: 48rem;
   margin: 0 auto;
-  background: #0b1220;
+  background: var(--dark);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 10px;
   overflow: hidden;
@@ -1165,7 +1165,7 @@
   white-space: pre-wrap;
 }
 .chat-msg-user .chat-bubble {
-  background: #2a4a9b;
+  background: var(--accent);
   border-bottom-right-radius: 4px;
 }
 .chat-msg-agent .chat-bubble {
@@ -1246,7 +1246,7 @@
     transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .chat-stack-item.is-on {
-  outline: 2px solid #7eb6ff;
+  outline: 2px solid var(--accent);
   outline-offset: 1px;
 }
 .chat-stack-thumb {
@@ -1261,7 +1261,7 @@
   align-items: baseline;
   gap: 6px;
   padding: 5px 7px;
-  background: rgba(11, 18, 32, 0.92);
+  background: rgba(16, 24, 39, 0.92);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 .chat-stack-num {
@@ -1288,7 +1288,7 @@
 }
 .chat-slide {
   margin: 0;
-  background: #05080f;
+  background: var(--dark);
   border-radius: 6px;
   overflow: hidden;
   opacity: 0;
@@ -1473,3 +1473,21 @@
 .ex-tab .ex-num {
   display: none;
 }
+
+/* Shared chrome across Home, Examples and Try, in both languages. */
+.site-header { border-bottom-color: var(--border); }
+.site-header-inner { min-height:70px; }
+.wordmark { color:var(--ink); text-transform:none; letter-spacing:-.025em; font-size:14px; }
+.wordmark::before { content:'◧'; display:inline-block; font-size:24px; margin-right:10px; color:var(--accent); vertical-align:middle; }
+.site-nav a { letter-spacing:0; font-size:13px; }
+.btn-primary:hover { background:var(--accent-hover); }
+a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline-offset:4px; }
+/* Two-color focus indicator remains visible on light and dark surfaces. */
+a:focus-visible, button:focus-visible { outline:2px solid var(--surface); outline-offset:2px; box-shadow:0 0 0 5px var(--accent); }
+@media(max-width:950px) {
+  .site-header-inner { flex-wrap:wrap; gap:10px; padding-block:12px; }
+  .wordmark { font-size:12px; }
+  .site-header .star-link { margin-left:auto; padding:7px 9px; font-size:10px; }
+  .site-nav { display:flex; order:3; width:100%; margin:0; justify-content:space-between; }
+}
+@media(max-width:480px) { .site-header .star-link { display:none; } }

@@ -22,6 +22,91 @@ renderer = load_renderer()
 
 
 class RenderSlideSpecTests(unittest.TestCase):
+    def test_executive_process_includes_owner_and_duration(self):
+        svg = renderer.render({"pattern": "process_flow", "theme": "executive", "headline": "Process",
+                               "steps": [{"label": "Setup", "detail": "Connect data", "owner": "Platform", "duration": "3 days"}]})
+        self.assertIn('Platform', svg)
+        self.assertIn('3 days', svg)
+
+    def test_executive_matrix_uses_numbered_key(self):
+        svg = renderer.render({"pattern": "two_by_two", "theme": "executive", "headline": "Priority",
+                               "x_axis": {"label": "Effort"}, "y_axis": {"label": "Impact"},
+                               "points": [{"x": 20, "y": 80, "label": "SSO integration"}]})
+        self.assertIn('>01</text>', svg)
+        self.assertIn('SSO integration', svg)
+
+    def test_dense_executive_diagrams_request_split(self):
+        for pattern, fields in [('process_flow', {'steps': [{'label':'Step'}] * 7}),
+                                ('two_by_two', {'points':[{'x':20,'y':80,'label':'Option'}]*7})]:
+            with self.subTest(pattern=pattern), self.assertRaisesRegex(ValueError, 'split'):
+                renderer.render({'pattern':pattern,'theme':'executive','headline':'Test', **fields})
+
+    def test_dense_executive_tables_require_a_split(self):
+        with self.assertRaisesRegex(ValueError, 'split'):
+            renderer.render({"pattern": "benchmark_table", "theme": "executive", "headline": "Compare",
+                             "columns": ["Integration depth"], "rows": [
+                                 {"label": str(i), "values": ["4.5"]} for i in range(7)]})
+
+    def test_executive_waterfall_keeps_classic_data_geometry(self):
+        import xml.etree.ElementTree as ET
+        spec = {"pattern": "waterfall", "headline": "Growth", "start": {"label": "Start", "value": 10},
+                "drivers": [{"label": "Expansion", "value": 5}, {"label": "Churn", "value": -2}]}
+        def geometry(svg):
+            return [{k: r.get(k) for k in ('x','y','width','height')} for r in
+                    ET.fromstring(svg).findall('.//{http://www.w3.org/2000/svg}rect')]
+        self.assertEqual(geometry(renderer.render(spec)), geometry(renderer.render({**spec, "theme": "executive"})))
+
+    def test_executive_headline_uses_sans_and_preserves_text(self):
+        svg = renderer.render({"pattern": "summary_strip", "theme": "executive",
+                               "headline": "Build capacity for growth", "blocks": [
+                                   {"claim": "Capacity", "proof": "60% coverage", "implication": "Plan"}]})
+        self.assertIn(f'font-family="{renderer.SANS}" font-size="40"', svg)
+        self.assertNotIn(f'font-family="{renderer.SERIF}"', svg)
+
+    def test_summary_focus_is_single_panel_with_reversed_text(self):
+        spec = {"pattern": "summary_strip", "theme": "executive", "focus_block": 1,
+                "headline": "Close the gap", "blocks": [
+                    {"metric": "50%", "claim": "Growth", "proof": "Evidence", "implication": "Protect"},
+                    {"metric": "60%", "claim": "Capacity", "proof": "Coverage", "implication": "Invest"}]}
+        svg = renderer.render(spec)
+        self.assertIn('fill="#FFFFFF" font-weight="bold" text-anchor="start">Capacity', svg)
+        self.assertEqual(svg.count(f'fill="{renderer.BLUE}" stroke="none"'), 1)
+
+    def test_invalid_business_style_options_are_rejected(self):
+        for extra in [{"theme": "unknown"}, {"focus_block": -1}, {"focus_block": 4}]:
+            with self.subTest(extra=extra), self.assertRaises(ValueError):
+                renderer.render({"pattern": "summary_strip", "headline": "Test", "blocks": [
+                    {"claim": "Claim", "proof": "Proof", "implication": "Action"}], **extra})
+
+    def test_summary_metrics_share_a_baseline_and_remain_readable(self):
+        import xml.etree.ElementTree as ET
+        spec = {"pattern": "summary_strip", "headline": "Growth needs capacity",
+                "blocks": [{"metric": m, "claim": "Growth", "proof": "Evidence",
+                            "implication": "Action"} for m in ["+50%", "6 / 6", "60%"]]}
+        root = ET.fromstring(renderer.render(spec))
+        texts = root.findall('.//{http://www.w3.org/2000/svg}text')
+        metrics = [t for t in texts if t.text in {"+50%", "6 / 6", "60%"}]
+        self.assertEqual(len(metrics), 3)
+        self.assertEqual(len({t.attrib['y'] for t in metrics}), 1)
+        self.assertTrue(all(float(t.attrib['font-size']) == renderer.T_KPI_NUM for t in metrics))
+
+    def test_summary_metric_rejects_text_that_would_overflow(self):
+        for metric in ["A very long metric that cannot fit", "WWWWWWWWWWW"]:
+            with self.subTest(metric=metric), self.assertRaisesRegex(ValueError, 'metric'):
+                renderer.render({"pattern": "summary_strip", "headline": "Test",
+                                 "blocks": [{"metric": metric,
+                                             "claim": "Claim", "proof": "Proof", "implication": "Action"}] * 3})
+
+    def test_summary_optional_metrics_keep_claims_and_actions_aligned(self):
+        import xml.etree.ElementTree as ET
+        spec = {"pattern": "summary_strip", "headline": "Test", "blocks": [
+            {"metric": "60%", "claim": "Capacity", "proof": "Short proof", "implication": "Hire"},
+            {"claim": "Demand", "proof": "A longer piece of evidence that wraps across multiple lines.", "implication": "Review"}]}
+        root = ET.fromstring(renderer.render(spec))
+        positions = {t.text: t.attrib['y'] for t in root.findall('.//{http://www.w3.org/2000/svg}text')}
+        self.assertEqual(positions['Capacity'], positions['Demand'])
+        self.assertEqual(positions['Hire'], positions['Review'])
+
     def test_unsupported_pattern_raises_value_error_with_supported_patterns(self) -> None:
         with self.assertRaises(ValueError) as ctx:
             renderer.render({"pattern": "radial_tree", "headline": "Growth map"})

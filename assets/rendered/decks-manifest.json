@@ -6,55 +6,55 @@
         "file": "rendered/en/01-board-deck-cover.svg",
         "label_en": "Cover",
         "label_ja": "表紙",
-        "headline": "FY26 Growth Review"
+        "headline": "Growth needs capacity."
       },
       {
         "file": "rendered/en/02-strategy-agenda.svg",
         "label_en": "Agenda",
         "label_ja": "アジェンダ",
-        "headline": "Three questions decide this investment"
+        "headline": "Three questions for the Q4 decision"
       },
       {
         "file": "rendered/en/03-phase-divider.svg",
         "label_en": "Divider",
         "label_ja": "区切り",
-        "headline": "Where to play"
+        "headline": "Growth, then capacity."
       },
       {
         "file": "rendered/en/04-executive-summary.svg",
         "label_en": "Exec summary",
         "label_ja": "役員要約",
-        "headline": "Capacity, not demand, is now the binding constraint on Q4 growth"
+        "headline": "Build capacity for the next growth phase"
       },
       {
         "file": "rendered/en/05-arr-waterfall.svg",
         "label_en": "ARR bridge",
         "label_ja": "ARR橋渡し",
-        "headline": "Enterprise acquisition and expansion added $5.5M ARR, more than offsetting $0.5M churn"
+        "headline": "Enterprise growth lifts ARR from $10M to $15M"
       },
       {
         "file": "rendered/en/06-segment-adoption-multiples.svg",
         "label_en": "Segments",
         "label_ja": "セグメント",
-        "headline": "Adoption rises in every segment, but healthcare lags the pack"
+        "headline": "Adoption grows across every segment"
       },
       {
         "file": "rendered/en/07-product-priority-two-by-two.svg",
         "label_en": "Priorities",
         "label_ja": "優先度",
-        "headline": "Two features deliver high impact at low effort; ship them before the platform rewrite"
+        "headline": "Prioritize SSO and bulk export for enterprise customers"
       },
       {
         "file": "rendered/en/08-board-closing.svg",
         "label_en": "Asks",
         "label_ja": "決議事項",
-        "headline": "Decide the pilot now, scale in Q3"
+        "headline": "Close the capacity gap before raising growth targets"
       },
       {
         "file": "rendered/en/09-deck-end-cover.svg",
         "label_en": "Close",
         "label_ja": "クローズ",
-        "headline": "Thank you"
+        "headline": "Make room for growth."
       }
     ]
   },

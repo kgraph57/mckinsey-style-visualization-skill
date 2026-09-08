@@ -227,3 +227,30 @@ Every mark must carry information (data-ink rule) — with no exceptions. There 
 - Generic descriptive titles such as "Revenue Chart" or "Market Comparison".
 - Tiny labels that will not survive export or screen sharing.
 - Faux affiliation language with named consulting firms.
+
+### Summary metrics
+
+A `summary_strip` block may include a short `metric` string, such as `"+50%"` or `"60%"`. It renders above the claim at `T_KPI_NUM` on a shared baseline. If any block has a metric, all columns reserve the same space. Keep claims and supporting copy short; the metric must fit the column without reducing its type size. Values that exceed the estimated column width are rejected. Omit `metric` for the original text-only layout.
+
+### Executive presentation theme
+
+Set `"theme": "executive"` consistently across a business deck. Content and cover headings use the existing sans-serif stack at the same readable sizes. Waterfall opening balances and intermediate drivers use neutral greys; the closing balance uses navy, and losses retain their red fill and signed labels. Comparison tables use taller rows, larger values when space allows, subtle alternating row fills, and bold navy leaders instead of multiple solid highlight boxes. Executive comparison tables allow up to five alternatives and six criteria; split larger comparisons across slides to preserve readable rows and headers. Values and chart geometry remain data-driven.
+
+For a `summary_strip`, optional `"focus_block": 2` highlights the third column with navy fill and reversed text. Choose the one block that carries the decision, rather than highlighting every positive result. Other metrics become black. Dense focused blocks fail validation instead of drawing outside their panel. `focus_block` is a zero-based integer; omit it for the open-column layout. Omit `theme` or use `"classic"` for the original serif presentation style.
+
+
+### Editable executive diagrams
+
+- `process_flow`: use up to five steps. Each step supports `label`, `detail`, and optional `owner` and `duration`. A single `highlight_index` identifies the bottleneck or decision point. Keep labels to two lines, details to three, and owner/duration to two; longer content requests a shorter label or a separate slide.
+- `two_by_two`: use up to six points. Numbered markers map to a separate label key so names do not sit on top of the plot. Coordinates remain on the 0–100 scale. Optional `focus_quadrant` is zero-based: 0 upper left, 1 upper right, 2 lower left, 3 lower right. Use it only when the highlighted quadrant has a clear business meaning.
+- `gantt`: notes appear inside their bars. Shorten notes that do not fit, or move them to the slide annotation. Use the highlight to identify the critical workstream.
+
+The homepage diagram starters provide an SVG preview, an editable JSON file, and a copyable rendering command. Place the downloaded JSON in the installed skill directory before running that command.
+
+## Reference-led analytical and report layouts
+
+When an actual reference is supplied, its publication and page determine the design target. Follow `references/reference-reproduction.md` and inspect the source before choosing a theme. The defaults above are fallback choices, not universal firm rules.
+
+Optional `layout: analytical` gives content slides a 32px sans-serif assertion headline, a separate `exhibit_label`, and a scope/period `subline`. Optional palettes `navy`, `red`, `green`, and `mono` replace the primary and secondary series accents. For signed charts, preserve a distinct meaning for adverse values and avoid using the same hue for selection and loss.
+
+Distribution charts may use `commentary` with a title and one to three concise points. Geometry is recalculated for the smaller plot; chart text is not scaled down. Other chart families do not yet support this rail. Compact report exhibits export chart geometry without slide chrome, leaving captions and provenance editable in the document. See the reproduction workflow for limits and the reference-layout templates for working examples.

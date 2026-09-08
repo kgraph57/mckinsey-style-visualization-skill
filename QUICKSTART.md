@@ -10,11 +10,15 @@ Get started with Strategy Consulting Visualization Skill in five minutes.
 git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization
 ```
 
-### Direct Download
+Clone the complete repository: `SKILL.md` relies on the bundled `references/`,
+`scripts/`, and `templates/`. Downloading only that file will not install a
+working renderer or the deck templates. For a Git-free installation, see the
+[ZIP download instructions](INSTALLATION.md#download-without-git).
+
+Run the commands below from the installed skill directory:
 
 ```bash
-mkdir -p ~/.claude/skills/strategy-consulting-visualization
-curl -o ~/.claude/skills/strategy-consulting-visualization/SKILL.md https://raw.githubusercontent.com/kgraph57/mckinsey-style-visualization-skill/main/SKILL.md
+cd ~/.claude/skills/strategy-consulting-visualization
 ```
 
 ## Validate the Package

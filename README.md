@@ -6,7 +6,7 @@
 
 One skill for your AI agent: turn notes, metrics, and prose into consulting-grade visuals — as real SVG slides, as an **animated HTML deck**, or as a spec any designer or tool can execute.
 
-Python 3 standard library only. **Zero dependencies. Zero API keys. Zero network calls.**
+Core SVG/HTML generation uses the Python 3 standard library only. **No API key or network access required.** Automated PDF export has optional browser dependencies.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
@@ -20,6 +20,15 @@ English | [日本語](README.ja.md)
 _An actual deck built by this repo: `specs (JSON) → SVG slides → animated HTML deck`. Nothing hand-drawn._
 
 </div>
+
+## What’s new — September 8, 2026
+
+- **Refined business slides and diagrams.** Updated the executive summary, growth waterfall, priority matrix, process flow and roadmap layouts, with clearer hierarchy, labels and decision cues. Regenerated the English and Japanese landing decks and site previews from the current renderer.
+- **Real deliverables on the site.** The homepage now shows actual slide previews alongside a complete A4 brief, with links to the finished PDFs. Examples use illustrative business data.
+- **HTML first, PDF for sharing.** Keep chart data in JSON and report prose in Markdown, refine the generated HTML, then export it directly to PDF. Decks and reports include a **Save as PDF** button; `scripts/export_pdf.py` also supports command-line export.
+- **Reference-based layouts.** A [design study of nine public documents from six consulting firms](references/consulting-design-study.md) informs the analytical slide and compact report templates.
+
+Explore the updated [nine-slide board deck (PDF)](examples/demo-deck.pdf), [one-page decision brief (PDF)](templates/reference-layouts/decision-brief.pdf), and [source HTML](templates/reference-layouts/decision-brief.html). See [HTML to PDF](#html-to-pdf) for export commands. Automated PDF export requires Python Playwright and installed Chrome or Chromium; core SVG/HTML generation has no third-party Python dependencies.
 
 ## Why This Gets Starred
 
@@ -323,3 +332,22 @@ This is an independent skill package. It is not affiliated with, endorsed by, or
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+### Reference-led slides and editable Word briefs
+
+The [six-firm design study](references/consulting-design-study.md) records actual pages and exhibits, with an explicit evidence trail. Use the [reproduction workflow](references/reference-reproduction.md) to choose a reference and compare hierarchy, geometry, chart encoding and pagination.
+
+[Working templates](templates/reference-layouts/) include an analytical chart with a commentary rail, compact HTML report, and editable A4 Word brief. Word export is optional and requires Node.js packages `docx` and `sharp`; core SVG/HTML rendering remains Python-standard-library only. Chart figures in Word are SVGs with PNG fallbacks, while text and tables remain editable.
+
+## HTML to PDF
+
+Use JSON for charts and Markdown for the narrative. Generate HTML, review it in the browser, and export that same HTML to PDF. HTML is the primary layout artifact; Word is an optional separate export. Reports use A4 print styles; decks use one 16:9 slide per page.
+
+```bash
+python3 -m pip install playwright
+python3 scripts/build_html_report.py templates/reference-layouts/decision-brief.md -o brief.html
+python3 scripts/export_pdf.py brief.html -o brief.pdf
+python3 scripts/export_pdf.py examples/demo-deck.html -o deck.pdf
+```
+
+PDF export requires installed Google Chrome or Chromium (`--browser /path/to/browser` for a custom executable). SVG and HTML generation remain Python-standard-library only. Alternatively, open the generated HTML, choose **Save as PDF**, and select the browser’s PDF destination. Inspect every page after changing content; longer reports may need deliberate page breaks.

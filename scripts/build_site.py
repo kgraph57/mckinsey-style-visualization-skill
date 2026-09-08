@@ -321,12 +321,26 @@ def build(root: Path, dest: Path) -> Path:
     _copy_tree_files(root / "examples" / "render-specs", dest / "specs", "*.json")
     for name in DEMO_HTML:
         shutil.copyfile(root / "examples" / name, dest / name)
+    shutil.copyfile(root / "examples" / "demo-deck.pdf", dest / "demo-deck.pdf")
     (dest / "py").mkdir(parents=True, exist_ok=True)
     for name in PY_RUNTIME:
         shutil.copyfile(root / "scripts" / name, dest / "py" / name)
     (dest / "prompt").mkdir(parents=True, exist_ok=True)
     for name in PROMPT_REFS:
         shutil.copyfile(root / "references" / name, dest / "prompt" / name)
+    for pattern in ("*.json", "*.md", "*.html", "*.svg", "*.docx", "*.pdf"):
+        _copy_tree_files(root / "templates" / "reference-layouts", dest / "reference-layouts", pattern)
+    (dest / "research").mkdir(parents=True, exist_ok=True)
+    for name in ("consulting-design-study.md", "consulting-reference-evidence.json", "reference-reproduction.md"):
+        shutil.copyfile(root / "references" / name, dest / "research" / name)
+    study = (root / "references" / "consulting-design-study.md").read_text(encoding="utf-8")
+    study = "---\ntitle: Consulting document design study\nreport_style: briefing\n---\n" + study.split("\n", 1)[1]
+    # Resolve navigation between the copied research notes and sample inputs.
+    study = study.replace("../templates/reference-layouts/", "../reference-layouts/")
+    loader = importlib.util.spec_from_file_location("build_html_report", root / "scripts" / "build_html_report.py")
+    report = importlib.util.module_from_spec(loader)
+    loader.loader.exec_module(report)
+    (dest / "research" / "index.html").write_text(report.build_report(study, root / "references"), encoding="utf-8")
     _build_ja_deck(root, dest)
     _copy_landing_deck_svgs(root, dest)
     _build_gallery_manifest(dest)

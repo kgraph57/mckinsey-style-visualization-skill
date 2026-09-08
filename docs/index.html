@@ -4,8 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
-      Strategy Consulting Visualization Skill — Messy notes in. Board-ready
-      slides out.
+      Consulting Visualization Skill — Your thinking. Ready for the room.
     </title>
     <meta
       name="description"
@@ -23,14 +22,15 @@
     <meta property="og:image" content="https://kgraph57.github.io/mckinsey-style-visualization-skill/site/og.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://kgraph57.github.io/mckinsey-style-visualization-skill/site/og.png" />
-    <link rel="stylesheet" href="./site/css/tokens.css" />
-    <link rel="stylesheet" href="./site/css/base.css" />
-    <link rel="stylesheet" href="./site/css/sections.css" />
+    <link rel="stylesheet" href="./site/css/tokens.css?v=20260908-navy" />
+    <link rel="stylesheet" href="./site/css/base.css?v=20260908-navy" />
+    <link rel="stylesheet" href="./site/css/sections.css?v=20260908-navy" />
+    <link rel="stylesheet" href="./site/css/catalog.css?v=20260908-navy" />
     <script type="module" src="./site/js/main.js"></script>
     <script type="module" src="./site/js/theater.js"></script>
-    <script type="module" src="./site/js/chat-demo.js"></script>
+    <script type="module" src="./site/js/showcase.js"></script>
   </head>
-  <body>
+  <body class="catalog-home">
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
@@ -40,6 +40,7 @@
         >
         <nav class="site-nav" aria-label="Site">
           <a href="./examples/">Examples</a>
+          <a href="#diagram-kit">Diagrams</a>
           <a href="./try/">Try</a>
           <a href="#start">Install</a>
           <a href="./ja/" id="lang-toggle" hreflang="ja">日本語</a>
@@ -56,25 +57,63 @@
     <main id="main">
       <section id="hero" aria-label="Introduction">
         <div class="wrap">
-          <div class="hd-intro">
-            <h1>Messy notes in.<br />Board-ready slides out.</h1>
-            <p class="lede">
-              One skill for your AI agent: turn notes, metrics, and prose into
-              consulting-grade visuals: real SVG slides, an animated HTML deck,
-              or a spec any designer can execute. Python standard library only.
-              Zero dependencies, zero API keys, zero network calls.
-            </p>
-            <p class="hd-actions">
-              <a class="btn btn-primary" href="#start">Install in 60 seconds</a>
-              <a
-                class="btn btn-ghost"
-                href="https://github.com/kgraph57/mckinsey-style-visualization-skill"
-                rel="noopener"
-                >★ Star on GitHub</a
-              >
-            </p>
+          <div class="hero-top">
+            <div class="hd-intro">
+              <span class="hero-badge"><span class="status-dot" aria-hidden="true"></span> THE OPEN-SOURCE PRESENTATION SKILL</span>
+              <h1>Your thinking.<br /><em>Ready for the room.</em></h1>
+            </div>
+            <div class="hero-pitch">
+              <p class="lede">Turn the notes you have into the slides you need. Clear charts, a coherent story, and a deck you can actually present.</p>
+              <p class="hd-actions"><a class="btn btn-primary" href="./try/">Try your own notes <span aria-hidden="true">↗</span></a><a class="btn btn-ghost" href="#start">Get the free skill</a></p>
+              <p class="agent-strip">Works with Claude Code, Codex &amp; Cursor.</p><p class="try-requirement">Browser generation uses your Anthropic API key.</p>
+            </div>
           </div>
+          <div class="showcase" id="showcase">
+            <div class="showcase-toolbar"><span class="showcase-label">FROM ROUGH NOTES TO A CLEAR POINT</span>
+              <div class="showcase-switches" role="group" aria-label="Choose an example" hidden>
+                <button type="button" data-example="growth" aria-pressed="true">Growth story</button>
+                <button type="button" data-example="summary" aria-pressed="false">Board decision</button>
+                <button type="button" data-example="priority" aria-pressed="false">Product strategy</button>
+              </div>
+            </div>
+            <div class="showcase-case" id="case-growth">
+              <div class="raw-note"><span class="case-kicker">01 / <span class="note-label">YOUR NOTES</span></span><pre>q4 board update
+arr was $10m, now $15m
+new enterprise +$3m
+expansion +$2.5m
+churn -$0.5m
 
+need to explain the growth</pre><span class="note-foot">Illustrative input</span></div>
+              <figure class="result-slide"><div class="result-heading"><span class="case-kicker output-label">THE SLIDE</span><a class="result-open" href="./site/artifacts/rendered/arr-waterfall.svg" target="_blank" rel="noopener">Open slide ↗</a></div><a class="slide-image-link" href="./site/artifacts/rendered/arr-waterfall.svg" target="_blank" rel="noopener"><img src="./site/artifacts/rendered/arr-waterfall.svg" alt="Enterprise growth lifts ARR from $10M to $15M" width="1280" height="720" fetchpriority="high" /></a><figcaption>The story behind the numbers.</figcaption></figure>
+            </div>
+            <div class="showcase-case" id="case-summary" hidden>
+              <div class="raw-note"><span class="case-kicker">02 / <span class="note-label">YOUR NOTES</span></span><pre>arr $10m → $15m (+50%)
+new enterprise +$3m
+adoption up in all 6 segments
+healthcare only at 28%
+onboarding covers 60% of commitments
+
+what should the board focus on?</pre><span class="note-foot">Illustrative input</span></div>
+              <figure class="result-slide"><div class="result-heading"><span class="case-kicker output-label">THE SLIDE</span><a class="result-open" href="./site/artifacts/rendered/executive-summary.svg" target="_blank" rel="noopener">Open slide ↗</a></div><a class="slide-image-link" href="./site/artifacts/rendered/executive-summary.svg" target="_blank" rel="noopener"><img src="./site/artifacts/rendered/executive-summary.svg" alt="Build capacity for the next growth phase" width="1280" height="720" loading="lazy" /></a><figcaption>Three signals. One decision.</figcaption></figure>
+            </div>
+            <div class="showcase-case" id="case-priority" hidden>
+              <div class="raw-note"><span class="case-kicker">03 / <span class="note-label">YOUR NOTES</span></span><pre>SSO: high impact, low effort
+bulk export: same
+mobile app: high effort
+dashboards: medium
+dark mode: low impact
+legacy migration: high effort, low impact
+
+where should product focus?</pre><span class="note-foot">Illustrative input · Positions are illustrative estimates</span></div>
+              <figure class="result-slide"><div class="result-heading"><span class="case-kicker output-label">THE SLIDE</span><a class="result-open" href="./site/artifacts/rendered/product-priority-two-by-two.svg" target="_blank" rel="noopener">Open slide ↗</a></div><a class="slide-image-link" href="./site/artifacts/rendered/product-priority-two-by-two.svg" target="_blank" rel="noopener"><img src="./site/artifacts/rendered/product-priority-two-by-two.svg" alt="Prioritize SSO and bulk export for enterprise customers" width="1280" height="720" loading="lazy" /></a><figcaption>Make the trade-offs visible.</figcaption></figure>
+            </div>
+            <div class="showcase-bottom"><span class="showcase-disclosure">Actual renderer output · Illustrative data</span><a class="showcase-spec" href="./site/artifacts/specs/arr-waterfall.json">Inspect the source JSON ↗</a></div>
+          </div>
+          <div class="proof-strip" aria-label="Included in the skill"><p><strong>22</strong><span class="proof-patterns">chart &amp; slide patterns</span></p><p><strong>6</strong><span class="proof-decks">complete deck templates</span></p><p><strong>4</strong><span class="proof-formats">ways to present your work</span></p><p><strong>MIT</strong><span class="proof-license">free to use &amp; adapt</span></p></div>
+        </div>
+      </section>
+      <section id="demo" aria-labelledby="demo-title"><div class="wrap">
+        <div class="section-intro"><span class="kicker">BEYOND A SINGLE SLIDE</span><h2 id="demo-title">A story, from opening to decision.</h2><p>Explore a complete nine-slide board deck. Every slide below is generated by the skill.</p></div>
           <div class="hd-theater" id="hd-theater" data-theater>
             <div class="hd-tabs" role="tablist" aria-label="Product demos">
               <button
@@ -249,91 +288,63 @@
         </div>
       </section>
 
-      <section id="console" aria-label="How it feels in chat">
-        <div class="wrap">
-          <div class="con-intro">
-            <span class="kicker">How it feels</span>
-            <h2>You ask in chat. The skill answers with a deck.</h2>
-            <p class="lede">
-              Not a form. The experience is: tell your agent what you need, and
-              it comes back with board-ready slides from this skill.
-            </p>
-          </div>
-
-          <div class="chat-demo" id="chat-demo" data-chat-demo>
-            <div class="chat-chrome" aria-hidden="true">
-              <span class="chrome-dot"></span>
-              <span class="chrome-dot"></span>
-              <span class="chrome-dot"></span>
-              <span class="chat-chrome-title"
-                >Agent · strategy-consulting-visualization</span
-              >
-            </div>
-
-            <div class="chat-thread" aria-live="polite">
-              <div class="chat-msg chat-msg-user" data-step="user" hidden>
-                <span class="chat-who" data-i18n="who-user">You</span>
-                <div class="chat-bubble" id="chat-user-text"></div>
-              </div>
-
-              <div class="chat-msg chat-msg-agent" data-step="thinking" hidden>
-                <span class="chat-who" data-i18n="who-agent">Agent</span>
-                <div class="chat-bubble chat-bubble-status">
-                  <span class="chat-dots" aria-hidden="true"
-                    ><i></i><i></i><i></i
-                  ></span>
-                  <span id="chat-status-text"
-                    >Using the visualization skill…</span
-                  >
-                </div>
-              </div>
-
-              <div class="chat-msg chat-msg-agent" data-step="reply" hidden>
-                <span class="chat-who" data-i18n="who-agent">Agent</span>
-                <div class="chat-bubble">
-                  <p id="chat-reply-text"></p>
-                  <ol
-                    class="chat-stack"
-                    id="chat-stack"
-                    aria-label="Slides in the generated deck"
-                  ></ol>
-                  <figure class="chat-slide">
-                    <div class="chat-slide-stage">
-                      <iframe
-                        id="chat-deck-frame"
-                        data-src="./site/artifacts/demo-deck.html?embed=1"
-                        title="Board deck generated from the chat request"
-                        sandbox="allow-scripts allow-same-origin"
-                        loading="lazy"
-                      ></iframe>
-                    </div>
-                    <figcaption>
-                      <span id="chat-slide-count">9 slides</span>
-                      <span aria-hidden="true"> · </span>
-                      <span id="chat-slide-caption">autoplaying</span>
-                    </figcaption>
-                  </figure>
-                </div>
-              </div>
-            </div>
-
-            <div class="chat-composer" aria-hidden="true">
-              <span class="chat-composer-fake">Ask for a board slide…</span>
-            </div>
-          </div>
-
-          <p class="chat-cta">
-            <a class="btn btn-primary" href="./try/">Try it with your notes</a>
-            <a class="btn btn-ghost" href="./examples/">See more examples</a>
-          </p>
+      <section id="reference-study" aria-labelledby="reference-study-title"><div class="wrap">
+        <span class="kicker">REAL OUTPUT. READY TO USE.</span>
+        <h2 id="reference-study-title">Walk into the meeting with the work done.</h2>
+        <p class="reference-intro">A growth review for the board. A one-page decision brief for the operating committee. See the actual deliverables, built in HTML and exported to PDF.</p>
+        <div class="deliverable-grid">
+          <article class="deliverable deck-deliverable">
+            <a class="deliverable-stage deck-stage" href="./site/artifacts/demo-deck.pdf" target="_blank" rel="noopener" aria-label="Open the nine-slide board deck PDF">
+              <img class="proof-slide-main" src="./site/artifacts/rendered/en/05-arr-waterfall.svg" alt="Growth review slide showing the drivers of ARR growth from $10M to $15M" width="1280" height="720" loading="lazy" />
+              <div class="proof-slide-strip"><img class="proof-summary" src="./site/artifacts/rendered/en/04-executive-summary.svg" alt="Executive summary with three decision signals" width="1280" height="720" loading="lazy" /><img class="proof-closing" src="./site/artifacts/rendered/en/08-board-closing.svg" alt="Closing slide with recommendations and next steps" width="1280" height="720" loading="lazy" /></div>
+            </a>
+            <div class="deliverable-caption"><span class="deck-format">01 / BOARD REVIEW · 9 SLIDES</span><h3 class="deck-proof-title">Explain the numbers. Make the case.</h3><p class="deck-proof-copy">Connect growth drivers, adoption and capacity to the decisions your board needs to make.</p><a class="reference-deck-pdf" href="./site/artifacts/demo-deck.pdf" target="_blank" rel="noopener">View the full deck · PDF ↗</a></div>
+          </article>
+          <article class="deliverable brief-deliverable">
+            <a class="deliverable-stage brief-stage" href="./site/artifacts/reference-layouts/decision-brief.pdf" target="_blank" rel="noopener" aria-label="Open the one-page decision brief PDF"><img src="./site/decision-brief-preview.png" alt="Complete A4 decision brief with a recommendation, capacity chart and accountable owners" width="953" height="1347" loading="lazy" /></a>
+            <div class="deliverable-caption"><span class="brief-format">02 / DECISION BRIEF · 1 A4 PAGE</span><h3 class="brief-proof-title">Give the decision a clear next step.</h3><p class="brief-proof-copy">Put the recommendation, supporting evidence and accountable owners on one readable page.</p><a class="reference-pdf" href="./site/artifacts/reference-layouts/decision-brief.pdf" target="_blank" rel="noopener">View the one-page brief · PDF ↗</a></div>
+          </article>
         </div>
-      </section>
+        <div class="proof-footer"><p class="proof-note">Actual generated files · Illustrative business data · English samples</p><a class="reference-html" href="./site/artifacts/reference-layouts/decision-brief.html" target="_blank" rel="noopener">Explore the editable HTML ↗</a></div>
+        <div class="proof-method"><p class="proof-method-copy">Create in HTML. Share as PDF. Refine the narrative and charts with AI, review in your browser, and export the finished work.</p><a class="reference-evidence" href="./site/artifacts/research/index.html">Explore the consulting design study ↗</a></div>
+      </div></section>
+      <section id="library" aria-labelledby="library-title"><div class="wrap">
+          <div class="library-heading"><div><span class="kicker">The visual library</span>
+          <h2 id="library-title">Find the right shape for your idea.</h2>
+          <p class="library-lede">Growth reviews, vendor comparisons, roadmaps. Start with a pattern built for the question.</p></div>
+          <a class="library-all" href="./examples/">All examples ↗</a></div>
+          <div class="gal-filters" role="group" aria-label="Filter examples">
+<button type="button" class="gal-chip is-active" data-filter="all" aria-pressed="true">All examples</button>
+<button type="button" class="gal-chip" data-filter="charts" aria-pressed="false">Charts</button>
+<button type="button" class="gal-chip" data-filter="scorecards" aria-pressed="false">Summaries & comparisons</button>
+<button type="button" class="gal-chip" data-filter="flows" aria-pressed="false">Strategy & planning</button>
+<button type="button" class="gal-chip" data-filter="deck" aria-pressed="false">Presentations</button>
+</div><div class="gal-grid">
+<a class="gal-card" data-family="charts" id="sample-arr-waterfall" href="./site/artifacts/rendered/arr-waterfall.svg" target="_blank" rel="noopener"><div class="sample-image"><img src="./site/artifacts/rendered/arr-waterfall.svg" alt="ARR waterfall" loading="lazy" width="1600" height="900" /></div><span class="sample-title">ARR waterfall<span aria-hidden="true">↗</span></span><span class="sample-description">SVG · Open preview</span></a>
+<a class="gal-card" data-family="charts" id="sample-pricing-retention-scatter" href="./site/artifacts/rendered/pricing-retention-scatter.svg" target="_blank" rel="noopener"><div class="sample-image"><img src="./site/artifacts/rendered/pricing-retention-scatter.svg" alt="Pricing & retention" loading="lazy" width="1600" height="900" /></div><span class="sample-title">Pricing & retention<span aria-hidden="true">↗</span></span><span class="sample-description">SVG · Open preview</span></a>
+<a class="gal-card" data-family="scorecards" id="sample-executive-summary" href="./site/artifacts/rendered/executive-summary.svg" target="_blank" rel="noopener"><div class="sample-image"><img src="./site/artifacts/rendered/executive-summary.svg" alt="Executive summary" loading="lazy" width="1600" height="900" /></div><span class="sample-title">Executive summary<span aria-hidden="true">↗</span></span><span class="sample-description">SVG · Open preview</span></a>
+<a class="gal-card" data-family="scorecards" id="sample-vendor-benchmark" href="./site/artifacts/rendered/vendor-benchmark.svg" target="_blank" rel="noopener"><div class="sample-image"><img src="./site/artifacts/rendered/vendor-benchmark.svg" alt="Vendor benchmark" loading="lazy" width="1600" height="900" /></div><span class="sample-title">Vendor benchmark<span aria-hidden="true">↗</span></span><span class="sample-description">SVG · Open preview</span></a>
+<a class="gal-card" data-family="flows" id="sample-pmo-rollout-gantt" href="./site/artifacts/rendered/pmo-rollout-gantt.svg" target="_blank" rel="noopener"><div class="sample-image"><img src="./site/artifacts/rendered/pmo-rollout-gantt.svg" alt="Project roadmap" loading="lazy" width="1600" height="900" /></div><span class="sample-title">Project roadmap<span aria-hidden="true">↗</span></span><span class="sample-description">SVG · Open preview</span></a>
+<a class="gal-card" data-family="flows" id="sample-product-priority-two-by-two" href="./site/artifacts/rendered/product-priority-two-by-two.svg" target="_blank" rel="noopener"><div class="sample-image"><img src="./site/artifacts/rendered/product-priority-two-by-two.svg" alt="Priority matrix" loading="lazy" width="1600" height="900" /></div><span class="sample-title">Priority matrix<span aria-hidden="true">↗</span></span><span class="sample-description">SVG · Open preview</span></a>
+<a class="gal-card" data-family="deck" id="sample-board-deck-cover" href="./site/artifacts/rendered/board-deck-cover.svg" target="_blank" rel="noopener"><div class="sample-image"><img src="./site/artifacts/rendered/board-deck-cover.svg" alt="Board presentation" loading="lazy" width="1600" height="900" /></div><span class="sample-title">Board presentation<span aria-hidden="true">↗</span></span><span class="sample-description">SVG · Open preview</span></a>
+<a class="gal-card" data-family="scorecards" id="sample-jp-board-summary" href="./site/artifacts/rendered/jp-board-summary.svg" target="_blank" rel="noopener"><div class="sample-image"><img src="./site/artifacts/rendered/jp-board-summary.svg" alt="Japanese board summary" loading="lazy" width="1600" height="900" /></div><span class="sample-title">Japanese board summary<span aria-hidden="true">↗</span></span><span class="sample-description">SVG · Open preview</span></a>
+</div></div></section>
+      <section id="diagram-kit" aria-labelledby="diagram-title"><div class="wrap"><span class="kicker">EDITABLE DIAGRAM STARTERS</span><h2 id="diagram-title">Choose a diagram. Make it yours.</h2><p class="diagram-help">Download the JSON and place it in your installed skill folder. Edit the labels and data, then run the command below. SVG previews open at full size.</p><div class="diagram-grid">
+<article id="diagram-flow" class="diagram-card"><a href="./site/artifacts/rendered/onboarding-flow.svg" target="_blank" rel="noopener"><img src="./site/artifacts/rendered/onboarding-flow.svg" alt="Process flow preview" loading="lazy" width="1280" height="720" /></a><h3>Process flow</h3><p class="diagram-description">Show the steps, the owner, and the bottleneck.</p><div class="diagram-links"><a class="diagram-json" href="./site/artifacts/specs/onboarding-flow.json" download="onboarding-flow.json">Download editable JSON ↓</a><a class="diagram-svg" href="./site/artifacts/rendered/onboarding-flow.svg" download="onboarding-flow.svg">SVG ↓</a></div><div class="diagram-command"><code id="command-flow">python3 scripts/render_slide_spec.py onboarding-flow.json -o flow.svg</code><button type="button" data-copy="#command-flow">Copy command</button></div></article>
+<article id="diagram-matrix" class="diagram-card"><a href="./site/artifacts/rendered/product-priority-two-by-two.svg" target="_blank" rel="noopener"><img src="./site/artifacts/rendered/product-priority-two-by-two.svg" alt="Priority matrix preview" loading="lazy" width="1280" height="720" /></a><h3>Priority matrix</h3><p class="diagram-description">Compare options without overlapping labels.</p><div class="diagram-links"><a class="diagram-json" href="./site/artifacts/specs/product-priority-two-by-two.json" download="product-priority-two-by-two.json">Download editable JSON ↓</a><a class="diagram-svg" href="./site/artifacts/rendered/product-priority-two-by-two.svg" download="product-priority-two-by-two.svg">SVG ↓</a></div><div class="diagram-command"><code id="command-matrix">python3 scripts/render_slide_spec.py product-priority-two-by-two.json -o matrix.svg</code><button type="button" data-copy="#command-matrix">Copy command</button></div></article>
+<article id="diagram-roadmap" class="diagram-card"><a href="./site/artifacts/rendered/pmo-rollout-gantt.svg" target="_blank" rel="noopener"><img src="./site/artifacts/rendered/pmo-rollout-gantt.svg" alt="Project roadmap preview" loading="lazy" width="1280" height="720" /></a><h3>Project roadmap</h3><p class="diagram-description">Align workstreams with dates and decision gates.</p><div class="diagram-links"><a class="diagram-json" href="./site/artifacts/specs/pmo-rollout-gantt.json" download="pmo-rollout-gantt.json">Download editable JSON ↓</a><a class="diagram-svg" href="./site/artifacts/rendered/pmo-rollout-gantt.svg" download="pmo-rollout-gantt.svg">SVG ↓</a></div><div class="diagram-command"><code id="command-roadmap">python3 scripts/render_slide_spec.py pmo-rollout-gantt.json -o roadmap.svg</code><button type="button" data-copy="#command-roadmap">Copy command</button></div></article>
+</div></div></section>
+      <section id="console" aria-labelledby="outcome-title"><div class="wrap outcome-layout"><div><span class="kicker">MADE FOR REAL WORK</span><h2 id="outcome-title">Keep the thinking.<br />Skip the formatting.</h2><a class="outcome-cta" href="./try/">Try it with your notes ↗</a></div><div class="outcomes">
+          <article><span class="outcome-num">01</span><div><h3>A point on every page.</h3><p>Insight-led headlines connect the evidence to the decision. Each slide has a job in the story.</p></div></article>
+          <article><span class="outcome-num">02</span><div><h3>Numbers you can inspect.</h3><p>Charts render from readable JSON. Trace the inputs, review the assumptions, and update the data.</p></div></article>
+          <article><span class="outcome-num">03</span><div><h3>Your work, ready to share.</h3><p>Present an HTML deck, print to PDF, or insert SVG charts into PowerPoint. The local renderer needs no API key.</p></div></article>
+        </div></div></section>
 
       <section id="pipeline" aria-label="Pipeline">
         <div class="pl-pin">
           <div class="wrap">
             <span class="kicker">The pipeline</span>
-            <h2>Notes in, board-ready out</h2>
+            <h2>From your notes to your next meeting</h2>
             <ol class="pl-flow">
               <li class="pl-step">
                 <span class="pl-num">01</span>
@@ -371,11 +382,12 @@
       <section id="start" aria-label="Get started">
         <div class="wrap">
           <span class="kicker">60-second start</span>
-          <h2>Install it. Render it. Deck it.</h2>
+          <h2>Your next deck starts here.</h2>
           <div class="st-shell">
             <pre
               class="st-term"
             ><code id="st-commands"><span class="st-line">git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization</span>
+<span class="st-line">cd ~/.claude/skills/strategy-consulting-visualization</span>
 <span class="st-line">python3 scripts/render_slide_spec.py examples/render-specs/arr-waterfall.json -o slide.svg</span>
 <span class="st-line">python3 scripts/build_html_deck.py --manifest examples/demo-deck.json -o deck.html</span></code></pre>
             <button class="st-copy" type="button" data-copy="#st-commands">
@@ -394,18 +406,7 @@
     <footer id="footer" class="site-footer">
       <div class="ft-shell">
         <div class="wrap">
-          <p class="ft-cta">
-            If this turned your rough notes into a usable slide, star the repo.
-            Stars are how people find tools that actually render.
-          </p>
-          <p class="ft-actions">
-            <a
-              class="btn btn-primary"
-              href="https://github.com/kgraph57/mckinsey-style-visualization-skill"
-              rel="noopener"
-              >★ Star on GitHub</a
-            >
-          </p>
+          <p class="ft-cta">Bring your next idea into focus.</p><p class="ft-subtitle">One open-source skill. A clearer way to present your work.</p><p class="ft-actions"><a class="btn btn-primary" href="#start">Get the free skill ↗</a><a class="btn btn-ghost" href="https://github.com/kgraph57/mckinsey-style-visualization-skill">Explore on GitHub</a></p>
           <hr class="ft-divider" />
           <div class="ft-small">
             <p class="ft-line">MIT License.</p>

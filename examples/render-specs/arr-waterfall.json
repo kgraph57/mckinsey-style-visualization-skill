@@ -1,15 +1,29 @@
 {
   "pattern": "waterfall",
-  "headline": "Enterprise acquisition and expansion added $5.5M ARR, more than offsetting $0.5M churn",
-  "subline": "ARR bridge, Q1 to Q4",
+  "headline": "Enterprise growth lifts ARR from $10M to $15M",
+  "subline": "FY26 ARR bridge · $ millions",
   "unit": "$M",
-  "start": {"label": "Q1 ARR", "value": 10.0},
+  "start": {
+    "label": "Q1 ARR",
+    "value": 10.0
+  },
   "drivers": [
-    {"label": "Enterprise new customers", "value": 3.0},
-    {"label": "Existing customer expansion", "value": 2.5},
-    {"label": "Churn", "value": -0.5}
+    {
+      "label": "New enterprise",
+      "value": 3.0
+    },
+    {
+      "label": "Expansion",
+      "value": 2.5
+    },
+    {
+      "label": "Churn",
+      "value": -0.5
+    }
   ],
   "end_label": "Q4 ARR",
-  "annotation": "Net +$5.0M ARR; the growth engine is enterprise-led.",
-  "source": "Source: user-provided internal ARR metrics."
+  "annotation": "+$5M net ARR growth · New enterprise accounts contribute 60% of the net gain.",
+  "source": "Source: illustrative ARR data; not a real company.",
+  "page_number": 5,
+  "theme": "executive"
 }

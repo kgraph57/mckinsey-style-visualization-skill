@@ -6,7 +6,7 @@
 
 AIエージェントに載せるひとつのスキルで、メモ・数値・文章をコンサル品質のビジュアルに変換 — 本物のSVGスライドとして、**アニメーション付きHTMLデッキ**として、あるいはデザイナーやツールがそのまま実行できるスペックとして。
 
-Python 3 標準ライブラリのみ。**依存ゼロ・APIキー不要・ネットワーク通信なし。**
+SVG・HTMLの生成はPython 3 標準ライブラリのみ。**APIキー不要・ネットワーク通信なし。** PDFの自動出力には追加のブラウザ依存があります。
 
 [![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/badge/Release-v2.4.0-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.4.0)
@@ -18,6 +18,15 @@ Python 3 標準ライブラリのみ。**依存ゼロ・APIキー不要・ネッ
 _このリポジトリだけで作った実物のデッキ: `スペック(JSON) → SVGスライド → アニメ付きHTMLデッキ`。手描きは一切なし。_
 
 </div>
+
+## 更新内容 — 2026年9月8日
+
+- **ビジネス向けスライド・図解を改善。** エグゼクティブサマリー、成長要因のウォーターフォール、優先順位マトリクス、業務フロー、ロードマップの情報階層・ラベル・判断の示し方を調整。英語・日本語のサイト用デッキとプレビューを最新レンダラーから再生成しました。
+- **完成資料をサイトで紹介。** スライドの実物プレビューとA4資料の全体像を並べ、完成したPDFを開けるようにしました。掲載資料は架空のビジネスデータによるサンプルです。
+- **HTMLで作り、PDFで配布。** 図表はJSON、本文はMarkdownで管理し、生成したHTMLを調整してPDFへ直接出力できます。デッキ・レポートにPDF保存ボタンを追加し、`scripts/export_pdf.py` によるコマンド出力にも対応しました。
+- **公開資料の調査をレイアウトに反映。** [コンサルティング6社・公開資料9本のデザイン調査](references/consulting-design-study.md)をもとに、分析スライドとコンパクトなレポートのテンプレートを追加しました。
+
+[役員会向けスライド9枚（PDF）](examples/demo-deck.pdf)・[意思決定資料A4一枚（PDF）](templates/reference-layouts/decision-brief.pdf)・[編集元のHTML](templates/reference-layouts/decision-brief.html)を確認できます。出力コマンドは[HTML to PDF（英語）](README.md#html-to-pdf)を参照してください。PDFの自動出力にはPython PlaywrightとChromeまたはChromiumが必要です。SVG・HTMLの生成は引き続きPython標準ライブラリのみで動作します。
 
 ## スターされる理由
 

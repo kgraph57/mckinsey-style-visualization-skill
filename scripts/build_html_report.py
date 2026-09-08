@@ -18,7 +18,8 @@ Front matter (optional; must be the first lines of the file):
     lang: en
     ---
 
-Recognized keys: title, subtitle, author, date, classification, lang.
+Recognized keys: title, subtitle, author, date, classification, lang,
+report_style (classic/briefing/editorial), exhibit_mode (slide/compact).
 Unrecognized keys are read but ignored (never an error). A first line other
 than a bare `---`, or a `---` fence that never closes, means "no front
 matter" -- the whole input is read as the document body instead of raising.
@@ -463,7 +464,7 @@ def _strip_for_inline_embed(svg: str) -> str:
     return svg
 
 
-def _render_exhibit(match: re.Match, number: int, base_dir: Path) -> str:
+def _render_exhibit(match: re.Match, number: int, base_dir: Path, compact: bool = False) -> str:
     caption_raw = match.group("caption")
     scheme = match.group("scheme")
     rel_path = match.group("path").strip()
@@ -478,10 +479,12 @@ def _render_exhibit(match: re.Match, number: int, base_dir: Path) -> str:
         except json.JSONDecodeError as exc:
             raise ReportBuildError(f"exhibit spec is not valid JSON: {rel_path} ({exc})") from exc
         try:
-            svg = _renderer.render(spec_data)
+            svg = _renderer.render_exhibit(spec_data) if compact else _renderer.render(spec_data)
         except Exception as exc:  # noqa: BLE001 - any render failure is a hard error naming the path
             raise ReportBuildError(f"exhibit spec failed to render: {rel_path} ({exc})") from exc
     else:  # scheme == "svg"
+        if compact:
+            raise ReportBuildError("compact exhibits require spec: JSON so captions and sources remain editable")
         svg = target.read_text(encoding="utf-8")
         if "<svg" not in svg:
             raise ReportBuildError(f"exhibit file is not an SVG: {rel_path}")
@@ -489,10 +492,25 @@ def _render_exhibit(match: re.Match, number: int, base_dir: Path) -> str:
     svg = _strip_for_inline_embed(svg)
     caption_html = esc(caption_raw)
     label = f"Exhibit {number} — {caption_html}" if caption_html else f"Exhibit {number}"
+    detail = ""
+    if compact:
+        subline = spec_data.get("subline", "")
+        if subline:
+            detail = f'<p class="exhibit-subline">{esc(subline)}</p>'
+        notes = [*spec_data.get("footnotes", []), spec_data.get("source", "")]
+        source_html = "".join(f'<p class="exhibit-source">{esc(note)}</p>' for note in notes if note)
+        if spec_data.get("commentary"):
+            rail = spec_data["commentary"]
+            source_html += f'<p class="exhibit-implication">{esc(rail["title"])}</p>'
+            source_html += "".join(f'<p class="exhibit-commentary">{esc(point)}</p>' for point in rail["points"])
+        implication = spec_data.get("annotation", "")
+        if implication:
+            source_html += f'<p class="exhibit-implication">{esc(implication)}</p>'
+        return f'<figure class="exhibit compact"><figcaption>{label}</figcaption>{detail}{svg}{source_html}</figure>'
     return f'<figure class="exhibit"><figcaption>{label}</figcaption>{svg}</figure>'
 
 
-def render_body(blocks: list[tuple], base_dir: Path) -> tuple[str, list[tuple[int, str, str]]]:
+def render_body(blocks: list[tuple], base_dir: Path, compact: bool = False) -> tuple[str, list[tuple[int, str, str]]]:
     """Render parsed blocks to HTML.
 
     Returns ``(html, toc)`` where ``toc`` is ``[(number, heading_html, slug), ...]``
@@ -553,7 +571,7 @@ def render_body(blocks: list[tuple], base_dir: Path) -> tuple[str, list[tuple[in
                 exhibit_match = EXHIBIT_RE.match(lines[0].strip())
                 if exhibit_match:
                     exhibit_count += 1
-                    html_parts.append(_render_exhibit(exhibit_match, exhibit_count, base_dir))
+                    html_parts.append(_render_exhibit(exhibit_match, exhibit_count, base_dir, compact))
                     continue
             joined = " ".join(line.strip() for line in lines)
             html_parts.append(f"<p>{inline_html(joined)}</p>")
@@ -713,6 +731,45 @@ figure.exhibit svg { display: block; width: 100%; height: auto; }
 }
 """
 
+REPORT_STYLE = """
+.exhibit.compact figcaption { font-size: 18px; font-weight: 700; letter-spacing: 0; font-variant: normal; color: var(--ink); }
+.exhibit-subline { font-size: 13px; margin: 0 0 12px; }
+.exhibit-source { font-size: 11px; line-height: 1.4; color: var(--muted); margin: 4px 0; }
+.exhibit-implication { font-size: 14px; font-weight: 600; margin: 14px 0 0; }
+.report-briefing .title-band, .report-editorial .title-band { background: white; color: var(--ink); border-bottom: 1px solid var(--rule-strong); }
+.report-briefing .title-band h1, .report-editorial .title-band h1 { color: var(--ink); font-family: var(--sans); font-weight: 700; }
+.report-briefing .title-band .subtitle, .report-editorial .title-band .subtitle,
+.report-briefing .title-band .meta, .report-editorial .title-band .meta,
+.report-briefing .title-band .classification, .report-editorial .title-band .classification { color: var(--muted); }
+.report-briefing h2, .report-editorial h2 { font-family: var(--sans); }
+.report-briefing .toc { display: none; }
+.report-briefing .title-band-inner { max-width: 820px; padding: 40px 32px 32px; }
+.report-briefing .title-band .classification { position: static; margin-bottom: 16px; }
+.report-briefing h2 { margin-top: 40px; }
+@media print {
+  .report-briefing .title-band { min-height: 0; break-after: auto; page-break-after: auto; display: block; }
+  .report-briefing .title-band-inner { padding: 0 0 4mm; }
+  .report-briefing .title-band h1 { font-size: 22pt; }
+  .report-briefing .title-band .subtitle { font-size: 11pt; margin: 2mm 0; }
+  .report-briefing .title-band .meta { font-size: 8.5pt; margin: 2mm 0; }
+  .report-briefing .exhibit-commentary { display: inline; font-size: 10.5pt; }
+  .report-briefing .exhibit-commentary + .exhibit-commentary::before { content: " "; }
+  .report-briefing .title-band .classification { position: static; margin-bottom: 4mm; }
+  .report-briefing .doc { padding-top: 2mm; }
+  .report-briefing h2 { font-size: 13pt; margin: 5mm 0 2mm; padding: 0; border: 0; }
+  .report-briefing p { margin: 2.5mm 0; line-height: 1.5; }
+  .report-briefing .exhibit.compact { margin: 4mm 0; padding: 0; border: 0; }
+  .report-briefing td, .report-briefing th { padding: 4px 6px 4px 0; }
+  .report-briefing .table-scroll { margin: 2mm 0; }
+  .report-briefing table { margin: 0; line-height: 1.35; font-size: 10.5pt; }
+  .report-editorial .doc-main { column-count: 2; column-gap: 7mm; }
+  .report-editorial .exhibit, .report-editorial .table-scroll { column-span: all; }
+  .exhibit.compact figcaption { font-size: 12pt; }
+  .exhibit-subline { font-size: 9pt; }
+  .exhibit-source { font-size: 7.5pt; }
+}
+"""
+
 TOC_SCRIPT = """
 (function () {
   var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
@@ -753,10 +810,16 @@ def build_report(markdown_text: str, base_dir: Path, lang_override: str | None =
         lang = "en"
 
     blocks = _split_blocks(body_text)
-    body_html, toc = render_body(blocks, base_dir)
+    report_style = front.get("report_style", "classic")
+    exhibit_mode = front.get("exhibit_mode", "slide")
+    if report_style not in ("classic", "briefing", "editorial"):
+        raise ReportBuildError("report_style must be classic, briefing, or editorial")
+    if exhibit_mode not in ("slide", "compact"):
+        raise ReportBuildError("exhibit_mode must be slide or compact")
+    body_html, toc = render_body(blocks, base_dir, exhibit_mode == "compact")
 
     toc_html = ""
-    if toc:
+    if toc and report_style != "briefing":
         items_html = "".join(
             f'<li><a href="#{esc(slug)}">{number}. {heading_html}</a></li>'
             for number, heading_html, slug in toc
@@ -789,15 +852,23 @@ def build_report(markdown_text: str, base_dir: Path, lang_override: str | None =
     script_html = f"<script>{TOC_SCRIPT}</script>" if toc_html else ""
     body_class = ' class="lang-ja"' if lang == "ja" else ""
 
+    if report_style != "classic":
+        body_class = f' class="report-{report_style}{" lang-ja" if lang == "ja" else ""}"'
+    extra_style = REPORT_STYLE if report_style != "classic" or exhibit_mode == "compact" else ""
     return f"""<!DOCTYPE html>
 <html lang="{lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)}</title>
-<style>{STYLE}</style>
+<style>{STYLE}{extra_style}
+.export-toolbar {{ padding: 12px 24px; text-align: right; background: #f4f5f5; }}
+.export-toolbar button {{ font: inherit; padding: 8px 16px; border: 1px solid #bcc4c8; border-radius: 4px; background: white; cursor: pointer; }}
+@media print {{ .export-toolbar {{ display: none; }} }}
+</style>
 </head>
 <body{body_class}>
+<div class="export-toolbar"><button type="button" onclick="window.print()">{"PDFとして保存" if lang == "ja" else "Save as PDF"}</button></div>
 {title_band}
 <main class="doc">
 {toc_html}

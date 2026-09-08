@@ -1,8 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Adoption rises in every segment, but healthcare lags the pack">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Adoption grows across every segment">
   <rect width="1280" height="720" fill="#FFFFFF"/>
-  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Adoption rises in every segment, but healthcare</text>
-  <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">lags the pack</text>
-  <text x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">AI workflow adoption by segment, Q1-Q4 (%, shared scale)</text>
+  <text x="80.0" y="96.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Adoption grows across every segment</text>
+  <text x="80.0" y="124.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">Workflow adoption · Q1–Q4 · % of accounts, shared scale</text>
   <text x="80.0" y="226.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="600" text-anchor="start"><title>Financial services</title>Financial services</text>
   <line x1="80.0" y1="339.0" x2="434.7" y2="339.0" stroke="#D1D5DB"/>
   <polyline points="80.0,311.4 198.2,295.1 316.4,275.0 434.7,253.7" fill="none" stroke="#6B7280" stroke-width="2.5"/>
@@ -39,6 +38,7 @@
   <circle cx="1200.0" cy="461.8" r="4" fill="#6B7280"/>
   <text x="1200.0" y="540.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="bold" text-anchor="end">44%</text>
   <text x="845.3" y="540.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="normal" text-anchor="start">10%</text>
-  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Healthcare needs a compliance-first playbook before the pattern generalizes.</title>Healthcare needs a compliance-first playbook before the pattern generalizes.</text>
-  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">Source: user-provided segment telemetry.</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Healthcare reaches 28%; investigate the adoption gap before expanding rollout.</title>Healthcare reaches 28%; investigate the adoption gap before expanding rollout.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">Source: illustrative segment data; not a real company.</text>
+  <text x="1200.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="end">6</text>
 </svg>

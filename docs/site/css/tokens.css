@@ -1,14 +1,27 @@
 :root {
-  --navy: #15296b;
-  --blue: #2563eb;
-  --ink: #000000;
-  --grey-700: #374151;
-  --grey-500: #6b7280;
-  --grey-300: #d1d5db;
-  --fill: #f3f4f6;
-  --tint: #eff3fb;
+  /* Shared website palette. Slide artwork retains its own presentation theme. */
+  --accent: #15296B;
+  --accent-hover: #101F52;
+  --ink: #202327;
+  --muted: #626773;
+  --border: #D8DCE3;
+  --canvas: #FFFFFF;
+  --surface: #ffffff;
+  --surface-soft: #F3F4F6;
+  --surface-raised: #F8F9FB;
+  --surface-hover: #E8EBF1;
+  --stage: #ECEEF2;
+  --dark: #101827;
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --navy: var(--accent);
+  --blue: var(--accent);
+  --grey-700: #414957;
+  --grey-500: var(--muted);
+  --grey-300: var(--border);
+  --fill: var(--surface-soft);
+  --tint: var(--surface-soft);
   --risk: #b91c1c;
-  --paper: #ffffff;
+  --paper: var(--surface);
 
   --serif:
     Georgia, "Times New Roman", "Hiragino Mincho ProN", "Yu Mincho", serif;

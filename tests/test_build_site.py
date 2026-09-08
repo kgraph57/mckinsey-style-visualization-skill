@@ -57,7 +57,7 @@ class BuildSiteTests(unittest.TestCase):
         self.assertIn("メモがそのまま", html)
         self.assertNotIn('"./site/', html)
         self.assertIn('"../site/artifacts/ja-deck.html?embed=1"', html)
-        self.assertIn("チャットで頼む", html)
+        self.assertIn("考える時間を、", html)
         self.assertIn('href="../"', html)
         self.assertIn("リポジトリ", html)
         self.assertIn("MITライセンス", html)
@@ -68,7 +68,7 @@ class BuildSiteTests(unittest.TestCase):
         self.assertIn("メモを入れる", html)
         self.assertNotIn('"./site/', html)
         self.assertNotIn('"../site/', html)
-        self.assertIn('"../../site/css/try.css"', html)
+        self.assertRegex(html, r'"\.\./\.\./site/css/try\.css(?:\?[^"]+)?"')
         self.assertIn('href="../../try/"', html)
 
     def test_try_runtime_assets_copied(self):

@@ -1,8 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Price level does not explain churn; onboarding depth does">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Supported cohorts show higher retention">
   <rect width="1280" height="720" fill="#FFFFFF"/>
-  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Price level does not explain churn; onboarding</text>
-  <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">depth does</text>
-  <text x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">Accounts by contract price and 12-month retention</text>
+  <text x="80.0" y="96.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Supported cohorts show higher retention</text>
+  <text x="80.0" y="124.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">Six illustrative cohorts · Annual price and 12-month retention</text>
   <line x1="130.0" y1="560.0" x2="1150.0" y2="560.0" stroke="#374151"/>
   <line x1="130.0" y1="208.0" x2="130.0" y2="560.0" stroke="#374151"/>
   <text x="640.0" y="604.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="600" text-anchor="middle">Contract price ($k / yr)</text>
@@ -23,6 +22,6 @@
   <text x="1064.7" y="272.1" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="end"><title>White-glove</title>White-glove</text>
   <circle cx="200.3" cy="535.7" r="7" fill="#6B7280"/>
   <text x="215.3" y="542.7" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start"><title>Starter</title>Starter</text>
-  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Retention clusters by onboarding model, not by price band.</title>Retention clusters by onboarding model, not by price band.</text>
-  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">Source: user-provided account cohort data.</text>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Association only: cohort differences do not establish an onboarding effect.</title>Association only: cohort differences do not establish an onboarding effect.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">Source: illustrative cohort data; not measured customer outcomes.</text>
 </svg>

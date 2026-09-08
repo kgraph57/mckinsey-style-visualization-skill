@@ -12,17 +12,17 @@
   {
     "file": "arr-waterfall.svg",
     "pattern": "waterfall",
-    "headline": "Enterprise acquisition and expansion added $5.5M ARR, more than offsetting $0.5M churn"
+    "headline": "Enterprise growth lifts ARR from $10M to $15M"
   },
   {
     "file": "board-closing.svg",
     "pattern": "closing",
-    "headline": "Decide the pilot now, scale in Q3"
+    "headline": "Close the capacity gap before raising growth targets"
   },
   {
     "file": "board-deck-cover.svg",
     "pattern": "cover",
-    "headline": "FY26 Growth Review"
+    "headline": "Growth needs capacity."
   },
   {
     "file": "capacity-gap.svg",
@@ -42,7 +42,7 @@
   {
     "file": "deck-end-cover.svg",
     "pattern": "end_cover",
-    "headline": "Thank you"
+    "headline": "Make room for growth."
   },
   {
     "file": "eng-incident-flow.svg",
@@ -52,7 +52,7 @@
   {
     "file": "executive-summary.svg",
     "pattern": "summary_strip",
-    "headline": "Capacity, not demand, is now the binding constraint on Q4 growth"
+    "headline": "Build capacity for the next growth phase"
   },
   {
     "file": "hr-talent-scorecard.svg",
@@ -72,27 +72,27 @@
   {
     "file": "onboarding-flow.svg",
     "pattern": "process_flow",
-    "headline": "Onboarding stalls at integration setup, where one team owns every enterprise account"
+    "headline": "Integration is the onboarding bottleneck"
   },
   {
     "file": "phase-divider.svg",
     "pattern": "section_divider",
-    "headline": "Where to play"
+    "headline": "Growth, then capacity."
   },
   {
     "file": "pmo-rollout-gantt.svg",
     "pattern": "gantt",
-    "headline": "ERP rollout slips two months unless data migration starts before vendor sign-off"
+    "headline": "Sequence six workstreams around two decision gates"
   },
   {
     "file": "pricing-retention-scatter.svg",
     "pattern": "scatter",
-    "headline": "Price level does not explain churn; onboarding depth does"
+    "headline": "Supported cohorts show higher retention"
   },
   {
     "file": "product-priority-two-by-two.svg",
     "pattern": "two_by_two",
-    "headline": "Two features deliver high impact at low effort; ship them before the platform rewrite"
+    "headline": "Prioritize SSO and bulk export for enterprise customers"
   },
   {
     "file": "research-outcomes-before-after.svg",
@@ -112,16 +112,16 @@
   {
     "file": "segment-adoption-multiples.svg",
     "pattern": "small_multiples",
-    "headline": "Adoption rises in every segment, but healthcare lags the pack"
+    "headline": "Adoption grows across every segment"
   },
   {
     "file": "strategy-agenda.svg",
     "pattern": "agenda",
-    "headline": "Three questions decide this investment"
+    "headline": "Three questions for the Q4 decision"
   },
   {
     "file": "vendor-benchmark.svg",
     "pattern": "benchmark_table",
-    "headline": "Vendor B leads on integration depth and support; Vendor A wins only on list price"
+    "headline": "Vendor B leads on integration and support"
   }
 ]

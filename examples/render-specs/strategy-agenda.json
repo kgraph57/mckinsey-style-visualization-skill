@@ -1,13 +1,22 @@
 {
   "pattern": "agenda",
-  "headline": "Three questions decide this investment",
+  "headline": "Three questions for the Q4 decision",
   "items": [
-    {"title": "Context", "detail": "What changed since January"},
-    {"title": "Options", "detail": "Three entry paths, one recommendation"},
-    {"title": "Economics", "detail": "Unit economics and payback at scale"},
-    {"title": "Risks", "detail": "What could break the plan"}
+    {
+      "title": "Growth",
+      "detail": "What drove the $5M ARR increase?"
+    },
+    {
+      "title": "Adoption",
+      "detail": "Where does rollout need more support?"
+    },
+    {
+      "title": "Capacity",
+      "detail": "What must we fund before we scale?"
+    }
   ],
-  "current": 2,
+  "current": 1,
   "page_number": 2,
-  "source": "Illustrative data — sample deck outline."
+  "source": "Illustrative data — sample deck outline.",
+  "theme": "executive"
 }

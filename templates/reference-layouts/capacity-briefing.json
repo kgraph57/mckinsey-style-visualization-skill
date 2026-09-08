@@ -1,0 +1,18 @@
+{
+  "pattern": "distribution",
+  "theme": "executive",
+  "layout": "analytical",
+  "palette": "navy",
+  "headline": "Committed demand exceeds capacity by four projects",
+  "exhibit_label": "Exhibit 1",
+  "subline": "Monthly projects · Illustrative planning case · September 2026",
+  "bins": [{"label":"Current capacity","value":6},{"label":"Committed demand","value":10},{"label":"Proposed capacity","value":10}],
+  "highlight": 2,
+  "commentary": {
+    "title": "Stage the capacity increase",
+    "points": ["Start with two additional delivery slots.","Release the next two after quality and cycle-time checks."]
+  },
+  "footnotes": ["Capacity and commitments use the same monthly period; no conversion from revenue is assumed."],
+  "source": "Source: illustrative operating model; replace with approved planning data.",
+  "page_number": 1
+}

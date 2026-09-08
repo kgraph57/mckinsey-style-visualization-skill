@@ -87,12 +87,18 @@ Return a concise deliverable with:
 
 When the user requests a batch, deck, or multi-figure document, repeat the contract per visual and add a brief flow summary explaining how the visuals build the argument.
 
+## Reference-led reproduction
+
+When the user requests a particular firm's style or supplies a reference, read `references/reference-reproduction.md` before selecting a theme. Consult `references/consulting-reference-evidence.json` and inspect the specific source page. Record geometry, hierarchy, chart encoding, notes and deviations. Choose presentation, analytical pre-read, or reading document explicitly. Do not claim exact fidelity from a colour preset alone. The worked examples are in `templates/reference-layouts/`.
+
 ## Default Visual Standards
 
-- Landscape 16:9 unless the document profile or the user gives another delivery format (A4 report figures, vertical infographics, inline diagrams — spec-only; the renderer outputs 16:9). The one exception: `scripts/build_html_report.py` renders the report profile natively to a browser document with A4 print CSS, embedding 16:9 slide-spec exhibits inline.
+- For business presentation requests, prefer `"theme": "executive"` consistently across the deck: sans-serif headlines, neutral comparison marks, and navy for the main outcome. In a metric-led summary, use `focus_block` only for the single decision-critical column. For diagrams, keep executive process flows to five steps with optional owner/duration fields and priority matrices to six numbered options; split denser content across slides. See `references/style-system.md` for the supported options; retain `classic` when the user requests serif styling.
+
+- Slides render to 16:9. Supported chart/diagram patterns also render compact document exhibits with `--exhibit`; arbitrary canvases remain spec-only. HTML reports support A4 briefing/editorial layouts with editable captions and sources. Optional `scripts/build_briefing_docx.cjs` creates editable A4 Word briefs and requires Node packages `docx` and `sharp`.
 - White content slides with black text, a single navy accent (`#15296B`), and grey hierarchy.
 - Navy full-bleed slides only when opening a deck (`cover`), opening a section (`section_divider`), or closing a deck (`end_cover`) — never for a content slide.
-- Serif headlines and sans-serif labels for English outputs.
+- Classic uses serif headlines; executive and analytical content use sans-serif headlines. A reference-led request takes precedence over these defaults.
 - High information density with clear hierarchy; no decorative clutter.
 - All numbers must be visible, consistently formatted, and tied to the user's data or cited assumptions.
 
@@ -103,6 +109,9 @@ This skill is not affiliated with, endorsed by, or sponsored by McKinsey & Compa
 Do not invent client names, confidential labels, benchmark data, or source citations. If a visual depends on uncertain or missing data, mark the assumption explicitly in `Data and assumptions`.
 
 ## Reference Files
+
+- `references/consulting-design-study.md` for the six-firm page-level design study.
+- `references/reference-reproduction.md` for measured reproduction, supported routes and fidelity review.
 
 - `references/persona-playbook.md` for role-based entry points (sales, marketing, product, PMO, HR, engineering, research, finance, executive) with prompts and example specs.
 - `references/input-triage.md` for mapping any input — numbers, prose, processes, ideas — to a pattern family.
@@ -118,3 +127,16 @@ Do not invent client names, confidential labels, benchmark data, or source citat
 - `templates/reports/` and `scripts/build_html_report.py` for Markdown-to-report documents with numbered exhibits.
 - `scripts/build_speaker_script.py` for a print-first, one-slide-per-page podium script built from a deck's `notes` field.
 - `scripts/build_html_article.py` for reading the same deck top-to-bottom as a single web-page article, slide by slide with its `notes` as prose.
+
+## HTML to PDF
+
+Use JSON for charts and Markdown for the narrative. Generate HTML, review it in the browser, and export that same HTML to PDF. HTML is the primary layout artifact; Word is an optional separate export. Reports use A4 print styles; decks use one 16:9 slide per page.
+
+```bash
+python3 -m pip install playwright
+python3 scripts/build_html_report.py templates/reference-layouts/decision-brief.md -o brief.html
+python3 scripts/export_pdf.py brief.html -o brief.pdf
+python3 scripts/export_pdf.py examples/demo-deck.html -o deck.pdf
+```
+
+PDF export requires installed Google Chrome or Chromium (`--browser /path/to/browser` for a custom executable). SVG and HTML generation remain Python-standard-library only. Alternatively, open the generated HTML, choose **Save as PDF**, and select the browser’s PDF destination. Inspect every page after changing content; longer reports may need deliberate page breaks.

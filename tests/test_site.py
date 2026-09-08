@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 
-REQUIRED_IDS = {"hero", "console", "pipeline", "start", "footer"}
+REQUIRED_IDS = {"hero", "showcase", "demo", "library", "console", "pipeline", "start", "footer"}
 EXAMPLES_IDS = {"live-deck", "patterns", "formats", "footer"}
 REFERENCE_ATTRS = {"img": "src", "script": "src", "link": "href", "iframe": "src"}
 

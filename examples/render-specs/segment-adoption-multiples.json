@@ -1,7 +1,7 @@
 {
   "pattern": "small_multiples",
-  "headline": "Adoption rises in every segment, but healthcare lags the pack",
-  "subline": "AI workflow adoption by segment, Q1-Q4 (%, shared scale)",
+  "headline": "Adoption grows across every segment",
+  "subline": "Workflow adoption · Q1–Q4 · % of accounts, shared scale",
   "unit": "%",
   "columns": 3,
   "charts": [
@@ -61,6 +61,8 @@
       ]
     }
   ],
-  "annotation": "Healthcare needs a compliance-first playbook before the pattern generalizes.",
-  "source": "Source: user-provided segment telemetry."
+  "annotation": "Healthcare reaches 28%; investigate the adoption gap before expanding rollout.",
+  "source": "Source: illustrative segment data; not a real company.",
+  "page_number": 6,
+  "theme": "executive"
 }

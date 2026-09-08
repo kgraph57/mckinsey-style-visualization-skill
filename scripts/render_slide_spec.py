@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 import unicodedata
 from pathlib import Path
@@ -333,12 +334,41 @@ def line_el(x1: float, y1: float, x2: float, y2: float, stroke: str = GREY_BORDE
     return f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="{stroke}"{dash_attr}/>'
 
 
+PALETTES = {"navy": (BLUE, BLUE2), "red": ("#B4232D", "#D96A72"),
+            "green": ("#176B50", "#439F7A"), "mono": ("#202124", "#686B70")}
+
+
+def apply_palette(svg: str, spec: dict) -> str:
+    primary, secondary = PALETTES[spec.get("palette", "navy")]
+    # Replace paint attributes only; never change user text containing a hex code.
+    for attr in ("fill", "stroke"):
+        svg = svg.replace(f'{attr}="{BLUE}"', f'{attr}="{primary}"')
+        svg = svg.replace(f'{attr}="{BLUE2}"', f'{attr}="{secondary}"')
+    return svg
+
+
+def analytical_header(spec: dict) -> list[str]:
+    parts = []
+    if spec.get("exhibit_label"):
+        parts.append(text_el(ML, 40, spec["exhibit_label"], size=T_CHROME, fill=GREY_DARK, weight="600"))
+    if spec.get("classification"):
+        parts.append(text_el(W-MR, 40, spec["classification"], size=T_CHROME, fill=GREY_MED, anchor="end"))
+    for i, line in enumerate(wrap(spec.get("headline", ""), 64)):
+        parts.append(text_el(ML, 88+i*40, line, size=T_HEADLINE_DENSE, weight="bold", family=SANS))
+    if spec.get("subline"):
+        parts.append(text_el(ML, 163, spec["subline"], size=T_LABEL, fill=GREY_DARK))
+    return parts
+
+
 def header(spec: dict) -> list[str]:
+    if spec.get("layout") == "analytical":
+        return analytical_header(spec)
     # No decorative marks: the headline itself anchors the slide (the former
     # navy kicker bar above it carried no information and was removed —
     # data-ink rule, see style-system.md Ink Discipline).
     parts: list[str] = []
     headline = spec.get("headline", "")
+    executive = spec.get("theme") == "executive"
     lines = wrap(headline, 48)  # 64 * 30/40 (old size 30 -> T_HEADLINE)
     size, line_h, subline_gap = T_HEADLINE, 52, 28
     if len(lines) > 2:
@@ -347,7 +377,7 @@ def header(spec: dict) -> list[str]:
     y = 96
     last_line_y = y
     for line in lines:
-        parts.append(text_el(ML, y, line, size=size, weight="bold", family=SERIF, title=headline if len(lines) > 2 else ""))
+        parts.append(text_el(ML, y, line, size=size, weight="bold", family=SANS if executive else SERIF, title=headline if len(lines) > 2 else ""))
         last_line_y = y
         y += line_h
     subline = spec.get("subline", "")
@@ -452,17 +482,17 @@ def render_waterfall(spec: dict) -> list[str]:
         x = x_at(i)
         y1, y2 = y_at(max(base, value_top)), y_at(min(base, value_top))
         parts.append(rect_el(x, y1, bar_w, max(y2 - y1, 2), fill))
-        parts.append(text_el(x + bar_w / 2, y1 - 10, value_text, size=T_LABEL, weight="bold", anchor="middle"))
+        parts.append(text_el(x + bar_w / 2, y1 - 10, value_text, size=T_BODY if spec.get("theme") == "executive" else T_LABEL, weight="bold", anchor="middle"))
         for j, line in enumerate(wrap(label, label_width, max_lines=2)):
             parts.append(
                 text_el(x + bar_w / 2, CHART_BOTTOM + X_AXIS_LABEL_LEAD + j * LINE_H_LABEL, line, size=T_LABEL, fill=GREY_DARK, anchor="middle", title=label)
             )
 
-    bar(0, 0, start["value"], BLUE, start["label"], fmt(start["value"], unit))
+    bar(0, 0, start["value"], GREY_BORDER if spec.get("theme") == "executive" else BLUE, start["label"], fmt(start["value"], unit))
     running = start["value"]
     for i, driver in enumerate(drivers, start=1):
         value = driver["value"]
-        fill = BLUE2 if value >= 0 else RED
+        fill = (GREY_MED if spec.get("theme") == "executive" else BLUE2) if value >= 0 else RED
         sign = "+" if value >= 0 else "−"
         bar(i, running, running + value, fill, driver["label"], f"{sign}{fmt(abs(value), unit)}")
         parts.append(line_el(x_at(i - 1) + bar_w, y_at(running), x_at(i), y_at(running), GREY_BORDER, "4 3"))
@@ -588,24 +618,30 @@ def render_benchmark_table(spec: dict) -> list[str]:
     leaders = {tuple(pair) for pair in spec.get("leaders", [])}
     label_w = 230.0
     col_w = (W - ML - MR - label_w) / len(columns)
-    row_h = min(64.0, (CHART_BOTTOM + 40 - CHART_TOP) / (len(rows) + 1))
+    executive = spec.get("theme") == "executive"
+    row_h = min(96.0 if executive else 64.0, (CHART_BOTTOM + 40 - CHART_TOP) / (len(rows) + 1))
     top_y = CHART_TOP - 10
+    header_h = 64.0 if executive else row_h
+    if executive:
+        row_h = min(96.0, (CHART_BOTTOM + 24 - top_y - header_h) / len(rows))
 
     parts: list[str] = []
     for j, column in enumerate(columns):
         cx = ML + label_w + col_w * j + col_w / 2
         for k, line in enumerate(wrap(column, 13, max_lines=2)):  # 18 * 13/18
             parts.append(text_el(cx, top_y + 28 + k * LINE_H_LABEL, line, size=T_LABEL, fill=GREY_MED, weight="600", anchor="middle"))
-    parts.append(line_el(ML, top_y + row_h, W - MR, top_y + row_h, GREY_DARK))
+    parts.append(line_el(ML, top_y + header_h, W - MR, top_y + header_h, GREY_DARK))
     # Dense fallback (>6 columns) stays above the T_TICK floor (14px) — see
     # references/style-system.md Typography.
-    value_size = T_LABEL if len(columns) <= 6 else 16
+    value_size = (T_BODY if executive else T_LABEL) if len(columns) <= 6 else 16
     cell_width_units = max(int(col_w / (value_size * 0.62)), 6)
     value_line_h = value_size + 2
     value_nudge = round(value_size / 3)
     value_half = value_line_h / 2
     for i, row in enumerate(rows):
-        y = top_y + row_h * (i + 1)
+        y = top_y + header_h + row_h * i
+        if executive and i % 2 == 0:
+            parts.append(rect_el(ML, y, W - ML - MR, row_h, GREY_FILL))
         label_lines = wrap(row["label"], 19, max_lines=2)  # 28 * 15/22 (old size 15 -> T_BODY)
         ly = y + row_h / 2 + NUDGE_BODY - (len(label_lines) - 1) * HALF_LINE_BODY
         for line in label_lines:
@@ -616,9 +652,10 @@ def render_benchmark_table(spec: dict) -> list[str]:
             cell_lines = wrap(str(value), cell_width_units, max_lines=2)
             cy = y + row_h / 2 + value_nudge - (len(cell_lines) - 1) * value_half
             if (i, j) in leaders:
-                parts.append(rect_el(ML + label_w + col_w * j + 6, y + 7, col_w - 12, row_h - 14, BLUE))
+                if not executive:
+                    parts.append(rect_el(ML + label_w + col_w * j + 6, y + 7, col_w - 12, row_h - 14, BLUE))
                 for line in cell_lines:
-                    parts.append(text_el(cx, cy, line, size=value_size, fill="#FFFFFF", weight="bold", anchor="middle", title=str(value)))
+                    parts.append(text_el(cx, cy, line, size=value_size, fill=BLUE if executive else "#FFFFFF", weight="bold", anchor="middle", title=str(value)))
                     cy += value_line_h
             else:
                 for line in cell_lines:
@@ -656,25 +693,120 @@ def render_summary_strip(spec: dict) -> list[str]:
     strip_top = CHART_TOP + 20
 
     parts: list[str] = []
+    focus = spec.get("focus_block")
+    has_metrics = any("metric" in block for block in blocks)
+    if has_metrics:
+        max_claim_lines = max(len(wrap(b["claim"], claim_width, max_lines=3)) for b in blocks)
+        max_proof_lines = max(len(wrap(b["proof"], label_width, max_lines=4)) for b in blocks)
     for i, block in enumerate(blocks):
         x = ML + col_w * i
         inner_x = x + pad
+        focused = i == focus
+        if focused:
+            parts.append(rect_el(x + 8, CHART_TOP, col_w - 16, CHART_BOTTOM + 24 - CHART_TOP, BLUE))
         y = strip_top + 23  # 18 * 22/17, scaled with T_BODY (claim role)
+        if has_metrics:
+            metric = block.get("metric", "")
+            # Reserve nearly a full em per Latin glyph, including wide bold W/M.
+            if not isinstance(metric, str) or _text_width(metric) * T_KPI_NUM > col_w - pad * 2:
+                raise RenderSpecError("summary_strip metric must be a short string that fits its column")
+            if metric:
+                parts.append(text_el(inner_x, strip_top + T_KPI_NUM, metric,
+                                     size=T_KPI_NUM, fill=WHITE if focused else (BLACK if focus is not None else BLUE), weight="bold"))
+            y = strip_top + T_KPI_NUM + 48
         for line in wrap(block["claim"], claim_width, max_lines=3):
-            parts.append(text_el(inner_x, y, line, size=T_BODY, weight="bold"))
+            parts.append(text_el(inner_x, y, line, size=T_BODY, fill=WHITE if focused else BLACK, weight="bold"))
             y += LINE_H_BODY
         y += claim_gap
+        if has_metrics:
+            y = strip_top + T_KPI_NUM + 48 + max_claim_lines * LINE_H_BODY + claim_gap
         for line in wrap(block["proof"], label_width, max_lines=4):
-            parts.append(text_el(inner_x, y, line, size=T_LABEL, fill=GREY_MED))
+            parts.append(text_el(inner_x, y, line, size=T_LABEL, fill="#E5E7EB" if focused else (GREY_DARK if spec.get("theme") == "executive" else GREY_MED)))
             y += LINE_H_LABEL
         y += proof_gap
+        if has_metrics:
+            y = strip_top + T_KPI_NUM + 48 + max_claim_lines * LINE_H_BODY + claim_gap + max_proof_lines * LINE_H_LABEL + proof_gap
         for line in wrap(block["implication"], label_width, max_lines=3):
-            parts.append(text_el(inner_x, y, line, size=T_LABEL, fill=BLUE, weight="600"))
+            parts.append(text_el(inner_x, y, line, size=T_LABEL, fill=WHITE if focused else BLUE, weight="600"))
             y += LINE_H_LABEL
+        if focused and y - LINE_H_LABEL + 8 > CHART_BOTTOM + 24:
+            raise RenderSpecError("focused summary block is too dense; shorten its text or split the slide")
+    return parts
+
+
+def render_executive_process(spec: dict) -> list[str]:
+    steps = spec['steps']
+    gap = 24
+    width = (W - ML - MR - gap * (len(steps) - 1)) / len(steps)
+    top, height = CHART_TOP + 16, 320
+    parts = []
+    for i, step in enumerate(steps):
+        x = ML + i * (width + gap)
+        hot = i == spec.get('highlight')
+        title_color, detail_color = (WHITE, '#E5E7EB') if hot else (BLACK, GREY_DARK)
+        parts.append(rect_el(x, top, width, height, BLUE if hot else GREY_FILL))
+        parts.append(text_el(x + 18, top + 34, f'{i + 1:02d}', size=T_NUM_AGENDA, fill=title_color))
+        for field, baseline, size, limit in [('label', 84, T_BODY, 2), ('detail', 168, T_LABEL, 3)]:
+            budget = max(6, int((width - 36) / (size * .62)))
+            lines = wrap(str(step.get(field, '')), budget)
+            if len(lines) > limit:
+                raise RenderSpecError(f'executive process {field} is too long; shorten it or split the flow')
+            for j, line in enumerate(lines):
+                parts.append(text_el(x + 18, top + baseline + j * (LINE_H_BODY if field == 'label' else LINE_H_LABEL), line,
+                                     size=size, fill=title_color if field == 'label' else detail_color,
+                                     weight='600' if field == 'label' else 'normal'))
+        meta = ' · '.join(str(step[k]) for k in ('owner','duration') if step.get(k))
+        lines = wrap(meta, max(6, int((width - 36) / (T_LABEL * .62))))
+        if len(lines) > 2:
+            raise RenderSpecError('executive process owner/duration is too long; shorten it or split the flow')
+        for j, line in enumerate(lines):
+            parts.append(text_el(x + 18, top + 270 + j * LINE_H_LABEL, line, size=T_LABEL, fill=detail_color))
+        if i < len(steps) - 1:
+            cx, cy = x + width + gap / 2, top + height / 2
+            parts.append(f'<path d="M {cx-4} {cy-6} L {cx+3} {cy} L {cx-4} {cy+6}" fill="none" stroke="{GREY_MED}" stroke-width="2"/>')
+    return parts
+
+
+def render_executive_matrix(spec: dict) -> list[str]:
+    x, y, width, height = ML + 32, CHART_TOP + 16, 640, 320
+    mid_x, mid_y = x + width/2, y + height/2
+    parts = [rect_el(x, y, width, height, WHITE, GREY_BORDER)]
+    focus = spec.get('focus_quadrant')
+    if focus is not None:
+        parts.append(rect_el(x + (width/2 if focus % 2 else 0), y + (height/2 if focus >= 2 else 0), width/2, height/2, '#EFF3FB'))
+    parts.extend([line_el(mid_x,y,mid_x,y+height), line_el(x,mid_y,x+width,mid_y)])
+    for (qx,qy,anchor),label in zip([(x+12,y+24,'start'),(x+width-12,y+24,'end'),(x+12,y+height-12,'start'),(x+width-12,y+height-12,'end')], spec.get('quadrants',[])):
+        lines = wrap(str(label), 24)
+        if len(lines)>1:
+            raise RenderSpecError('executive matrix quadrant label is too long; shorten it')
+        parts.append(text_el(qx,qy,label,size=T_TICK,fill=GREY_MED,anchor=anchor))
+    xa, ya = spec['x_axis'], spec['y_axis']
+    parts.extend([text_el(mid_x,y+height+48,xa['label'],size=T_LABEL,anchor='middle',weight='600'),
+                  text_el(ML,y-10,ya['label'],size=T_LABEL,weight='600'),
+                  text_el(x,y+height+24,xa.get('low','Low'),size=T_TICK,fill=GREY_MED),
+                  text_el(x+width,y+height+24,xa.get('high','High'),size=T_TICK,fill=GREY_MED,anchor='end'),
+                  text_el(x-10,y+16,ya.get('high','High'),size=T_TICK,fill=GREY_MED,anchor='end'),
+                  text_el(x-10,y+height,ya.get('low','Low'),size=T_TICK,fill=GREY_MED,anchor='end')])
+    legend_x = x + width + 44
+    parts.append(text_el(legend_x,y+12,spec.get('legend_title','Options'),size=T_KICKER_LABEL,fill=GREY_MED,weight='600'))
+    for i, point in enumerate(spec['points']):
+        px,py=x+width*point['x']/100,y+height*(1-point['y']/100)
+        color=BLUE if point.get('emphasis') else GREY_DARK
+        parts.append(f'<circle cx="{px}" cy="{py}" r="15" fill="{color}"/>')
+        parts.append(text_el(px,py+5,f'{i+1:02d}',size=T_TICK,fill=WHITE,anchor='middle',weight='600'))
+        baseline=y+54+i*48
+        parts.append(text_el(legend_x,baseline,f'{i+1:02d}',size=T_LABEL,fill=color,weight='600'))
+        lines=wrap(point['label'],max(6,int((W-MR-legend_x-40)/(T_LABEL*.62))))
+        if len(lines)>2:
+            raise RenderSpecError('executive matrix option label is too long; shorten it or split the diagram')
+        for j,line in enumerate(lines):
+            parts.append(text_el(legend_x+40,baseline+j*LINE_H_LABEL,line,size=T_LABEL,fill=color,weight='600' if point.get('emphasis') else 'normal'))
     return parts
 
 
 def render_process_flow(spec: dict) -> list[str]:
+    if spec.get("theme") == "executive":
+        return render_executive_process(spec)
     steps = spec["steps"]
     highlight = spec.get("highlight", -1)
     span = W - ML - MR
@@ -850,9 +982,13 @@ def render_gantt(spec: dict) -> list[str]:
         bw = col_w * (bar["end"] - bar["start"] + 1) - 6
         hot = bar.get("highlight")
         # Flat fill only — the grey reference bar never carries a border.
-        parts.append(rect_el(bx, y + (row_h - 24) / 2, bw, 24, BLUE if hot else GREY_FILL))
+        parts.append(rect_el(bx, y + (row_h - 24) / 2, bw, 24, BLUE if hot else (GREY_BORDER if spec.get("theme") == "executive" else GREY_FILL)))
         note = bar.get("note", "")
-        if note:
+        if note and spec.get("theme") == "executive":
+            if _text_width(note) * T_LABEL * .62 > bw - 16:
+                raise RenderSpecError("gantt note does not fit its bar; shorten it or move it to the annotation")
+            parts.append(text_el(bx + 8, y + row_h / 2 + NUDGE_LABEL, note, size=T_LABEL, fill=WHITE if hot else GREY_DARK))
+        elif note:
             # Clamp to whatever room remains between the bar and the right
             # margin — a bar late in the timeline leaves little room, and
             # T_LABEL is wide enough now that an unclamped note can run well
@@ -908,6 +1044,8 @@ def render_kpi_scorecard(spec: dict) -> list[str]:
 
 
 def render_two_by_two(spec: dict) -> list[str]:
+    if spec.get("theme") == "executive":
+        return render_executive_matrix(spec)
     plot_x = ML + 50
     plot_w = W - MR - plot_x - 50
     plot_y, plot_h = CHART_TOP, float(CHART_BOTTOM - CHART_TOP)
@@ -975,7 +1113,7 @@ def render_cover(spec: dict) -> list[str]:
     ]
     y = 264
     for line in wrap(spec.get("title", ""), 38, max_lines=3):  # 40 * 52/54
-        parts.append(text_el(ML, y, line, size=T_COVER_TITLE, fill=WHITE, family=SERIF))
+        parts.append(text_el(ML, y, line, size=T_COVER_TITLE, fill=WHITE, family=SANS if spec.get("theme") == "executive" else SERIF, weight="600" if spec.get("theme") == "executive" else "normal"))
         y += 66  # 64 * 54/52
     subtitle = spec.get("subtitle", "")
     if subtitle:
@@ -1070,12 +1208,12 @@ def render_distribution(spec: dict) -> list[str]:
     bins = spec["bins"]
     highlight = spec.get("highlight", -1)
     top = max(b["value"] for b in bins) * 1.15 or 1
-    span = W - ML - MR
+    span = 748 if spec.get("commentary") else W - ML - MR
     step = span / len(bins)
     bar_w = step * 0.82
 
     parts = [
-        line_el(ML, CHART_BOTTOM, W - MR, CHART_BOTTOM, GREY_DARK),
+        line_el(ML, CHART_BOTTOM, ML + span, CHART_BOTTOM, GREY_DARK),
         text_el(ML - 10, CHART_BOTTOM + 4, "0", size=T_TICK, fill=GREY_MED, anchor="end"),
     ]
     for i, bucket in enumerate(bins):
@@ -1084,12 +1222,25 @@ def render_distribution(spec: dict) -> list[str]:
         y = CHART_BOTTOM - h
         is_hot = i == highlight
         # Flat fill only — grey context bars never carry a border.
-        parts.append(rect_el(x, y, bar_w, max(h, 1), BLUE if is_hot else GREY_FILL))
+        parts.append(rect_el(x, y, bar_w, max(h, 1), BLUE if is_hot else (GREY_BORDER if spec.get("layout") == "analytical" else GREY_FILL)))
         parts.append(
             text_el(x + bar_w / 2, y - 11, fmt(bucket["value"], unit), size=T_LABEL, weight="bold" if is_hot else "normal", fill=BLACK if is_hot else GREY_MED, anchor="middle")
         )
         for j, line in enumerate(wrap(bucket["label"], max(int(step / 11), 6), max_lines=2)):  # divisor 8 * 18/12
             parts.append(text_el(x + bar_w / 2, CHART_BOTTOM + X_AXIS_LABEL_LEAD + j * LINE_H_LABEL, line, size=T_LABEL, fill=GREY_DARK, anchor="middle", title=bucket["label"]))
+    if spec.get("commentary"):
+        rail = spec["commentary"]
+        parts.append(line_el(868, CHART_TOP, 868, CHART_BOTTOM))
+        y = CHART_TOP + 20
+        for line in wrap(rail["title"], 27):
+            parts.append(text_el(896, y, line, size=T_LABEL, weight="bold", fill=BLUE))
+            y += LINE_H_LABEL
+        y += 24
+        for point in rail["points"]:
+            for line in wrap(point, 27):
+                parts.append(text_el(896, y, line, size=T_LABEL, fill=GREY_DARK))
+                y += LINE_H_LABEL
+            y += 20
     return parts
 
 
@@ -1156,7 +1307,7 @@ def render_section_divider(spec: dict) -> list[str]:
     lines = wrap(title, 33, max_lines=2)  # 40 * 40/48
     truncated = bool(lines) and lines[-1].endswith(ELLIPSIS)
     for line in lines:
-        parts.append(text_el(ML, y, line, size=T_DIVIDER_TITLE, fill=WHITE, family=SERIF, title=title if truncated else ""))
+        parts.append(text_el(ML, y, line, size=T_DIVIDER_TITLE, fill=WHITE, family=SANS if spec.get("theme") == "executive" else SERIF, title=title if truncated else ""))
         y += 60  # 50 * 48/40
 
     subtitle = spec.get("subtitle", "")
@@ -1203,7 +1354,7 @@ def render_end_cover(spec: dict) -> list[str]:
     parts = [rect_el(0, 0, W, H, NAVY_COVER)]
     y = 264
     for line in wrap(spec.get("title") or "Thank you", 38, max_lines=3):  # 40 * 52/54
-        parts.append(text_el(ML, y, line, size=T_COVER_TITLE, fill=WHITE, family=SERIF))
+        parts.append(text_el(ML, y, line, size=T_COVER_TITLE, fill=WHITE, family=SANS if spec.get("theme") == "executive" else SERIF, weight="600" if spec.get("theme") == "executive" else "normal"))
         y += 66  # 64 * 54/52
     subtitle = spec.get("subtitle", "")
     if subtitle:
@@ -1569,6 +1720,8 @@ def _validate_funnel(spec: dict) -> None:
 def _validate_benchmark_table(spec: dict) -> None:
     columns = _as_sequence(spec, "columns")
     rows = _as_sequence(spec, "rows")
+    if spec.get("theme") == "executive" and (len(rows) > 5 or len(columns) > 6):
+        raise RenderSpecError("executive benchmark tables support at most 5 rows and 6 criteria; split the comparison across slides")
     for index, row in enumerate(rows):
         if not isinstance(row, dict):
             raise RenderSpecError(f"rows[{index}] must be an object")
@@ -1614,6 +1767,8 @@ def _validate_distribution(spec: dict) -> None:
             raise RenderSpecError(f"bins[{index}] must include label and value")
         if not isinstance(bucket["value"], (int, float)):
             raise RenderSpecError(f"bins[{index}].value must be numeric")
+        if spec.get("layout") == "analytical" and (not math.isfinite(bucket["value"]) or bucket["value"] < 0):
+            raise RenderSpecError("analytical bar values must be finite and nonnegative")
 
 
 def _validate_small_multiples(spec: dict) -> None:
@@ -1721,6 +1876,46 @@ def validate_spec(spec: dict) -> None:
     if pattern not in RENDERERS:
         supported = ", ".join(sorted(RENDERERS))
         raise RenderSpecError(f"unsupported pattern {pattern!r}. Supported: {supported}")
+    if spec.get("theme", "classic") not in ("classic", "executive"):
+        raise RenderSpecError("theme must be classic or executive")
+    if spec.get("layout", "standard") not in ("standard", "analytical"):
+        raise RenderSpecError("layout must be standard or analytical")
+    if spec.get("palette", "navy") not in PALETTES:
+        raise RenderSpecError("palette must be navy, red, green, or mono")
+    if spec.get("layout") == "analytical":
+        if pattern in CHROMELESS:
+            raise RenderSpecError("analytical layout requires a content slide")
+        if len(wrap(spec.get("headline", ""), 64)) > 2:
+            raise RenderSpecError("analytical headline exceeds two lines; shorten it")
+        if len(wrap(spec.get("subline", ""), 96)) > 1:
+            raise RenderSpecError("analytical subline is too long")
+    if "commentary" in spec:
+        rail = spec["commentary"]
+        if pattern != "distribution" or not isinstance(rail, dict):
+            raise RenderSpecError("commentary is supported on distribution slides only")
+        if not isinstance(rail.get("title"), str) or not isinstance(rail.get("points"), list) or not 1 <= len(rail["points"]) <= 3 or not all(isinstance(x,str) and x.strip() for x in rail["points"]):
+            raise RenderSpecError("commentary needs a title and one to three text points")
+        lines = len(wrap(rail["title"], 27)) + sum(len(wrap(x,27)) for x in rail["points"])
+        if lines*LINE_H_LABEL + len(rail["points"])*20 + 44 > CHART_BOTTOM-CHART_TOP:
+            raise RenderSpecError("commentary is too dense; shorten or split it")
+        if len(spec.get("bins", [])) > 6:
+            raise RenderSpecError("commentary charts allow up to six bars")
+    if "focus_block" in spec:
+        focus = spec["focus_block"]
+        if pattern != "summary_strip" or type(focus) is not int or not 0 <= focus < len(spec.get("blocks", [])):
+            raise RenderSpecError("focus_block must identify one summary_strip block")
+    if spec.get("theme") == "executive" and pattern in ("process_flow", "two_by_two"):
+        key = "steps" if pattern == "process_flow" else "points"
+        entries = _as_sequence(spec, key)
+        if len(entries) > (5 if pattern == "process_flow" else 6):
+            raise RenderSpecError("too many items for an executive diagram; split it across slides")
+        if pattern == "two_by_two":
+            for point in entries:
+                for axis in ("x", "y"):
+                    if not isinstance(point.get(axis), (int,float)) or not 0 <= point[axis] <= 100:
+                        raise RenderSpecError("matrix coordinates must be between 0 and 100")
+            if "focus_quadrant" in spec and (type(spec["focus_quadrant"]) is not int or not 0 <= spec["focus_quadrant"] <= 3):
+                raise RenderSpecError("focus_quadrant must be 0, 1, 2, or 3")
     validator = VALIDATORS.get(pattern)
     if validator:
         validator(spec)
@@ -1735,7 +1930,7 @@ def render(spec: dict) -> str:
     else:
         body = header(spec) + RENDERERS[pattern](spec) + footer(spec)
         aria = spec.get("headline", "")
-    content = "\n  ".join(body)
+    content = apply_palette("\n  ".join(body), spec)
     background = "" if pattern in CHROMELESS else f'  <rect width="{W}" height="{H}" fill="#FFFFFF"/>\n'
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
@@ -1746,8 +1941,26 @@ def render(spec: dict) -> str:
     )
 
 
+
+EXHIBIT_PATTERNS = {"waterfall", "gap", "before_after", "time_series", "benchmark_table",
+                    "process_flow", "funnel", "heatmap", "gantt", "kpi_scorecard",
+                    "two_by_two", "scatter", "distribution", "small_multiples"}
+
+
+def render_exhibit(spec: dict) -> str:
+    """Render a chart body for reports. Caption, units and sources belong to the document."""
+    validate_spec(spec)
+    if spec["pattern"] not in EXHIBIT_PATTERNS:
+        raise RenderSpecError("compact exhibits require a chart or diagram pattern")
+    chart_spec = {k:v for k,v in spec.items() if k != "commentary"}
+    content = apply_palette("\n".join(RENDERERS[spec["pattern"]](chart_spec)), spec)
+    return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 180 1200 432" '
+            'width="1200" height="432" role="img" aria-label="Chart exhibit">'
+            + content + '</svg>')
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render a slide spec JSON into an SVG slide.")
+    parser.add_argument("--exhibit", action="store_true", help="Render chart body for a document")
     parser.add_argument("spec", help="Path to the slide spec JSON file")
     parser.add_argument("-o", "--output", help="Output SVG path (default: spec path with .svg)")
     args = parser.parse_args()
@@ -1760,7 +1973,7 @@ def main() -> None:
         raise SystemExit(1)
 
     try:
-        svg = render(spec)
+        svg = render_exhibit(spec) if args.exhibit else render(spec)
     except (RenderSpecError, KeyError, TypeError, ValueError) as exc:
         print(f"ERROR: invalid spec: {exc}", file=sys.stderr)
         raise SystemExit(1)

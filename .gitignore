@@ -34,3 +34,11 @@ outputs/
 
 # Landing site OGP image (committed intentionally)
 !docs/site/og.png
+
+# Downloadable PDF examples generated from HTML
+!templates/reference-layouts/decision-brief.pdf
+!examples/demo-deck.pdf
+!docs/site/artifacts/reference-layouts/decision-brief.pdf
+!docs/site/artifacts/demo-deck.pdf
+
+!docs/site/decision-brief-preview.png

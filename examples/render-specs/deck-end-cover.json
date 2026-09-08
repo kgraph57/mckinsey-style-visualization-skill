@@ -1,9 +1,10 @@
 {
   "pattern": "end_cover",
-  "title": "Thank you",
-  "subtitle": "Questions and discussion",
-  "contact": ["Strategy Office", "strategy@example.com"],
-  "presenter": "Jane Doe",
-  "date": "March 2026",
-  "classification": "Confidential — illustrative"
+  "title": "Make room for growth.",
+  "subtitle": "Discussion · Capacity, priorities, next steps",
+  "contact": [],
+  "presenter": "Strategy team",
+  "date": "September 2026",
+  "classification": "Illustrative example",
+  "theme": "executive"
 }

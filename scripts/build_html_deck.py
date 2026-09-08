@@ -161,7 +161,10 @@ SCRIPT = """
   // mouse movement, and drop it instantly when the keyboard takes over.
   // Skipped entirely in embed mode (landing-page iframes).
   var hudTimer = null;
-  function hideHud() { document.body.classList.add('hud-hidden'); }
+  function hideHud() {
+    if (document.querySelector('.hud').contains(document.activeElement)) return;
+    document.body.classList.add('hud-hidden');
+  }
   function wakeHud() {
     if (embed) return;
     document.body.classList.remove('hud-hidden');
@@ -169,7 +172,10 @@ SCRIPT = """
     hudTimer = setTimeout(hideHud, 2500);
   }
   if (!embed) document.addEventListener('mousemove', wakeHud);
+  document.querySelector('.hud').addEventListener('focusin', wakeHud);
+  document.querySelector('.hud').addEventListener('focusout', wakeHud);
   document.addEventListener('keydown', function (event) {
+    if (event.target.closest('button, a, input, textarea, select, [contenteditable]')) return;
     var navigated = true;
     if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'PageDown') { show(current + 1); event.preventDefault(); }
     else if (event.key === 'ArrowLeft' || event.key === 'PageUp') { show(current - 1); event.preventDefault(); }
@@ -231,6 +237,7 @@ def build_deck(spec_paths: list[Path], title: str) -> str:
 {body}
 </main>
 <footer class="hud">
+  <button type="button" onclick="window.print()">Save as PDF</button>
   <div class="dots">{''.join(dots)}</div>
   <span>&#8592; &#8594; navigate &middot; p = print / PDF</span>
   <span class="counter"></span>

@@ -298,6 +298,7 @@ body.embed .frame {
 </div></section>
 </main>
 <footer class="hud">
+  <button type="button" onclick="window.print()">Save as PDF</button>
   <div class="dots"><button class="dot" aria-label="Slide 1"></button><button class="dot" aria-label="Slide 2"></button><button class="dot" aria-label="Slide 3"></button><button class="dot" aria-label="Slide 4"></button><button class="dot" aria-label="Slide 5"></button><button class="dot" aria-label="Slide 6"></button><button class="dot" aria-label="Slide 7"></button><button class="dot" aria-label="Slide 8"></button><button class="dot" aria-label="Slide 9"></button></div>
   <span>&#8592; &#8594; navigate &middot; p = print / PDF</span>
   <span class="counter"></span>
@@ -333,7 +334,10 @@ body.embed .frame {
   // mouse movement, and drop it instantly when the keyboard takes over.
   // Skipped entirely in embed mode (landing-page iframes).
   var hudTimer = null;
-  function hideHud() { document.body.classList.add('hud-hidden'); }
+  function hideHud() {
+    if (document.querySelector('.hud').contains(document.activeElement)) return;
+    document.body.classList.add('hud-hidden');
+  }
   function wakeHud() {
     if (embed) return;
     document.body.classList.remove('hud-hidden');
@@ -341,7 +345,10 @@ body.embed .frame {
     hudTimer = setTimeout(hideHud, 2500);
   }
   if (!embed) document.addEventListener('mousemove', wakeHud);
+  document.querySelector('.hud').addEventListener('focusin', wakeHud);
+  document.querySelector('.hud').addEventListener('focusout', wakeHud);
   document.addEventListener('keydown', function (event) {
+    if (event.target.closest('button, a, input, textarea, select, [contenteditable]')) return;
     var navigated = true;
     if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'PageDown') { show(current + 1); event.preventDefault(); }
     else if (event.key === 'ArrowLeft' || event.key === 'PageUp') { show(current - 1); event.preventDefault(); }

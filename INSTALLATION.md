@@ -5,7 +5,8 @@ This guide installs Strategy Consulting Visualization Skill for agent tools that
 ## Prerequisites
 
 - An agent tool that can load local skills.
-- Git for clone-based installation, or `curl` for direct download.
+- Git for clone-based installation, or a browser and ZIP extractor.
+- Python 3 to run the bundled renderer, builders, and package validator.
 
 ## Personal Installation
 
@@ -24,20 +25,23 @@ mkdir -p .claude/skills
 git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git .claude/skills/strategy-consulting-visualization
 ```
 
-## Direct Download
+## Download Without Git
 
-Use this when you only need the entrypoint and not the full reference package.
+1. Open the [repository](https://github.com/kgraph57/mckinsey-style-visualization-skill)
+   and choose **Code → Download ZIP**.
+2. Extract the archive and rename the extracted folder to
+   `strategy-consulting-visualization`.
+3. Place the complete folder in your agent's skill directory (for Claude Code,
+   `~/.claude/skills/`). Keep `SKILL.md`, `references/`, `scripts/`, `templates/`,
+   and the other package files together.
 
-```bash
-mkdir -p ~/.claude/skills/strategy-consulting-visualization
-curl -o ~/.claude/skills/strategy-consulting-visualization/SKILL.md https://raw.githubusercontent.com/kgraph57/mckinsey-style-visualization-skill/main/SKILL.md
-```
-
-For marketplace-quality behavior, clone the full repository instead of downloading only `SKILL.md`, because the skill references files in `references/`.
+Do not download only `SKILL.md`: it calls scripts and references files from the
+rest of the package. A single-file download cannot render the examples or
+scaffold a deck.
 
 ## Verify
 
-After clone-based installation:
+After either installation method:
 
 ```bash
 cd ~/.claude/skills/strategy-consulting-visualization
@@ -52,11 +56,17 @@ OK: skill package passed validation
 
 ## Update
 
+For a Git clone:
+
 ```bash
 cd ~/.claude/skills/strategy-consulting-visualization
 git pull
 python3 scripts/validate_skill.py
 ```
+
+For a ZIP installation, download and extract the latest archive into a new
+folder, validate it, then replace the installed skill folder. Keep any decks
+or reports you created separately so an update does not overwrite your work.
 
 ## Troubleshooting
 

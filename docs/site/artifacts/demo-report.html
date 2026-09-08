@@ -150,9 +150,14 @@ figure.exhibit svg { display: block; width: 100%; height: auto; }
   a { color: #000000; border-bottom: none; text-decoration: underline; }
   .toc a { text-decoration: none; }
 }
+
+.export-toolbar { padding: 12px 24px; text-align: right; background: #f4f5f5; }
+.export-toolbar button { font: inherit; padding: 8px 16px; border: 1px solid #bcc4c8; border-radius: 4px; background: white; cursor: pointer; }
+@media print { .export-toolbar { display: none; } }
 </style>
 </head>
 <body>
+<div class="export-toolbar"><button type="button" onclick="window.print()">Save as PDF</button></div>
 <header class="title-band"><div class="title-band-inner"><div class="classification">ILLUSTRATIVE — SAMPLE DATA</div><h1>Illustrative growth review</h1><p class="subtitle">A single-file demonstration of every element the report builder supports</p><p class="meta">Strategy Office &middot; March 2026</p></div></header>
 <main class="doc">
 <nav class="toc" aria-label="Contents"><p class="toc-label">Contents</p><ol><li><a href="#executive-summary">1. Executive summary</a></li><li><a href="#where-adoption-stands">2. Where adoption stands</a></li><li><a href="#how-we-compare-to-alternatives">3. How we compare to alternatives</a></li><li><a href="#what-the-team-recommends">4. What the team recommends</a></li><li><a href="#assumptions-and-caveats">5. Assumptions and caveats</a></li></ol></nav>
@@ -192,11 +197,10 @@ figure.exhibit svg { display: block; width: 100%; height: auto; }
 <p>Delivery capacity, not demand, is now the binding constraint on the next four quarters.</p>
 <h2 id="how-we-compare-to-alternatives">3. How we compare to alternatives</h2>
 <p>Vendor B leads on the two criteria buyers weight most heavily, which is consistent with what the win/loss interviews describe.</p>
-<figure class="exhibit"><figcaption>Exhibit 2 — Vendor scoring on integration, support, and cost</figcaption><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Vendor B leads on integration depth and support; Vendor A wins only on list price">
+<figure class="exhibit"><figcaption>Exhibit 2 — Vendor scoring on integration, support, and cost</figcaption><svg viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Vendor B leads on integration and support">
   <rect width="1280" height="720" fill="#FFFFFF"/>
-  <text x="80.0" y="96.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Vendor B leads on integration depth and support;</text>
-  <text x="80.0" y="148.0" font-family="Georgia, 'Times New Roman', 'Hiragino Mincho ProN', 'Yu Mincho', serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Vendor A wins only on list price</text>
-  <text x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">Weighted scores, 1-5 scale; leaders highlighted</text>
+  <text x="80.0" y="96.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Vendor B leads on integration and support</text>
+  <text x="80.0" y="124.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">Illustrative criterion scores · 1–5, higher is better</text>
   <text x="421.2" y="226.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="middle">Integration</text>
   <text x="421.2" y="250.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="middle">depth</text>
   <text x="643.8" y="226.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="middle">Support model</text>
@@ -205,30 +209,29 @@ figure.exhibit svg { display: block; width: 100%; height: auto; }
   <text x="1088.8" y="226.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="middle">Total cost</text>
   <text x="1088.8" y="250.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#6B7280" font-weight="600" text-anchor="middle">(3yr)</text>
   <line x1="80.0" y1="262.0" x2="1200.0" y2="262.0" stroke="#374151"/>
-  <text x="80.0" y="303.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start"><title>Vendor A</title>Vendor A</text>
-  <text x="421.2" y="300.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.1</title>3.1</text>
-  <text x="643.8" y="300.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>2.8</title>2.8</text>
-  <text x="866.2" y="300.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.6</title>3.6</text>
-  <rect x="983.5" y="269.0" width="210.5" height="50.0" fill="#15296B" stroke="none"/>
-  <text x="1088.8" y="300.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#FFFFFF" font-weight="bold" text-anchor="middle"><title>4.5</title>4.5</text>
-  <line x1="80.0" y1="326.0" x2="1200.0" y2="326.0" stroke="#D1D5DB"/>
-  <text x="80.0" y="367.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start"><title>Vendor B</title>Vendor B</text>
-  <rect x="316.0" y="333.0" width="210.5" height="50.0" fill="#15296B" stroke="none"/>
-  <text x="421.2" y="364.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#FFFFFF" font-weight="bold" text-anchor="middle"><title>4.6</title>4.6</text>
-  <rect x="538.5" y="333.0" width="210.5" height="50.0" fill="#15296B" stroke="none"/>
-  <text x="643.8" y="364.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#FFFFFF" font-weight="bold" text-anchor="middle"><title>4.4</title>4.4</text>
-  <text x="866.2" y="364.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>4.1</title>4.1</text>
-  <text x="1088.8" y="364.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.2</title>3.2</text>
-  <line x1="80.0" y1="390.0" x2="1200.0" y2="390.0" stroke="#D1D5DB"/>
-  <text x="80.0" y="431.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start"><title>Vendor C</title>Vendor C</text>
-  <text x="421.2" y="428.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.8</title>3.8</text>
-  <text x="643.8" y="428.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.5</title>3.5</text>
-  <rect x="761.0" y="397.0" width="210.5" height="50.0" fill="#15296B" stroke="none"/>
-  <text x="866.2" y="428.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#FFFFFF" font-weight="bold" text-anchor="middle"><title>4.2</title>4.2</text>
-  <text x="1088.8" y="428.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.0</title>3.0</text>
+  <rect x="80.0" y="262.0" width="1120.0" height="96.0" fill="#F3F4F6" stroke="none"/>
+  <text x="80.0" y="319.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start"><title>Vendor A</title>Vendor A</text>
+  <text x="421.2" y="317.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.1</title>3.1</text>
+  <text x="643.8" y="317.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#374151" font-weight="normal" text-anchor="middle"><title>2.8</title>2.8</text>
+  <text x="866.2" y="317.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.6</title>3.6</text>
+  <text x="1088.8" y="317.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="bold" text-anchor="middle"><title>4.5</title>4.5</text>
+  <line x1="80.0" y1="358.0" x2="1200.0" y2="358.0" stroke="#D1D5DB"/>
+  <text x="80.0" y="415.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start"><title>Vendor B</title>Vendor B</text>
+  <text x="421.2" y="413.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="bold" text-anchor="middle"><title>4.6</title>4.6</text>
+  <text x="643.8" y="413.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="bold" text-anchor="middle"><title>4.4</title>4.4</text>
+  <text x="866.2" y="413.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#374151" font-weight="normal" text-anchor="middle"><title>4.1</title>4.1</text>
+  <text x="1088.8" y="413.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.2</title>3.2</text>
   <line x1="80.0" y1="454.0" x2="1200.0" y2="454.0" stroke="#D1D5DB"/>
-  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Recommend Vendor B: leads on the two criteria weighted highest for this decision.</title>Recommend Vendor B: leads on the two criteria weighted highest for this decision.</text>
-  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">Source: user-provided RFP scoring; subjective scores caveated in appendix.</text>
+  <rect x="80.0" y="454.0" width="1120.0" height="96.0" fill="#F3F4F6" stroke="none"/>
+  <text x="80.0" y="511.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start"><title>Vendor C</title>Vendor C</text>
+  <text x="421.2" y="509.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.8</title>3.8</text>
+  <text x="643.8" y="509.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.5</title>3.5</text>
+  <text x="866.2" y="509.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="bold" text-anchor="middle"><title>4.2</title>4.2</text>
+  <text x="1088.8" y="509.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#374151" font-weight="normal" text-anchor="middle"><title>3.0</title>3.0</text>
+  <line x1="80.0" y1="550.0" x2="1200.0" y2="550.0" stroke="#D1D5DB"/>
+  <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Confirm criterion weights before selecting a vendor; no overall ranking is implied.</title>Confirm criterion weights before selecting a vendor; no overall ranking is</text>
+  <text x="80.0" y="660.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Confirm criterion weights before selecting a vendor; no overall ranking is implied.</title>implied.</text>
+  <text x="80.0" y="692.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="start">Source: illustrative vendor scores; not a real RFP.</text>
 </svg>
 </figure>
 <h2 id="what-the-team-recommends">4. What the team recommends</h2>

@@ -11,14 +11,15 @@
     <meta property="og:image" content="https://kgraph57.github.io/mckinsey-style-visualization-skill/site/og.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://kgraph57.github.io/mckinsey-style-visualization-skill/site/og.png" />
-    <link rel="stylesheet" href="../site/css/tokens.css" />
-    <link rel="stylesheet" href="../site/css/base.css" />
-    <link rel="stylesheet" href="../site/css/sections.css" />
+    <link rel="stylesheet" href="../site/css/tokens.css?v=20260908-navy" />
+    <link rel="stylesheet" href="../site/css/base.css?v=20260908-navy" />
+    <link rel="stylesheet" href="../site/css/sections.css?v=20260908-navy" />
+    <link rel="stylesheet" href="../site/css/catalog.css?v=20260908-navy" />
     <script type="module" src="../site/js/main.js"></script>
     <script type="module" src="../site/js/theater.js"></script>
-    <script type="module" src="../site/js/chat-demo.js"></script>
+    <script type="module" src="../site/js/showcase.js"></script>
   </head>
-  <body>
+  <body class="catalog-home">
     <a class="skip-link" href="#main">本文へスキップ</a>
 
     <header class="site-header">
@@ -26,6 +27,7 @@
         <a class="wordmark" href="#hero">Consulting&nbsp;Visualization&nbsp;Skill</a>
         <nav class="site-nav" aria-label="サイト">
           <a href="./examples/">実例</a>
+          <a href="#diagram-kit">図解</a>
           <a href="./try/">試す</a>
           <a href="#start">導入</a>
           <a href="../" id="lang-toggle" hreflang="en">EN</a>
@@ -37,15 +39,63 @@
     <main id="main">
       <section id="hero" aria-label="はじめに">
         <div class="wrap">
-          <div class="hd-intro">
-            <h1>メモがそのまま、<br />役員会のスライドになる。</h1>
-            <p class="lede">AIエージェントに1つのスキルを。メモ・数値・文章を、コンサルティング品質のビジュアルに変えます——本物のSVGスライド、アニメーションするHTMLデッキ、あるいはデザイナーがそのまま実行できるspecとして。Python標準ライブラリのみ。依存ゼロ、APIキーゼロ、ネットワーク通信ゼロ。</p>
-            <p class="hd-actions">
-              <a class="btn btn-primary" href="#start">60秒でインストール</a>
-              <a class="btn btn-ghost" href="https://github.com/kgraph57/mckinsey-style-visualization-skill" rel="noopener">★ GitHubでスター</a>
-            </p>
+          <div class="hero-top">
+            <div class="hd-intro">
+              <span class="hero-badge"><span class="status-dot" aria-hidden="true"></span> オープンソースの資料作成スキル</span>
+              <h1>その考えを、<br /><em>伝わる資料に。</em></h1>
+            </div>
+            <div class="hero-pitch">
+              <p class="lede">手元のメモから、会議で使えるスライドへ。読みやすい図表と、一貫したストーリーで、伝えたいことを形にします。</p>
+              <p class="hd-actions"><a class="btn btn-primary" href="./try/">自分のメモで試す <span aria-hidden="true">↗</span></a><a class="btn btn-ghost" href="#start">無料で導入する</a></p>
+              <p class="agent-strip">Claude Code・Codex・Cursorで使えます。</p><p class="try-requirement">ブラウザでの生成には、ご自身のAnthropic APIキーが必要です。</p>
+            </div>
           </div>
+          <div class="showcase" id="showcase">
+            <div class="showcase-toolbar"><span class="showcase-label">ラフなメモから、伝わる一枚へ</span>
+              <div class="showcase-switches" role="group" aria-label="実例を選ぶ" hidden>
+                <button type="button" data-example="growth" aria-pressed="true">成長の要因</button>
+                <button type="button" data-example="summary" aria-pressed="false">役員会の判断</button>
+                <button type="button" data-example="priority" aria-pressed="false">プロダクト戦略</button>
+              </div>
+            </div>
+            <div class="showcase-case" id="case-growth">
+              <div class="raw-note"><span class="case-kicker">01 / <span class="note-label">入力メモ</span></span><pre>Q4の役員会資料
+ARRは$10Mから$15Mへ
+新規エンタープライズ +$3M
+既存顧客の拡大 +$2.5M
+解約 -$0.5M
 
+成長の要因を伝えたい</pre><span class="note-foot">サンプルの入力</span></div>
+              <figure class="result-slide"><div class="result-heading"><span class="case-kicker output-label">完成スライド（英語）</span><a class="result-open" href="../site/artifacts/rendered/arr-waterfall.svg" target="_blank" rel="noopener">スライドを開く ↗</a></div><a class="slide-image-link" href="../site/artifacts/rendered/arr-waterfall.svg" target="_blank" rel="noopener"><img src="../site/artifacts/rendered/arr-waterfall.svg" alt="新規エンタープライズがARRを$10Mから$15Mへ押し上げたことを示す英語スライド" width="1280" height="720" fetchpriority="high" /></a><figcaption>数字の裏にある、成長のストーリー。</figcaption></figure>
+            </div>
+            <div class="showcase-case" id="case-summary" hidden>
+              <div class="raw-note"><span class="case-kicker">02 / <span class="note-label">入力メモ</span></span><pre>ARR $10M → $15M（+50%）
+新規エンタープライズ +$3M
+全6セグメントで採用率上昇
+ヘルスケアは28%
+供給能力は契約済み案件の60%
+
+役員会は何を優先すべき？</pre><span class="note-foot">サンプルの入力</span></div>
+              <figure class="result-slide"><div class="result-heading"><span class="case-kicker output-label">完成スライド（英語）</span><a class="result-open" href="../site/artifacts/rendered/executive-summary.svg" target="_blank" rel="noopener">スライドを開く ↗</a></div><a class="slide-image-link" href="../site/artifacts/rendered/executive-summary.svg" target="_blank" rel="noopener"><img src="../site/artifacts/rendered/executive-summary.svg" alt="次の成長に向けた供給能力の強化を示す英語スライド" width="1280" height="720" loading="lazy" /></a><figcaption>3つの数値から、次の判断へ。</figcaption></figure>
+            </div>
+            <div class="showcase-case" id="case-priority" hidden>
+              <div class="raw-note"><span class="case-kicker">03 / <span class="note-label">入力メモ</span></span><pre>SSO：効果大、工数小
+一括出力：同じく優先
+モバイル：工数大
+ダッシュボード：中程度
+ダークモード：効果小
+旧システム移行：工数大、効果小
+
+どこに注力すべき？</pre><span class="note-foot">サンプル入力 · 配置は説明用の推定値</span></div>
+              <figure class="result-slide"><div class="result-heading"><span class="case-kicker output-label">完成スライド（英語）</span><a class="result-open" href="../site/artifacts/rendered/product-priority-two-by-two.svg" target="_blank" rel="noopener">スライドを開く ↗</a></div><a class="slide-image-link" href="../site/artifacts/rendered/product-priority-two-by-two.svg" target="_blank" rel="noopener"><img src="../site/artifacts/rendered/product-priority-two-by-two.svg" alt="SSOと一括出力の優先順位を示す英語スライド" width="1280" height="720" loading="lazy" /></a><figcaption>優先順位を、見える形に。</figcaption></figure>
+            </div>
+            <div class="showcase-bottom"><span class="showcase-disclosure">実際のレンダラー出力 · サンプルデータ</span><a class="showcase-spec" href="../site/artifacts/specs/arr-waterfall.json">元のJSONを見る ↗</a></div>
+          </div>
+          <div class="proof-strip" aria-label="スキルに含まれるもの"><p><strong>22</strong><span class="proof-patterns">種類の図表・スライド</span></p><p><strong>6</strong><span class="proof-decks">種類のデッキ雛形</span></p><p><strong>4</strong><span class="proof-formats">つの出力形式</span></p><p><strong>MIT</strong><span class="proof-license">利用・改変が可能</span></p></div>
+        </div>
+      </section>
+      <section id="demo" aria-labelledby="demo-title"><div class="wrap">
+        <div class="section-intro"><span class="kicker">一枚の図表から、資料全体へ</span><h2 id="demo-title">導入から意思決定まで、ひとつの流れに。</h2><p>全9枚の役員会デッキをご覧ください。すべてこのスキルから生成しています。</p></div>
           <div class="hd-theater" id="hd-theater" data-theater>
             <div class="hd-tabs" role="tablist" aria-label="製品デモ">
               <button type="button" class="hd-tab is-active" role="tab" id="hd-tab-deck" aria-selected="true" aria-controls="hd-panel-deck" data-panel="deck"><span class="hd-num">01</span> ライブデッキ</button>
@@ -111,72 +161,63 @@
         </div>
       </section>
 
-      <section id="console" aria-label="チャットでの体験">
-        <div class="wrap">
-          <div class="con-intro">
-            <span class="kicker">こんな感じで使う</span>
-            <h2>チャットで頼む。スキルがデッキで返す。</h2>
-            <p class="lede">フォームではない。エージェントに頼めば、このスキルが役員会品質のスライドで返してくる——それが体験です。</p>
-          </div>
-
-          <div class="chat-demo" id="chat-demo" data-chat-demo>
-            <div class="chat-chrome" aria-hidden="true">
-              <span class="chrome-dot"></span>
-              <span class="chrome-dot"></span>
-              <span class="chrome-dot"></span>
-              <span class="chat-chrome-title">エージェント · strategy-consulting-visualization</span>
-            </div>
-
-            <div class="chat-thread" aria-live="polite">
-              <div class="chat-msg chat-msg-user" data-step="user" hidden>
-                <span class="chat-who" data-i18n="who-user">あなた</span>
-                <div class="chat-bubble" id="chat-user-text"></div>
-              </div>
-
-              <div class="chat-msg chat-msg-agent" data-step="thinking" hidden>
-                <span class="chat-who" data-i18n="who-agent">エージェント</span>
-                <div class="chat-bubble chat-bubble-status">
-                  <span class="chat-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                  <span id="chat-status-text">strategy-consulting-visualization スキルを実行中…</span>
-                </div>
-              </div>
-
-              <div class="chat-msg chat-msg-agent" data-step="reply" hidden>
-                <span class="chat-who" data-i18n="who-agent">エージェント</span>
-                <div class="chat-bubble">
-                  <p id="chat-reply-text">できた。メモから 9 枚の役員会デッキを描いた。下で枚が進んでいく。</p>
-                  <ol class="chat-stack" id="chat-stack" aria-label="生成されたデッキのスライド"></ol>
-                  <figure class="chat-slide">
-                    <div class="chat-slide-stage">
-                      <iframe id="chat-deck-frame" data-src="../site/artifacts/ja-deck.html?embed=1" title="チャット依頼から生成された役員会デッキ" sandbox="allow-scripts allow-same-origin" loading="lazy"></iframe>
-                    </div>
-                    <figcaption>
-                      <span id="chat-slide-count">0 / 9 枚</span>
-                      <span aria-hidden="true"> · </span>
-                      <span id="chat-slide-caption">自動再生</span>
-                    </figcaption>
-                  </figure>
-                </div>
-              </div>
-            </div>
-
-            <div class="chat-composer" aria-hidden="true">
-              <span class="chat-composer-fake">役員会スライドを依頼…</span>
-            </div>
-          </div>
-
-          <p class="chat-cta">
-            <a class="btn btn-primary" href="./try/">自分のメモで試す</a>
-            <a class="btn btn-ghost" href="./examples/">ほかの実例を見る</a>
-          </p>
+      <section id="reference-study" aria-labelledby="reference-study-title"><div class="wrap">
+        <span class="kicker">そのまま使える、実際の成果物</span>
+        <h2 id="reference-study-title">会議に持っていける、完成形まで。</h2>
+        <p class="reference-intro">役員会で成長戦略を説明するスライド。経営会議で意思決定を進める一枚資料。HTMLで作り、PDFに仕上げた実物をご覧ください。</p>
+        <div class="deliverable-grid">
+          <article class="deliverable deck-deliverable">
+            <a class="deliverable-stage deck-stage" href="../site/artifacts/demo-deck.pdf" target="_blank" rel="noopener" aria-label="役員会向けスライド全9枚をPDFで開く">
+              <img class="proof-slide-main" src="../site/artifacts/rendered/en/05-arr-waterfall.svg" alt="ARRが1,000万ドルから1,500万ドルに伸びた要因を示す英語スライド" width="1280" height="720" loading="lazy" />
+              <div class="proof-slide-strip"><img class="proof-summary" src="../site/artifacts/rendered/en/04-executive-summary.svg" alt="意思決定に必要な三つの指標をまとめた英語のエグゼクティブサマリー" width="1280" height="720" loading="lazy" /><img class="proof-closing" src="../site/artifacts/rendered/en/08-board-closing.svg" alt="提言と次の行動をまとめた英語の締めくくりスライド" width="1280" height="720" loading="lazy" /></div>
+            </a>
+            <div class="deliverable-caption"><span class="deck-format">01 / 役員会レビュー · 全9枚</span><h3 class="deck-proof-title">数字の背景を伝え、判断につなげる。</h3><p class="deck-proof-copy">成長の要因、導入状況、供給能力を整理し、役員会で決めるべきことまでつなぎます。</p><a class="reference-deck-pdf" href="../site/artifacts/demo-deck.pdf" target="_blank" rel="noopener">9枚のスライドを見る · PDF ↗</a></div>
+          </article>
+          <article class="deliverable brief-deliverable">
+            <a class="deliverable-stage brief-stage" href="../site/artifacts/reference-layouts/decision-brief.pdf" target="_blank" rel="noopener" aria-label="A4一枚の意思決定資料をPDFで開く"><img src="../site/decision-brief-preview.png" alt="提言、供給能力の図表、担当者をまとめた英語のA4意思決定資料" width="953" height="1347" loading="lazy" /></a>
+            <div class="deliverable-caption"><span class="brief-format">02 / 意思決定資料 · A4一枚</span><h3 class="brief-proof-title">決めることと、次の行動を一枚に。</h3><p class="brief-proof-copy">提言、判断の根拠、担当者を一枚に集約。会議前にも、会議後にも読み返せる資料です。</p><a class="reference-pdf" href="../site/artifacts/reference-layouts/decision-brief.pdf" target="_blank" rel="noopener">A4一枚の資料を見る · PDF ↗</a></div>
+          </article>
         </div>
-      </section>
+        <div class="proof-footer"><p class="proof-note">実際の生成ファイル · 架空のビジネスデータ · 英語サンプル</p><a class="reference-html" href="../site/artifacts/reference-layouts/decision-brief.html" target="_blank" rel="noopener">編集元のHTMLを見る ↗</a></div>
+        <div class="proof-method"><p class="proof-method-copy">HTMLで作る。PDFで届ける。構成と図表をAIと磨き、ブラウザで確認して、完成した資料を出力。</p><a class="reference-evidence" href="../site/artifacts/research/index.html">コンサルティング資料のデザイン調査を見る ↗</a></div>
+      </div></section>
+      <section id="library" aria-labelledby="library-title"><div class="wrap">
+          <div class="library-heading"><div><span class="kicker">ビジュアルライブラリ</span>
+          <h2 id="library-title">伝えたいことに合う、一枚を。</h2>
+          <p class="library-lede">成長レビュー、ベンダー比較、ロードマップ。問いに合った図表から始められます。</p></div>
+          <a class="library-all" href="./examples/">すべての実例 ↗</a></div>
+          <div class="gal-filters" role="group" aria-label="実例の絞り込み">
+<button type="button" class="gal-chip is-active" data-filter="all" aria-pressed="true">すべて</button>
+<button type="button" class="gal-chip" data-filter="charts" aria-pressed="false">グラフ</button>
+<button type="button" class="gal-chip" data-filter="scorecards" aria-pressed="false">要約・比較</button>
+<button type="button" class="gal-chip" data-filter="flows" aria-pressed="false">戦略・計画</button>
+<button type="button" class="gal-chip" data-filter="deck" aria-pressed="false">プレゼンテーション</button>
+</div><div class="gal-grid">
+<a class="gal-card" data-family="charts" id="sample-arr-waterfall" href="../site/artifacts/rendered/arr-waterfall.svg" target="_blank" rel="noopener"><div class="sample-image"><img src="../site/artifacts/rendered/arr-waterfall.svg" alt="ARRの増減" loading="lazy" width="1600" height="900" /></div><span class="sample-title">ARRの増減<span aria-hidden="true">↗</span></span><span class="sample-description">SVG · プレビューを開く</span></a>
+<a class="gal-card" data-family="charts" id="sample-pricing-retention-scatter" href="../site/artifacts/rendered/pricing-retention-scatter.svg" target="_blank" rel="noopener"><div class="sample-image"><img src="../site/artifacts/rendered/pricing-retention-scatter.svg" alt="価格と継続率" loading="lazy" width="1600" height="900" /></div><span class="sample-title">価格と継続率<span aria-hidden="true">↗</span></span><span class="sample-description">SVG · プレビューを開く</span></a>
+<a class="gal-card" data-family="scorecards" id="sample-executive-summary" href="../site/artifacts/rendered/executive-summary.svg" target="_blank" rel="noopener"><div class="sample-image"><img src="../site/artifacts/rendered/executive-summary.svg" alt="エグゼクティブサマリー" loading="lazy" width="1600" height="900" /></div><span class="sample-title">エグゼクティブサマリー<span aria-hidden="true">↗</span></span><span class="sample-description">SVG · プレビューを開く</span></a>
+<a class="gal-card" data-family="scorecards" id="sample-vendor-benchmark" href="../site/artifacts/rendered/vendor-benchmark.svg" target="_blank" rel="noopener"><div class="sample-image"><img src="../site/artifacts/rendered/vendor-benchmark.svg" alt="ベンダー比較" loading="lazy" width="1600" height="900" /></div><span class="sample-title">ベンダー比較<span aria-hidden="true">↗</span></span><span class="sample-description">SVG · プレビューを開く</span></a>
+<a class="gal-card" data-family="flows" id="sample-pmo-rollout-gantt" href="../site/artifacts/rendered/pmo-rollout-gantt.svg" target="_blank" rel="noopener"><div class="sample-image"><img src="../site/artifacts/rendered/pmo-rollout-gantt.svg" alt="プロジェクト計画" loading="lazy" width="1600" height="900" /></div><span class="sample-title">プロジェクト計画<span aria-hidden="true">↗</span></span><span class="sample-description">SVG · プレビューを開く</span></a>
+<a class="gal-card" data-family="flows" id="sample-product-priority-two-by-two" href="../site/artifacts/rendered/product-priority-two-by-two.svg" target="_blank" rel="noopener"><div class="sample-image"><img src="../site/artifacts/rendered/product-priority-two-by-two.svg" alt="優先順位マトリクス" loading="lazy" width="1600" height="900" /></div><span class="sample-title">優先順位マトリクス<span aria-hidden="true">↗</span></span><span class="sample-description">SVG · プレビューを開く</span></a>
+<a class="gal-card" data-family="deck" id="sample-board-deck-cover" href="../site/artifacts/rendered/board-deck-cover.svg" target="_blank" rel="noopener"><div class="sample-image"><img src="../site/artifacts/rendered/board-deck-cover.svg" alt="役員会プレゼンテーション" loading="lazy" width="1600" height="900" /></div><span class="sample-title">役員会プレゼンテーション<span aria-hidden="true">↗</span></span><span class="sample-description">SVG · プレビューを開く</span></a>
+<a class="gal-card" data-family="scorecards" id="sample-jp-board-summary" href="../site/artifacts/rendered/jp-board-summary.svg" target="_blank" rel="noopener"><div class="sample-image"><img src="../site/artifacts/rendered/jp-board-summary.svg" alt="日本語の役員会サマリー" loading="lazy" width="1600" height="900" /></div><span class="sample-title">日本語の役員会サマリー<span aria-hidden="true">↗</span></span><span class="sample-description">SVG · プレビューを開く</span></a>
+</div></div></section>
+      <section id="diagram-kit" aria-labelledby="diagram-title"><div class="wrap"><span class="kicker">編集できる図解テンプレート</span><h2 id="diagram-title">図解を選んで、自分の内容に。</h2><p class="diagram-help">JSONをダウンロードし、インストールしたスキルのフォルダに置きます。ラベルとデータを編集して、下のコマンドを実行してください。SVGのプレビューは原寸で開けます。</p><div class="diagram-grid">
+<article id="diagram-flow" class="diagram-card"><a href="../site/artifacts/rendered/onboarding-flow.svg" target="_blank" rel="noopener"><img src="../site/artifacts/rendered/onboarding-flow.svg" alt="業務フローの英語プレビュー" loading="lazy" width="1280" height="720" /></a><h3>業務フロー</h3><p class="diagram-description">工程・担当・ボトルネックを伝える。</p><div class="diagram-links"><a class="diagram-json" href="../site/artifacts/specs/onboarding-flow.json" download="onboarding-flow.json">編集用JSONをダウンロード ↓</a><a class="diagram-svg" href="../site/artifacts/rendered/onboarding-flow.svg" download="onboarding-flow.svg">SVG ↓</a></div><div class="diagram-command"><code id="command-flow">python3 scripts/render_slide_spec.py onboarding-flow.json -o flow.svg</code><button type="button" data-copy="#command-flow">コマンドをコピー</button></div></article>
+<article id="diagram-matrix" class="diagram-card"><a href="../site/artifacts/rendered/product-priority-two-by-two.svg" target="_blank" rel="noopener"><img src="../site/artifacts/rendered/product-priority-two-by-two.svg" alt="優先順位マトリクスの英語プレビュー" loading="lazy" width="1280" height="720" /></a><h3>優先順位マトリクス</h3><p class="diagram-description">選択肢と優先順位を、ラベルの重なりなく比較する。</p><div class="diagram-links"><a class="diagram-json" href="../site/artifacts/specs/product-priority-two-by-two.json" download="product-priority-two-by-two.json">編集用JSONをダウンロード ↓</a><a class="diagram-svg" href="../site/artifacts/rendered/product-priority-two-by-two.svg" download="product-priority-two-by-two.svg">SVG ↓</a></div><div class="diagram-command"><code id="command-matrix">python3 scripts/render_slide_spec.py product-priority-two-by-two.json -o matrix.svg</code><button type="button" data-copy="#command-matrix">コマンドをコピー</button></div></article>
+<article id="diagram-roadmap" class="diagram-card"><a href="../site/artifacts/rendered/pmo-rollout-gantt.svg" target="_blank" rel="noopener"><img src="../site/artifacts/rendered/pmo-rollout-gantt.svg" alt="プロジェクト計画の英語プレビュー" loading="lazy" width="1280" height="720" /></a><h3>プロジェクト計画</h3><p class="diagram-description">作業・期間・意思決定のタイミングを揃える。</p><div class="diagram-links"><a class="diagram-json" href="../site/artifacts/specs/pmo-rollout-gantt.json" download="pmo-rollout-gantt.json">編集用JSONをダウンロード ↓</a><a class="diagram-svg" href="../site/artifacts/rendered/pmo-rollout-gantt.svg" download="pmo-rollout-gantt.svg">SVG ↓</a></div><div class="diagram-command"><code id="command-roadmap">python3 scripts/render_slide_spec.py pmo-rollout-gantt.json -o roadmap.svg</code><button type="button" data-copy="#command-roadmap">コマンドをコピー</button></div></article>
+</div></div></section>
+      <section id="console" aria-labelledby="outcome-title"><div class="wrap outcome-layout"><div><span class="kicker">仕事で使える資料へ</span><h2 id="outcome-title">考える時間を、<br />もっと本題に。</h2><a class="outcome-cta" href="./try/">自分のメモで試す ↗</a></div><div class="outcomes">
+          <article><span class="outcome-num">01</span><div><h3>一枚ごとに、伝える結論を。</h3><p>結論を示す見出しで、データと意思決定をつなぎます。それぞれのスライドに、ストーリーの中での役割があります。</p></div></article>
+          <article><span class="outcome-num">02</span><div><h3>図表の数値を、確かめられる。</h3><p>図表は読みやすいJSONから描画。入力値と前提を確認し、自分のデータに更新できます。</p></div></article>
+          <article><span class="outcome-num">03</span><div><h3>完成した資料を、そのまま共有。</h3><p>HTMLでプレゼン、印刷でPDF、SVGをPowerPointへ。ローカルの描画にはAPIキーは不要です。</p></div></article>
+        </div></div></section>
 
       <section id="pipeline" aria-label="パイプライン">
         <div class="pl-pin">
           <div class="wrap">
             <span class="kicker">パイプライン</span>
-            <h2>メモを入れる。役員会資料が出てくる</h2>
+            <h2>手元のメモから、次の会議まで</h2>
             <ol class="pl-flow">
               <li class="pl-step">
                 <span class="pl-num">01</span>
@@ -209,9 +250,10 @@
       <section id="start" aria-label="はじめる">
         <div class="wrap">
           <span class="kicker">60秒で始める</span>
-          <h2>インストールして、レンダリングして、デッキにする。</h2>
+          <h2>次の資料は、ここから。</h2>
           <div class="st-shell">
             <pre class="st-term"><code id="st-commands"><span class="st-line">git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization</span>
+<span class="st-line">cd ~/.claude/skills/strategy-consulting-visualization</span>
 <span class="st-line">python3 scripts/render_slide_spec.py examples/render-specs/arr-waterfall.json -o slide.svg</span>
 <span class="st-line">python3 scripts/build_html_deck.py --manifest examples/demo-deck.json -o deck.html</span></code></pre>
             <button class="st-copy" type="button" data-copy="#st-commands">コピー</button>
@@ -225,10 +267,7 @@
     <footer id="footer" class="site-footer">
       <div class="ft-shell">
         <div class="wrap">
-          <p class="ft-cta">このスキルでラフなメモが使えるスライドになったら、リポジトリにスターを。スターは、「実際に描画できるツール」を人が見つけるための道標です。</p>
-          <p class="ft-actions">
-            <a class="btn btn-primary" href="https://github.com/kgraph57/mckinsey-style-visualization-skill" rel="noopener">★ GitHubでスター</a>
-          </p>
+          <p class="ft-cta">次のアイデアを、伝わる形に。</p><p class="ft-subtitle">オープンソースのスキルで、資料づくりをもっと明快に。</p><p class="ft-actions"><a class="btn btn-primary" href="#start">無料で導入する ↗</a><a class="btn btn-ghost" href="https://github.com/kgraph57/mckinsey-style-visualization-skill">GitHubを見る</a></p>
           <hr class="ft-divider" />
           <div class="ft-small">
             <p class="ft-line">MITライセンス。</p>
