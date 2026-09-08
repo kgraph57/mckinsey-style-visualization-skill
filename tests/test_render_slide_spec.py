@@ -63,13 +63,14 @@ class RenderSlideSpecTests(unittest.TestCase):
         self.assertIn(f'font-family="{renderer.SANS}" font-size="40"', svg)
         self.assertNotIn(f'font-family="{renderer.SERIF}"', svg)
 
-    def test_summary_focus_is_single_panel_with_reversed_text(self):
+    def test_executive_summary_focus_uses_light_panel_and_navy_rule(self):
         spec = {"pattern": "summary_strip", "theme": "executive", "focus_block": 1,
                 "headline": "Close the gap", "blocks": [
                     {"metric": "50%", "claim": "Growth", "proof": "Evidence", "implication": "Protect"},
                     {"metric": "60%", "claim": "Capacity", "proof": "Coverage", "implication": "Invest"}]}
         svg = renderer.render(spec)
-        self.assertIn('fill="#FFFFFF" font-weight="bold" text-anchor="start">Capacity', svg)
+        self.assertIn('fill="#000000" font-weight="bold" text-anchor="start">Capacity', svg)
+        self.assertIn('fill="#F3F5FA"', svg)
         self.assertEqual(svg.count(f'fill="{renderer.BLUE}" stroke="none"'), 1)
 
     def test_invalid_business_style_options_are_rejected(self):

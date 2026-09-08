@@ -1,16 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Prioritize SSO and bulk export for enterprise customers">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Prioritize SSO and bulk export for enterprise">
   <rect width="1280" height="720" fill="#FFFFFF"/>
   <text x="80.0" y="96.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Prioritize SSO and bulk export for enterprise</text>
-  <text x="80.0" y="148.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">customers</text>
-  <text x="80.0" y="176.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">Illustrative feature assessment · Relative effort and customer impact</text>
+  <text x="80.0" y="124.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">Illustrative feature assessment · Relative effort and customer impact</text>
   <rect x="112.0" y="224.0" width="640.0" height="320.0" fill="#FFFFFF" stroke="#D1D5DB"/>
   <rect x="112.0" y="224.0" width="320.0" height="160.0" fill="#EFF3FB" stroke="none"/>
   <line x1="432.0" y1="224.0" x2="432.0" y2="544.0" stroke="#D1D5DB"/>
   <line x1="112.0" y1="384.0" x2="752.0" y2="384.0" stroke="#D1D5DB"/>
-  <text x="124.0" y="248.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">Quick wins</text>
-  <text x="740.0" y="248.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="end">Big bets</text>
-  <text x="124.0" y="532.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">Low priority</text>
-  <text x="740.0" y="532.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="end">Money pits</text>
+  <text x="124.0" y="248.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">Prioritize</text>
+  <text x="740.0" y="248.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="end">Plan selectively</text>
+  <text x="124.0" y="532.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">Defer</text>
+  <text x="740.0" y="532.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="end">Reconsider</text>
   <text x="432.0" y="592.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="600" text-anchor="middle">Implementation effort</text>
   <text x="80.0" y="214.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#000000" font-weight="600" text-anchor="start">Customer impact</text>
   <text x="112.0" y="568.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="start">Low</text>
@@ -18,28 +17,28 @@
   <text x="102.0" y="240.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="end">High</text>
   <text x="102.0" y="544.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="end">Low</text>
   <text x="796.0" y="236.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="15" fill="#6B7280" font-weight="600" text-anchor="start">Options</text>
-  <circle cx="240.0" cy="281.6" r="15" fill="#15296B"/>
+  <circle cx="240.0" cy="281.6" r="15" fill="#15296B" stroke="#15296B" stroke-width="1.5"/>
   <text x="240.0" y="286.6" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#FFFFFF" font-weight="600" text-anchor="middle">01</text>
   <text x="796.0" y="278.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">01</text>
   <text x="836.0" y="278.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">SSO integration</text>
-  <circle cx="291.2" cy="313.6" r="15" fill="#15296B"/>
+  <circle cx="291.2" cy="313.6" r="15" fill="#15296B" stroke="#15296B" stroke-width="1.5"/>
   <text x="291.2" y="318.6" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#FFFFFF" font-weight="600" text-anchor="middle">02</text>
   <text x="796.0" y="326.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">02</text>
   <text x="836.0" y="326.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#15296B" font-weight="600" text-anchor="start">Bulk export</text>
-  <circle cx="624.0" cy="294.4" r="15" fill="#374151"/>
-  <text x="624.0" y="299.4" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#FFFFFF" font-weight="600" text-anchor="middle">03</text>
+  <circle cx="624.0" cy="294.4" r="15" fill="#FFFFFF" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="624.0" y="299.4" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="600" text-anchor="middle">03</text>
   <text x="796.0" y="374.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="600" text-anchor="start">03</text>
   <text x="836.0" y="374.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">Mobile app</text>
-  <circle cx="470.4" cy="377.6" r="15" fill="#374151"/>
-  <text x="470.4" y="382.6" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#FFFFFF" font-weight="600" text-anchor="middle">04</text>
+  <circle cx="470.4" cy="377.6" r="15" fill="#FFFFFF" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="470.4" y="382.6" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="600" text-anchor="middle">04</text>
   <text x="796.0" y="422.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="600" text-anchor="start">04</text>
   <text x="836.0" y="422.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">Custom dashboards</text>
-  <circle cx="214.4" cy="467.2" r="15" fill="#374151"/>
-  <text x="214.4" y="472.2" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#FFFFFF" font-weight="600" text-anchor="middle">05</text>
+  <circle cx="214.4" cy="467.2" r="15" fill="#FFFFFF" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="214.4" y="472.2" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="600" text-anchor="middle">05</text>
   <text x="796.0" y="470.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="600" text-anchor="start">05</text>
   <text x="836.0" y="470.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">Dark mode</text>
-  <circle cx="649.6" cy="454.4" r="15" fill="#374151"/>
-  <text x="649.6" y="459.4" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#FFFFFF" font-weight="600" text-anchor="middle">06</text>
+  <circle cx="649.6" cy="454.4" r="15" fill="#FFFFFF" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="649.6" y="459.4" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="14" fill="#374151" font-weight="600" text-anchor="middle">06</text>
   <text x="796.0" y="518.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="600" text-anchor="start">06</text>
   <text x="836.0" y="518.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">Legacy migration</text>
   <text x="80.0" y="630.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#15296B" font-weight="600" text-anchor="start"><title>Validate delivery estimates before allocating engineering capacity.</title>Validate delivery estimates before allocating engineering capacity.</text>

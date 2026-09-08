@@ -463,7 +463,7 @@ def render_waterfall(spec: dict) -> list[str]:
 
     zero_y = y_at(0)
     parts = [
-        line_el(ML, zero_y, W - MR, zero_y, GREY_DARK),
+        line_el(ML, zero_y, W - MR, zero_y, GREY_BORDER if spec.get("theme") == "executive" else GREY_DARK),
         text_el(ML - 10, zero_y + 4, "0", size=T_TICK, fill=GREY_MED, anchor="end"),
     ]
 
@@ -495,9 +495,9 @@ def render_waterfall(spec: dict) -> list[str]:
         fill = (GREY_MED if spec.get("theme") == "executive" else BLUE2) if value >= 0 else RED
         sign = "+" if value >= 0 else "−"
         bar(i, running, running + value, fill, driver["label"], f"{sign}{fmt(abs(value), unit)}")
-        parts.append(line_el(x_at(i - 1) + bar_w, y_at(running), x_at(i), y_at(running), GREY_BORDER, "4 3"))
+        parts.append(line_el(x_at(i - 1) + bar_w, y_at(running), x_at(i), y_at(running), GREY_BORDER, "" if spec.get("theme") == "executive" else "4 3"))
         running += value
-    parts.append(line_el(x_at(n - 2) + bar_w, y_at(running), x_at(n - 1), y_at(running), GREY_BORDER, "4 3"))
+    parts.append(line_el(x_at(n - 2) + bar_w, y_at(running), x_at(n - 1), y_at(running), GREY_BORDER, "" if spec.get("theme") == "executive" else "4 3"))
     bar(n - 1, 0, end_value, BLUE, end_label, fmt(end_value, unit))
     return parts
 
@@ -702,8 +702,12 @@ def render_summary_strip(spec: dict) -> list[str]:
         x = ML + col_w * i
         inner_x = x + pad
         focused = i == focus
+        light_focus = focused and spec.get("theme") == "executive"
+        reversed_text = focused and not light_focus
         if focused:
-            parts.append(rect_el(x + 8, CHART_TOP, col_w - 16, CHART_BOTTOM + 24 - CHART_TOP, BLUE))
+            parts.append(rect_el(x + 8, CHART_TOP, col_w - 16, CHART_BOTTOM + 24 - CHART_TOP, "#F3F5FA" if light_focus else BLUE))
+            if light_focus:
+                parts.append(rect_el(x + 8, CHART_TOP, col_w - 16, 3, BLUE))
         y = strip_top + 23  # 18 * 22/17, scaled with T_BODY (claim role)
         if has_metrics:
             metric = block.get("metric", "")
@@ -712,22 +716,22 @@ def render_summary_strip(spec: dict) -> list[str]:
                 raise RenderSpecError("summary_strip metric must be a short string that fits its column")
             if metric:
                 parts.append(text_el(inner_x, strip_top + T_KPI_NUM, metric,
-                                     size=T_KPI_NUM, fill=WHITE if focused else (BLACK if focus is not None else BLUE), weight="bold"))
+                                     size=T_KPI_NUM, fill=WHITE if reversed_text else (BLUE if light_focus or focus is None else BLACK), weight="bold"))
             y = strip_top + T_KPI_NUM + 48
         for line in wrap(block["claim"], claim_width, max_lines=3):
-            parts.append(text_el(inner_x, y, line, size=T_BODY, fill=WHITE if focused else BLACK, weight="bold"))
+            parts.append(text_el(inner_x, y, line, size=T_BODY, fill=WHITE if reversed_text else BLACK, weight="bold"))
             y += LINE_H_BODY
         y += claim_gap
         if has_metrics:
             y = strip_top + T_KPI_NUM + 48 + max_claim_lines * LINE_H_BODY + claim_gap
         for line in wrap(block["proof"], label_width, max_lines=4):
-            parts.append(text_el(inner_x, y, line, size=T_LABEL, fill="#E5E7EB" if focused else (GREY_DARK if spec.get("theme") == "executive" else GREY_MED)))
+            parts.append(text_el(inner_x, y, line, size=T_LABEL, fill="#E5E7EB" if reversed_text else (GREY_DARK if spec.get("theme") == "executive" else GREY_MED)))
             y += LINE_H_LABEL
         y += proof_gap
         if has_metrics:
             y = strip_top + T_KPI_NUM + 48 + max_claim_lines * LINE_H_BODY + claim_gap + max_proof_lines * LINE_H_LABEL + proof_gap
         for line in wrap(block["implication"], label_width, max_lines=3):
-            parts.append(text_el(inner_x, y, line, size=T_LABEL, fill=WHITE if focused else BLUE, weight="600"))
+            parts.append(text_el(inner_x, y, line, size=T_LABEL, fill=WHITE if reversed_text else BLUE, weight="600"))
             y += LINE_H_LABEL
         if focused and y - LINE_H_LABEL + 8 > CHART_BOTTOM + 24:
             raise RenderSpecError("focused summary block is too dense; shorten its text or split the slide")
@@ -791,9 +795,12 @@ def render_executive_matrix(spec: dict) -> list[str]:
     parts.append(text_el(legend_x,y+12,spec.get('legend_title','Options'),size=T_KICKER_LABEL,fill=GREY_MED,weight='600'))
     for i, point in enumerate(spec['points']):
         px,py=x+width*point['x']/100,y+height*(1-point['y']/100)
-        color=BLUE if point.get('emphasis') else GREY_DARK
-        parts.append(f'<circle cx="{px}" cy="{py}" r="15" fill="{color}"/>')
-        parts.append(text_el(px,py+5,f'{i+1:02d}',size=T_TICK,fill=WHITE,anchor='middle',weight='600'))
+        emphasized = point.get('emphasis')
+        color = BLUE if emphasized else GREY_DARK
+        fill = BLUE if emphasized else WHITE
+        stroke = BLUE if emphasized else GREY_BORDER
+        parts.append(f'<circle cx="{px}" cy="{py}" r="15" fill="{fill}" stroke="{stroke}" stroke-width="1.5"/>')
+        parts.append(text_el(px,py+5,f'{i+1:02d}',size=T_TICK,fill=WHITE if emphasized else GREY_DARK,anchor='middle',weight='600'))
         baseline=y+54+i*48
         parts.append(text_el(legend_x,baseline,f'{i+1:02d}',size=T_LABEL,fill=color,weight='600'))
         lines=wrap(point['label'],max(6,int((W-MR-legend_x-40)/(T_LABEL*.62))))
