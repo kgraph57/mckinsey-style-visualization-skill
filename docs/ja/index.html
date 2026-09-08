@@ -243,6 +243,9 @@ ARRは$10Mから$15Mへ
             <p class="pl-more">
               <a href="./examples/">ライブ実例を見る →</a>
             </p>
+            <p class="pl-more">
+              <a id="case-study-link" href="https://github.com/kgraph57/mckinsey-style-visualization-skill/blob/main/examples/case-studies/saas-board-update.md" rel="noopener">2分ケーススタディを読む: 生メモ → 役員会スライド →</a>
+            </p>
           </div>
         </div>
       </section>
@@ -252,7 +255,9 @@ ARRは$10Mから$15Mへ
           <span class="kicker">60秒で始める</span>
           <h2>次の資料は、ここから。</h2>
           <div class="st-shell">
-            <pre class="st-term"><code id="st-commands"><span class="st-line">git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization</span>
+            <pre class="st-term"><code id="st-commands"><span class="st-line">npx skills add kgraph57/mckinsey-style-visualization-skill</span>
+<span class="st-line"># For the runnable examples, clone and enter the repository:</span>
+<span class="st-line">git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization</span>
 <span class="st-line">cd ~/.claude/skills/strategy-consulting-visualization</span>
 <span class="st-line">python3 scripts/render_slide_spec.py examples/render-specs/arr-waterfall.json -o slide.svg</span>
 <span class="st-line">python3 scripts/build_html_deck.py --manifest examples/demo-deck.json -o deck.html</span></code></pre>

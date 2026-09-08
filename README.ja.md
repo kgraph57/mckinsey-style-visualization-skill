@@ -42,7 +42,14 @@ _このリポジトリだけで作った実物のデッキ: `スペック(JSON) 
 ## 60秒スタート
 
 ```bash
-# 1. 取得（これがエージェントスキルとしてのインストールも兼ねる）
+# 1. エージェントスキルとしてインストール（Claude Code・Cursor・Codexほか70以上のエージェント対応）
+npx skills add kgraph57/mckinsey-style-visualization-skill
+```
+
+直接クローンする場合（下のスクリプトもすぐ実行できます）:
+
+```bash
+# 1. 取得（Claude Code向けクローンインストール）
 git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization
 cd ~/.claude/skills/strategy-consulting-visualization
 
@@ -61,6 +68,8 @@ open deck.html   # ← 矢印キーで移動、"p" で印刷 → PDF
 ARRは$10Mから$15Mに成長。エンタープライズ新規+$3M、既存拡張+$2.5M、チャーン-$0.5M。
 取締役会は実装キャパシティへの投資を判断する。
 ```
+
+> **導入事例（2分で読める）:** [SaaS役員会アップデート — 生メモから役員会スライドまで](examples/case-studies/saas-board-update.md)。匿名化した創業者のメモ → 弱い初稿 → 同梱レビュアーが差し戻し（14/20） → 意思決定ファーストの改訂版が合格（20/20） → コミット済みのレンダリング結果まで、実物のワンパスを追えます。
 
 ## パイプライン
 

@@ -8,6 +8,87 @@ Get the skill in front of agent users who create business, strategy, board, inve
 
 Primary outcome: marketplace listings, GitHub stars, forks, saves, replies, and inbound requests for rendered slide examples or paid templates.
 
+## Release Copy (v2.4.0)
+
+Lead with the complete loop: scaffold a template → animated HTML deck → print-to-PDF, then point to the live landing page and the public case study. Attach `assets/readme/demo.gif` (the primary social asset) to every post.
+
+Links to include everywhere:
+
+- Live landing page (the deck plays in the browser): https://kgraph57.github.io/mckinsey-style-visualization-skill/
+- Public case study (raw notes → reviewed board slide, 2-minute read): https://github.com/kgraph57/mckinsey-style-visualization-skill/blob/main/examples/case-studies/saas-board-update.md
+
+### Show HN (Hacker News)
+
+```text
+Title: Show HN: Scaffold a full consulting-style board deck with one command – animated HTML, print to PDF (zero deps)
+
+v2.4.0 rounds out the presentation system: one deck manifest now
+builds four deliverables — an animated deck, an A4 report, a speaker
+script, and a top-to-bottom article page. Everything is Python 3
+stdlib — no installs, no API keys, no network calls, single-file
+outputs.
+
+- scaffold_deck.py copies a complete 9-12 slide archetype (6 ship,
+  one in native Japanese — not a translation); swap the illustrative
+  data for yours, one command builds an animated HTML deck, and
+  pressing "p" in the browser prints it straight to PDF.
+- 22 patterns render to real SVG — the charts plus the deck furniture
+  nobody ships (covers, section dividers, agendas, closings, back
+  covers). The README gallery is committed renderer output; CI fails
+  if any of it drifts from the code.
+- New since 2.3: any slide spec can carry "notes" (spoken narration).
+  The same manifest then builds a podium speaker script (slide left,
+  script right, one A4 page per slide) and a serialized-column
+  article page for reading the deck top to bottom.
+- We also published the first public case study — one real pass on a
+  SaaS board update: raw notes -> weak first draft -> the packaged
+  reviewer rejects it (14/20) -> decision-first revision passes
+  (20/20) -> the committed rendered slides:
+  https://github.com/kgraph57/mckinsey-style-visualization-skill/blob/main/examples/case-studies/saas-board-update.md
+
+Live demo (the deck plays in the page):
+https://kgraph57.github.io/mckinsey-style-visualization-skill/
+
+Install: npx skills add kgraph57/mckinsey-style-visualization-skill
+Repo: https://github.com/kgraph57/mckinsey-style-visualization-skill
+```
+
+### X Version (EN)
+
+```text
+Scaffold a complete consulting-style board deck with one command. Press "p" in the browser — it's a PDF.
+
+v2.4.0 of my strategy-visualization skill:
+- 22 render patterns: charts + covers, dividers, agendas, closings
+- 6 deck templates (one in native Japanese): scaffold -> swap data -> animated HTML deck
+- Same manifest also builds an A4 report, a speaker script, and an article page
+- New: a 2-minute public case study — raw notes -> reviewed, rendered board slide
+
+Zero dependencies. Zero API keys. Zero network calls.
+Install: npx skills add kgraph57/mckinsey-style-visualization-skill
+
+Live demo: https://kgraph57.github.io/mckinsey-style-visualization-skill/
+Case study: https://github.com/kgraph57/mckinsey-style-visualization-skill/blob/main/examples/case-studies/saas-board-update.md
+```
+
+### X Version (JP)
+
+```text
+1コマンドで、表紙から裏表紙まで揃った戦略コンサル風デッキが出てくる。ブラウザで「p」を押せばそのままPDF。
+
+v2.4.0の目玉:
+- 描画22パターン（グラフ＋表紙・小扉・アジェンダ・クロージング）
+- デッキテンプレ6種（日本語ネイティブの役員会デッキ含む）: scaffold → データ差し替え → アニメ付きHTMLデッキ
+- 同じマニフェストからA4レポート・発表原稿・記事ページもビルド
+- 新公開: 2分で読める導入事例 — 生メモ → レビュー差し戻し → 改訂合格 → 役員会スライド
+
+依存ゼロ・APIキー不要・ネットワーク通信なし。
+インストール: npx skills add kgraph57/mckinsey-style-visualization-skill
+
+ライブデモ: https://kgraph57.github.io/mckinsey-style-visualization-skill/
+導入事例: https://github.com/kgraph57/mckinsey-style-visualization-skill/blob/main/examples/case-studies/saas-board-update.md
+```
+
 ## Release Copy (v2.0.0)
 
 Lead with the "one command → full deck" demo: scaffold a template, build the HTML deck, show the print-to-PDF. The story is completeness — covers, dividers, agenda, closing, back cover, deck templates, and browser documents, not just charts.
@@ -283,10 +364,10 @@ https://github.com/kgraph57/mckinsey-style-visualization-skill
 
 ## Social Asset
 
-Primary: `assets/readme/hero-before-after.svg` exported to PNG (messy notes -> rendered slide).
-Secondary: `assets/social/launch-card.svg`.
+Primary: `assets/readme/demo.gif` (the animated board deck — the same asset the README leads with).
+Stills: `assets/readme/hero-before-after.svg` exported to PNG (messy notes -> rendered slide), `assets/social/launch-card.svg`, or any gallery SVG exported to PNG.
 
-Alt text: Strategy Consulting Visualization Skill turns raw notes into a rendered, board-ready SVG slide with one command, plus specs for reports, proposals, and infographics.
+Alt text: Strategy Consulting Visualization Skill turns raw notes into a rendered, board-ready deck with one command — SVG slides, an animated HTML deck, and print-to-PDF.
 
 ### X Thread (JP, 7 posts)
 

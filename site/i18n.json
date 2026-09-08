@@ -64,6 +64,7 @@
     "#pipeline .pl-step:nth-of-type(3) .pl-label": "SVGスライド",
     "#pipeline .pl-step:nth-of-type(4) .pl-label": "アニメーションHTMLデッキ／PDF",
     "#pipeline .pl-note": "単一ファイルのPythonスクリプト、標準ライブラリのみ。specはコードのように版を重ねられます。",
+    "#case-study-link": "2分ケーススタディを読む: 生メモ → 役員会スライド →",
     ".pl-more a": "ライブ実例を見る →",
     "#start .kicker": "60秒で始める",
     "#start h2": "次の資料は、ここから。",
