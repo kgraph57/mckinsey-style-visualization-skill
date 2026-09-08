@@ -13,6 +13,13 @@ def spec():
     return {'pattern':'distribution','theme':'executive','layout':'analytical','headline':'Delivery capacity trails commitments','subline':'Monthly projects, illustrative planning case','exhibit_label':'Exhibit 1','source':'Source: illustrative data.','bins':[{'label':'Capacity','value':6},{'label':'Committed','value':10}], 'highlight':1}
 
 class ReferenceLayouts(unittest.TestCase):
+    def test_executive_columns_are_slim_and_keep_value_proportions(self):
+        root=ET.fromstring(r.render(spec()));ns={'s':'http://www.w3.org/2000/svg'}
+        bars=[e for e in root.findall('s:rect',ns) if e.get('fill') in ['#D1D5DB','#15296B']]
+        self.assertEqual(len(bars),2)
+        self.assertTrue(all(float(e.get('width'))<=88 for e in bars))
+        self.assertAlmostEqual(float(bars[0].get('height'))/float(bars[1].get('height')),.6,places=2)
+
     def test_analytical_header_and_palette(self):
         s=spec();s['palette']='red';svg=r.render(s)
         self.assertIn('Exhibit 1',svg);self.assertIn('#B4232D',svg)

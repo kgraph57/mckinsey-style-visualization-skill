@@ -1217,10 +1217,12 @@ def render_distribution(spec: dict) -> list[str]:
     top = max(b["value"] for b in bins) * 1.15 or 1
     span = 748 if spec.get("commentary") else W - ML - MR
     step = span / len(bins)
-    bar_w = step * 0.82
+    executive = spec.get("theme") == "executive"
+    bar_w = min(88.0, step * 0.38) if executive else step * 0.82
+    label_size = 24 if executive else T_LABEL
 
     parts = [
-        line_el(ML, CHART_BOTTOM, ML + span, CHART_BOTTOM, GREY_DARK),
+        line_el(ML, CHART_BOTTOM, ML + span, CHART_BOTTOM, GREY_BORDER if executive else GREY_DARK),
         text_el(ML - 10, CHART_BOTTOM + 4, "0", size=T_TICK, fill=GREY_MED, anchor="end"),
     ]
     for i, bucket in enumerate(bins):
@@ -1231,10 +1233,10 @@ def render_distribution(spec: dict) -> list[str]:
         # Flat fill only — grey context bars never carry a border.
         parts.append(rect_el(x, y, bar_w, max(h, 1), BLUE if is_hot else (GREY_BORDER if spec.get("layout") == "analytical" else GREY_FILL)))
         parts.append(
-            text_el(x + bar_w / 2, y - 11, fmt(bucket["value"], unit), size=T_LABEL, weight="bold" if is_hot else "normal", fill=BLACK if is_hot else GREY_MED, anchor="middle")
+            text_el(x + bar_w / 2, y - 11, fmt(bucket["value"], unit), size=24 if executive else T_LABEL, weight="bold" if is_hot else "normal", fill=BLACK if is_hot else GREY_MED, anchor="middle")
         )
-        for j, line in enumerate(wrap(bucket["label"], max(int(step / 11), 6), max_lines=2)):  # divisor 8 * 18/12
-            parts.append(text_el(x + bar_w / 2, CHART_BOTTOM + X_AXIS_LABEL_LEAD + j * LINE_H_LABEL, line, size=T_LABEL, fill=GREY_DARK, anchor="middle", title=bucket["label"]))
+        for j, line in enumerate(wrap(bucket["label"], max(int((step - 16) / (label_size * .62)), 6) if executive else max(int(step / 11), 6), max_lines=2)):  # divisor 8 * 18/12
+            parts.append(text_el(x + bar_w / 2, CHART_BOTTOM + X_AXIS_LABEL_LEAD + j * (24 if executive else LINE_H_LABEL), line, size=label_size, fill=GREY_DARK, anchor="middle", title=bucket["label"]))
     if spec.get("commentary"):
         rail = spec["commentary"]
         parts.append(line_el(868, CHART_TOP, 868, CHART_BOTTOM))
