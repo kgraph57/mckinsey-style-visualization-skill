@@ -6,7 +6,7 @@
 
 One skill for your AI agent: turn notes, metrics, and prose into consulting-grade visuals — as real SVG slides, as an **animated HTML deck**, or as a spec any designer or tool can execute.
 
-Core SVG/HTML generation uses the Python 3 standard library only. **No API key or network access required.** Automated PDF export has optional browser dependencies.
+Rendering existing JSON specs into SVG/HTML uses the Python 3 standard library only, with no API key or network access required. **Generating slides from notes in the browser requires your own Anthropic API key.** The sample trial needs no key. Automated PDF export has optional browser dependencies.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
@@ -21,6 +21,18 @@ _An actual deck built by this repo: `specs (JSON) → SVG slides → animated HT
 _Reproduce it: `python3 scripts/scaffold_deck.py board-update -o demo && python3 scripts/build_html_deck.py --manifest demo/deck.json -o demo/deck.html`_
 
 </div>
+
+## What’s new — September 9, 2026
+
+**Try a presentation on your phone before setting up an API key.** Open the [browser trial](https://kgraph57.github.io/mckinsey-style-visualization-skill/try/), choose **Explore a sample deck**, then **Start presentation**.
+
+- **Present directly in the browser.** Swipe or use Previous / Next to move through slides; rotate your phone for a larger landscape view. Desktop keyboard navigation is also supported.
+- **Share or save HTML.** Use the device share sheet where supported, with a download fallback. Present from the browser; reopening interactive HTML from iOS Files is not yet verified.
+- **Save a PDF.** Choose **PDF / Print**, select landscape in the native print dialog, then use its share/save options. iOS may initially select A4 portrait.
+- **See the outcome before trying it.** The homepage pairs a clearly labeled AI-generated hero concept with actual renderer output and a path from examples to the trial or installation.
+- **iOS fixes verified in Simulator.** Japanese text and controls use an explicit Hiragino fallback; HTML sharing no longer creates an extra text file.
+
+Tested with **iPhone 17 / iOS 26.3 Simulator Safari**: sample loading, presentation, swipe navigation, rotation, nine-page print preview, and PDF/HTML saving to Files. Existing 335 tests pass. Physical iPhone hardware, live API generation and AirPlay/projector output remain unverified. See the [test record](tests/manual/ios-safari.md).
 
 ## What’s new — September 8, 2026
 

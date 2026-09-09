@@ -6,7 +6,7 @@
 
 AIエージェントに載せるひとつのスキルで、メモ・数値・文章をコンサル品質のビジュアルに変換 — 本物のSVGスライドとして、**アニメーション付きHTMLデッキ**として、あるいはデザイナーやツールがそのまま実行できるスペックとして。
 
-SVG・HTMLの生成はPython 3 標準ライブラリのみ。**APIキー不要・ネットワーク通信なし。** PDFの自動出力には追加のブラウザ依存があります。
+既存のJSONスペックからSVG・HTMLを描画する処理は、Python 3標準ライブラリのみで動作し、APIキーや通信は不要です。**ブラウザでメモから新しい資料を生成する場合は、ご自身のAnthropic APIキーが必要です。** サンプル体験はキー不要。PDFの自動出力には追加のブラウザ依存があります。
 
 [![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/badge/Release-v2.4.0-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.4.0)
@@ -18,6 +18,18 @@ SVG・HTMLの生成はPython 3 標準ライブラリのみ。**APIキー不要�
 _このリポジトリだけで作った実物のデッキ: `スペック(JSON) → SVGスライド → アニメ付きHTMLデッキ`。手描きは一切なし。_
 
 </div>
+
+## 更新内容 — 2026年9月9日
+
+**APIキーを準備する前に、スマホでプレゼンを体験できます。** [ブラウザ版](https://kgraph57.github.io/mckinsey-style-visualization-skill/ja/try/)を開き、「サンプルで体験する」→「プレゼン開始」と進んでください。
+
+- **ブラウザからそのままプレゼン。** 左右のスワイプや前後ボタンでページ送り。スマホを横向きにすると、スライドを大きく表示できます。PCのキーボード操作にも対応しています。
+- **HTMLを共有・保存。** 対応端末では共有メニューを開き、非対応環境ではダウンロードに切り替えます。発表にはブラウザ内のプレゼン画面を使ってください。iOSの「ファイル」から保存済みHTMLを開いた場合の操作は未検証です。
+- **PDFとして保存。** 「PDF / 印刷」から印刷画面を開き、横向きを選んで共有・保存できます。iOSでは初期設定がA4縦向きになる場合があります。
+- **完成イメージから実例・体験へ。** トップページにAI生成と明記したヒーロー画像を配置し、実際の出力を見てから試用・導入へ進める構成にしました。
+- **iOSで見つかった不具合を修正。** 日本語本文・ボタンのフォントを調整し、HTML共有時に余分なテキストファイルが作られる問題を解消しました。
+
+**iPhone 17／iOS 26.3シミュレーターのSafari**で、サンプル読み込み・プレゼン・スワイプ・画面回転・9ページの印刷プレビュー・PDFとHTMLの端末内保存を確認しました。既存335テストも成功しています。実際のiPhone端末、実APIでの新規生成、AirPlay・プロジェクターへの投影は未検証です。[検証記録（英語）](tests/manual/ios-safari.md)も参照できます。
 
 ## 更新内容 — 2026年9月8日
 
