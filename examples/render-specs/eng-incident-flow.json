@@ -26,5 +26,6 @@
   ],
   "highlight": 2,
   "annotation": "Ownership lookup dominates time to mitigate; auto-route alerts from the service catalog.",
-  "source": "Source: user-provided incident timeline."
+  "source": "Source: user-provided incident timeline.",
+  "theme": "executive"
 }

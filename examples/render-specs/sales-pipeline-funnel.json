@@ -1,15 +1,31 @@
 {
   "pattern": "funnel",
-  "headline": "Half the pipeline is lost at proposal stage, before pricing is ever discussed",
+  "headline": "Qualification is the largest conversion bottleneck",
   "subline": "Q2 pipeline conversion by stage",
   "unit": "",
   "stages": [
-    {"label": "Leads", "value": 480},
-    {"label": "Qualified", "value": 210},
-    {"label": "Demo completed", "value": 124},
-    {"label": "Proposal sent", "value": 58},
-    {"label": "Closed won", "value": 31}
+    {
+      "label": "Leads",
+      "value": 480
+    },
+    {
+      "label": "Qualified",
+      "value": 210
+    },
+    {
+      "label": "Demo completed",
+      "value": 124
+    },
+    {
+      "label": "Proposal sent",
+      "value": 58
+    },
+    {
+      "label": "Closed won",
+      "value": 31
+    }
   ],
-  "annotation": "Demo-to-proposal (47%) is the weakest stage; fix the proposal motion before buying more top-of-funnel.",
-  "source": "Source: user-provided CRM export, Q2."
+  "annotation": "Qualification retains 44% of leads; investigate lead fit and handoff before adding more volume.",
+  "source": "Source: user-provided CRM export, Q2.",
+  "theme": "executive"
 }

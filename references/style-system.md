@@ -241,7 +241,7 @@ For a `summary_strip`, optional `"focus_block": 2` highlights the third column w
 
 ### Editable executive diagrams
 
-- `process_flow`: use up to five steps. Each step supports `label`, `detail`, and optional `owner` and `duration`. A single `highlight_index` identifies the bottleneck or decision point. Keep labels to two lines, details to three, and owner/duration to two; longer content requests a shorter label or a separate slide.
+- `process_flow`: use up to five steps. Each step supports `label`, `detail`, and optional `owner` and `duration`. A single `highlight` identifies the bottleneck or decision point. Keep labels to two lines, details to three, and owner/duration to two; longer content requests a shorter label or a separate slide.
 - `two_by_two`: use up to six points. Numbered markers map to a separate label key so names do not sit on top of the plot. Coordinates remain on the 0–100 scale. Optional `focus_quadrant` is zero-based: 0 upper left, 1 upper right, 2 lower left, 3 lower right. Use it only when the highlighted quadrant has a clear business meaning.
 - `gantt`: notes appear inside their bars. Shorten notes that do not fit, or move them to the slide annotation. Use the highlight to identify the critical workstream.
 
@@ -254,3 +254,9 @@ When an actual reference is supplied, its publication and page determine the des
 Optional `layout: analytical` gives content slides a 32px sans-serif assertion headline, a separate `exhibit_label`, and a scope/period `subline`. Optional palettes `navy`, `red`, `green`, and `mono` replace the primary and secondary series accents. For signed charts, preserve a distinct meaning for adverse values and avoid using the same hue for selection and loss.
 
 Distribution charts may use `commentary` with a title and one to three concise points. Geometry is recalculated for the smaller plot; chart text is not scaled down. Other chart families do not yet support this rail. Compact report exhibits export chart geometry without slide chrome, leaving captions and provenance editable in the document. See the reproduction workflow for limits and the reference-layout templates for working examples.
+
+### Graphic finishing checks
+
+Review generated slides at full size and in their final document. Executive columns and waterfall bars cap at 88px; gap and funnel bands cap at 28px. These caps reduce visual weight without changing the quantitative axis. Keep category centers, value heights, units and zero baselines intact. Do not apply thin categorical columns blindly to continuous histograms.
+
+Executive process diagrams use open columns, a thin top rule, and a light panel for the one highlighted step. Check the longest label and owner line at actual export size. Inspect number placement on short funnel bars; values sit outside executive bars. Compare all narrative claims to the underlying arithmetic before publication.

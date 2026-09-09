@@ -4,12 +4,17 @@
   "bullets": [
     {
       "text": "Capacity is fixed until Q3",
-      "sub": ["Hiring freeze through June", "Onboarding team caps at 40 accounts a month"],
+      "sub": [
+        "Hiring freeze through June",
+        "Onboarding team caps at 40 accounts a month"
+      ],
       "emphasis": true
     },
     {
       "text": "Vendor A's integration is not yet certified",
-      "sub": ["Certification expected in eight weeks"]
+      "sub": [
+        "Certification expected in eight weeks"
+      ]
     },
     {
       "text": "Regional pricing has not been finalized"
@@ -17,5 +22,6 @@
   ],
   "columns": 1,
   "annotation": "Sequence the rollout around the capacity constraint, not around demand.",
-  "source": "Illustrative data — hypothetical rollout plan."
+  "source": "Illustrative data — hypothetical rollout plan.",
+  "theme": "executive"
 }

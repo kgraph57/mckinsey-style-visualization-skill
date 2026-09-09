@@ -5,10 +5,26 @@
   "before_label": "Before",
   "after_label": "After",
   "pairs": [
-    {"label": "AI workflow adoption", "before": 18, "after": 64, "unit": "%"},
-    {"label": "Onboarding time", "before": 42, "after": 23, "unit": " days"},
-    {"label": "Tickets per account", "before": 9, "after": 4, "unit": ""}
+    {
+      "label": "AI workflow adoption",
+      "before": 18,
+      "after": 64,
+      "unit": "%"
+    },
+    {
+      "label": "Onboarding time",
+      "before": 42,
+      "after": 23,
+      "unit": " days"
+    },
+    {
+      "label": "Tickets per account",
+      "before": 9,
+      "after": 4,
+      "unit": ""
+    }
   ],
   "annotation": "Adoption gains justify extending the program to the enterprise tier.",
-  "source": "Source: user-provided program metrics."
+  "source": "Source: user-provided program metrics.",
+  "theme": "executive"
 }

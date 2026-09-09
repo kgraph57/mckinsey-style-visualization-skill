@@ -52,8 +52,8 @@ class RenderSlideSpecTests(unittest.TestCase):
         spec = {"pattern": "waterfall", "headline": "Growth", "start": {"label": "Start", "value": 10},
                 "drivers": [{"label": "Expansion", "value": 5}, {"label": "Churn", "value": -2}]}
         def geometry(svg):
-            return [{k: r.get(k) for k in ('x','y','width','height')} for r in
-                    ET.fromstring(svg).findall('.//{http://www.w3.org/2000/svg}rect')]
+            return [(float(r.get('x')) + float(r.get('width')) / 2, r.get('y'), r.get('height')) for r in
+                    ET.fromstring(svg).findall('.//{http://www.w3.org/2000/svg}rect') if r.get('x') is not None]
         self.assertEqual(geometry(renderer.render(spec)), geometry(renderer.render({**spec, "theme": "executive"})))
 
     def test_executive_headline_uses_sans_and_preserves_text(self):

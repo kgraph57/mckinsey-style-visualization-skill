@@ -2,35 +2,36 @@
   <rect width="1280" height="720" fill="#FFFFFF"/>
   <text x="80.0" y="96.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="40" fill="#000000" font-weight="bold" text-anchor="start">Integration is the onboarding bottleneck</text>
   <text x="80.0" y="124.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="20" fill="#6B7280" font-weight="normal" text-anchor="start">Five stages · One accountable owner per stage</text>
-  <rect x="80.0" y="224.0" width="204.8" height="320.0" fill="#F3F4F6" stroke="none"/>
+  <rect x="80.0" y="224.0" width="204.8" height="3.0" fill="#D1D5DB" stroke="none"/>
   <text x="98.0" y="258.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="28" fill="#000000" font-weight="normal" text-anchor="start">01</text>
   <text x="98.0" y="308.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">Contract</text>
   <text x="98.0" y="392.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">Confirm scope</text>
   <text x="98.0" y="494.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">Sales · Same</text>
   <text x="98.0" y="518.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">day</text>
   <path d="M 292.8 378.0 L 299.8 384.0 L 292.8 390.0" fill="none" stroke="#6B7280" stroke-width="2"/>
-  <rect x="308.8" y="224.0" width="204.8" height="320.0" fill="#F3F4F6" stroke="none"/>
+  <rect x="308.8" y="224.0" width="204.8" height="3.0" fill="#D1D5DB" stroke="none"/>
   <text x="326.8" y="258.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="28" fill="#000000" font-weight="normal" text-anchor="start">02</text>
   <text x="326.8" y="308.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">Kickoff</text>
   <text x="326.8" y="392.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">Agree success</text>
   <text x="326.8" y="416.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">criteria</text>
   <text x="326.8" y="494.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">CS · 3 days</text>
   <path d="M 521.6 378.0 L 528.6 384.0 L 521.6 390.0" fill="none" stroke="#6B7280" stroke-width="2"/>
-  <rect x="537.6" y="224.0" width="204.8" height="320.0" fill="#15296B" stroke="none"/>
-  <text x="555.6" y="258.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="28" fill="#FFFFFF" font-weight="normal" text-anchor="start">03</text>
-  <text x="555.6" y="308.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#FFFFFF" font-weight="600" text-anchor="start">Integration</text>
-  <text x="555.6" y="392.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">Connect systems</text>
-  <text x="555.6" y="494.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">Platform ·</text>
-  <text x="555.6" y="518.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#E5E7EB" font-weight="normal" text-anchor="start">21-day queue</text>
+  <rect x="537.6" y="224.0" width="204.8" height="320.0" fill="#F3F5FA" stroke="none"/>
+  <rect x="537.6" y="224.0" width="204.8" height="3.0" fill="#15296B" stroke="none"/>
+  <text x="555.6" y="258.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="28" fill="#000000" font-weight="normal" text-anchor="start">03</text>
+  <text x="555.6" y="308.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">Integration</text>
+  <text x="555.6" y="392.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">Connect systems</text>
+  <text x="555.6" y="494.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">Platform ·</text>
+  <text x="555.6" y="518.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">21-day queue</text>
   <path d="M 750.4000000000001 378.0 L 757.4000000000001 384.0 L 750.4000000000001 390.0" fill="none" stroke="#6B7280" stroke-width="2"/>
-  <rect x="766.4" y="224.0" width="204.8" height="320.0" fill="#F3F4F6" stroke="none"/>
+  <rect x="766.4" y="224.0" width="204.8" height="3.0" fill="#D1D5DB" stroke="none"/>
   <text x="784.4" y="258.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="28" fill="#000000" font-weight="normal" text-anchor="start">04</text>
   <text x="784.4" y="308.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">Training</text>
   <text x="784.4" y="392.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">Enable</text>
   <text x="784.4" y="416.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">workflows</text>
   <text x="784.4" y="494.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">CS · 5 days</text>
   <path d="M 979.2 378.0 L 986.2 384.0 L 979.2 390.0" fill="none" stroke="#6B7280" stroke-width="2"/>
-  <rect x="995.2" y="224.0" width="204.8" height="320.0" fill="#F3F4F6" stroke="none"/>
+  <rect x="995.2" y="224.0" width="204.8" height="3.0" fill="#D1D5DB" stroke="none"/>
   <text x="1013.2" y="258.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="28" fill="#000000" font-weight="normal" text-anchor="start">05</text>
   <text x="1013.2" y="308.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="22" fill="#000000" font-weight="600" text-anchor="start">Go-live</text>
   <text x="1013.2" y="392.0" font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', sans-serif" font-size="18" fill="#374151" font-weight="normal" text-anchor="start">Review</text>

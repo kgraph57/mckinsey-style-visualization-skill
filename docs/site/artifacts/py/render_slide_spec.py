@@ -452,7 +452,7 @@ def render_waterfall(spec: dict) -> list[str]:
 
     n = len(drivers) + 2
     span = W - ML - MR
-    bar_w = min(110.0, span / n * 0.62)
+    bar_w = min(88.0, span / n * 0.38) if spec.get("theme") == "executive" else min(110.0, span / n * 0.62)
     step = span / n
 
     def x_at(i: int) -> float:
@@ -510,13 +510,13 @@ def render_gap(spec: dict) -> list[str]:
     # No row-height cap: like render_agenda, divide the full chart band by
     # item count so a short list fills the band instead of stopping short.
     row_h = (CHART_BOTTOM - CHART_TOP - 30) / len(items)
-    bar_h = row_h * 0.52
+    bar_h = min(28.0, row_h * 0.32) if spec.get("theme") == "executive" else row_h * 0.52
 
     parts: list[str] = []
     for i, item in enumerate(items):
         y = CHART_TOP + 30 + i * row_h
         width = span * item["value"] / top
-        fill = BLUE if item.get("emphasis") else GREY_FILL
+        fill = BLUE if item.get("emphasis") else (GREY_BORDER if spec.get("theme") == "executive" else GREY_FILL)
         # Flat fill only — grey reference bars never carry a border; the
         # fill/no-fill contrast alone marks emphasis vs. context.
         label_lines = wrap(item["label"], 22, max_lines=2)  # 25 * 16/18
@@ -747,8 +747,10 @@ def render_executive_process(spec: dict) -> list[str]:
     for i, step in enumerate(steps):
         x = ML + i * (width + gap)
         hot = i == spec.get('highlight')
-        title_color, detail_color = (WHITE, '#E5E7EB') if hot else (BLACK, GREY_DARK)
-        parts.append(rect_el(x, top, width, height, BLUE if hot else GREY_FILL))
+        title_color, detail_color = BLACK, GREY_DARK
+        if hot:
+            parts.append(rect_el(x, top, width, height, '#F3F5FA'))
+        parts.append(rect_el(x, top, width, 3, BLUE if hot else GREY_BORDER))
         parts.append(text_el(x + 18, top + 34, f'{i + 1:02d}', size=T_NUM_AGENDA, fill=title_color))
         for field, baseline, size, limit in [('label', 84, T_BODY, 2), ('detail', 168, T_LABEL, 3)]:
             budget = max(6, int((width - 36) / (size * .62)))
@@ -863,7 +865,8 @@ def render_funnel(spec: dict) -> list[str]:
     stages = spec["stages"]
     top_value = max(s["value"] for s in stages) or 1
     row_h = (CHART_BOTTOM - CHART_TOP) / len(stages)
-    bar_h = min(row_h * 0.66, 60.0)
+    executive = spec.get("theme") == "executive"
+    bar_h = min(28.0, row_h * 0.4) if executive else min(row_h * 0.66, 60.0)
     span = W - ML - MR - 330
     cx = ML + 210 + span / 2
 
@@ -871,14 +874,14 @@ def render_funnel(spec: dict) -> list[str]:
     for i, stage in enumerate(stages):
         y = CHART_TOP + row_h * i + (row_h - bar_h) / 2
         bw = max(span * stage["value"] / top_value, 6)
-        parts.append(rect_el(cx - bw / 2, y, bw, bar_h, BLUE))
+        parts.append(rect_el(cx - bw / 2, y, bw, bar_h, BLUE if not executive or i == len(stages) - 1 else GREY_BORDER))
         label_lines = wrap(stage["label"], 20, max_lines=2)  # 24 * 15/18
         ly = y + bar_h / 2 + NUDGE_LABEL - (len(label_lines) - 1) * HALF_LINE_LABEL
         for line in label_lines:
             parts.append(text_el(ML, ly, line, size=T_LABEL, fill=GREY_DARK))
             ly += LINE_H_LABEL
         value_text = fmt(stage["value"], unit)
-        if bw > 110:
+        if bw > 110 and not executive:
             parts.append(text_el(cx, y + bar_h / 2 + NUDGE_LABEL + 1, value_text, size=T_LABEL, fill="#FFFFFF", weight="bold", anchor="middle"))
         else:
             parts.append(text_el(cx + bw / 2 + 11, y + bar_h / 2 + NUDGE_LABEL + 1, value_text, size=T_LABEL, weight="bold"))
