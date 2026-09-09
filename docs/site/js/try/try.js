@@ -1,4 +1,4 @@
-import { createPresenter } from "./presenter.js";
+import { createPresenter } from "./presenter.js?v=20260909-ios";
 /* /try page controller: key management, notes -> Claude -> Pyodide render -> downloads. */
 
 import { generateDeck } from "./llm.js";

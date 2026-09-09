@@ -12,7 +12,7 @@ export function createPresenter({ getResults, getHtml, getTitle }) {
     const b = document.createElement('button'); b.type = 'button'; b.textContent = label;
     b.addEventListener('click', action); controls.append(b); return b;
   }
-  let current = 0, slides = [];
+  let current = 0, slides = [], previousTitle = '';
   const previous = button(ja ? '← 前へ' : '← Previous', () => show(current - 1));
   const count = document.createElement('span'); count.setAttribute('aria-live', 'polite'); controls.append(count);
   const next = button(ja ? '次へ →' : 'Next →', () => show(current + 1));
@@ -23,7 +23,7 @@ export function createPresenter({ getResults, getHtml, getTitle }) {
   full.hidden = !dialog.requestFullscreen;
   button(ja ? '閉じる' : 'Close', () => dialog.close());
   const hint = document.createElement('p'); hint.className = 'presenter-hint';
-  hint.textContent = ja ? '左右にスワイプして移動。PDFは印刷画面の保存・共有メニューから。' : 'Swipe to move. Save or share a PDF from your browser’s print dialog.';
+  hint.textContent = ja ? '左右にスワイプして移動。PDFは印刷画面で横向きを選び、共有メニューから保存。' : 'Swipe to move. For PDF, choose landscape in the print dialog, then share or save.';
   dialog.append(stage, controls, hint); document.body.append(dialog);
   function show(index) {
     current = Math.max(0, Math.min(index, slides.length - 1));
@@ -42,20 +42,20 @@ export function createPresenter({ getResults, getHtml, getTitle }) {
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) show(current + (dx < 0 ? 1 : -1));
   }, { passive: true });
   stage.addEventListener('touchcancel', () => { start = null; });
-  dialog.addEventListener('close', () => { document.body.classList.remove('presenting'); if (document.fullscreenElement === dialog) document.exitFullscreen().catch(() => {}); });
+  dialog.addEventListener('close', () => { document.title = previousTitle; document.body.classList.remove('presenting'); if (document.fullscreenElement === dialog) document.exitFullscreen().catch(() => {}); });
   return {
     open() {
       slides = getResults().filter(r => r.ok);
       if (!slides.length) return;
       stage.replaceChildren();
       for (const result of slides) { const page = document.createElement('div'); page.className = 'presenter-page'; page.innerHTML = result.svg; stage.append(page); }
-      show(0); document.body.classList.add('presenting'); dialog.showModal();
+      show(0); previousTitle = document.title; document.title = getTitle(); document.body.classList.add('presenting'); dialog.showModal();
     },
     async share() {
       if (!getHtml()) return;
       const file = new File([getHtml()], 'presentation.html', { type: 'text/html' });
       if (navigator.canShare?.({ files: [file] }) && navigator.share) {
-        try { await navigator.share({ files: [file], title: getTitle() }); return 'shared'; }
+        try { await navigator.share({ files: [file] }); return 'shared'; }
         catch (error) { if (error.name === 'AbortError') return 'cancelled'; }
       }
       const url = URL.createObjectURL(file), link = document.createElement('a');
