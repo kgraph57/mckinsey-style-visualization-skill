@@ -20,6 +20,11 @@ class ReferenceLayouts(unittest.TestCase):
         self.assertTrue(all(float(e.get('width'))<=88 for e in bars))
         self.assertAlmostEqual(float(bars[0].get('height'))/float(bars[1].get('height')),.6,places=2)
 
+    def test_japanese_kpi_uses_japanese_target_label(self):
+        svg=r.render({'pattern':'kpi_scorecard','headline':'主要指標','lang':'ja','metrics':[{'label':'導入率','value':'68%','target':'60%'}]})
+        self.assertIn('目標：60%',svg)
+        self.assertNotIn('Target:',svg)
+
     def test_analytical_header_and_palette(self):
         s=spec();s['palette']='red';svg=r.render(s)
         self.assertIn('Exhibit 1',svg);self.assertIn('#B4232D',svg)

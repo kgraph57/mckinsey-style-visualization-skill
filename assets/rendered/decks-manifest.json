@@ -65,49 +65,49 @@
         "file": "rendered/ja/01-cover.svg",
         "label_en": "Cover",
         "label_ja": "表紙",
-        "headline": "第3四半期 取締役会アップデート"
+        "headline": "第3四半期 取締役会報告"
       },
       {
         "file": "rendered/ja/02-agenda.svg",
         "label_en": "Agenda",
         "label_ja": "アジェンダ",
-        "headline": "本日は4つの論点で稼働体制への投資判断を仰ぎます"
+        "headline": "成長を確認し、導入体制への投資を決める"
       },
       {
         "file": "rendered/ja/03-executive-summary.svg",
         "label_en": "Exec summary",
         "label_ja": "役員要約",
-        "headline": "成長は本物だが、オンボーディング能力がその先の売上転換速度を規定している"
+        "headline": "成長を支える導入体制の増強が必要"
       },
       {
         "file": "rendered/ja/04-kpi-scorecard.svg",
         "label_en": "KPI",
         "label_ja": "KPI",
-        "headline": "成長指標はすべて計画通り、唯一の例外はエンジニアリングの稼働余力"
+        "headline": "成長は順調、導入待ちと高稼働が課題"
       },
       {
         "file": "rendered/ja/05-arr-waterfall.svg",
         "label_en": "ARR bridge",
         "label_ja": "ARR橋渡し",
-        "headline": "新規エンタープライズ契約と既存拡大で+6.3億円、解約1.3億円を差し引いても純増5.0億円"
+        "headline": "新規契約と既存拡大でARRは5億円増加"
       },
       {
         "file": "rendered/ja/06-adoption-trend.svg",
         "label_en": "Adoption",
         "label_ja": "導入率",
-        "headline": "導入率は3四半期連続で上昇し、過半数を大きく超えた"
+        "headline": "新ワークフローの導入率は68%に上昇"
       },
       {
         "file": "rendered/ja/07-risks.svg",
         "label_en": "Risks",
         "label_ja": "リスク",
-        "headline": "稼働リスクは3つに集約される"
+        "headline": "導入待ちの解消が次四半期の優先課題"
       },
       {
         "file": "rendered/ja/08-closing.svg",
         "label_en": "Asks",
         "label_ja": "決議",
-        "headline": "本日、オンボーディング要員の増員を承認しなければ第4四半期の成長は減速する"
+        "headline": "導入担当2名の増員を承認する"
       },
       {
         "file": "rendered/ja/09-end-cover.svg",

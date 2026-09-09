@@ -1049,7 +1049,7 @@ def render_kpi_scorecard(spec: dict) -> list[str]:
             parts.append(text_el(x + card_w - 18, y + value_y_offset, trend, size=T_LABEL, fill=trend_fill, weight="600", anchor="end"))
         target = metric.get("target", "")
         if target:
-            parts.append(text_el(x + 24, y + card_h - 16, f"Target: {target}", size=T_LABEL, fill=GREY_MED))
+            parts.append(text_el(x + 24, y + card_h - 16, f"{'目標：' if spec.get('lang') == 'ja' else 'Target: '}{target}", size=T_LABEL, fill=GREY_MED))
     return parts
 
 
@@ -1573,7 +1573,7 @@ def render_closing(spec: dict) -> list[str]:
 
         band_start = float(CHART_TOP) + 34
 
-        parts.append(text_el(ML, CHART_TOP, "KEY TAKEAWAYS", size=T_KICKER_LABEL, fill=GREY_MED, weight="600"))
+        parts.append(text_el(ML, CHART_TOP, "要点" if spec.get("lang") == "ja" else "KEY TAKEAWAYS", size=T_KICKER_LABEL, fill=GREY_MED, weight="600"))
         # Divide [band_start, CHART_BOTTOM] into one row per takeaway (the
         # render_gap/render_agenda "fill the band by row count" technique)
         # instead of centering the whole list as one block — that shifted
@@ -1599,7 +1599,7 @@ def render_closing(spec: dict) -> list[str]:
                 )
                 ly += LINE_H_BODY
 
-        parts.append(text_el(right_x, CHART_TOP, "NEXT STEPS", size=T_KICKER_LABEL, fill=GREY_MED, weight="600"))
+        parts.append(text_el(right_x, CHART_TOP, "実行事項" if spec.get("lang") == "ja" else "NEXT STEPS", size=T_KICKER_LABEL, fill=GREY_MED, weight="600"))
         step_lines = [wrap(step["action"], detail_width_units, max_lines=2) for step in next_steps]
         step_metas = [" · ".join(str(step[k]) for k in ("owner", "timing") if step.get(k)) for step in next_steps]
         step_row_h = (CHART_BOTTOM - band_start) / len(next_steps)
