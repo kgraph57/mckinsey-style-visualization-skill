@@ -39,7 +39,11 @@
     "#try-dl-svg": "このスライド（.svg）",
     "#try-copy-spec": "spec JSONをコピー",
     "#try-reset": "やり直す",
-    "#try-privacy .try-note": "Generateを押すまでは通信ゼロ。押した後は、メモとキーを載せたapi.anthropic.comへの1回の呼び出しと、初回のみjsDelivrへの1回のWASM Pythonランタイム取得だけです。それ以外は一切ありません。",
-    ".ft-line": "MIT License. これは独立したスキルパッケージです。McKinsey & Company、Boston Consulting Group、Bain & Company、その他いかなるコンサルティングファームとも提携・支持・後援の関係はありません。"
+    "#try-privacy .try-note": "サンプル体験は、このサイトの既存資料を読み込みます。AIの呼び出しはありません。新規生成では、メモとAPIキーをAnthropicへ送り、jsDelivrからPythonランタイムを取得します。共有先は端末の共有メニューでご自身で選べます。",
+    ".ft-line": "MIT License. これは独立したスキルパッケージです。McKinsey & Company、Boston Consulting Group、Bain & Company、その他いかなるコンサルティングファームとも提携・支持・後援の関係はありません。",
+    "#try-demo": "サンプルで体験する（APIキー不要）",
+    "#try-demo-note": "既存の9枚のサンプルで、プレゼン表示や共有・保存を試せます。",
+    "#try-present": "プレゼン開始",
+    "#try-share": "HTMLを共有・保存"
   }
 }

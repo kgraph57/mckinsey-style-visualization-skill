@@ -26,8 +26,9 @@
     <link rel="stylesheet" href="../site/css/base.css?v=20260908-navy" />
     <link rel="stylesheet" href="../site/css/sections.css?v=20260908-navy" />
     <link rel="stylesheet" href="../site/css/try.css?v=20260908-navy" />
-    <script type="module" src="../site/js/try/try.js"></script>
-  </head>
+    <script type="module" src="../site/js/try/try.js?v=20260909-mobile"></script>
+  <link rel="stylesheet" href="../site/css/presenter.css?v=20260909" />
+</head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
@@ -55,7 +56,8 @@
         </div>
       </section>
 
-      <section id="try-key" aria-label="API key">
+      <div class="wrap"><button type="button" class="btn btn-ghost" id="try-demo">Explore a sample deck — no API key</button><p class="try-note" id="try-demo-note">Try presenting and sharing an existing nine-slide example before generating your own.</p></div>
+<section id="try-key" aria-label="API key">
         <div class="wrap">
           <div class="try-card">
             <h2 class="try-h2">Anthropic API key</h2>
@@ -122,7 +124,7 @@
         <div class="wrap">
           <h2 class="try-h2" id="try-output-title">Your deck</h2>
           <div class="try-carousel" id="try-carousel"></div>
-          <div class="try-actions">
+          <div class="try-actions"><button type="button" class="btn btn-primary" id="try-present">Start presentation</button><button type="button" class="btn btn-ghost" id="try-share">Share / save HTML</button>
             <button type="button" class="btn btn-primary" id="try-dl-deck">
               Download deck.html
             </button>
@@ -161,10 +163,7 @@
       <section id="try-privacy" aria-label="Privacy">
         <div class="wrap">
           <p class="try-note">
-            Zero requests until you press Generate. Then: one call to
-            api.anthropic.com carrying your notes and your key, and — on first
-            use only — one jsDelivr fetch for the WebAssembly Python runtime.
-            Nothing else, ever.
+            Sample mode loads an existing deck from this site without calling AI. Generating your own deck sends your notes and API key to Anthropic and downloads the Python runtime from jsDelivr. Sharing opens your device’s share sheet, where you choose the destination.
           </p>
         </div>
       </section>

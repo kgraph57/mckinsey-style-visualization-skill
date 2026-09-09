@@ -15,8 +15,9 @@
     <link rel="stylesheet" href="../../site/css/base.css?v=20260908-navy" />
     <link rel="stylesheet" href="../../site/css/sections.css?v=20260908-navy" />
     <link rel="stylesheet" href="../../site/css/try.css?v=20260908-navy" />
-    <script type="module" src="../../site/js/try/try.js"></script>
-  </head>
+    <script type="module" src="../../site/js/try/try.js?v=20260909-mobile"></script>
+  <link rel="stylesheet" href="../../site/css/presenter.css?v=20260909" />
+</head>
   <body>
     <a class="skip-link" href="#main">本文へスキップ</a>
 
@@ -38,7 +39,8 @@
         </div>
       </section>
 
-      <section id="try-key" aria-label="API key">
+      <div class="wrap"><button type="button" class="btn btn-ghost" id="try-demo">サンプルで体験する（APIキー不要）</button><p class="try-note" id="try-demo-note">既存の9枚のサンプルで、プレゼン表示や共有・保存を試せます。</p></div>
+<section id="try-key" aria-label="API key">
         <div class="wrap">
           <div class="try-card">
             <h2 class="try-h2">Anthropic APIキー</h2>
@@ -71,7 +73,7 @@
         <div class="wrap">
           <h2 class="try-h2" id="try-output-title">Your deck</h2>
           <div class="try-carousel" id="try-carousel"></div>
-          <div class="try-actions">
+          <div class="try-actions"><button type="button" class="btn btn-primary" id="try-present">プレゼン開始</button><button type="button" class="btn btn-ghost" id="try-share">HTMLを共有・保存</button>
             <button type="button" class="btn btn-primary" id="try-dl-deck">deck.html をダウンロード</button>
             <button type="button" class="btn btn-ghost" id="try-dl-svg">このスライド（.svg）</button>
             <button type="button" class="btn btn-ghost" id="try-copy-spec" data-copy-target="#try-spec-json">spec JSONをコピー</button>
@@ -86,7 +88,7 @@
 
       <section id="try-privacy" aria-label="Privacy">
         <div class="wrap">
-          <p class="try-note">Generateを押すまでは通信ゼロ。押した後は、メモとキーを載せたapi.anthropic.comへの1回の呼び出しと、初回のみjsDelivrへの1回のWASM Pythonランタイム取得だけです。それ以外は一切ありません。</p>
+          <p class="try-note">サンプル体験は、このサイトの既存資料を読み込みます。AIの呼び出しはありません。新規生成では、メモとAPIキーをAnthropicへ送り、jsDelivrからPythonランタイムを取得します。共有先は端末の共有メニューでご自身で選べます。</p>
         </div>
       </section>
     </main>

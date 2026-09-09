@@ -1,0 +1,28 @@
+.mobile-presenter { position:fixed; inset:0; width:100vw; height:100dvh; max-width:none; max-height:none; border:0; margin:0; padding:16px; background:#101827; color:white; }
+.mobile-presenter[open] { display:flex; flex-direction:column; }
+.mobile-presenter::backdrop { background:#101827; }
+.presenting { overflow:hidden; }
+.presenter-stage { flex:1; min-height:0; display:flex; justify-content:center; align-items:center; touch-action:pan-y pinch-zoom; }
+.presenter-page { width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
+.presenter-page[hidden] { display:none; }
+.presenter-page svg { display:block; width:100%; height:100%; object-fit:contain; }
+.presenter-controls { display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; padding:12px 0; }
+.presenter-controls button { min-height:44px; padding:8px 12px; border:1px solid #626773; border-radius:5px; background:#15296B; color:white; font:inherit; cursor:pointer; }
+.presenter-controls button:disabled { opacity:.4; cursor:default; }
+.presenter-controls span { font-variant-numeric:tabular-nums; min-width:50px; text-align:center; }
+.presenter-hint { text-align:center; font-size:12px; color:#D8DCE3; margin:0; padding-bottom:env(safe-area-inset-bottom); }
+@media (max-height:480px) { .mobile-presenter { padding:6px; } .presenter-controls { padding:4px 0; } .presenter-hint { display:none; } }
+@media print {
+ @page presentation { size:13.333in 7.5in; margin:0; }
+ body.presenting > :not(.mobile-presenter) { display:none !important; }
+ body.presenting { overflow:visible; margin:0; padding:0; }
+ .mobile-presenter[open] { page:presentation; display:block !important; position:static; width:100%; height:auto; padding:0; overflow:visible; background:white; }
+ .mobile-presenter::backdrop { display:none; }
+ .presenter-controls,.presenter-hint { display:none !important; }
+ .presenter-stage { display:block; }
+ .presenter-page,.presenter-page[hidden] { page:presentation; display:block !important; width:100%; height:7.5in; break-after:page; }
+ .presenter-page:last-child { break-after:auto; }
+ .presenter-page svg { width:100%; height:100%; }
+ .presenter-page svg .el { opacity:1 !important; animation:none !important; }
+}
+.try-actions [hidden], .presenter-controls [hidden] { display:none !important; }

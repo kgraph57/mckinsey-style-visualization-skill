@@ -1,3 +1,4 @@
+import { createPresenter } from "./presenter.js";
 /* /try page controller: key management, notes -> Claude -> Pyodide render -> downloads. */
 
 import { generateDeck } from "./llm.js";
@@ -86,7 +87,8 @@ async function onGenerate() {
   if (!getKey()) return setError(STR.needKey);
   if (!els.notes.value.trim()) return setError(STR.needNotes);
 
-  els.generate.disabled = true;
+  els.generate.disabled = true; els.reset.disabled = true;
+  demoButton.disabled = true;
   try {
     setStatus(STR.stRefs);
     const refsPromise = fetchRefs();
@@ -109,12 +111,14 @@ async function onGenerate() {
     );
 
     showResults();
+    els.copySpec.hidden = false;
     setStatus(STR.stDone);
   } catch (error) {
     setError(String(error && error.message ? error.message : error));
     setStatus("");
   } finally {
-    els.generate.disabled = false;
+    els.generate.disabled = false; els.reset.disabled = false;
+    demoButton.disabled = false;
   }
 }
 
@@ -158,3 +162,29 @@ els.reset.addEventListener("click", () => {
 });
 
 initKeyField({ input: els.keyInput, save: els.keySave, state: els.keyState });
+
+const presenter = createPresenter({ getResults: () => state.results, getHtml: () => state.deckHtml, getTitle: () => state.deck?.title || 'Presentation' });
+document.getElementById('try-present').addEventListener('click', () => presenter.open());
+document.getElementById('try-share').addEventListener('click', async () => {
+  try {
+    const result = await presenter.share();
+    if (result === 'downloaded') setStatus(document.documentElement.lang === 'ja' ? 'HTMLファイルの保存を開始しました。共有非対応の環境では、保存したファイルを共有してください。' : 'HTML download started. Share the saved file if native file sharing is unavailable.');
+  } catch (error) { setError(String(error.message || error)); }
+});
+const demoButton = document.getElementById('try-demo');
+demoButton.addEventListener('click', async () => {
+  demoButton.disabled = true; els.generate.disabled = true; els.reset.disabled = true; setError('');
+  try {
+    const response = await fetch(new URL('../../artifacts/demo-deck.html', import.meta.url));
+    if (!response.ok) throw new Error('Sample deck unavailable');
+    const html = await response.text();
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const svgs = [...doc.querySelectorAll('.frame svg')];
+    if (!svgs.length) throw new Error('Sample deck has no slides');
+    state.deckHtml = html; state.deck = { title: doc.title, slides: [] };
+    state.results = svgs.map(svg => ({ ok: true, svg: svg.outerHTML }));
+    showResults(); els.copySpec.hidden = true; els.specWrap.hidden = true;
+    setStatus(document.documentElement.lang === 'ja' ? '既存の英語サンプルです。APIは呼び出していません。' : 'Existing English sample loaded. No AI API call was made.');
+  } catch (error) { setError(String(error.message || error)); }
+  finally { demoButton.disabled = false; els.generate.disabled = false; els.reset.disabled = false; }
+});
