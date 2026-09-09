@@ -241,3 +241,41 @@
 
 .hero-top .raw-note pre { white-space:normal; line-height:1.6; }
 .hero-top #case-priority .note-foot { display:block; font-size:9px; margin-top:5px; }
+
+/* Let visitors see the outcome before asking them to configure an agent. */
+.hero-top { grid-template-columns:minmax(0,.85fr) minmax(0,1.3fr); gap:24px; }
+.hero-visual { margin:0; min-width:0; }
+.hero-visual img { display:block; width:100%; height:auto; }
+.hero-visual figcaption { display:flex; flex-direction:column; gap:8px; padding:16px 20px 0; }
+.hero-visual-caption { color:var(--accent); font-size:14px; }
+.hero-concept-label { color:var(--muted); font-size:10px; line-height:1.5; }
+#preview { padding:72px 0; border-top:1px solid var(--border); scroll-margin-top:110px; }
+#preview h2 { font-size:clamp(28px,3vw,42px); line-height:1.15; letter-spacing:-.035em; margin:16px 0; }
+.preview-intro { color:var(--muted); line-height:1.7; max-width:680px; }
+#preview .showcase { margin-top:32px; }
+#preview .showcase-case[hidden] { display:none; }
+#preview .result-slide { padding:24px; }
+.preview-next { display:flex; justify-content:space-between; align-items:center; gap:32px; padding:28px 0 0; }
+.preview-next-title { font-size:20px; margin:0 0 10px; font-weight:600; }
+.preview-next-note { font-size:13px; line-height:1.7; color:var(--muted); max-width:570px; margin:0; }
+.preview-next-actions { display:flex; flex-direction:column; align-items:center; gap:16px; flex-shrink:0; }
+.preview-install { font-size:13px; text-underline-offset:4px; text-decoration:underline; }
+@media(max-width:950px) { .preview-next { flex-wrap:wrap; } }
+@media(max-width:700px) {
+ .hero-top { display:flex; flex-direction:column; align-items:stretch; gap:0; }
+ .hero-top .hd-intro { display:contents; }
+ .hero-top .hero-badge { order:0; margin-bottom:16px; }
+ .hero-top h1 { order:1; margin:0; }
+ .hero-visual { order:2; margin:22px -12px 0; }
+ .hero-visual figcaption { padding:8px 12px 0; gap:4px; }
+ .hero-visual-caption { font-size:12px; }
+ .hero-concept-label { font-size:9px; }
+ .hero-top .hero-pitch { order:3; }
+ .catalog-home #hero .lede { margin-top:20px; }
+ #preview { padding:48px 0; }
+ #preview .showcase-toolbar { flex-wrap:wrap; gap:12px; }
+ #preview .raw-note { padding:16px; }
+ #preview .result-slide { padding:12px; }
+ .preview-next { gap:20px; }
+ .preview-next-actions { align-items:flex-start; }
+}
