@@ -13,7 +13,11 @@ AIエージェントに載せるひとつのスキルで、メモ・数値・文
 
 [English](README.md) | 日本語
 
-![このスキルで生成した英語版の動く意思決定資料](assets/readme/decision-story.png)
+[![英語版の動く意思決定資料のデモ動画](assets/readme/decision-story-demo.gif)](https://kgraph57.github.io/mckinsey-style-visualization-skill/demo/)
+
+**[デモ動画を再生する →](https://kgraph57.github.io/mckinsey-style-visualization-skill/demo/)**
+
+_実際のブラウザ画面を録画。プレビューは2.5倍速、全編動画は通常速度・音声なしです。_
 
 _実際のv3出力: `原稿(JSON) → 動く意思決定資料 ＋ 静止版`。_
 

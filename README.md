@@ -15,7 +15,11 @@ Rendering existing JSON specs into SVG/HTML uses the Python 3 standard library o
 
 English | [日本語](README.ja.md)
 
-![English interactive decision story rendered by this skill](assets/readme/decision-story.png)
+[![Watch the English interactive decision story demo](assets/readme/decision-story-demo.gif)](https://kgraph57.github.io/mckinsey-style-visualization-skill/demo/)
+
+**[Watch the full demo with playback controls →](https://kgraph57.github.io/mckinsey-style-visualization-skill/demo/)**
+
+_Actual browser recording. Preview at 2.5× speed; full video at normal speed, without audio._
 
 _Actual v3 output: `motion manifest (JSON) → interactive story + static reading edition`._
 

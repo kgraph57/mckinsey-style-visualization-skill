@@ -5,6 +5,7 @@ classic slides and static reading editions. All Project Relay data is illustrati
 
 ## Try it
 
+- [Watch the recorded demo](https://kgraph57.github.io/mckinsey-style-visualization-skill/demo/) — actual browser capture, normal speed, no audio.
 - [English motion demo](https://kgraph57.github.io/mckinsey-style-visualization-skill/site/artifacts/project-relay.motion.en.html)
 - [English static edition](https://kgraph57.github.io/mckinsey-style-visualization-skill/site/artifacts/project-relay.motion.en.static.html)
 - [Japanese motion demo](https://kgraph57.github.io/mckinsey-style-visualization-skill/site/artifacts/project-relay.motion.html)

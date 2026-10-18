@@ -37,6 +37,7 @@ outputs/
 /output/
 /.playwright-cli/
 !assets/readme/decision-story.png
+!docs/demo/poster.png
 
 # Landing site OGP image (committed intentionally)
 !docs/site/og.png

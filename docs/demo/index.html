@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Watch a real browser recording of the six-page interactive decision story, then explore it yourself.">
+  <title>Interactive Decision Stories — Demo</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#fff;color:#102333;font:18px/1.6 system-ui,sans-serif}
+    main{max-width:1200px;margin:0 auto;padding:48px 24px}h1{font-size:clamp(30px,4vw,48px);line-height:1.15;letter-spacing:-.035em;margin:12px 0 20px}
+    .eyebrow{color:#526370;font-size:14px;letter-spacing:.12em;text-transform:uppercase}p{max-width:800px}video{display:block;width:100%;aspect-ratio:16/9;background:#fff;margin:32px 0 16px}
+    a{color:#005eb8;text-underline-offset:4px}a:focus-visible{outline:3px solid #005eb8;outline-offset:5px}.meta{font-size:15px;color:#526370}nav{display:flex;gap:24px;flex-wrap:wrap;margin:24px 0}summary{cursor:pointer}li{margin:8px 0}
+  </style>
+</head>
+<body><main>
+  <div class="eyebrow">v3.0.0-rc.1 · Product demo</div>
+  <h1>Change an assumption.<br>See the decision change.</h1>
+  <p>A real browser recording of the English decision story: inspect the evidence, compare routes, change adoption, and review the rollout conditions.</p>
+  <video controls playsinline preload="metadata" poster="poster.png" aria-label="English interactive decision story demonstration">
+    <source src="decision-story-demo.mp4" type="video/mp4">
+    <p><a href="decision-story-demo.mp4">Download the demo video.</a></p>
+  </video>
+  <p class="meta">Normal speed · No audio · All business data is illustrative. Use the controls to pause or replay. This is a prerelease demonstration, not device or accessibility certification.</p>
+  <nav aria-label="Demo resources">
+    <a href="../site/artifacts/project-relay.motion.en.html">Try the interactive story →</a>
+    <a href="decision-story-demo.mp4" download>Download MP4</a>
+    <a href="https://github.com/kgraph57/mckinsey-style-visualization-skill#readme">GitHub README</a>
+  </nav>
+  <details><summary>What happens in the demo</summary>
+    <ol>
+      <li>The overview introduces a bounded 12-week pilot.</li>
+      <li>The dispatch chart opens its evidence and source assumptions.</li>
+      <li>Switching scenarios changes the route ranking.</li>
+      <li>Lowering adoption changes the annual value estimate; resetting it restores the base case.</li>
+      <li>Toggling manager readiness changes the score and whether the gate is met.</li>
+      <li>The rollout advances through review gates and ends at the page overview.</li>
+    </ol>
+    <p><a href="../site/artifacts/project-relay.motion.en.static.html">Read the static companion</a> for the complete slide text.</p>
+  </details>
+</main></body></html>
