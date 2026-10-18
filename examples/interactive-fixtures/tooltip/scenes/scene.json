@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "type": "slider_model",
+  "purpose": "Expose compiled labels and values through one illustrative focusable mark",
+  "decisionJob": "decision",
+  "interactionRationale": "Verify the bounded lookup result without changing the main state",
+  "initialState": {"complexity": 2},
+  "printState": {"complexity": 2},
+  "quantities": {
+    "complexity_level": {"dimension": "scalar", "unit": "complexity_step", "display": "steps"},
+    "route_load": {"dimension": "count", "unit": "jobs_per_hour", "display": "jobs/h"}
+  },
+  "sources": [{"id": "fixture-lookup", "label": "Illustrative lookup method", "detail": "Original synthetic fixture; no external source or measured value."}],
+  "assumptions": [
+    {"id": "complexity-options", "label": "Complexity options", "value": "1 / 2 / 3", "unit": "steps"},
+    {"id": "route-load-lookup", "label": "Route-load lookup", "value": "1→3; 2→8; 3→13", "unit": "jobs/h"},
+    {"id": "route-load-gate", "label": "Route-load gate", "value": "8", "unit": "jobs/h"}
+  ],
+  "controls": [{"id": "complexity", "kind": "range", "label": "Route complexity", "min": 1, "max": 3, "step": 1, "quantity": "complexity_level", "provenance": {"basis": "illustrative", "assumptionRefs": ["complexity-options"]}}],
+  "model": {
+    "kind": "lookup",
+    "input": "complexity",
+    "entries": [
+      {"input": 1, "output": {"value": 3, "quantity": "route_load"}},
+      {"input": 2, "output": {"value": 8, "quantity": "route_load"}},
+      {"input": 3, "output": {"value": 13, "quantity": "route_load"}}
+    ],
+    "output": "route-load",
+    "outputQuantity": "route_load",
+    "label": "Route load",
+    "format": "number",
+    "round": 0,
+    "modelProvenance": {"basis": "illustrative", "sourceRefs": ["fixture-lookup"], "assumptionRefs": ["route-load-lookup"]}
+  },
+  "reporting": {"primaryOutput": "route-load", "secondaryOutputs": []},
+  "decisionContract": {
+    "id": "route-load-gate",
+    "metric": {"ref": "output:route-load"},
+    "operator": "gte",
+    "threshold": {"value": 8, "quantity": "route_load", "provenance": {"basis": "illustrative", "assumptionRefs": ["route-load-gate"]}},
+    "whenMet": {"status": "Proceed", "recommendation": "Keep the illustrative route bounded"},
+    "whenNotMet": {"status": "Hold", "recommendation": "Reduce illustrative route complexity"}
+  },
+  "view": {
+    "component": "bar_compare",
+    "quantity": "route_load",
+    "domain": [0, 15],
+    "baseline": 0,
+    "items": [{"id": "lookup-result", "label": "Route load", "value": {"ref": "output:route-load"}, "emphasis": true}]
+  }
+}

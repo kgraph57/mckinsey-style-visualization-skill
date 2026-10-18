@@ -1,0 +1,14 @@
+{
+  "title": "Project Relay",
+  "lang": "en",
+  "slides": [
+    {"id": "relay-cover", "spec": "specs/01-cover.json"},
+    {"id": "relay-pilot-thesis", "spec": "specs/02-thesis.json"},
+    {"id": "relay-late-job-evidence", "spec": "specs/03-late-job-evidence.json", "scene": "scenes/03-late-job-evidence.json"},
+    {"id": "relay-route-priority", "spec": "specs/04-route-priority.json", "scene": "scenes/04-route-priority.json"},
+    {"id": "relay-adoption-value", "spec": "specs/05-adoption-value.json", "scene": "scenes/05-adoption-value.json"},
+    {"id": "relay-readiness-score", "spec": "specs/06-readiness-score.json", "scene": "scenes/06-readiness-score.json"},
+    {"id": "relay-twelve-week-plan", "spec": "specs/07-twelve-week-plan.json"},
+    {"id": "relay-decision", "spec": "specs/08-decision.json"}
+  ]
+}

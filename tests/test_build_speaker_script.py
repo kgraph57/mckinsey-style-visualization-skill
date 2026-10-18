@@ -48,6 +48,16 @@ def _write_specs(tmp_dir: Path, specs: list[dict]) -> list[Path]:
 
 
 class NotesParagraphsTests(unittest.TestCase):
+    def test_mixed_manifest_cli_ignores_scene_and_preserves_output(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            paths = _write_specs(root, [_gap_spec("First"), _gap_spec("Second")])
+            manifest = {"title": "Test", "slides": ["spec-1.json", {"spec": "spec-2.json", "scene": "../absent.json"}]}
+            (root / "deck.json").write_text(json.dumps(manifest), encoding="utf-8")
+            result = subprocess.run([sys.executable, str(ROOT / "scripts/build_speaker_script.py"), "--manifest", str(root / "deck.json"), "-o", str(root / "script.html")], cwd=root, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual((root / "script.html").read_text(encoding="utf-8"), builder.build_script(paths, "Test", "en"))
+
     def test_list_of_strings_each_becomes_one_paragraph(self) -> None:
         self.assertEqual(
             builder.notes_paragraphs(["First paragraph.", "Second paragraph."]),

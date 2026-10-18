@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "type": "state_toggle",
+  "purpose": "Compare route priority under one declared technician constraint",
+  "decisionJob": "insight",
+  "interactionRationale": "Compare priority under one declared constraint",
+  "initialState": {"route-scenario": "base"},
+  "printState": {"route-scenario": "base"},
+  "quantities": {
+    "priority_score": {"dimension": "scalar", "unit": "priority_point", "display": "priority pts"}
+  },
+  "sources": [
+    {"id": "route-priority-method", "label": "Illustrative route-priority method", "detail": "Scores combine synthetic demand, travel, and staffing assumptions on a fixed 0–100 scale."}
+  ],
+  "assumptions": [
+    {"id": "base-route-scores", "label": "Base route scores", "value": "North 86; Central 78; East 73", "unit": "priority points"},
+    {"id": "technician-constraint", "label": "Technician constraint scores", "value": "North 82; East 76; Central 64", "unit": "priority points"}
+  ],
+  "controls": [
+    {
+      "id": "route-scenario",
+      "kind": "segmented",
+      "label": "Route scenario",
+      "options": [
+        {"value": "base", "label": "Base"},
+        {"value": "constrained", "label": "Technician constrained"}
+      ]
+    }
+  ],
+  "states": [
+    {
+      "id": "base",
+      "provenance": {"basis": "illustrative", "sourceRefs": ["route-priority-method"], "assumptionRefs": ["base-route-scores"]},
+      "view": {
+        "component": "ranked_list",
+        "quantity": "priority_score",
+        "domain": [0, 100],
+        "baseline": 0,
+        "items": [
+          {"id": "north", "label": "North route", "rank": 1, "metric": {"value": 86, "quantity": "priority_score", "provenance": {"basis": "illustrative", "sourceRefs": ["route-priority-method"], "assumptionRefs": ["base-route-scores"]}}, "emphasis": true},
+          {"id": "central", "label": "Central route", "rank": 2, "metric": {"value": 78, "quantity": "priority_score", "provenance": {"basis": "illustrative", "sourceRefs": ["route-priority-method"], "assumptionRefs": ["base-route-scores"]}}, "emphasis": false},
+          {"id": "east", "label": "East route", "rank": 3, "metric": {"value": 73, "quantity": "priority_score", "provenance": {"basis": "illustrative", "sourceRefs": ["route-priority-method"], "assumptionRefs": ["base-route-scores"]}}, "emphasis": false}
+        ]
+      }
+    },
+    {
+      "id": "constrained",
+      "provenance": {"basis": "illustrative", "sourceRefs": ["route-priority-method"], "assumptionRefs": ["technician-constraint"]},
+      "view": {
+        "component": "ranked_list",
+        "quantity": "priority_score",
+        "domain": [0, 100],
+        "baseline": 0,
+        "items": [
+          {"id": "north", "label": "North route", "rank": 1, "metric": {"value": 82, "quantity": "priority_score", "provenance": {"basis": "illustrative", "sourceRefs": ["route-priority-method"], "assumptionRefs": ["technician-constraint"]}}, "emphasis": true},
+          {"id": "east", "label": "East route", "rank": 2, "metric": {"value": 76, "quantity": "priority_score", "provenance": {"basis": "illustrative", "sourceRefs": ["route-priority-method"], "assumptionRefs": ["technician-constraint"]}}, "emphasis": false},
+          {"id": "central", "label": "Central route", "rank": 3, "metric": {"value": 64, "quantity": "priority_score", "provenance": {"basis": "illustrative", "sourceRefs": ["route-priority-method"], "assumptionRefs": ["technician-constraint"]}}, "emphasis": false}
+        ]
+      }
+    }
+  ],
+  "demo": [
+    {"stepKey": "relay-apply-technician-constraint", "action": "select", "control": "route-scenario", "value": "constrained"}
+  ]
+}

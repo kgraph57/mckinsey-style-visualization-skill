@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "type": "drilldown",
+  "purpose": "Explain one illustrative route handoff without replacing the parent claim",
+  "decisionJob": "insight",
+  "interactionRationale": "Inspect a bounded handoff proof and return to the unchanged parent conclusion",
+  "initialState": {"panel": null},
+  "printState": {"panel": null},
+  "fallbackSummary": {"field": "headline", "text": "One route handoff explains where the illustrative pilot starts"},
+  "sources": [{"id": "fixture-method", "label": "Illustrative handoff method", "detail": "Original synthetic fixture; no external source or measured value."}],
+  "panels": [
+    {"id": "method", "label": "Method", "heading": "How the handoff works", "body": "A job enters one route queue, receives one assignment, and exits after confirmation.", "sourceRefs": ["fixture-method"]},
+    {"id": "boundary", "label": "Boundary", "heading": "Where the handoff stops", "body": "An exception returns to the same queue without creating a second workflow.", "sourceRefs": ["fixture-method"]}
+  ],
+  "parentSummary": "The illustrative parent handoff remains visible before and after inspection.",
+  "returnLabel": "Return to the illustrative handoff"
+}

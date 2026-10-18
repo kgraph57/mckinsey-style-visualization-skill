@@ -10,6 +10,25 @@ https://github.com/kgraph57/mckinsey-style-visualization-skill
 
 https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.4.0
 
+This remains the stable release. The v3 preview is published separately:
+https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v3.0.0-rc.1
+
+Do not submit the draft marketplace copy below as a stable release until the
+manual gates in `tests/manual/interactive-release.md` are completed.
+
+## Draft v3 listing — do not submit
+
+Strategy Consulting Visualization Skill turns business inputs into
+assertion-led slides and optional interactive decision decks. Explicit dynamic
+requests produce both a static/print baseline and a self-contained companion
+with bounded scenarios, exact what-if controls, evidence, and deterministic
+presenter operation. Project Relay is original and entirely illustrative.
+
+Core HTML generation uses Python's standard library, makes no automatic
+network request, and writes explicit destinations. Browser/PDF/audit checks
+use optional pinned tools. This draft does not claim Safari, physical device,
+screen-reader, projector, or hosted-header verification.
+
 ## Awesome-List Submission Kit
 
 Ready-to-submit entries for community lists. House rule: a human reviews every outbound PR diff before it is opened, one list per PR, and the PR body discloses AI assistance.

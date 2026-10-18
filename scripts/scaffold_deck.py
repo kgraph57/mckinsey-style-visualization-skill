@@ -30,6 +30,11 @@ import shutil
 import sys
 from pathlib import Path
 
+try:
+    from deck_core import NormalizedSlide, load_manifest as read_manifest, normalize_manifest
+except ModuleNotFoundError:  # importlib/package callers from the repository root
+    from scripts.deck_core import NormalizedSlide, load_manifest as read_manifest, normalize_manifest
+
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATES_ROOT = ROOT / "templates" / "decks"
 
@@ -49,7 +54,7 @@ def discover_archetypes() -> list[str]:
 
 def load_manifest(archetype: str) -> dict:
     manifest_path = TEMPLATES_ROOT / archetype / "deck.json"
-    return json.loads(manifest_path.read_text(encoding="utf-8"))
+    return read_manifest(manifest_path)
 
 
 def list_archetypes() -> None:
@@ -62,25 +67,25 @@ def list_archetypes() -> None:
     name_width = max(len(name) for name in archetypes)
     for name in archetypes:
         manifest = load_manifest(name)
-        slide_count = len(manifest.get("slides", []))
+        slide_count = len(normalize_manifest(manifest, TEMPLATES_ROOT / name / "deck.json"))
         count_label = f"({slide_count} slide{'s' if slide_count != 1 else ''})"
         description = str(manifest.get("description", "")).strip()
         print(f"  {name.ljust(name_width)}  {count_label:<11} {description}")
     print('\nUsage: python3 scripts/scaffold_deck.py <archetype> -o <dir> [--title "..."] [--force]')
 
 
-def _rewrite_title(output: Path, slides: list[str], title: str) -> None:
+def _rewrite_title(output: Path, slides: list[NormalizedSlide], title: str) -> None:
     """Rewrite the manifest title and the cover slide's title so a scaffolded
     deck and its first slide agree without hand-editing the copy. The first
     spec with pattern "cover" is used, not a hardcoded filename, so this
     works regardless of an archetype's numbering scheme."""
     manifest_path = output / "deck.json"
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest = read_manifest(manifest_path)
     manifest["title"] = title
     manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
-    for relative in slides:
-        spec_path = output / relative
+    for entry in slides:
+        spec_path = entry.spec_path
         if not spec_path.exists():
             continue
         try:
@@ -124,8 +129,9 @@ def scaffold(archetype: str, output: Path, title: str | None, force: bool) -> No
     shutil.copytree(source_specs, dest_specs)
     shutil.copy2(source_dir / "deck.json", output / "deck.json")
 
-    manifest = json.loads((output / "deck.json").read_text(encoding="utf-8"))
-    slides = manifest.get("slides", [])
+    manifest_path = output / "deck.json"
+    manifest = read_manifest(manifest_path)
+    slides = normalize_manifest(manifest, manifest_path)
 
     if title:
         _rewrite_title(output, slides, title)

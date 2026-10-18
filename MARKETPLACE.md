@@ -36,6 +36,8 @@ strategy, consulting, executive presentations, board slides, visualization, data
 - Forces insight-led headlines and decision framing.
 - Reduces generic chart output.
 - Makes assumptions and data gaps explicit.
+- Builds a static baseline plus an optional interactive decision companion
+  when the request explicitly calls for state, evidence, or recalculation.
 - Includes validation, examples, security notes, and roadmap.
 
 ## Proof Checklist
@@ -47,6 +49,7 @@ strategy, consulting, executive presentations, board slides, visualization, data
 - `examples/case-studies/saas-board-update.md` is the public end-to-end case study (input → draft → review → revision → rendered proof).
 - `scripts/validate_skill.py` verifies required marketplace files.
 - `scripts/review_slide_spec.py` provides a lightweight structural review for slide specs.
+- `examples/interactive-deck/` contains the original, fully illustrative Project Relay proof in classic HTML, interactive HTML, and static PDF.
 - `SECURITY.md` discloses permissions and data handling.
 
 ## Screenshot Checklist

@@ -11,16 +11,82 @@ Rendering existing JSON specs into SVG/HTML uses the Python 3 standard library o
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
 [![Skill Format](https://img.shields.io/badge/SKILL.md-ready-blue.svg)](SKILL.md)
-[![Release](https://img.shields.io/badge/Release-v2.4.0-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.4.0)
+[![Preview Release](https://img.shields.io/badge/Preview-v3.0.0--rc.1-005eb8.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v3.0.0-rc.1)
 
 English | [日本語](README.ja.md)
 
-![Six-slide board deck rendered by this skill](assets/readme/demo.gif)
+![English interactive decision story rendered by this skill](assets/readme/decision-story.png)
 
-_An actual deck built by this repo: `specs (JSON) → SVG slides → animated HTML deck`. Nothing hand-drawn._
-_Reproduce it: `python3 scripts/scaffold_deck.py board-update -o demo && python3 scripts/build_html_deck.py --manifest demo/deck.json -o demo/deck.html`_
+_Actual v3 output: `motion manifest (JSON) → interactive story + static reading edition`._
 
 </div>
+
+## v3.0.0-rc.1 — Interactive decision stories
+
+[**Open the English live demo →**](https://kgraph57.github.io/mckinsey-style-visualization-skill/site/artifacts/project-relay.motion.en.html) · [Static reading version](https://kgraph57.github.io/mckinsey-style-visualization-skill/site/artifacts/project-relay.motion.en.static.html) · [Japanese demo](https://kgraph57.github.io/mckinsey-style-visualization-skill/site/artifacts/project-relay.motion.html)
+
+**Change an assumption. See the decision change.** Six connected pages take readers
+from the priority to investigate, through route comparisons and a live value model,
+to readiness and a conditional rollout. The English decision design uses large
+body text, assertion-led headlines and whitespace instead of decorative dividers.
+Press **D** for the guided demo, or explore the charts and controls yourself.
+All example data is illustrative, not a client result.
+
+This is a **prerelease**, not a fully device-certified stable release.
+[v2.4.0](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.4.0)
+remains the latest stable release. Download the self-contained HTML files from
+the [release assets](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v3.0.0-rc.1).
+
+**A click-through motion presentation is now available.** The
+[six-page English story](examples/interactive-deck/deck.motion.en.html) starts with
+an overview you can enter, lets readers press exhibits and prominent numbers
+for evidence, and connects changed assumptions to the conditional rollout.
+Sorting, retained differences, live equations, gap-filling actions and timeline
+steps are included in a cursor-led demo. A
+[static reading version](examples/interactive-deck/deck.motion.en.static.html)
+comes from the same source. See the [motion story guide](references/motion-story.md).
+The [Japanese version](examples/interactive-deck/deck.motion.html) is also retained.
+
+```bash
+python3 scripts/build_motion_deck.py --manifest examples/interactive-deck/motion.en.json -o deck.motion.en.html
+python3 scripts/build_motion_deck.py --manifest examples/interactive-deck/motion.en.json --static -o deck.motion.en.static.html
+```
+
+The separately supported contract-backed runtime is described below.
+
+The skill now has an optional **stateful interactive companion** for decision
+work: clickable evidence, bounded scenario switches, exact what-if sliders,
+readiness scoring, drill-downs, accordions, and a deterministic presenter demo.
+It keeps the restrained, assertion-led slide system and always preserves a
+static/print conclusion.
+
+“Animated deck” still means the existing quiet reveal. Ask explicitly for an
+`interactive deck`, `dynamic deck`, `what-if`, `clickable evidence`, `scenario
+slider`, `drill-down`, or `auto-demo` to build both audience artifacts:
+
+```bash
+python3 scripts/build_html_deck.py --manifest examples/interactive-deck/deck.json -o deck.html
+python3 scripts/build_interactive_deck.py --manifest examples/interactive-deck/deck.json -o deck.interactive.html
+```
+
+Try the original, entirely illustrative eight-page example: [Project Relay —
+classic HTML](examples/interactive-deck/deck.html), [interactive
+HTML](examples/interactive-deck/deck.interactive.html), and [static
+PDF](examples/interactive-deck/deck.pdf). The public `/try/` route remains the
+classic builder. Core HTML generation uses the Python standard library and
+writes only the explicit output path; browser/PDF/audit checks use the pinned
+optional test tools. See [interaction selection](references/interaction-selection.md),
+[scene authoring](references/interactive-scene-schema.md), [accessibility](references/interactive-accessibility.md),
+and [presenter operation](references/presenter-operation.md).
+
+Known verification limits: Safari, physical iPhone/touch,
+real browser-toolbar 200% zoom, AirPlay/HDMI/projector, VoiceOver/NVDA, real
+high contrast, and hosted response headers remain manual gates. See the
+[verification record](tests/manual/interactive-release.md). The English decision
+layer is tailored to Project Relay, not a universal business-model generator.
+Public inspiration and independent design choices are recorded in
+[design provenance](references/decision-design.md); this package is not affiliated
+with or endorsed by McKinsey or any other consulting firm.
 
 ## What’s new — September 9, 2026
 

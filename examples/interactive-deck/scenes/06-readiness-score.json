@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "type": "score_model",
+  "purpose": "Test whether operating inputs keep readiness at or above 70",
+  "decisionJob": "decision",
+  "interactionRationale": "Test whether operating inputs keep readiness at or above 70",
+  "initialState": {"frequency": 24, "data-quality": "standard", "manager-capacity": "available", "integration-depth": "core"},
+  "printState": {"frequency": 24, "data-quality": "standard", "manager-capacity": "available", "integration-depth": "core"},
+  "quantities": {
+    "monthly_frequency": {"dimension": "scalar", "unit": "runs_per_month", "display": "runs/mo"},
+    "readiness_points": {"dimension": "score", "unit": "point", "display": "points"}
+  },
+  "sources": [
+    {"id": "readiness-method", "label": "Illustrative readiness method", "detail": "The original synthetic score adds four declared contributions and applies fixed classification bands."}
+  ],
+  "assumptions": [
+    {"id": "frequency-score", "label": "Dispatch frequency contribution", "value": "6 / 12 / 18 / 24 / 30 points"},
+    {"id": "data-score", "label": "Data-quality contribution", "value": "10 / 20 / 30 points"},
+    {"id": "manager-score", "label": "Manager-capacity contribution", "value": "0 / 18 points"},
+    {"id": "integration-score", "label": "Integration contribution", "value": "0 / 10 / 20 points"},
+    {"id": "readiness-threshold", "label": "Readiness decision threshold", "value": "70 points"}
+  ],
+  "controls": [
+    {"id": "frequency", "kind": "range", "label": "Dispatch frequency", "min": 6, "max": 30, "step": 6, "quantity": "monthly_frequency", "provenance": {"basis": "illustrative", "assumptionRefs": ["frequency-score"]}},
+    {"id": "data-quality", "kind": "segmented", "label": "Data quality", "options": [{"value": "basic", "label": "Basic"}, {"value": "standard", "label": "Standard"}, {"value": "complete", "label": "Complete"}]},
+    {"id": "manager-capacity", "kind": "toggle", "label": "Manager capacity", "options": [{"value": "unavailable", "label": "Unavailable"}, {"value": "available", "label": "Available"}]},
+    {"id": "integration-depth", "kind": "select", "label": "Integration depth", "options": [{"value": "none", "label": "None"}, {"value": "core", "label": "Core"}, {"value": "full", "label": "Full"}]}
+  ],
+  "model": {
+    "kind": "score_sum",
+    "quantity": "readiness_points",
+    "contributions": [
+      {"control": "frequency", "values": [{"input": 6, "points": 6}, {"input": 12, "points": 12}, {"input": 18, "points": 18}, {"input": 24, "points": 24}, {"input": 30, "points": 30}]},
+      {"control": "data-quality", "values": [{"input": "basic", "points": 10}, {"input": "standard", "points": 20}, {"input": "complete", "points": 30}]},
+      {"control": "manager-capacity", "values": [{"input": "unavailable", "points": 0}, {"input": "available", "points": 18}]},
+      {"control": "integration-depth", "values": [{"input": "none", "points": 0}, {"input": "core", "points": 10}, {"input": "full", "points": 20}]}
+    ],
+    "bands": [
+      {"id": "defer", "min": 16, "max": 50, "label": "Defer"},
+      {"id": "prepare", "min": 50, "max": 70, "label": "Prepare"},
+      {"id": "pilot-ready", "min": 70, "max": 98, "label": "Pilot-ready"}
+    ],
+    "label": "Readiness score",
+    "format": "score",
+    "round": 0,
+    "modelProvenance": {"basis": "illustrative", "sourceRefs": ["readiness-method"], "assumptionRefs": ["frequency-score", "data-score", "manager-score", "integration-score"]}
+  },
+  "reporting": {"primaryOutput": "score", "secondaryOutputs": []},
+  "decisionContract": {
+    "id": "readiness-gate",
+    "metric": {"ref": "output:score"},
+    "operator": "gte",
+    "threshold": {"value": 70, "quantity": "readiness_points", "provenance": {"basis": "illustrative", "assumptionRefs": ["readiness-threshold"]}},
+    "whenMet": {"status": "Proceed", "recommendation": "The readiness gate is clear"},
+    "whenNotMet": {"status": "Hold", "recommendation": "Resolve readiness gaps before activating East"}
+  },
+  "view": {"component": "recommendation_panel", "score": {"ref": "output:score"}},
+  "demo": [
+    {"stepKey": "relay-remove-manager-capacity", "action": "select", "control": "manager-capacity", "value": "unavailable"},
+    {"stepKey": "relay-restore-manager-capacity", "action": "select", "control": "manager-capacity", "value": "available"}
+  ]
+}

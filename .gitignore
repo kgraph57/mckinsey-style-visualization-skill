@@ -32,13 +32,22 @@ outputs/
 *.jpeg
 *.pdf
 
+# Interactive-deck audit and browser evidence are reproducible local outputs.
+/test-results/
+/output/
+/.playwright-cli/
+!assets/readme/decision-story.png
+
 # Landing site OGP image (committed intentionally)
 !docs/site/og.png
 
 # Downloadable PDF examples generated from HTML
 !templates/reference-layouts/decision-brief.pdf
 !examples/demo-deck.pdf
+!examples/interactive-deck/deck.pdf
 !docs/site/artifacts/reference-layouts/decision-brief.pdf
 !docs/site/artifacts/demo-deck.pdf
 
 !docs/site/decision-brief-preview.png
+!tests/e2e/baselines/chromium-linux/
+!tests/e2e/baselines/chromium-linux/**/*.png

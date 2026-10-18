@@ -1,0 +1,19 @@
+{
+  "pattern": "gantt",
+  "theme": "executive",
+  "headline": "The Week 6 review decides whether East starts",
+  "source": "Illustrative 12-week pilot plan",
+  "classification": "Illustrative",
+  "page_number": 7,
+  "periods": ["W1–2", "W3–4", "W5–6", "W7–8", "W9–10", "W11–12"],
+  "bars": [
+    {"label": "Instrument dispatch", "start": 0, "end": 1, "highlight": false, "note": "Tracking setup"},
+    {"label": "North route live", "start": 0, "end": 5, "highlight": true, "note": "Run and measure"},
+    {"label": "East, if approved", "start": 3, "end": 5, "highlight": false, "note": "Conditional flex test"},
+    {"label": "Scale decision", "start": 5, "end": 5, "highlight": false, "note": "Review"}
+  ],
+  "gates": [
+    {"label": "Adoption ≥55% + readiness ≥70", "period": 2}
+  ],
+  "annotation": "East also requires the technician-constraint case; network scale is a separate decision"
+}

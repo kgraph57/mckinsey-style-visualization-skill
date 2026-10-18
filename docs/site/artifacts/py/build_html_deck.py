@@ -249,6 +249,11 @@ def build_deck(spec_paths: list[Path], title: str) -> str:
 
 
 def main() -> None:
+    try:
+        from deck_core import load_manifest, normalize_manifest
+    except ModuleNotFoundError:  # package callers from the repository root
+        from scripts.deck_core import load_manifest, normalize_manifest
+
     parser = argparse.ArgumentParser(description="Build an animated HTML deck from slide spec JSONs.")
     parser.add_argument("specs", nargs="*", help="Slide spec JSON files, in slide order")
     parser.add_argument("--manifest", help="Deck manifest JSON with {title, slides}")
@@ -259,10 +264,15 @@ def main() -> None:
     title = args.title
     spec_paths = [Path(p) for p in args.specs]
     if args.manifest:
-        manifest = json.loads(Path(args.manifest).read_text(encoding="utf-8"))
+        manifest_path = Path(args.manifest)
+        try:
+            manifest = load_manifest(manifest_path)
+            entries = normalize_manifest(manifest, manifest_path)
+        except (OSError, ValueError) as exc:
+            print(f"ERROR: cannot read manifest: {exc}", file=sys.stderr)
+            raise SystemExit(1)
         title = manifest.get("title", title)
-        base = Path(args.manifest).parent
-        spec_paths = [base / p for p in manifest["slides"]] + spec_paths
+        spec_paths = [entry.spec_path for entry in entries] + spec_paths
     if not spec_paths:
         print("ERROR: no slide specs given", file=sys.stderr)
         raise SystemExit(1)

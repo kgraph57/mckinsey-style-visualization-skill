@@ -1,7 +1,6 @@
 {
   "pattern": "process_flow",
   "headline": "Partner certification reaches revenue four months faster than building a direct sales team from zero",
-  "subline": "Proposed partner-led entry sequence",
   "steps": [
     {"label": "Certify two partners", "detail": "Logistics-focused resellers; 2 months"},
     {"label": "Joint pipeline build", "detail": "Partner-sourced leads; month 2-3"},

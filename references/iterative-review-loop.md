@@ -37,13 +37,17 @@ Run every draft through five review lenses:
 
 Stop the loop only when all conditions are true:
 
-- score is 18 or higher using `references/quality-rubric.md`
+- score is 20 or higher out of 24 using `references/quality-rubric.md`
 - no review lens has a blocking issue
 - all data assumptions are visible
 - the slide spec can be rendered without extra interpretation
 - a reviewer can explain the decision implication in one sentence
+- every rendered page has been inspected at actual viewing size, not only as a thumbnail
+- numerical claims are proved by chart geometry, not only repeated in text
+- for interactive decks, the exhibit, primary inputs and decision fit together at 1280 × 720 and 1440 × 900; narrow-width reflow is checked separately
+- a chronological plan contains no action that precedes its required decision gate
 
-If the score is below 18, revise and run the loop again. If a blocking issue repeats twice, return to the strategic question before drafting another visual.
+If the score is below 20, revise and run the loop again. A passing test suite is not a visual review, and a self-assigned score is not evidence. Attach the inspected pages and observed limitations. If a blocking issue repeats twice, return to the strategic question before drafting another visual.
 
 ## Review Template
 
@@ -55,9 +59,10 @@ If the score is below 18, revise and run the loop again. If a blocking issue rep
 - Strategy: /5
 - Data integrity: /5
 - Visual hierarchy: /4
+- Data-ink and graphical integrity: /4
 - Portability: /3
 - Marketplace safety: /3
-- Total: /20
+- Total: /24
 
 ## Blocking Issues
 

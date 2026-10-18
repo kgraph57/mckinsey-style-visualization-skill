@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "type": "evidence_only",
+  "purpose": "Verify the synthetic cause split and review method in one action",
+  "decisionJob": "fact",
+  "interactionRationale": "Verify the cause split and proof in one action",
+  "initialState": {"evidence": "closed"},
+  "printState": {"evidence": "closed"},
+  "fallbackSummary": {
+    "field": "headline",
+    "text": "Dispatch causes 61% of delays; fix it first"
+  },
+  "triggerLabel": "Review the evidence",
+  "sources": [
+    {
+      "id": "synthetic-review-method",
+      "label": "Illustrative synthetic late-job review method",
+      "detail": "An original illustrative exercise classifies one primary late-job cause for each of 1,200 synthetic jobs across 12 weeks."
+    }
+  ],
+  "assumptions": [
+    {"id": "synthetic-job-sample", "label": "Illustrative synthetic sample", "value": "1,200 synthetic jobs across 12 weeks"},
+    {"id": "late-cause-split", "label": "Cause split", "value": "Dispatch 61%; technician 24%; access-handoff 15%"},
+    {"id": "single-cause-taxonomy", "label": "Cause taxonomy", "value": "One primary cause per late job"}
+  ],
+  "demo": [
+    {"stepKey": "relay-open-late-job-evidence", "action": "openEvidence"}
+  ]
+}

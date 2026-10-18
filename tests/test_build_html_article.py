@@ -787,6 +787,16 @@ class TemplateAndDemoTests(unittest.TestCase):
 
 
 class ArticleCliTests(unittest.TestCase):
+    def test_mixed_manifest_ignores_scene_and_matches_string_manifest(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            paths, manifest = _write_manifest(root, [_gap_spec("First"), _gap_spec("Second")])
+            manifest["slides"][1] = {"spec": "02.json", "scene": "../absent.json"}
+            (root / "deck.json").write_text(json.dumps(manifest), encoding="utf-8")
+            result = subprocess.run([sys.executable, str(ROOT / "scripts/build_html_article.py"), "--manifest", str(root / "deck.json"), "-o", str(root / "article.html")], cwd=root, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual((root / "article.html").read_text(encoding="utf-8"), builder.build_article(paths, "Test Deck", "", "en"))
+
     """True subprocess-level checks of the documented CLI contract."""
 
     def _run(self, *args: str) -> subprocess.CompletedProcess:

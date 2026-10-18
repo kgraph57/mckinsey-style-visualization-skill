@@ -1,0 +1,20 @@
+{
+  "pattern": "closing",
+  "theme": "executive",
+  "presentation": "editorial",
+  "headline": "Approve the cap; gate East at Week 6",
+  "source": "Illustrative steering-committee decision",
+  "classification": "Illustrative",
+  "page_number": 8,
+  "takeaways": [
+    "Launch North",
+    "Decide on East",
+    "Review network scale"
+  ],
+  "next_steps": [
+    {"action": "Confirm manager capacity and launch North", "owner": "Operations lead", "timing": "Week 1"},
+    {"action": "Check 55% adoption, readiness ≥70 and the staffing case", "owner": "Pilot owner", "timing": "Week 6"},
+    {"action": "Review results before any network expansion", "owner": "Steering committee", "timing": "Week 12"}
+  ],
+  "call_to_action": "Decision today: approve the $0.6m total pilot cap and assign the owner"
+}

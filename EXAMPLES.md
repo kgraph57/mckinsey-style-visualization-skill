@@ -16,10 +16,43 @@ This document provides practical examples of using the Strategy Consulting Visua
 
 - [Basic Usage](#basic-usage)
 - [Instant Deck and Report Mode](#instant-deck-and-report-mode)
+- [Interactive Project Relay](#interactive-project-relay)
 - [Visualization Type Examples](#visualization-type-examples)
 - [Structural Slide Examples](#structural-slide-examples)
 - [Real-World Scenarios](#real-world-scenarios)
 - [Advanced Techniques](#advanced-techniques)
+
+## Interactive Project Relay
+
+For the **Japanese, click-through motion presentation**, open
+[the six-page motion story](examples/interactive-deck/deck.motion.html) or its
+[static reading version](examples/interactive-deck/deck.motion.static.html).
+It includes overview-to-page navigation, direct chart/number evidence drawers,
+animated ranking with base differences, a visible what-if equation, shortage
+actions, a conditional timeline, and a cursor-led demo ending in the overview.
+Build both with `scripts/build_motion_deck.py`; see
+[the motion story guide](references/motion-story.md).
+
+The earlier contract-backed eight-page example remains available below.
+
+**Scenario:** A steering committee must test a bounded pilot recommendation,
+inspect evidence, and see whether changing adoption or readiness changes the
+decision.
+
+```bash
+python3 scripts/build_html_deck.py --manifest examples/interactive-deck/deck.json -o deck.html
+python3 scripts/build_interactive_deck.py --manifest examples/interactive-deck/deck.json -o deck.interactive.html
+```
+
+The first file is the static/quiet-reveal baseline. The second adds four
+story-relevant interactive pages while preserving the same eight-page story.
+All Project Relay values are **illustrative**. Open the reviewed
+[classic artifact](examples/interactive-deck/deck.html),
+[interactive artifact](examples/interactive-deck/deck.interactive.html), or
+[static PDF](examples/interactive-deck/deck.pdf).
+
+Use this route only when operation changes verification or a decision. Generic
+“engagement” is not enough; see [interaction selection](references/interaction-selection.md).
 
 ## Instant Deck and Report Mode
 

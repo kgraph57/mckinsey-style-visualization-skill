@@ -55,6 +55,24 @@ python3 scripts/build_html_deck.py --manifest my-deck/deck.json -o my-deck/deck.
 
 Six archetypes ship: `board-update`, `strategy-recommendation`, `project-status`, `market-entry`, `sales-proposal`, and `board-update-ja` (Japanese). See the [README template gallery](README.md#template-gallery) for what each one contains.
 
+## Explicit Interactive / Dynamic Deck
+
+An ordinary deck or “animated deck” uses the classic command above. If the
+request explicitly asks for state, clickable evidence, recalculation,
+what-if/scenario controls, drill-down, a slider, or an auto-demo, build the
+classic artifact first and then the companion:
+
+```bash
+python3 scripts/build_html_deck.py --manifest examples/interactive-deck/deck.json -o deck.html
+python3 scripts/build_interactive_deck.py --manifest examples/interactive-deck/deck.json -o deck.interactive.html
+```
+
+Open `deck.html` for the distributable baseline and `deck.interactive.html` for
+the presenter-operated version. Printing uses the declared static state. Start
+from the fully illustrative [Project Relay example](examples/interactive-deck/README.md),
+then read [interaction selection](references/interaction-selection.md) before
+adding a scene. Report both output paths and every manual check not performed.
+
 ## Fastest Path to a Report Document
 
 For a document instead of a deck, write Markdown and build it straight to a self-contained, print-to-A4 HTML report:
@@ -117,6 +135,7 @@ Create a competitive benchmarking table for five AI vendors across accuracy, cos
 
 - Read [README.md](README.md) for the product overview.
 - Review [EXAMPLES.md](EXAMPLES.md) for usage scenarios.
+- Review [references/presenter-operation.md](references/presenter-operation.md) before presenting an interactive companion.
 - Use [references/expert-review-loop.md](references/expert-review-loop.md) before publishing public or high-stakes visuals.
 - Open [MARKETPLACE.md](MARKETPLACE.md) for listing copy.
 - Inspect [references/quality-rubric.md](references/quality-rubric.md) before publishing proof assets.

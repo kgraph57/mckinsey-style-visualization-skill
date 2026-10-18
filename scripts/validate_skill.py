@@ -11,6 +11,11 @@ import sys
 import tempfile
 from pathlib import Path
 
+try:
+    from deck_core import load_manifest, normalize_manifest
+except ModuleNotFoundError:  # importlib/package callers from the repository root
+    from scripts.deck_core import load_manifest, normalize_manifest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -63,6 +68,7 @@ REQUIRED_FILES = [
     "examples/review-loop/investment-memo-review-v2.md",
     "scripts/review_slide_spec.py",
     "scripts/render_slide_spec.py",
+    "scripts/deck_core.py",
     "examples/render-specs/arr-waterfall.json",
     "examples/render-specs/capacity-gap.json",
     "examples/render-specs/adoption-before-after.json",
@@ -132,6 +138,23 @@ REQUIRED_FILES = [
     "examples/demo-report.html",
     "scripts/build_speaker_script.py",
     "scripts/build_html_article.py",
+    "scripts/build_interactive_deck.py",
+    "scripts/audit_interactive_deck.py",
+    "schemas/interactive-scene-v1.schema.json",
+    "references/interactive-scene-schema.md",
+    "references/interaction-selection.md",
+    "references/interactive-accessibility.md",
+    "references/presenter-operation.md",
+    "examples/interactive-deck/deck.json",
+    "examples/interactive-deck/deck.html",
+    "examples/interactive-deck/deck.interactive.html",
+    "examples/interactive-deck/deck.pdf",
+    "examples/interactive-deck/review.md",
+    "tests/test_interactive_reference.py",
+    "tests/e2e/test_interactive_reference.py",
+    "tests/e2e/test_interactive_visual_pdf.py",
+    "tests/manual/interactive-release.md",
+    "requirements-e2e.txt",
     "examples/demo-script.html",
     "examples/demo-article.html",
     "assets/readme/hero-before-after.svg",
@@ -241,7 +264,7 @@ def validate_manifest() -> None:
     expected = {
         "name": "strategy-consulting-visualization",
         "display_name": "Strategy Consulting Visualization Skill",
-        "version": "2.4.0",
+        "version": "3.0.0-rc.1",
         "license": "MIT",
         "entrypoint": "SKILL.md",
     }
@@ -250,13 +273,27 @@ def validate_manifest() -> None:
             fail(f"manifest field {key!r} must be {value!r}")
 
     permissions = manifest.get("permissions", {})
-    for key in ["network", "filesystem_write", "external_tools"]:
-        if permissions.get(key) is not False:
-            fail(f"manifest permissions.{key} must be false")
+    expected_permissions = {
+        "network": False,
+        "filesystem_write": True,
+        "external_tools": False,
+    }
+    if permissions != expected_permissions:
+        fail(f"manifest permissions must be {expected_permissions!r}")
 
     proof = manifest.get("proof", {})
     for proof_path in proof.values():
-        if not (ROOT / proof_path).exists():
+        if not isinstance(proof_path, str) or not proof_path:
+            fail("manifest proof paths must be non-empty strings")
+        path = Path(proof_path)
+        if path.is_absolute() or "test-results" in path.parts or "audit" in path.name.lower():
+            fail(f"manifest proof path is not a public artifact: {proof_path}")
+        resolved = (ROOT / path).resolve()
+        try:
+            resolved.relative_to(ROOT.resolve())
+        except ValueError:
+            fail(f"manifest proof path escapes package root: {proof_path}")
+        if not resolved.is_file():
             fail(f"manifest proof path does not exist: {proof_path}")
 
     launch = manifest.get("launch", {})
@@ -330,8 +367,9 @@ def validate_demo_deck() -> None:
     spec_loader = importlib.util.spec_from_file_location("build_html_deck", module_path)
     module = importlib.util.module_from_spec(spec_loader)
     spec_loader.loader.exec_module(module)
-    manifest = json.loads((ROOT / "examples" / "demo-deck.json").read_text(encoding="utf-8"))
-    spec_paths = [ROOT / "examples" / p for p in manifest["slides"]]
+    manifest_path = ROOT / "examples" / "demo-deck.json"
+    manifest = load_manifest(manifest_path)
+    spec_paths = [entry.spec_path for entry in normalize_manifest(manifest, manifest_path)]
     fresh = module.build_deck(spec_paths, manifest.get("title", "Slide Deck"))
     committed = (ROOT / "examples" / "demo-deck.html").read_text(encoding="utf-8")
     if fresh != committed:
@@ -381,8 +419,8 @@ def validate_demo_script() -> None:
     spec_loader.loader.exec_module(module)
 
     manifest_path = ROOT / "templates" / "decks" / "board-update-ja" / "deck.json"
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    spec_paths = [manifest_path.parent / p for p in manifest["slides"]]
+    manifest = load_manifest(manifest_path)
+    spec_paths = [entry.spec_path for entry in normalize_manifest(manifest, manifest_path)]
     fresh = module.build_script(spec_paths, manifest.get("title", "Slide Deck"), "ja")
     committed = (ROOT / "examples" / "demo-script.html").read_text(encoding="utf-8")
     if fresh != committed:
@@ -403,8 +441,8 @@ def validate_demo_article() -> None:
     spec_loader.loader.exec_module(module)
 
     manifest_path = ROOT / "templates" / "decks" / "board-update" / "deck.json"
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    spec_paths = [manifest_path.parent / p for p in manifest["slides"]]
+    manifest = load_manifest(manifest_path)
+    spec_paths = [entry.spec_path for entry in normalize_manifest(manifest, manifest_path)]
     lead = manifest.get("lead") or manifest.get("description", "")
     series = manifest.get("series", "")
     fresh = module.build_article(
@@ -419,6 +457,32 @@ def validate_demo_article() -> None:
         )
 
 
+def validate_interactive_reference() -> None:
+    """Project Relay's two audience HTML files must match fresh stdlib builds."""
+    source = ROOT / "examples" / "interactive-deck"
+    manifest = source / "deck.json"
+    commands = (
+        (ROOT / "scripts" / "build_html_deck.py", source / "deck.html"),
+        (ROOT / "scripts" / "build_interactive_deck.py", source / "deck.interactive.html"),
+    )
+    with tempfile.TemporaryDirectory() as temporary:
+        for script, committed in commands:
+            output = Path(temporary) / committed.name
+            result = subprocess.run(
+                [sys.executable, "-B", str(script), "--manifest", str(manifest), "-o", str(output)],
+                cwd=str(ROOT),
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            if result.returncode:
+                fail(f"{script.name} failed on Project Relay: {result.stderr.strip()}")
+            if output.read_bytes() != committed.read_bytes():
+                fail(f"stale Project Relay artifact: regenerate {committed.relative_to(ROOT)}")
+    if not (source / "deck.pdf").is_file():
+        fail("missing Project Relay PDF; browser/PDF geometry is verified in the E2E lane")
+
+
 def main() -> None:
     validate_required_files()
     validate_skill_frontmatter()
@@ -428,6 +492,7 @@ def main() -> None:
     validate_demo_report()
     validate_demo_script()
     validate_demo_article()
+    validate_interactive_reference()
     validate_renderer()
     print("OK: skill package passed validation")
 

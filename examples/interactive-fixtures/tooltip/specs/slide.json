@@ -1,0 +1,14 @@
+{
+  "pattern": "gap",
+  "headline": "Illustrative route load rises from 3 to 13 as complexity moves from one to three",
+  "source": "Illustrative logistics fixture",
+  "classification": "Illustrative",
+  "page_number": 1,
+  "quantity": "route_load",
+  "unit": "jobs/h",
+  "value_domain": [0, 15],
+  "baseline": 0,
+  "items": [{"item_id": "lookup-result", "label": "Route load", "value": 8, "value_text": "8 jobs/h", "emphasis": true, "removed": false}],
+  "interactive_result": {"quantity": "route_load", "value": 8, "decision_status": "Proceed", "recommendation": "Keep the illustrative route bounded", "operator": "gte", "threshold": 8},
+  "annotation": "Route load 8 jobs/h; Proceed; threshold ≥ 8 jobs/h; Keep the illustrative route bounded"
+}

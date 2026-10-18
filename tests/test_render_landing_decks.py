@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -52,6 +53,20 @@ class RenderLandingDecksTests(unittest.TestCase):
 
     def test_check_passes_on_committed(self):
         self.assertEqual(self.mod.check(), [])
+
+    def test_landing_paths_follow_mixed_manifest_order_relative_to_manifest(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            path = root / "deck.json"
+            path.write_text(json.dumps({"slides": ["b.json", {"spec": "a.json", "scene": "../absent.json"}]}), encoding="utf-8")
+            paths = self.mod._slide_paths({"manifest": path, "base": root / "obsolete-base"})
+            self.assertEqual(paths, [root / "b.json", root / "a.json"])
+
+    def test_all_committed_renderer_svgs_are_byte_identical(self):
+        renderer = self.mod._load("render_slide_spec")
+        for path in sorted((ROOT / "examples/render-specs").glob("*.json")):
+            with self.subTest(spec=path.name):
+                self.assertEqual(renderer.render(json.loads(path.read_text(encoding="utf-8"))).encode("utf-8"), (ROOT / "assets/rendered" / f"{path.stem}.svg").read_bytes())
 
 
 if __name__ == "__main__":

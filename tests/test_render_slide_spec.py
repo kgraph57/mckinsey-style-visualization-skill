@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import importlib.util
 import re
 import unittest
@@ -21,7 +22,524 @@ def load_renderer():
 renderer = load_renderer()
 
 
+class EditorialEvidenceTests(unittest.TestCase):
+    def scatter_spec(self):
+        return {
+            "pattern": "scatter", "headline": "Adoption determines value",
+            "x_axis": {"label": "Adoption", "unit": "%", "domain": [30, 80]},
+            "y_axis": {"label": "Annual value", "unit": "$m", "quantity": "annual_value", "domain": [0, 4]},
+            "points": [{"label": "Annual value", "x": 55, "y": 1.8}],
+            "model_context": {"kind": "linear_model", "intercept": -1.5, "coefficient": .06},
+            "interactive_result": {"quantity": "annual_value", "value": 1.8, "threshold": 1.8},
+        }
+
+    def score_spec(self):
+        return {
+            "pattern": "summary_strip", "headline": "Capacity changes the decision",
+            "blocks": [{"metric": "72 points", "claim": "Pilot-ready", "proof": "Proceed; threshold ≥ 70 points", "implication": "Confirm manager capacity"}],
+            "interactive_result": {"value": 72, "threshold": 70},
+            "model_context": {"kind": "score_breakdown", "components": [
+                {"label": "Dispatch frequency", "value": 24}, {"label": "Data quality", "value": 20},
+                {"label": "Manager capacity", "value": 18}, {"label": "Integration", "value": 10}],
+                "comparison": {"label": "Without manager capacity", "remove_index": 2}},
+        }
+
+    def test_linear_evidence_has_model_threshold_and_direct_values(self):
+        import xml.etree.ElementTree as ET
+        root = ET.fromstring(renderer.render(self.scatter_spec()))
+        ns = "{http://www.w3.org/2000/svg}"
+        model = root.find(f'.//{ns}line[@id="model-relationship"]')
+        threshold = root.find(f'.//{ns}line[@id="decision-threshold"]')
+        point = root.find(f'.//{ns}circle')
+        self.assertIsNotNone(model)
+        self.assertIsNotNone(threshold)
+        self.assertAlmostEqual(float(threshold.attrib["y1"]), float(point.attrib["cy"]))
+        self.assertLess(float(model.attrib["y2"]), float(model.attrib["y1"]))
+        text = " ".join(root.itertext())
+        self.assertIn("55%", text)
+        self.assertIn("$1.8m", text)
+        self.assertIn("50%", text)
+
+    def test_model_context_rejects_invalid_or_misleading_shapes(self):
+        for context in [None, {}, {"kind": "linear_model", "intercept": 0, "coefficient": float("nan")},
+                        {"kind": "linear_model", "intercept": True, "coefficient": 1},
+                        {"kind": "linear_model", "intercept": 0, "coefficient": 1, "surprise": 3}]:
+            with self.subTest(context=context), self.assertRaises(renderer.RenderSpecError):
+                spec = self.scatter_spec(); spec["model_context"] = context
+                renderer.render(spec)
+        spec = self.scatter_spec(); spec["points"][0]["y"] = 2.4
+        with self.assertRaises(renderer.RenderSpecError): renderer.render(spec)
+
+    def test_relationship_is_clipped_and_unrelated_threshold_is_not_drawn(self):
+        import xml.etree.ElementTree as ET
+        spec = self.scatter_spec()
+        spec["model_context"] = {"kind": "linear_model", "intercept": -5, "coefficient": .12}
+        spec["points"][0]["y"] = 1.6
+        spec["interactive_result"]["quantity"] = "unrelated_quantity"
+        root = ET.fromstring(renderer.render(spec))
+        model = root.find('.//{http://www.w3.org/2000/svg}line[@id="model-relationship"]')
+        self.assertIsNotNone(model)
+        self.assertAlmostEqual(float(model.attrib["y1"]), renderer.CHART_BOTTOM)
+        self.assertAlmostEqual(float(model.attrib["y2"]), renderer.CHART_TOP + 20)
+        self.assertIsNone(root.find('.//{http://www.w3.org/2000/svg}line[@id="decision-threshold"]'))
+
+    def test_model_takeaway_is_concise_without_mutating_semantic_annotation(self):
+        spec = self.scatter_spec()
+        spec["annotation"] = "Annual value $1.8m; Proceed; threshold ≥ $1.8m; The adoption gate is clear"
+        spec["interactive_result"].update({"decision_status": "Proceed", "recommendation": "The adoption gate is clear"})
+        original = copy.deepcopy(spec)
+        svg = renderer.render(spec)
+        self.assertIn("Proceed · The adoption gate is clear</text>", svg)
+        self.assertNotIn("threshold ≥ $1.8m", svg)
+        self.assertIn("Hurdle $1.8m", svg)
+        self.assertEqual(spec, original)
+
+    def test_score_breakdown_preserves_components_and_counterfactual(self):
+        import xml.etree.ElementTree as ET
+        root = ET.fromstring(renderer.render(self.score_spec()))
+        text = " ".join(root.itertext())
+        for value in ("Dispatch frequency", "Manager capacity", "72 points", "54 points", "Without manager capacity", "70", "Confirm manager capacity"):
+            self.assertIn(value, text)
+        bars = [node for node in root.findall('.//{http://www.w3.org/2000/svg}rect') if node.attrib.get("id", "").startswith("score-total-")]
+        self.assertEqual(len(bars), 2)
+        self.assertAlmostEqual(float(bars[0].attrib["width"]) / float(bars[1].attrib["width"]), 72 / 54, places=2)
+        spec = self.score_spec(); spec["model_context"]["components"][0]["value"] = 99
+        with self.assertRaises(renderer.RenderSpecError): renderer.render(spec)
+
+    def test_score_rejects_bad_shape_and_nonfinite_counterfactual(self):
+        changes = [
+            lambda s: s["model_context"]["components"].__setitem__(0, {"label": "Dispatch", "value": -1}),
+            lambda s: s["model_context"]["components"].__setitem__(0, {"label": "Dispatch", "value": float("inf")}),
+            lambda s: s["model_context"]["comparison"].__setitem__("remove_index", True),
+            lambda s: s["model_context"]["comparison"].__setitem__("remove_index", 4),
+            lambda s: s["interactive_result"].__setitem__("threshold", float("nan")),
+        ]
+        for change in changes:
+            spec = self.score_spec(); change(spec)
+            with self.assertRaises(renderer.RenderSpecError): renderer.render(spec)
+
+    def test_rank_comparison_connects_identity_and_labels_scores_separately(self):
+        import xml.etree.ElementTree as ET
+        spec = {"pattern": "bullet_list", "headline": "Route priorities", "value_domain": [0, 100],
+                "unit": "priority pts",
+                "bullets": [{"item_id": "north", "text": "North route", "metric": 86, "rank": 1, "sub": ["86 priority pts"]},
+                            {"item_id": "central", "text": "Central route", "metric": 78, "rank": 2},
+                            {"item_id": "east", "text": "East route", "metric": 73, "rank": 3, "sub": ["73 priority pts"]}],
+                "model_context": {"kind": "scenario_compare", "label": "Technician constrained", "values": [
+                    {"item_id": "north", "value": 82, "rank": 1}, {"item_id": "central", "value": 64, "rank": 3},
+                    {"item_id": "east", "value": 76, "rank": 2}]}}
+        svg = renderer.render(spec)
+        self.assertIn('id="rank-bridge-', svg)
+        self.assertNotIn('id="rank-bar-', svg)
+        for text in ("North route", "East route", "Technician constrained", "Priority rank", "86", "82", "76", "64"):
+            self.assertIn(text, svg)
+        root = ET.fromstring(svg)
+        ns = "{http://www.w3.org/2000/svg}"
+        lines = [root.find(f'.//{ns}line[@id="rank-bridge-{index}"]') for index in range(3)]
+        self.assertEqual(lines[0].attrib["y1"], lines[0].attrib["y2"])
+        self.assertLess(float(lines[1].attrib["y1"]), float(lines[1].attrib["y2"]))
+        self.assertGreater(float(lines[2].attrib["y1"]), float(lines[2].attrib["y2"]))
+        self.assertEqual(lines[2].attrib["stroke"], renderer.BLUE)
+        self.assertNotEqual(lines[0].attrib["stroke"], renderer.BLUE)
+        self.assertEqual(lines[2].attrib["stroke-width"], "5")
+        self.assertNotIn("stroke-dasharray", lines[2].attrib)
+        # Rank spacing is categorical; it does not encode the metric difference.
+        self.assertEqual(float(lines[1].attrib["y1"]) - float(lines[0].attrib["y1"]),
+                         float(lines[2].attrib["y1"]) - float(lines[1].attrib["y1"]))
+        spec["model_context"]["values"][1]["item_id"] = "north"
+        with self.assertRaises(renderer.RenderSpecError): renderer.render(spec)
+
+    def test_editorial_variants_preserve_authored_text_without_ellipsis(self):
+        for filename in ("01-cover.json", "02-thesis.json", "08-decision.json"):
+            import json
+            spec = json.loads((ROOT / "examples" / "interactive-deck" / "specs" / filename).read_text())
+            spec["presentation"] = "editorial"
+            svg = renderer.render(spec)
+            self.assertNotIn("…", svg)
+            if spec["pattern"] == "summary_strip":
+                self.assertIn('font-size="84"', svg)
+            if spec["pattern"] == "closing":
+                for step in spec["next_steps"]:
+                    self.assertIn(renderer.esc(step["owner"]), svg)
+                    self.assertIn(renderer.esc(step["timing"]), svg)
+
+    def test_plain_bullets_keep_their_original_presentation(self):
+        svg = renderer.render({"pattern": "bullet_list", "headline": "Actions", "bullets": [{"text": "Confirm capacity"}]})
+        self.assertNotIn('id="rank-bar-', svg)
+        self.assertIn('width="6.0" height="6.0"', svg)
+
+
+class InteractiveExactTextTests(unittest.TestCase):
+    def test_removed_mark_keeps_label_and_exposes_removal(self):
+        for spec in [
+            {'pattern': 'gap', 'headline': 'Removed', 'items': [{'item_id': 'a', 'label': 'A', 'value': 1, 'removed': True}]},
+            {'pattern': 'scatter', 'headline': 'Removed', 'x_axis': {'label': 'X'}, 'y_axis': {'label': 'Y'}, 'points': [{'item_id': 'a', 'label': 'A', 'x': 1, 'y': 1, 'removed': True}]},
+        ]:
+            self.assertIn('A · Removed', renderer.render(spec))
+
+    def test_gap_and_pair_show_exact_opt_in_text(self):
+        spec = {'pattern': 'gap', 'headline': 'Exact', 'items': [{'label': 'A', 'value': 1.234567, 'value_text': '1.234567 units'}]}
+        self.assertIn('1.234567 units</text>', renderer.render(spec))
+        spec = {'pattern': 'before_after', 'headline': 'Exact', 'pairs': [{'label': 'A', 'before': 1.234, 'after': 2.345, 'before_text': '1.234 units', 'after_text': '2.345 units', 'delta_text': '+1.111 units'}]}
+        svg = renderer.render(spec)
+        for text in ('1.234 units', '2.345 units', '+1.111 units'):
+            self.assertIn(text + '</text>', svg)
+
+    def test_scatter_exact_endpoint_text_and_bad_hook_rejection(self):
+        spec = {'pattern': 'scatter', 'headline': 'Exact', 'x_axis': {'label': 'X', 'domain': [0, 1.234567], 'tick_labels': ['zero', '1.234567 units']}, 'y_axis': {'label': 'Y', 'domain': [0, 2]}, 'points': [{'label': 'A', 'x': 1, 'y': 1}]}
+        self.assertIn('1.234567 units</text>', renderer.render(spec))
+        spec['x_axis']['tick_labels'] = ['one']
+        with self.assertRaises(renderer.RenderSpecError): renderer.render(spec)
+        with self.assertRaises(renderer.RenderSpecError):
+            renderer.render({'pattern': 'gap', 'headline': 'Bad', 'items': [{'label': 'A', 'value': 1, 'value_text': 1}]})
+
+
+class ExplicitDomainTests(unittest.TestCase):
+    def test_no_domain_signed_before_after_preserves_legacy_rectangle_geometry(self) -> None:
+        import re
+
+        spec = {
+            "pattern": "before_after", "headline": "Signed", "pairs": [
+                {"label": "Segment", "before": -10, "after": 20},
+            ],
+        }
+        svg = renderer.render(spec)
+        top = 20 * 1.15
+        step = renderer.W - renderer.ML - renderer.MR
+        bar_w = min(72.0, step * 0.24)
+        cx = renderer.ML + step / 2
+        bx, ax = cx - bar_w - 8, cx + 8
+        before_y = renderer.CHART_BOTTOM - (-10 / top) * (renderer.CHART_BOTTOM - renderer.CHART_TOP)
+        after_y = renderer.CHART_BOTTOM - (20 / top) * (renderer.CHART_BOTTOM - renderer.CHART_TOP)
+        legacy_before = renderer.rect_el(bx, before_y, bar_w, renderer.CHART_BOTTOM - before_y, renderer.GREY_FILL)
+        legacy_after = renderer.rect_el(ax, after_y, bar_w, renderer.CHART_BOTTOM - after_y, renderer.BLUE)
+        rects = re.findall(r'<rect x="[^>]+/>', svg)
+        self.assertEqual(rects[-2:], [legacy_before, legacy_after])
+
+    def test_gap_domain_and_baseline_determine_bar_coordinates(self) -> None:
+        import xml.etree.ElementTree as ET
+
+        spec = {
+            "pattern": "gap", "headline": "Gap", "value_domain": [10, 110], "baseline": 30,
+            "items": [{"label": "Current", "value": 70}],
+        }
+        root = ET.fromstring(renderer.render(spec))
+        rect = root.find('.//{http://www.w3.org/2000/svg}rect[@width!="1280"]')
+        self.assertIsNotNone(rect)
+        span = renderer.W - renderer.ML - renderer.MR - 280
+        expected_x = renderer.ML + 220 + span * (30 - 10) / 100
+        expected_width = span * (70 - 30) / 100
+        self.assertAlmostEqual(float(rect.attrib["x"]), expected_x)
+        self.assertAlmostEqual(float(rect.attrib["width"]), expected_width)
+
+    def test_before_after_domain_and_baseline_share_one_fixed_scale(self) -> None:
+        import xml.etree.ElementTree as ET
+
+        spec = {
+            "pattern": "before_after", "headline": "Change", "value_domain": [10, 110], "baseline": 30,
+            "pairs": [{"label": "Segment", "before": 50, "after": 90}],
+        }
+        root = ET.fromstring(renderer.render(spec))
+        ns = "{http://www.w3.org/2000/svg}"
+        bars = [el for el in root.findall(f".//{ns}rect") if el.attrib.get("width") != "1280"]
+        self.assertEqual(len(bars), 2)
+        scale_px = (renderer.CHART_BOTTOM - renderer.CHART_TOP) / 100
+        expected_before_height = (50 - 30) * scale_px
+        expected_after_height = (90 - 30) * scale_px
+        expected_before_y = renderer.CHART_BOTTOM - (50 - 10) / 100 * (renderer.CHART_BOTTOM - renderer.CHART_TOP)
+        expected_after_y = renderer.CHART_BOTTOM - (90 - 10) / 100 * (renderer.CHART_BOTTOM - renderer.CHART_TOP)
+        self.assertAlmostEqual(float(bars[0].attrib["y"]), expected_before_y)
+        self.assertAlmostEqual(float(bars[1].attrib["y"]), expected_after_y)
+        self.assertAlmostEqual(float(bars[0].attrib["height"]), expected_before_height)
+        self.assertAlmostEqual(float(bars[1].attrib["height"]), expected_after_height)
+        baseline_line = root.find(f'.//{{http://www.w3.org/2000/svg}}line[@y1="489.6"]')
+        self.assertIsNotNone(baseline_line)
+
+    def test_scatter_domains_map_exact_endpoints_without_padding(self) -> None:
+        import xml.etree.ElementTree as ET
+
+        spec = {
+            "pattern": "scatter", "headline": "Map", "x_axis": {"label": "X", "domain": [10, 30]},
+            "y_axis": {"label": "Y", "domain": [-5, 5]},
+            "points": [{"x": 10, "y": -5}, {"x": 30, "y": 5}],
+        }
+        root = ET.fromstring(renderer.render(spec))
+        ns = "{http://www.w3.org/2000/svg}"
+        points = root.findall(f".//{ns}circle")
+        plot_x, plot_w = renderer.ML + 50, renderer.W - renderer.ML - renderer.MR - 100
+        self.assertAlmostEqual(float(points[0].attrib["cx"]), plot_x)
+        self.assertAlmostEqual(float(points[0].attrib["cy"]), renderer.CHART_BOTTOM)
+        self.assertAlmostEqual(float(points[1].attrib["cx"]), plot_x + plot_w)
+        self.assertAlmostEqual(float(points[1].attrib["cy"]), renderer.CHART_TOP)
+        rendered = renderer.render(spec)
+        self.assertIn(">10</text>", rendered)
+        self.assertIn(">30</text>", rendered)
+        self.assertIn(">5</text>", rendered)
+        self.assertIn(">-5</text>", rendered)
+
+    def test_extreme_finite_domains_keep_gap_and_scatter_coordinates_finite(self) -> None:
+        import math
+        import xml.etree.ElementTree as ET
+
+        gap = {
+            "pattern": "gap", "headline": "Extreme", "value_domain": [0, 1e308], "baseline": 0,
+            "items": [{"label": "Max", "value": 1e308}],
+        }
+        gap_root = ET.fromstring(renderer.render(gap))
+        gap_rect = gap_root.find('.//{http://www.w3.org/2000/svg}rect[@width!="1280"]')
+        self.assertTrue(math.isfinite(float(gap_rect.attrib["width"])))
+
+        scatter = {
+            "pattern": "scatter", "headline": "Extreme",
+            "x_axis": {"label": "X", "domain": [-1e308, 1e308]}, "y_axis": {"label": "Y", "domain": [-1, 1]},
+            "points": [{"x": -1e308, "y": -1}, {"x": 1e308, "y": 1}],
+        }
+        points = ET.fromstring(renderer.render(scatter)).findall('.//{http://www.w3.org/2000/svg}circle')
+        for point in points:
+            self.assertTrue(math.isfinite(float(point.attrib["cx"])))
+            self.assertTrue(math.isfinite(float(point.attrib["cy"])))
+
+    def test_extreme_finite_before_after_domain_keeps_bar_coordinates_finite(self) -> None:
+        import math
+        import xml.etree.ElementTree as ET
+
+        spec = {
+            "pattern": "before_after", "headline": "Extreme", "value_domain": [-1e308, 1e308], "baseline": 0,
+            "pairs": [{"label": "Segment", "before": -1e308, "after": 1e308}],
+        }
+        rects = ET.fromstring(renderer.render(spec)).findall('.//{http://www.w3.org/2000/svg}rect')
+        bars = [rect for rect in rects if rect.attrib.get("width") != "1280"]
+        for bar in bars:
+            self.assertTrue(math.isfinite(float(bar.attrib["y"])))
+            self.assertTrue(math.isfinite(float(bar.attrib["height"])))
+
+    def test_oversized_integer_domain_reports_field_path(self) -> None:
+        oversized = int("1" + "0" * 1000)
+        cases = [
+            ({"pattern": "gap", "headline": "x", "items": [{"label": "A", "value": 0}], "value_domain": [0, oversized], "baseline": 0}, "value_domain\\[1\\]"),
+            ({"pattern": "scatter", "headline": "x", "x_axis": {"label": "X", "domain": [0, oversized]}, "y_axis": {"label": "Y"}, "points": [{"x": 0, "y": 1}]}, "x_axis\\.domain\\[1\\]"),
+        ]
+        for spec, field_path in cases:
+            with self.subTest(field_path=field_path), self.assertRaisesRegex(ValueError, field_path):
+                renderer.render(spec)
+
+    def test_adjacent_large_integer_gap_domain_keeps_distinct_endpoints(self) -> None:
+        import math
+        import xml.etree.ElementTree as ET
+
+        lower = 10**100
+        spec = {
+            "pattern": "gap", "headline": "Large integer", "value_domain": [lower, lower + 1],
+            "baseline": lower, "items": [{"label": "Upper endpoint", "value": lower + 1}],
+        }
+        rect = ET.fromstring(renderer.render(spec)).find('.//{http://www.w3.org/2000/svg}rect[@width!="1280"]')
+        self.assertTrue(math.isfinite(float(rect.attrib["x"])))
+        self.assertTrue(math.isfinite(float(rect.attrib["width"])))
+        self.assertAlmostEqual(float(rect.attrib["width"]), renderer.W - renderer.ML - renderer.MR - 280)
+
+    def test_adjacent_large_integer_before_after_domain_keeps_distinct_endpoints(self) -> None:
+        import math
+        import xml.etree.ElementTree as ET
+
+        lower = 10**100
+        spec = {
+            "pattern": "before_after", "headline": "Large integer", "value_domain": [lower, lower + 1],
+            "baseline": lower,
+            "pairs": [{"label": "Endpoints", "before": lower, "after": lower + 1}],
+        }
+        rects = ET.fromstring(renderer.render(spec)).findall('.//{http://www.w3.org/2000/svg}rect')
+        bars = [rect for rect in rects if rect.attrib.get("width") != "1280"]
+        self.assertTrue(all(math.isfinite(float(bar.attrib["height"])) for bar in bars))
+        self.assertAlmostEqual(float(bars[0].attrib["height"]), 0)
+        self.assertAlmostEqual(float(bars[1].attrib["height"]), renderer.CHART_BOTTOM - renderer.CHART_TOP)
+
+    def test_adjacent_large_integer_scatter_domain_keeps_distinct_endpoints(self) -> None:
+        import xml.etree.ElementTree as ET
+
+        lower = 10**100
+        spec = {
+            "pattern": "scatter", "headline": "Large integer",
+            "x_axis": {"label": "X", "domain": [lower, lower + 1]},
+            "y_axis": {"label": "Y", "domain": [0, 1]},
+            "points": [{"x": lower, "y": 0}, {"x": lower + 1, "y": 1}],
+        }
+        points = ET.fromstring(renderer.render(spec)).findall('.//{http://www.w3.org/2000/svg}circle')
+        plot_x, plot_w = renderer.ML + 50, renderer.W - renderer.ML - renderer.MR - 100
+        self.assertAlmostEqual(float(points[0].attrib["cx"]), plot_x)
+        self.assertAlmostEqual(float(points[1].attrib["cx"]), plot_x + plot_w)
+
+    def test_overflow_span_maps_gap_zero_baseline_to_domain_midpoint(self) -> None:
+        import xml.etree.ElementTree as ET
+
+        spec = {
+            "pattern": "gap", "headline": "Midpoint", "value_domain": [-1e308, 1e308],
+            "baseline": 0, "items": [{"label": "Zero", "value": 0}],
+        }
+        rect = ET.fromstring(renderer.render(spec)).find('.//{http://www.w3.org/2000/svg}rect[@width!="1280"]')
+        span = renderer.W - renderer.ML - renderer.MR - 280
+        self.assertAlmostEqual(float(rect.attrib["x"]), renderer.ML + 220 + span / 2)
+
+    def test_overflow_span_maps_before_after_baseline_to_domain_midpoint(self) -> None:
+        import xml.etree.ElementTree as ET
+
+        spec = {
+            "pattern": "before_after", "headline": "Midpoint", "value_domain": [-1e308, 1e308],
+            "baseline": 0, "pairs": [{"label": "Zero", "before": 0, "after": 0}],
+        }
+        root = ET.fromstring(renderer.render(spec))
+        lines = root.findall('.//{http://www.w3.org/2000/svg}line')
+        baseline_y = renderer.CHART_TOP + (renderer.CHART_BOTTOM - renderer.CHART_TOP) / 2
+        self.assertTrue(any(float(line.attrib["y1"]) == baseline_y for line in lines))
+
+    def test_overflow_span_maps_scatter_zero_coordinates_to_domain_midpoint(self) -> None:
+        import xml.etree.ElementTree as ET
+
+        spec = {
+            "pattern": "scatter", "headline": "Midpoint",
+            "x_axis": {"label": "X", "domain": [-1e308, 1e308]},
+            "y_axis": {"label": "Y", "domain": [-1e308, 1e308]},
+            "points": [{"x": 0, "y": 0}],
+        }
+        point = ET.fromstring(renderer.render(spec)).find('.//{http://www.w3.org/2000/svg}circle')
+        plot_x, plot_w = renderer.ML + 50, renderer.W - renderer.ML - renderer.MR - 100
+        plot_h = renderer.CHART_BOTTOM - renderer.CHART_TOP
+        self.assertAlmostEqual(float(point.attrib["cx"]), plot_x + plot_w / 2)
+        self.assertAlmostEqual(float(point.attrib["cy"]), renderer.CHART_TOP + plot_h / 2)
+
+    def test_explicit_domain_validation_reports_field_paths(self) -> None:
+        cases = [
+            ({"pattern": "gap", "headline": "x", "items": [{"label": "A", "value": 1}], "value_domain": [2, 1], "baseline": 0}, "value_domain"),
+            ({"pattern": "gap", "headline": "x", "items": [{"label": "A", "value": 1}], "value_domain": [0, float("inf")], "baseline": 0}, "value_domain[1]"),
+            ({"pattern": "gap", "headline": "x", "items": [{"label": "A", "value": 11}], "value_domain": [0, 10], "baseline": 0}, "items[0].value"),
+            ({"pattern": "gap", "headline": "x", "items": [{"label": "A", "value": 5}], "value_domain": [0, 10], "baseline": 11}, "baseline"),
+            ({"pattern": "before_after", "headline": "x", "pairs": [{"label": "A", "before": 5, "after": 11}], "value_domain": [0, 10], "baseline": 0}, "pairs[0].after"),
+            ({"pattern": "scatter", "headline": "x", "x_axis": {"label": "X", "domain": [2, 1]}, "y_axis": {"label": "Y"}, "points": [{"x": 1, "y": 1}]}, "x_axis.domain"),
+            ({"pattern": "scatter", "headline": "x", "x_axis": {"label": "X", "domain": [0, 10]}, "y_axis": {"label": "Y", "domain": [0, float("nan")]}, "points": [{"x": 1, "y": 1}]}, "y_axis.domain[1]"),
+            ({"pattern": "scatter", "headline": "x", "x_axis": {"label": "X", "domain": [0, 10]}, "y_axis": {"label": "Y"}, "points": [{"x": 11, "y": 1}]}, "points[0].x"),
+            ({"pattern": "scatter", "headline": "x", "x_axis": {"label": "X", "domain": [10, 20]}, "y_axis": {"label": "Y"}, "x_zero": True, "points": [{"x": 11, "y": 1}]}, "x_zero"),
+        ]
+        for spec, field_path in cases:
+            with self.subTest(field_path=field_path), self.assertRaisesRegex(ValueError, field_path.replace("[", r"\[").replace("]", r"\]")):
+                renderer.render(spec)
+
+    def test_every_legacy_render_spec_stays_byte_identical(self) -> None:
+        import json
+
+        specs_dir = ROOT / "examples" / "render-specs"
+        rendered_dir = ROOT / "assets" / "rendered"
+        for spec_path in sorted(specs_dir.glob("*.json")):
+            with self.subTest(spec=spec_path.name):
+                spec = json.loads(spec_path.read_text(encoding="utf-8"))
+                expected = (rendered_dir / f"{spec_path.stem}.svg").read_text(encoding="utf-8")
+                self.assertEqual(renderer.render(spec), expected)
+
+
 class RenderSlideSpecTests(unittest.TestCase):
+    def test_two_line_headline_keeps_a_readable_gap_before_subline(self) -> None:
+        import xml.etree.ElementTree as ET
+
+        spec = {
+            "pattern": "summary_strip",
+            "theme": "executive",
+            "headline": "A 12-week North-and-East pilot tests the operating model before network scale",
+            "subline": "Bound the exposure, prove the gates, and expand only after the operating model holds",
+            "blocks": [
+                {
+                    "metric": "12 wk",
+                    "claim": "Bounded test window",
+                    "proof": "Two gates",
+                    "implication": "Learn before scaling",
+                },
+            ],
+        }
+        root = ET.fromstring(renderer.render(spec))
+        texts = root.findall(".//{http://www.w3.org/2000/svg}text")
+        headline_last = next(node for node in texts if node.text == "operating model before network scale")
+        subline = next(node for node in texts if node.text and node.text.startswith("Bound the exposure"))
+
+        self.assertGreaterEqual(
+            float(subline.attrib["y"]) - float(headline_last.attrib["y"]),
+            40,
+        )
+
+    def test_two_line_scatter_subline_does_not_collide_with_axis_caption(self) -> None:
+        import xml.etree.ElementTree as ET
+
+        spec = {
+            "pattern": "scatter",
+            "theme": "executive",
+            "headline": "A two-line action title keeps its evidence caption visually separate below",
+            "subline": "A concise supporting fact belongs below the title",
+            "x_axis": {"label": "X"},
+            "y_axis": {"label": "Y-axis caption"},
+            "points": [{"label": "A", "x": 1, "y": 1}],
+        }
+        root = ET.fromstring(renderer.render(spec))
+        texts = root.findall(".//{http://www.w3.org/2000/svg}text")
+        subline = next(node for node in texts if node.text == spec["subline"])
+        caption = next(node for node in texts if node.text == "Y-axis caption")
+
+        self.assertGreaterEqual(float(caption.attrib["y"]) - float(subline.attrib["y"]), 31)
+
+    def test_three_line_headline_with_subline_is_rejected_instead_of_overlapping(self) -> None:
+        spec = {
+            "pattern": "process_flow",
+            "headline": (
+                "Partner certification reaches revenue four months faster than building "
+                "a direct sales team from zero across every proposed region"
+            ),
+            "subline": "Proposed partner-led entry sequence",
+            "steps": [{"label": "Certify", "detail": "Two partners"}],
+        }
+
+        with self.assertRaisesRegex(
+            renderer.RenderSpecError,
+            "three-line headline cannot include a subline",
+        ):
+            renderer.render(spec)
+
+    def test_dense_two_line_headline_may_keep_a_subline(self) -> None:
+        headline = (
+            "A strategic operating model aligns regional teams with customer demand "
+            "and preserves investment"
+        )
+        self.assertGreater(len(renderer.wrap(headline, 48)), 2)
+        self.assertEqual(len(renderer.wrap(headline, 60, max_lines=3)), 2)
+
+        svg = renderer.render(
+            {
+                "pattern": "process_flow",
+                "headline": headline,
+                "subline": "A concise supporting fact remains permitted",
+                "steps": [{"label": "Align", "detail": "Regional teams"}],
+            }
+        )
+
+        self.assertIn("A concise supporting fact remains permitted</text>", svg)
+
+    def test_wrap_rejects_non_progress_widths(self):
+        for width in (0, -1):
+            with self.subTest(width=width), self.assertRaisesRegex(
+                renderer.RenderSpecError, "wrap width must be at least 1"
+            ):
+                renderer.wrap("content", width)
+
+    def test_wrap_consumes_one_wide_scalar_at_width_one(self):
+        self.assertEqual(renderer.wrap("漢", 1), ["漢"])
+
+    def test_classic_summary_strip_with_sixteen_blocks_is_deterministic(self):
+        spec = {
+            "pattern": "summary_strip",
+            "headline": "Sixteen blocks",
+            "blocks": [
+                {"claim": "漢", "proof": "P", "implication": "I"}
+                for _ in range(16)
+            ],
+        }
+        first = renderer.render(spec)
+        self.assertEqual(renderer.render(spec), first)
+        self.assertEqual(first.count(">漢</text>"), 16)
+
     def test_executive_process_includes_owner_and_duration(self):
         svg = renderer.render({"pattern": "process_flow", "theme": "executive", "headline": "Process",
                                "steps": [{"label": "Setup", "detail": "Connect data", "owner": "Platform", "duration": "3 days"}]})
@@ -626,6 +1144,23 @@ class StructuralSlidePatternTests(unittest.TestCase):
             )
         self.assertIn("at most 6 bullets", str(ctx.exception))
 
+    def test_bullet_list_two_columns_supports_twelve_but_not_thirteen(self) -> None:
+        twelve = {
+            "pattern": "bullet_list",
+            "headline": "Twelve ranked items",
+            "columns": 2,
+            "bullets": [{"text": str(index)} for index in range(12)],
+        }
+        svg = renderer.render(twelve)
+        for index in range(12):
+            self.assertIn(f">{index}</text>", svg)
+
+        thirteen = copy.deepcopy(twelve)
+        thirteen["bullets"].append({"text": "12"})
+        with self.assertRaises(ValueError) as caught:
+            renderer.render(thirteen)
+        self.assertIn("at most 12 bullets", str(caught.exception))
+
     def test_bullet_list_two_emphasized_bullets_raises(self) -> None:
         with self.assertRaises(ValueError) as ctx:
             renderer.render(
@@ -777,9 +1312,9 @@ class InkDisciplineRegressionTests(unittest.TestCase):
         # "KEY TAKEAWAYS" is for `closing`, so it gets the same fixed
         # band_start anchor bullet_list and closing use.
         strip_top = renderer.CHART_TOP + 20
-        # 18 scaled by T_BODY/17 (the old claim size) -> 23, since the
-        # type-scale pass grew claim text from 17px to 22px.
-        expected_claim_y = strip_top + 23
+        # 18 scaled by T_BODY/17 (the old claim size) -> 28, since the
+        # projection-readable type pass grew claim text from 17px to 26px.
+        expected_claim_y = strip_top + 28
         self.assertIn(f'y="{expected_claim_y:.1f}"', svg)
         # Must not regress to the whole-block-centered position this test
         # locked in previously (2-block short list, single-line claim/proof/
@@ -809,9 +1344,9 @@ class InkDisciplineRegressionTests(unittest.TestCase):
                 for _ in range(3)
             ],
         }
-        # 18 scaled by T_BODY/17 (the old claim size) -> 23, since the
-        # type-scale pass grew claim text from 17px to 22px.
-        expected_claim_y = renderer.CHART_TOP + 20 + 23
+        # 18 scaled by T_BODY/17 (the old claim size) -> 28, since the
+        # projection-readable type pass grew claim text from 17px to 26px.
+        expected_claim_y = renderer.CHART_TOP + 20 + 28
         for spec in (short_spec, long_spec):
             svg = renderer.render(spec)
             self.assertIn(f'y="{expected_claim_y:.1f}"', svg)
@@ -966,8 +1501,8 @@ class InkDisciplineRegressionTests(unittest.TestCase):
         band_start = float(renderer.CHART_TOP) + 20
         row_h = (renderer.CHART_BOTTOM - band_start) / 3
         row_tops = [band_start + i * row_h for i in range(3)]
-        # Marker offset is -10 scaled by T_BODY/16 (the old bullet-text size)
-        # -> -14, since the type-scale pass grew bullet text from 16px to 22px.
+        # The marker keeps a fixed 14px baseline clearance at the current
+        # 26px body scale.
         expected_marker_ys = [row_tops[i] - 14 for i in range(3)]
         for marker_y in expected_marker_ys:
             self.assertIn(f'y="{marker_y:.1f}"', svg)
@@ -992,14 +1527,43 @@ class InkDisciplineRegressionTests(unittest.TestCase):
         }
         svg = renderer.render(spec)
         band_start = float(renderer.CHART_TOP) + 20
-        # Marker offset is -10 scaled by T_BODY/16 (the old bullet-text size)
-        # -> -14, since the type-scale pass grew bullet text from 16px to 22px.
+        # The marker keeps a fixed 14px baseline clearance at the current
+        # 26px body scale.
         marker_y = band_start - 14
         self.assertIn(f'y="{marker_y:.1f}"', svg)
         # The old within-row centering bug put the marker at y=372.0 for
         # this exact spec (144px below band_start=228.0) before the round-3
         # fix anchored it to the row's top edge instead.
         self.assertNotIn('y="372.0"', svg)
+
+    def test_bullet_list_rejects_content_taller_than_its_row_budget(self) -> None:
+        spec = {
+            "pattern": "bullet_list",
+            "headline": "Six constraints",
+            "bullets": [
+                {"text": f"Constraint {index}", "sub": [f"Evidence {index}"]}
+                for index in range(1, 7)
+            ],
+        }
+        with self.assertRaisesRegex(renderer.RenderSpecError, "split the slide"):
+            renderer.render(spec)
+
+    def test_two_column_closing_rejects_content_taller_than_its_row_budget(self) -> None:
+        spec = {
+            "pattern": "closing",
+            "headline": "Decision and next steps",
+            "takeaways": ["The pilot met its adoption gate"],
+            "next_steps": [
+                {
+                    "action": f"Approve implementation workstream {index}",
+                    "owner": "PMO",
+                    "timing": "Week 1",
+                }
+                for index in range(1, 6)
+            ],
+        }
+        with self.assertRaisesRegex(renderer.RenderSpecError, "split the slide"):
+            renderer.render(spec)
 
 
 class TypeScaleTests(unittest.TestCase):
@@ -1015,14 +1579,14 @@ class TypeScaleTests(unittest.TestCase):
             "T_HEADLINE_DENSE": 32,
             "T_STATEMENT": 32,
             "T_KPI_NUM": 44,
-            "T_SUBLINE": 20,
-            "T_BODY": 22,
-            "T_LABEL": 18,
+            "T_SUBLINE": 24,
+            "T_BODY": 26,
+            "T_LABEL": 22,
             "T_NUM_AGENDA": 28,
             "T_NUM_CLOSING": 26,
-            "T_TICK": 14,
-            "T_KICKER_LABEL": 15,
-            "T_ANNOTATION": 22,
+            "T_TICK": 16,
+            "T_KICKER_LABEL": 16,
+            "T_ANNOTATION": 24,
             "T_CHROME": 13,
         }
         for name, value in expected.items():
@@ -1030,14 +1594,14 @@ class TypeScaleTests(unittest.TestCase):
             self.assertEqual(getattr(renderer, name), value, f"{name} drifted from the token contract")
 
     def test_headline_to_body_ratio_holds(self) -> None:
-        self.assertGreaterEqual(renderer.T_HEADLINE / renderer.T_BODY, 1.7)
+        self.assertGreaterEqual(renderer.T_HEADLINE / renderer.T_BODY, 1.5)
 
     def test_body_to_chrome_ratio_holds(self) -> None:
         self.assertGreaterEqual(renderer.T_BODY / renderer.T_CHROME, 1.6)
 
     def test_reading_text_never_drops_below_the_label_floor(self) -> None:
         # Every role except the three deliberately-small exceptions clears
-        # the 18px reading floor: T_TICK and T_CHROME are whisper-small on
+        # the 22px reading floor: T_TICK and T_CHROME are whisper-small on
         # purpose (referenced, not read at length), and T_KICKER_LABEL is a
         # small-caps structural eyebrow (SECTION NN, KEY TAKEAWAYS), a
         # distinct, intentionally tighter role rather than a body of reading

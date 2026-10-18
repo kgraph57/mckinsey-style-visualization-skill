@@ -1,0 +1,17 @@
+{
+  "pattern": "gap",
+  "theme": "executive",
+  "headline": "Dispatch causes 61% of delays; fix it first",
+  "source": "Illustrative synthetic review; 1,200 jobs over 12 weeks",
+  "classification": "Illustrative",
+  "page_number": 3,
+  "unit": "%",
+  "value_domain": [0, 100],
+  "baseline": 0,
+  "items": [
+    {"label": "Dispatch variability", "value": 61, "value_text": "61%", "emphasis": true},
+    {"label": "Technician availability", "value": 24, "value_text": "24%"},
+    {"label": "Access and handoff", "value": 15, "value_text": "15%"}
+  ],
+  "annotation": "Assignment timing is the pilot's first intervention"
+}

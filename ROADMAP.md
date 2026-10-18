@@ -1,5 +1,20 @@
 # Roadmap
 
+## v3.0.0-rc.1 preview — stable release gates remain open
+
+- Classic output remains default; explicit dynamic/interactive intent builds a
+  companion artifact from the same manifest.
+- Six scene types, six model kinds, four controls, four views, deterministic
+  presenter demo, static/print fallback, source lineage, and author audit are
+  implemented and covered by core plus browser tests.
+- Project Relay provides the original public proof. Stable v3 publication still
+  requires the unchecked Safari, physical device/touch, real assistive
+  technology, projector, real high-contrast/200% zoom, and hosted-header gates.
+
+Deferred beyond v1: live data connectors, multi-user collaboration, native
+PowerPoint interactivity, a browser scene-authoring UI, and arbitrary SVG
+morphing. These are not implied by the v3 release candidate.
+
 ## Shipped in v2.0.0 — Full Presentation System
 
 - **Six structural slide patterns**: `section_divider`, `end_cover`, `agenda`, `bullet_list`, `closing`, `quote` — the deck furniture beyond charts. 16 → 22 rendered patterns; every slide of a real deck is now renderable.

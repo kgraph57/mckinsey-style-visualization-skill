@@ -30,13 +30,15 @@ export function ensurePyodide() {
     pyodidePromise = (async () => {
       await loadScript(`${PYODIDE_BASE}pyodide.js`);
       const pyodide = await globalThis.loadPyodide({ indexURL: PYODIDE_BASE });
-      const [renderer, deckBuilder] = await Promise.all([
+      const [renderer, deckBuilder, deckCore] = await Promise.all([
         fetchText("py/render_slide_spec.py"),
         fetchText("py/build_html_deck.py"),
+        fetchText("py/deck_core.py"),
       ]);
       pyodide.FS.mkdirTree("/py");
       pyodide.FS.writeFile("/py/render_slide_spec.py", renderer);
       pyodide.FS.writeFile("/py/build_html_deck.py", deckBuilder);
+      pyodide.FS.writeFile("/py/deck_core.py", deckCore);
       pyodide.runPython("import sys\nsys.path.insert(0, '/py')");
       return pyodide;
     })();

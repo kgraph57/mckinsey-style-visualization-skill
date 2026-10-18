@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "type": "slider_model",
+  "purpose": "Find the adoption point that clears the annual-value hurdle",
+  "decisionJob": "decision",
+  "interactionRationale": "Find the adoption point that clears the value hurdle",
+  "initialState": {"adoption": 55},
+  "printState": {"adoption": 55},
+  "quantities": {
+    "adoption_rate": {"dimension": "ratio", "unit": "percentage_point", "display": "%"},
+    "annual_value": {"dimension": "currency", "unit": "usd_million", "currency": "USD", "display": "$m"}
+  },
+  "sources": [
+    {"id": "annual-value-method", "label": "Illustrative annual-value method", "detail": "The original synthetic model applies one fixed linear relationship across the declared adoption range."}
+  ],
+  "assumptions": [
+    {"id": "adoption-range", "label": "Adoption range", "value": "30% to 80% in five-point steps"},
+    {"id": "annual-value-formula", "label": "Annual-value formula", "value": "-1.5 + 0.06 × adoption, in USD millions"},
+    {"id": "annual-value-hurdle", "label": "Decision hurdle", "value": "$1.8m"}
+  ],
+  "controls": [
+    {
+      "id": "adoption",
+      "kind": "range",
+      "label": "Adoption",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "quantity": "adoption_rate",
+      "provenance": {"basis": "illustrative", "assumptionRefs": ["adoption-range"]}
+    }
+  ],
+  "model": {
+    "kind": "linear",
+    "intercept": {"value": -1.5, "quantity": "annual_value"},
+    "terms": {
+      "adoption": {"coefficient": 0.06, "inputQuantity": "adoption_rate", "outputQuantity": "annual_value"}
+    },
+    "output": "annual-value",
+    "outputQuantity": "annual_value",
+    "label": "Annual value",
+    "format": "currency",
+    "round": 1,
+    "modelProvenance": {"basis": "illustrative", "sourceRefs": ["annual-value-method"], "assumptionRefs": ["annual-value-formula"]}
+  },
+  "reporting": {"primaryOutput": "annual-value", "secondaryOutputs": []},
+  "decisionContract": {
+    "id": "annual-value-gate",
+    "metric": {"ref": "output:annual-value"},
+    "operator": "gte",
+    "threshold": {"value": 1.8, "quantity": "annual_value", "provenance": {"basis": "illustrative", "assumptionRefs": ["annual-value-hurdle"]}},
+    "whenMet": {"status": "Proceed", "recommendation": "The adoption gate is clear"},
+    "whenNotMet": {"status": "Hold", "recommendation": "Raise adoption before activating East"}
+  },
+  "view": {
+    "component": "dot_plot",
+    "xLabel": "Adoption",
+    "xQuantity": "adoption_rate",
+    "xDomain": [30, 80],
+    "yLabel": "Annual value",
+    "yQuantity": "annual_value",
+    "yDomain": [0, 4],
+    "domainReason": "The fixed 30–80% adoption range and 0–$4m value range expose the decision crossing without rescaling.",
+    "points": [
+      {"id": "annual-value-point", "label": "Annual value", "x": {"ref": "control:adoption"}, "y": {"ref": "output:annual-value"}, "highlight": true}
+    ]
+  },
+  "demo": [
+    {"stepKey": "relay-test-adoption-below-gate", "action": "set", "control": "adoption", "value": 50},
+    {"stepKey": "relay-test-adoption-above-gate", "action": "set", "control": "adoption", "value": 60}
+  ]
+}

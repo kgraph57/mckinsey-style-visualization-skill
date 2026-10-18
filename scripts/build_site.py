@@ -32,6 +32,11 @@ from html import escape
 from html.parser import HTMLParser
 from pathlib import Path
 
+try:
+    from deck_core import load_manifest, normalize_manifest
+except ModuleNotFoundError:  # importlib/package callers from the repository root
+    from scripts.deck_core import load_manifest, normalize_manifest
+
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_DEST = ROOT / "docs" / "site" / "artifacts"
 I18N_DIR = ROOT / "site"
@@ -41,10 +46,19 @@ def iter_i18n(root: Path) -> list[Path]:
     return sorted((root / "site").glob("i18n*.json"))
 
 DEMO_HTML = ("demo-deck.html", "demo-report.html", "demo-article.html", "demo-script.html")
+PROJECT_RELAY = {
+    "deck.motion.en.html": "project-relay.motion.en.html",
+    "deck.motion.en.static.html": "project-relay.motion.en.static.html",
+    "deck.motion.html": "project-relay.motion.html",
+    "deck.motion.static.html": "project-relay.motion.static.html",
+    "deck.html": "project-relay.html",
+    "deck.interactive.html": "project-relay.interactive.html",
+    "deck.pdf": "project-relay.pdf",
+}
 JA_MANIFEST = Path("templates/decks/board-update-ja/deck.json")
 # Only what /try runs in the browser (copying all scripts/references trips the
 # package validator's forbidden-text scan over docs/).
-PY_RUNTIME = ("render_slide_spec.py", "build_html_deck.py")
+PY_RUNTIME = ("render_slide_spec.py", "build_html_deck.py", "deck_core.py")
 PROMPT_REFS = ("prompt-templates.md", "input-triage.md", "visualization-patterns.md")
 
 VOID_TAGS = frozenset(
@@ -67,9 +81,8 @@ def _copy_tree_files(src_dir: Path, dest_dir: Path, pattern: str) -> None:
 
 def _build_ja_deck(root: Path, dest: Path) -> None:
     manifest_path = root / JA_MANIFEST
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    base = manifest_path.parent
-    spec_paths = [base / p for p in manifest["slides"]]
+    manifest = load_manifest(manifest_path)
+    spec_paths = [entry.spec_path for entry in normalize_manifest(manifest, manifest_path)]
     build_deck = _load_deck_builder(root)
     html = build_deck(spec_paths, manifest.get("title", "Slide Deck"))
     (dest / "ja-deck.html").write_text(html, encoding="utf-8")
@@ -322,6 +335,9 @@ def build(root: Path, dest: Path) -> Path:
     for name in DEMO_HTML:
         shutil.copyfile(root / "examples" / name, dest / name)
     shutil.copyfile(root / "examples" / "demo-deck.pdf", dest / "demo-deck.pdf")
+    relay = root / "examples" / "interactive-deck"
+    for source, target in PROJECT_RELAY.items():
+        shutil.copyfile(relay / source, dest / target)
     (dest / "py").mkdir(parents=True, exist_ok=True)
     for name in PY_RUNTIME:
         shutil.copyfile(root / "scripts" / name, dest / "py" / name)

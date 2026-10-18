@@ -37,38 +37,39 @@ W, H = 1280, 720
 ML, MR = 80, 80
 CHART_TOP, CHART_BOTTOM = 208, 560
 
-# Type scale — a ratio system (references/style-system.md "Typography"), not a
-# grab-bag of pixel values: headline : body : chrome holds roughly 4 : 1.6 : 1
-# across the deck span (asserted in tests/test_render_slide_spec.py). Every
+# Type scale — a role-based system (references/style-system.md "Typography"),
+# not a grab-bag of pixel values. Headline, reading text, structural labels,
+# and chrome keep a tested hierarchy while body copy stays legible at room
+# projection scale. Every
 # text-drawing call site below references one of these tokens; naked size
 # literals for a text role are a bug. Two roles stay deliberately small on
 # purpose and are exempt from the "reading floor" below: T_TICK (axis ticks /
 # range numerals / funnel conversion %, which are referenced, not read at
 # length) and T_CHROME (source line, footnotes, page number, classification —
 # whisper-small by design, never raised further). Every other text role has a
-# floor of T_LABEL (18px).
+# floor of T_LABEL (22px).
 T_COVER_TITLE = 54       # cover / end_cover title (serif)
 T_DIVIDER_TITLE = 48     # section_divider title (serif)
 T_HEADLINE = 40          # content headline, <=2 lines (serif bold)
 T_HEADLINE_DENSE = 32    # content headline, 3 lines (serif bold)
 T_STATEMENT = 32         # quote text (serif); KPI-like big statements
 T_KPI_NUM = 44           # kpi_scorecard main numbers (the hero layer)
-T_SUBLINE = 20           # headline subline; cover/divider/end_cover subtitle
-T_BODY = 22              # bullets, claims, takeaways, actions, agenda item
+T_SUBLINE = 24           # headline subline; cover/divider/end_cover subtitle
+T_BODY = 26              # bullets, claims, takeaways, actions, agenda item
                          # titles, process step titles, benchmark row labels
-T_LABEL = 18             # reading labels: sub-bullets, proofs/implications,
+T_LABEL = 22             # reading labels: sub-bullets, proofs/implications,
                          # agenda details, owner-timing metas, chart
                          # category/axis/value labels, gantt row labels,
                          # small-multiples labels, rail items on dividers
 T_NUM_AGENDA = 28        # agenda numbers (serif navy)
 T_NUM_CLOSING = 26       # closing takeaway numbers (serif navy)
-T_TICK = 14              # axis ticks, min/max range numerals, funnel
+T_TICK = 16              # axis ticks, min/max range numerals, funnel
                          # conversion %; heatmap/benchmark cell values may
                          # hold a size between this and T_LABEL when cells
                          # are tight, but never drop below this floor
-T_KICKER_LABEL = 15      # structural small-caps labels (SECTION NN, KEY
+T_KICKER_LABEL = 16      # structural small-caps labels (SECTION NN, KEY
                          # TAKEAWAYS, NEXT STEPS), letter-spaced
-T_ANNOTATION = 22        # footer takeaway/annotation line (weight 600, BLUE)
+T_ANNOTATION = 24        # footer takeaway/annotation line (weight 600, BLUE)
 T_CHROME = 13            # source line, footnotes, page number,
                          # classification — deliberately the smallest text
                          # on the slide; do not raise it
@@ -79,13 +80,13 @@ T_CHROME = 13            # source line, footnotes, page number,
 # advance, used to vertically center an N-line block within a fixed row: a
 # 1-line block gets no offset, a 2-line block is nudged up by one half-step,
 # and so on — see render_gap/render_funnel/render_heatmap/render_gantt.
-LINE_H_BODY = 30           # T_BODY paragraphs (was 24 at the old 16-17px body)
-LINE_H_LABEL = 24          # T_LABEL paragraphs (was ~17-20 at the old 13-15px label)
+LINE_H_BODY = 35           # T_BODY paragraphs; readable at room-projection scale
+LINE_H_LABEL = 29          # T_LABEL paragraphs; readable at room-projection scale
 HALF_LINE_BODY = LINE_H_BODY // 2
 HALF_LINE_LABEL = LINE_H_LABEL // 2
-NUDGE_BODY = 9             # baseline nudge centering one T_BODY line in a row
-NUDGE_LABEL = 6            # baseline nudge centering one T_LABEL line in a row
-X_AXIS_LABEL_LEAD = 18     # gap from CHART_BOTTOM to a below-axis category
+NUDGE_BODY = 11            # baseline nudge centering one T_BODY line in a row
+NUDGE_LABEL = 7            # baseline nudge centering one T_LABEL line in a row
+X_AXIS_LABEL_LEAD = 22     # gap from CHART_BOTTOM to a below-axis category
                            # label's first line (waterfall/before_after/
                            # distribution): keeps a 2-line label's descender
                            # clear of the footer annotation band (y=630) —
@@ -259,6 +260,8 @@ def wrap(text: str, width: int, max_lines: int = 0) -> list[str]:
     result is clamped and a trailing ellipsis marks any dropped content —
     nothing is truncated silently.
     """
+    if width < 1:
+        raise RenderSpecError("wrap width must be at least 1")
     lines: list[str] = []
     current = ""
     for token, needs_space in _tokens(text):
@@ -278,6 +281,8 @@ def wrap(text: str, width: int, max_lines: int = 0) -> list[str]:
             head, rest = current, ""
             while head and _text_width(head) > width:
                 head, rest = head[:-1], head[-1] + rest
+            if not head and rest:
+                head, rest = rest[0], rest[1:]
             lines.append(head)
             current = rest
     if current:
@@ -360,6 +365,30 @@ def analytical_header(spec: dict) -> list[str]:
     return parts
 
 
+def _standard_header_layout(spec: dict) -> tuple[list[str], int, int, int]:
+    headline = spec.get("headline", "")
+    lines = wrap(headline, 48)  # 64 * 30/40 (old size 30 -> T_HEADLINE)
+    size, line_h, subline_gap = T_HEADLINE, 52, 40
+    if len(lines) > 2:
+        lines = wrap(headline, 60, max_lines=3)  # 80 * 24/32 (old size 24 -> T_HEADLINE_DENSE)
+        if len(lines) > 2 and spec.get("subline"):
+            raise RenderSpecError(
+                "three-line headline cannot include a subline; shorten the action title or remove the subline"
+            )
+        size, line_h, subline_gap = T_HEADLINE_DENSE, 42, 40
+    return lines, size, line_h, subline_gap
+
+
+def _captioned_chart_top(spec: dict) -> float:
+    """Leave a full text row between a subline and a chart-top caption."""
+    if not spec.get("subline") or spec.get("layout") == "analytical":
+        return float(CHART_TOP)
+    lines, _, line_h, subline_gap = _standard_header_layout(spec)
+    last_line_y = 96 + max(len(lines) - 1, 0) * line_h
+    subline_y = last_line_y + subline_gap
+    return float(max(CHART_TOP, subline_y + 40))
+
+
 def header(spec: dict) -> list[str]:
     if spec.get("layout") == "analytical":
         return analytical_header(spec)
@@ -369,11 +398,7 @@ def header(spec: dict) -> list[str]:
     parts: list[str] = []
     headline = spec.get("headline", "")
     executive = spec.get("theme") == "executive"
-    lines = wrap(headline, 48)  # 64 * 30/40 (old size 30 -> T_HEADLINE)
-    size, line_h, subline_gap = T_HEADLINE, 52, 28
-    if len(lines) > 2:
-        lines = wrap(headline, 60, max_lines=3)  # 80 * 24/32 (old size 24 -> T_HEADLINE_DENSE)
-        size, line_h, subline_gap = T_HEADLINE_DENSE, 42, 24
+    lines, size, line_h, subline_gap = _standard_header_layout(spec)
     y = 96
     last_line_y = y
     for line in lines:
@@ -383,20 +408,13 @@ def header(spec: dict) -> list[str]:
     subline = spec.get("subline", "")
     if subline:
         # Anchored to the last *drawn* headline line, not the post-loop `y`
-        # (which already carries one unused extra line_h). The 2-line case
-        # gets a 28px gap — enough to clear a descender (p/g/y/q/j) on the
-        # headline's last line against the subline's own ascender, verified
-        # by rendering (see deal-size-distribution.svg, whose "roadmap"
-        # descender touched "Closed-won..." at the smaller gap this replaced).
-        # 28, not more: scatter/two_by_two draw their own y-axis-label
-        # caption just above CHART_TOP (see render_scatter/render_two_by_two),
-        # and a bigger subline gap pushes the subline down into that caption
-        # instead — see those renderers' `-9` offset, tuned against this
-        # exact gap. The 3-line dense case gets a tighter 24px gap instead of
-        # 28, because CHART_TOP=208 leaves no room for more: this keeps the
-        # tightest case (3-line dense + subline) at baseline 204, 4px clear
-        # of the chart band, accepting a closer (but still non-overlapping)
-        # fit as the deliberate tradeoff for that rare combination.
+        # (which already carries one unused extra line_h). The 40px baseline
+        # gap leaves visible whitespace between the 40px headline and 24px
+        # subline. At 28px, the glyph boxes were nearly touching, making the
+        # subline read as an accidental
+        # third title line. Three-line headlines with sublines are rejected
+        # above because their combined stack cannot clear the fixed content
+        # band without shrinking the slide's evidence area.
         parts.append(text_el(ML, last_line_y + subline_gap, subline, size=T_SUBLINE, fill=GREY_MED))
     classification = spec.get("classification", "")
     if classification:
@@ -408,10 +426,16 @@ def header(spec: dict) -> list[str]:
 def footer(spec: dict) -> list[str]:
     parts: list[str] = []
     annotation = spec.get("annotation", "")
+    if spec.get("model_context", {}).get("kind") == "linear_model" and spec.get("interactive_result"):
+        # The authored annotation remains the semantic fallback record. The
+        # model exhibit already labels the value and hurdle directly, so the
+        # reading surface uses its decision and recommendation only.
+        result = spec["interactive_result"]
+        annotation = " · ".join(str(result[key]) for key in ("decision_status", "recommendation") if result.get(key)) or annotation
     if annotation:
         # Emphasis through typography only — no decorative accent bar (data-ink rule).
         y = 630
-        for line in wrap(annotation, 81, max_lines=2):  # 112 * 16/22 (old size 16 -> T_ANNOTATION)
+        for line in wrap(annotation, 74, max_lines=2):  # 112 * 16/24 (old size 16 -> T_ANNOTATION)
             parts.append(text_el(ML, y, line, size=T_ANNOTATION, fill=BLUE, weight="600", title=annotation))
             y += 30  # 22 * 22/16, scaled with T_ANNOTATION
     footnotes = spec.get("footnotes", [])[:2]
@@ -505,7 +529,12 @@ def render_waterfall(spec: dict) -> list[str]:
 def render_gap(spec: dict) -> list[str]:
     unit = spec.get("unit", "")
     items = spec["items"]
-    top = max(item["value"] for item in items) or 1
+    explicit_scale = "value_domain" in spec
+    if explicit_scale:
+        domain_min, domain_max = spec["value_domain"]
+        baseline = spec["baseline"]
+    else:
+        top = max(item["value"] for item in items) or 1
     span = W - ML - MR - 280
     # No row-height cap: like render_agenda, divide the full chart band by
     # item count so a short list fills the band instead of stopping short.
@@ -515,19 +544,34 @@ def render_gap(spec: dict) -> list[str]:
     parts: list[str] = []
     for i, item in enumerate(items):
         y = CHART_TOP + 30 + i * row_h
-        width = span * item["value"] / top
+        if explicit_scale:
+            baseline_x = ML + 220 + span * _domain_fraction(baseline, domain_min, domain_max, "baseline")
+            value_x = ML + 220 + span * _domain_fraction(
+                item["value"], domain_min, domain_max, f"items[{i}].value"
+            )
+            x, width = min(baseline_x, value_x), abs(value_x - baseline_x)
+        else:
+            x = ML + 220
+            width = span * item["value"] / top
         fill = BLUE if item.get("emphasis") else (GREY_BORDER if spec.get("theme") == "executive" else GREY_FILL)
         # Flat fill only — grey reference bars never carry a border; the
         # fill/no-fill contrast alone marks emphasis vs. context.
-        label_lines = wrap(item["label"], 22, max_lines=2)  # 25 * 16/18
+        label = item["label"]
+        if "item_id" in item and item.get("removed"):
+            label += " · " + ("除外" if spec.get("lang") == "ja" else "Removed")
+        label_lines = wrap(label, 22, max_lines=2)  # 25 * 16/18
         label_y = y + bar_h / 2 + NUDGE_LABEL - (len(label_lines) - 1) * HALF_LINE_LABEL
         for line in label_lines:
             parts.append(text_el(ML, label_y, line, size=T_LABEL, fill=GREY_DARK))
             label_y += LINE_H_LABEL
-        parts.append(rect_el(ML + 220, y, width, bar_h, fill))
+        if explicit_scale:
+            parts.append(rect_el(x, y, width, bar_h, fill))
+        else:
+            parts.append(rect_el(ML + 220, y, width, bar_h, fill))
         value_fill = BLUE if item.get("emphasis") else GREY_DARK
+        value_label_x = (max(baseline_x, value_x) + 12) if explicit_scale else ML + 232 + width
         parts.append(
-            text_el(ML + 232 + width, y + bar_h / 2 + NUDGE_LABEL + 1, fmt(item["value"], unit), size=T_LABEL, fill=value_fill, weight="bold")
+            text_el(value_label_x, y + bar_h / 2 + NUDGE_LABEL + 1, item.get("value_text", fmt(item["value"], unit)), size=T_LABEL, fill=value_fill, weight="bold")
         )
     gap_label = spec.get("gap_label", "")
     if gap_label:
@@ -537,17 +581,25 @@ def render_gap(spec: dict) -> list[str]:
 
 def render_before_after(spec: dict) -> list[str]:
     pairs = spec["pairs"]
-    top = max(max(p["before"], p["after"]) for p in pairs) * 1.15 or 1
+    explicit_scale = "value_domain" in spec
+    if explicit_scale:
+        domain_min, domain_max = spec["value_domain"]
+        baseline = spec["baseline"]
+    else:
+        top = max(max(p["before"], p["after"]) for p in pairs) * 1.15 or 1
     span = W - ML - MR
     step = span / len(pairs)
     bar_w = min(72.0, step * 0.24)
 
     def y_at(value: float) -> float:
+        if explicit_scale:
+            return CHART_BOTTOM - _domain_fraction(value, domain_min, domain_max, "value_domain") * (CHART_BOTTOM - CHART_TOP)
         return CHART_BOTTOM - (value / top) * (CHART_BOTTOM - CHART_TOP)
 
+    baseline_y = y_at(baseline) if explicit_scale else CHART_BOTTOM
     parts = [
-        line_el(ML, CHART_BOTTOM, W - MR, CHART_BOTTOM, GREY_DARK),
-        text_el(ML - 10, CHART_BOTTOM + 4, "0", size=T_TICK, fill=GREY_MED, anchor="end"),
+        line_el(ML, baseline_y, W - MR, baseline_y, GREY_DARK),
+        text_el(ML - 10, baseline_y + 4, fmt(baseline, spec.get("unit", "")) if explicit_scale else "0", size=T_TICK, fill=GREY_MED, anchor="end"),
     ]
     before_label = spec.get("before_label", "Before")
     after_label = spec.get("after_label", "After")
@@ -557,21 +609,25 @@ def render_before_after(spec: dict) -> list[str]:
         bx, ax = cx - bar_w - 8, cx + 8
         by, ay = y_at(pair["before"]), y_at(pair["after"])
         # Flat fill only — the grey "before" bar never carries a border.
-        parts.append(rect_el(bx, by, bar_w, CHART_BOTTOM - by, GREY_FILL))
-        parts.append(rect_el(ax, ay, bar_w, CHART_BOTTOM - ay, BLUE))
+        if explicit_scale:
+            parts.append(rect_el(bx, min(by, baseline_y), bar_w, abs(baseline_y - by), GREY_FILL))
+            parts.append(rect_el(ax, min(ay, baseline_y), bar_w, abs(baseline_y - ay), BLUE))
+        else:
+            parts.append(rect_el(bx, by, bar_w, CHART_BOTTOM - by, GREY_FILL))
+            parts.append(rect_el(ax, ay, bar_w, CHART_BOTTOM - ay, BLUE))
         # Value/legend/delta stack above the bar top by one LINE_H_LABEL
         # step each — not a flat scale of the old offsets, which pushed the
         # stack high enough to collide with the subline on a tall bar (the
         # chart's fixed 15% headroom above the tallest value didn't grow
         # just because the font did; see collision check in the type-scale
         # brief's acceptance criteria).
-        parts.append(text_el(bx + bar_w / 2, by - 10, fmt(pair["before"], unit), size=T_LABEL, fill=GREY_MED, anchor="middle"))
-        parts.append(text_el(ax + bar_w / 2, ay - 10, fmt(pair["after"], unit), size=T_LABEL, weight="bold", anchor="middle"))
+        parts.append(text_el(bx + bar_w / 2, by - 10, pair.get("before_text", fmt(pair["before"], unit)), size=T_LABEL, fill=GREY_MED, anchor="middle"))
+        parts.append(text_el(ax + bar_w / 2, ay - 10, pair.get("after_text", fmt(pair["after"], unit)), size=T_LABEL, weight="bold", anchor="middle"))
         delta = pair["after"] - pair["before"]
         sign = "+" if delta >= 0 else "−"
         delta_y = min(by, ay) - (58 if i == 0 else 34)
         parts.append(
-            text_el(cx, delta_y, f"{sign}{fmt(abs(delta), unit)}", size=T_LABEL, fill=BLUE2, weight="bold", anchor="middle")
+            text_el(cx, delta_y, pair.get("delta_text", f"{sign}{fmt(abs(delta), unit)}"), size=T_LABEL, fill=BLUE2, weight="bold", anchor="middle")
         )
         if i == 0:
             # Direct labels on the first pair replace a legend (style rule:
@@ -631,7 +687,7 @@ def render_benchmark_table(spec: dict) -> list[str]:
         for k, line in enumerate(wrap(column, 13, max_lines=2)):  # 18 * 13/18
             parts.append(text_el(cx, top_y + 28 + k * LINE_H_LABEL, line, size=T_LABEL, fill=GREY_MED, weight="600", anchor="middle"))
     parts.append(line_el(ML, top_y + header_h, W - MR, top_y + header_h, GREY_DARK))
-    # Dense fallback (>6 columns) stays above the T_TICK floor (14px) — see
+    # Dense fallback (>6 columns) stays above the T_TICK floor (16px) — see
     # references/style-system.md Typography.
     value_size = (T_BODY if executive else T_LABEL) if len(columns) <= 6 else 16
     cell_width_units = max(int(col_w / (value_size * 0.62)), 6)
@@ -642,7 +698,7 @@ def render_benchmark_table(spec: dict) -> list[str]:
         y = top_y + header_h + row_h * i
         if executive and i % 2 == 0:
             parts.append(rect_el(ML, y, W - ML - MR, row_h, GREY_FILL))
-        label_lines = wrap(row["label"], 19, max_lines=2)  # 28 * 15/22 (old size 15 -> T_BODY)
+        label_lines = wrap(row["label"], 16, max_lines=2)  # 28 * 15/26 (old size 15 -> T_BODY)
         ly = y + row_h / 2 + NUDGE_BODY - (len(label_lines) - 1) * HALF_LINE_BODY
         for line in label_lines:
             parts.append(text_el(ML, ly, line, size=T_BODY, fill=BLACK, weight="600", title=row["label"]))
@@ -666,6 +722,10 @@ def render_benchmark_table(spec: dict) -> list[str]:
 
 
 def render_summary_strip(spec: dict) -> list[str]:
+    if spec.get("model_context", {}).get("kind") == "score_breakdown":
+        return render_score_breakdown(spec)
+    if spec.get("presentation") == "editorial":
+        return render_editorial_summary(spec)
     blocks = spec["blocks"]
     span = W - ML - MR
     col_w = span / len(blocks)
@@ -673,8 +733,8 @@ def render_summary_strip(spec: dict) -> list[str]:
     # (ink discipline: organization comes from spacing/alignment, not marks).
     # Equal 28px inner margin on every column keeps the gutter symmetric.
     pad = 28.0
-    claim_width = int((col_w - pad * 2) / (T_BODY * 0.62))
-    label_width = int((col_w - pad * 2) / (T_LABEL * 0.62))
+    claim_width = max(1, int((col_w - pad * 2) / (T_BODY * 0.62)))
+    label_width = max(1, int((col_w - pad * 2) / (T_LABEL * 0.62)))
     claim_gap, proof_gap = 10.0, 13.0  # 8 * 18/14, 10 * 18/14 (old label size 14 -> T_LABEL)
 
     # 2026-08-02 panel round 3: a whole-block vertical center here (matching
@@ -708,7 +768,7 @@ def render_summary_strip(spec: dict) -> list[str]:
             parts.append(rect_el(x + 8, CHART_TOP, col_w - 16, CHART_BOTTOM + 24 - CHART_TOP, "#F3F5FA" if light_focus else BLUE))
             if light_focus:
                 parts.append(rect_el(x + 8, CHART_TOP, col_w - 16, 3, BLUE))
-        y = strip_top + 23  # 18 * 22/17, scaled with T_BODY (claim role)
+        y = strip_top + 28  # 18 * 26/17, scaled with T_BODY (claim role)
         if has_metrics:
             metric = block.get("metric", "")
             # Reserve nearly a full em per Latin glyph, including wide bold W/M.
@@ -735,6 +795,84 @@ def render_summary_strip(spec: dict) -> list[str]:
             y += LINE_H_LABEL
         if focused and y - LINE_H_LABEL + 8 > CHART_BOTTOM + 24:
             raise RenderSpecError("focused summary block is too dense; shorten its text or split the slide")
+    return parts
+
+
+def _complete_lines(value: object, width: float, size: int, limit: int, path: str) -> list[str]:
+    """Fit authored text without an ellipsis or silent loss of content."""
+    if not isinstance(value, str) or not value.strip():
+        raise RenderSpecError(f"{path} must be nonempty text")
+    units = max(1, int(width / (size * .62)))
+    lines = wrap(value, units)
+    if len(lines) > limit or any(_text_width(line) > units for line in lines):
+        raise RenderSpecError(f"{path} is too dense; shorten the content or split the slide")
+    return lines
+
+
+def _text_lines(parts: list[str], x: float, y: float, lines: list[str], *, size: int = T_LABEL,
+                fill: str = GREY_DARK, weight: str = "normal", leading: float = LINE_H_LABEL) -> None:
+    for index, line in enumerate(lines):
+        parts.append(text_el(x, y + index * leading, line, size=size, fill=fill, weight=weight))
+
+
+def render_editorial_summary(spec: dict) -> list[str]:
+    blocks = spec["blocks"]
+    gap = 48
+    width = (W - ML - MR - gap * (len(blocks) - 1)) / len(blocks)
+    parts: list[str] = []
+    for index, block in enumerate(blocks):
+        x = ML + index * (width + gap)
+        size = 84 if index == 0 else 64
+        metric = _complete_lines(block["metric"], width, size, 1, f"blocks[{index}].metric")
+        _text_lines(parts, x, 294, metric, size=size, fill=BLUE, weight="bold")
+        _text_lines(parts, x, 352, _complete_lines(block["claim"], width, T_BODY, 2, f"blocks[{index}].claim"),
+                    size=T_BODY, fill=BLACK, weight="600", leading=LINE_H_BODY)
+        _text_lines(parts, x, 430, _complete_lines(block["proof"], width, T_LABEL, 2, f"blocks[{index}].proof"))
+        _text_lines(parts, x, 516, _complete_lines(block["implication"], width, T_LABEL, 2, f"blocks[{index}].implication"),
+                    fill=BLUE, weight="600")
+    return parts
+
+
+def render_score_breakdown(spec: dict) -> list[str]:
+    context = spec["model_context"]
+    components, comparison = context["components"], context["comparison"]
+    block = spec["blocks"][0]
+    total = sum(component["value"] for component in components)
+    counterfactual = total - components[comparison["remove_index"]]["value"]
+    threshold = spec["interactive_result"]["threshold"]
+    scale = max(total, threshold) * 1.25
+    parts = [text_el(ML, 224, "Readiness contributions", size=T_LABEL, fill=GREY_DARK, weight="600")]
+    row_h = 65
+    bar_x, bar_w = 330, 320
+    maximum = max(component["value"] for component in components) or 1
+    for index, component in enumerate(components):
+        y = 267 + index * row_h
+        removed = index == comparison["remove_index"]
+        fill = BLUE if removed else GREY_MED
+        _text_lines(parts, ML, y + 5, _complete_lines(component["label"], 250, T_LABEL, 2, f"components[{index}].label"),
+                    fill=BLACK if removed else GREY_DARK, weight="600" if removed else "normal")
+        width = bar_w * component["value"] / maximum
+        parts.append(rect_el(bar_x, y - 18, width, 26, fill))
+        parts.append(text_el(bar_x + width + 12, y + 3, fmt(component["value"], ""), size=T_LABEL, fill=fill, weight="600"))
+    _text_lines(parts, ML, 554, _complete_lines(block["proof"], 650, T_LABEL, 1, "blocks[0].proof"))
+
+    right_x, total_w = 800, 352
+    _text_lines(parts, right_x, 224, _complete_lines(block["claim"], 400, T_BODY, 1, "blocks[0].claim"),
+                size=T_BODY, fill=BLUE, weight="600")
+    _text_lines(parts, right_x, 281, _complete_lines(block["metric"], 400, T_KPI_NUM, 1, "blocks[0].metric"),
+                size=T_KPI_NUM, fill=BLUE, weight="bold")
+    parts.append(rect_el(right_x, 299, total_w * total / scale, 23, BLUE).replace("<rect ", '<rect id="score-total-base" ', 1))
+    recommendation = _complete_lines(block["implication"], 400, T_LABEL, 2, "blocks[0].implication")
+    _text_lines(parts, right_x, 350, recommendation, fill=BLUE, weight="600")
+    compare_y = 402 + (len(recommendation) - 1) * LINE_H_LABEL
+    _text_lines(parts, right_x, compare_y, _complete_lines(comparison["label"], 400, T_LABEL, 1, "comparison.label"))
+    parts.append(text_el(right_x, compare_y + 54, fmt(counterfactual, " points"), size=T_KPI_NUM, fill=GREY_DARK, weight="bold"))
+    parts.append(rect_el(right_x, compare_y + 72, total_w * counterfactual / scale, 23, GREY_MED).replace("<rect ", '<rect id="score-total-comparison" ', 1))
+    gate_x = right_x + total_w * threshold / scale
+    parts.append(line_el(gate_x, 289, gate_x, 332, GREY_DARK, "4 5").replace("<line ", '<line id="decision-threshold" ', 1))
+    parts.append(line_el(gate_x, compare_y + 62, gate_x, compare_y + 105, GREY_DARK, "4 5")
+                 .replace("<line ", '<line id="decision-threshold-comparison" ', 1))
+    parts.append(text_el(gate_x, compare_y + 126, f"{fmt(threshold, '')} gate", size=T_TICK, fill=GREY_DARK, anchor="middle"))
     return parts
 
 
@@ -912,10 +1050,10 @@ def _heatmap_cell_fill(value: float, vmin: float, vmax: float, diverging: bool) 
 def _heatmap_value_size(cell_w: float, cell_h: float) -> int:
     """Pick the largest size in the T_LABEL..T_TICK range that comfortably
     fits a short value string in the cell — never below the T_TICK floor
-    (14px) even for a dense grid (see references/style-system.md Typography:
+    (16px) even for a dense grid (see references/style-system.md Typography:
     "heatmap cell values may hold a size between this and T_LABEL when cells
     are tight, but never drop below this floor")."""
-    for candidate in (T_LABEL, 16, 15, T_TICK):
+    for candidate in (T_LABEL, 20, 18, T_TICK):
         if cell_w >= candidate * 3.5 and cell_h >= candidate * 1.6:
             return candidate
     return T_TICK
@@ -1058,7 +1196,8 @@ def render_two_by_two(spec: dict) -> list[str]:
         return render_executive_matrix(spec)
     plot_x = ML + 50
     plot_w = W - MR - plot_x - 50
-    plot_y, plot_h = CHART_TOP, float(CHART_BOTTOM - CHART_TOP)
+    plot_y = _captioned_chart_top(spec)
+    plot_h = float(CHART_BOTTOM - plot_y)
     mid_x, mid_y = plot_x + plot_w / 2, plot_y + plot_h / 2
     x_axis, y_axis = spec["x_axis"], spec["y_axis"]
     quadrants = spec.get("quadrants", [])
@@ -1084,9 +1223,8 @@ def render_two_by_two(spec: dict) -> list[str]:
     parts.append(text_el(plot_x + plot_w, plot_y + plot_h + 39, x_axis.get("high", "High"), size=T_TICK, fill=GREY_MED, anchor="end"))
     parts.append(text_el(plot_x - 14, plot_y + 10, y_axis.get("high", "High"), size=T_TICK, fill=GREY_MED, anchor="end"))
     parts.append(text_el(plot_x - 14, plot_y + plot_h, y_axis.get("low", "Low"), size=T_TICK, fill=GREY_MED, anchor="end"))
-    # -9, not a bigger negative offset: tuned against header()'s 28px subline
-    # gap so this caption clears both a present subline above it and the
-    # plot's own top border below it (see header()'s comment on subline_gap).
+    # Keep the caption close to its plot. _captioned_chart_top() moves the
+    # complete plot down only when a multi-line header needs the clearance.
     parts.append(text_el(ML, plot_y - 9, y_axis["label"], size=T_LABEL, fill=GREY_DARK, weight="600"))
     for point in spec["points"]:
         px = plot_x + plot_w * point["x"] / 100
@@ -1118,6 +1256,23 @@ def render_two_by_two(spec: dict) -> list[str]:
 
 def render_cover(spec: dict) -> list[str]:
     """Navy cover slide. Bypasses the standard white header/footer chrome."""
+    if spec.get("presentation") == "editorial":
+        parts = [rect_el(0, 0, W, H, NAVY_COVER)]
+        if spec.get("classification"):
+            parts.append(text_el(ML, 96, spec["classification"].upper(), size=T_KICKER_LABEL, fill="#D1DAEF", weight="600"))
+        _text_lines(parts, ML, 282, _complete_lines(spec["title"], W - ML - MR, 80, 2, "title"),
+                    size=80, fill=WHITE, weight="600", leading=90)
+        title_lines = len(_complete_lines(spec["title"], W - ML - MR, 80, 2, "title"))
+        if spec.get("subtitle"):
+            _text_lines(parts, ML, 355 + (title_lines - 1) * 90,
+                        _complete_lines(spec["subtitle"], 1020, T_STATEMENT, 2, "subtitle"),
+                        size=T_STATEMENT, fill="#E5E7EB", leading=43)
+        if spec.get("presenter"):
+            _text_lines(parts, ML, 616, _complete_lines(spec["presenter"], 1120, T_BODY, 1, "presenter"),
+                        size=T_BODY, fill=WHITE)
+        if spec.get("date"):
+            _text_lines(parts, ML, 652, _complete_lines(spec["date"], 1120, T_LABEL, 1, "date"), fill="#D1DAEF")
+        return parts
     parts = [
         rect_el(0, 0, W, H, NAVY_COVER),
     ]
@@ -1130,7 +1285,7 @@ def render_cover(spec: dict) -> list[str]:
         y += 8
         for line in wrap(subtitle, 70, max_lines=2):
             parts.append(text_el(ML, y, line, size=T_SUBLINE, fill="#E5E7EB"))
-            y += 28
+            y += 32
     meta = " · ".join(str(spec[k]) for k in ("presenter", "date") if spec.get(k))
     if meta:
         parts.append(text_el(ML, 640, meta, size=T_LABEL, fill="#E5E7EB"))
@@ -1141,38 +1296,54 @@ def render_cover(spec: dict) -> list[str]:
 
 
 def render_scatter(spec: dict) -> list[str]:
+    if spec.get("model_context", {}).get("kind") == "linear_model":
+        return render_model_scatter(spec)
     points = spec["points"]
     x_axis, y_axis = spec["x_axis"], spec["y_axis"]
     xs = [p["x"] for p in points]
     ys = [p["y"] for p in points]
-    x_min, x_max = min(xs + [0]) if spec.get("x_zero", False) else min(xs), max(xs)
-    y_min, y_max = min(ys + [0]) if spec.get("y_zero", False) else min(ys), max(ys)
-    x_pad = (x_max - x_min) * 0.08 or 1
-    y_pad = (y_max - y_min) * 0.08 or 1
-    x_min, x_max = x_min - x_pad, x_max + x_pad
-    y_min, y_max = y_min - y_pad, y_max + y_pad
+    x_explicit = "domain" in x_axis
+    y_explicit = "domain" in y_axis
+    if x_explicit:
+        x_min, x_max = x_axis["domain"]
+        x_pad = 0
+    else:
+        x_min, x_max = min(xs + [0]) if spec.get("x_zero", False) else min(xs), max(xs)
+        x_pad = (x_max - x_min) * 0.08 or 1
+        x_min, x_max = x_min - x_pad, x_max + x_pad
+    if y_explicit:
+        y_min, y_max = y_axis["domain"]
+        y_pad = 0
+    else:
+        y_min, y_max = min(ys + [0]) if spec.get("y_zero", False) else min(ys), max(ys)
+        y_pad = (y_max - y_min) * 0.08 or 1
+        y_min, y_max = y_min - y_pad, y_max + y_pad
     plot_x, plot_w = ML + 50, W - ML - MR - 100
-    plot_y, plot_h = CHART_TOP, float(CHART_BOTTOM - CHART_TOP)
+    plot_y = _captioned_chart_top(spec)
+    plot_h = float(CHART_BOTTOM - plot_y)
 
     def px(value: float) -> float:
+        if x_explicit:
+            return plot_x + plot_w * _domain_fraction(value, x_min, x_max, "x_axis.domain")
         return plot_x + plot_w * (value - x_min) / (x_max - x_min)
 
     def py(value: float) -> float:
+        if y_explicit:
+            return plot_y + plot_h * (1 - _domain_fraction(value, y_min, y_max, "y_axis.domain"))
         return plot_y + plot_h * (1 - (value - y_min) / (y_max - y_min))
 
     parts = [
         line_el(plot_x, plot_y + plot_h, plot_x + plot_w, plot_y + plot_h, GREY_DARK),
         line_el(plot_x, plot_y, plot_x, plot_y + plot_h, GREY_DARK),
         text_el((plot_x + plot_x + plot_w) / 2, plot_y + plot_h + 44, x_axis["label"], size=T_LABEL, fill=GREY_DARK, weight="600", anchor="middle"),
-        # -9, not a bigger negative offset: tuned against header()'s 28px
-        # subline gap so this caption clears both a present subline above it
-        # and the plot's own top border below it (see header()'s comment).
+        # Keep the caption close to its plot. _captioned_chart_top() provides
+        # the clearance from a multi-line header when one is present.
         text_el(ML, plot_y - 9, y_axis["label"], size=T_LABEL, fill=GREY_DARK, weight="600"),
         # Disclosed axis ranges keep non-zero baselines honest (chart rule).
-        text_el(plot_x, plot_y + plot_h + 23, fmt(x_min + x_pad, x_axis.get("unit", "")), size=T_TICK, fill=GREY_MED),
-        text_el(plot_x + plot_w, plot_y + plot_h + 23, fmt(x_max - x_pad, x_axis.get("unit", "")), size=T_TICK, fill=GREY_MED, anchor="end"),
-        text_el(plot_x - 10, plot_y + 10, fmt(y_max - y_pad, y_axis.get("unit", "")), size=T_TICK, fill=GREY_MED, anchor="end"),
-        text_el(plot_x - 10, plot_y + plot_h, fmt(y_min + y_pad, y_axis.get("unit", "")), size=T_TICK, fill=GREY_MED, anchor="end"),
+        text_el(plot_x, plot_y + plot_h + 23, x_axis["tick_labels"][0] if "tick_labels" in x_axis else fmt(x_min + x_pad, x_axis.get("unit", "")), size=T_TICK, fill=GREY_MED),
+        text_el(plot_x + plot_w, plot_y + plot_h + 23, x_axis["tick_labels"][1] if "tick_labels" in x_axis else fmt(x_max - x_pad, x_axis.get("unit", "")), size=T_TICK, fill=GREY_MED, anchor="end"),
+        text_el(plot_x - 10, plot_y + 10, y_axis["tick_labels"][1] if "tick_labels" in y_axis else fmt(y_max - y_pad, y_axis.get("unit", "")), size=T_TICK, fill=GREY_MED, anchor="end"),
+        text_el(plot_x - 10, plot_y + plot_h, y_axis["tick_labels"][0] if "tick_labels" in y_axis else fmt(y_min + y_pad, y_axis.get("unit", "")), size=T_TICK, fill=GREY_MED, anchor="end"),
     ]
     for point in points:
         cx, cy = px(point["x"]), py(point["y"])
@@ -1180,6 +1351,8 @@ def render_scatter(spec: dict) -> list[str]:
         radius = 9 if emphasis else 7
         parts.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{radius}" fill="{BLUE if emphasis else GREY_MED}"/>')
         label = point.get("label", "")
+        if "item_id" in point and point.get("removed"):
+            label += " · " + ("除外" if spec.get("lang") == "ja" else "Removed")
         if label:
             # Decide the flip side off the label's *raw* (unclamped) width —
             # T_LABEL is wide enough now that a point near the plot's right
@@ -1210,6 +1383,58 @@ def render_scatter(spec: dict) -> list[str]:
                     title=label,
                 )
             )
+    return parts
+
+
+def render_model_scatter(spec: dict) -> list[str]:
+    context, x_axis, y_axis = spec["model_context"], spec["x_axis"], spec["y_axis"]
+    x_min, x_max = x_axis["domain"]
+    y_min, y_max = y_axis["domain"]
+    left, right, top, bottom = ML + 70, W - MR - 20, CHART_TOP + 20, CHART_BOTTOM
+    px = lambda x: left + (right - left) * _domain_fraction(x, x_min, x_max, "x_axis.domain")
+    py = lambda y: bottom - (bottom - top) * _domain_fraction(y, y_min, y_max, "y_axis.domain")
+    parts = [text_el(ML, CHART_TOP, y_axis["label"], size=T_LABEL, fill=GREY_DARK, weight="600")]
+    for index in range(5):
+        value = y_min + (y_max - y_min) * index / 4
+        y = py(value)
+        parts.append(line_el(left, y, right, y, GREY_BORDER))
+        parts.append(text_el(left - 15, y + 5, fmt(value, y_axis.get("unit", "")), size=T_TICK, fill=GREY_MED, anchor="end"))
+    for index in range(6):
+        value = x_min + (x_max - x_min) * index / 5
+        x = px(value)
+        parts.append(text_el(x, bottom + 27, fmt(value, x_axis.get("unit", "")), size=T_TICK, fill=GREY_MED, anchor="middle"))
+    # Keep the axis caption above the footer's 630px annotation baseline.
+    # Tick labels sit to either side of the centered caption, so this tighter
+    # baseline does not squeeze either text role into the footer.
+    parts.append(text_el((left + right) / 2, bottom + 39, x_axis["label"], size=T_LABEL, fill=GREY_DARK, anchor="middle", weight="600"))
+    intercept, coefficient = context["intercept"], context["coefficient"]
+    start, end = x_min, x_max
+    if coefficient:
+        crossings = sorted(((y_min - intercept) / coefficient, (y_max - intercept) / coefficient))
+        start, end = max(start, crossings[0]), min(end, crossings[1])
+    if start <= end and y_min <= intercept + coefficient * start <= y_max:
+        parts.append(line_el(px(start), py(intercept + coefficient * start), px(end), py(intercept + coefficient * end), BLUE)
+                     .replace("<line ", '<line id="model-relationship" stroke-width="3" ', 1))
+    result = spec.get("interactive_result", {})
+    if result.get("quantity") == y_axis.get("quantity") and "threshold" in result:
+        threshold = result["threshold"]
+        if y_min <= threshold <= y_max:
+            y = py(threshold)
+            parts.append(line_el(left, y, right, y, BLUE2, "6 6").replace("<line ", '<line id="decision-threshold" ', 1))
+            parts.append(text_el(right, y - 12, "Hurdle " + fmt(threshold, y_axis.get("unit", "")), size=T_LABEL, fill=BLUE2, anchor="end", weight="600"))
+    for point in spec["points"]:
+        x, y = px(point["x"]), py(point["y"])
+        parts.append(line_el(x, y, x, bottom, GREY_MED, "3 5"))
+        parts.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="9" fill="{BLUE}" stroke="{WHITE}" stroke-width="3"/>')
+        label = f"{fmt(point['x'], x_axis.get('unit', ''))} · {fmt(point['y'], y_axis.get('unit', ''))}"
+        label_width = _text_width(label) * T_BODY * .62
+        anchor, text_x = ("end", x - 18) if x + 18 + label_width > right else ("start", x + 18)
+        baseline = y + 38 if y + 72 < bottom else y - 52
+        parts.append(text_el(text_x, baseline, label, size=T_BODY, fill=BLUE, weight="bold", anchor=anchor))
+        # When the point repeats the named y quantity, the axis caption is
+        # already its visible label. Avoid a duplicate line over the grid.
+        if point.get("label") and point["label"] != y_axis["label"]:
+            parts.append(text_el(text_x, baseline + 30, point["label"], size=T_LABEL, fill=GREY_DARK, anchor=anchor))
     return parts
 
 
@@ -1373,12 +1598,12 @@ def render_end_cover(spec: dict) -> list[str]:
         y += 8
         for line in wrap(subtitle, 70, max_lines=2):
             parts.append(text_el(ML, y, line, size=T_SUBLINE, fill="#E5E7EB"))
-            y += 28
+            y += 32
     contact = (spec.get("contact") or [])[:4]
     cy = 560
     for line in contact:
         parts.append(text_el(ML, cy, str(line), size=T_LABEL, fill="#E5E7EB"))
-        cy += 29  # 24 * 18/15, scaled with T_LABEL
+        cy += 29
     meta = " · ".join(str(spec[k]) for k in ("presenter", "date") if spec.get(k))
     if meta:
         parts.append(text_el(ML, 640, meta, size=T_LABEL, fill="#E5E7EB"))
@@ -1487,6 +1712,8 @@ def _center_block_start(start: float, end: float, heights: list[float], gap: flo
 def render_bullet_list(spec: dict) -> list[str]:
     """Action-title bullet slide. One marker family (square bullets, en-dash
     subs) — no accent bars, per the single-motif ink-discipline rule."""
+    if _ranked_bullets(spec):
+        return render_ranked_bullets(spec)
     bullets = spec["bullets"]
     columns = spec.get("columns", 1)
     if columns == 2:
@@ -1549,6 +1776,105 @@ def render_bullet_list(spec: dict) -> list[str]:
     return parts
 
 
+def _ranked_bullets(spec: dict) -> bool:
+    return "value_domain" in spec and bool(spec.get("bullets")) and all(
+        isinstance(bullet, dict) and "metric" in bullet and "rank" in bullet for bullet in spec["bullets"]
+    )
+
+
+def render_ranked_bullets(spec: dict) -> list[str]:
+    domain_min, domain_max = spec["value_domain"]
+    comparison = spec.get("model_context")
+    if comparison and comparison.get("kind") == "scenario_compare" and 2 <= len(spec["bullets"]) <= 3:
+        return render_rank_bridge(spec)
+    compared = {value["item_id"]: value for value in comparison["values"]} if comparison else {}
+    parts: list[str] = []
+    bar_x, bar_w = 350, 710
+    parts.append(text_el(bar_x, 218, "Base case", size=T_LABEL, fill=BLUE, weight="600"))
+    if comparison:
+        parts.append(text_el(bar_x + 270, 218, comparison["label"], size=T_LABEL, fill=BLUE2, weight="600"))
+    row_h = 300 / len(spec["bullets"])
+    for index, bullet in enumerate(spec["bullets"]):
+        y = 258 + index * row_h
+        _text_lines(parts, ML, y + 16, _complete_lines(bullet["text"], 240, T_BODY, 1, f"bullets[{index}].text"),
+                    size=T_BODY, fill=BLUE if bullet.get("emphasis") else BLACK, weight="600")
+        for sub_index, sub in enumerate(bullet.get("sub", [])):
+            _text_lines(parts, ML, y + 47 + sub_index * LINE_H_LABEL,
+                        _complete_lines(sub, 240, T_LABEL, 1, f"bullets[{index}].sub[{sub_index}]"))
+        rows = [(bullet["metric"], bullet["rank"], BLUE)]
+        if comparison:
+            alternate = compared[bullet["item_id"]]
+            rows.append((alternate["value"], alternate["rank"], BLUE2))
+        for state_index, (value, rank, fill) in enumerate(rows):
+            bar_y = y + state_index * 29
+            width = bar_w * _domain_fraction(value, domain_min, domain_max, "value_domain")
+            parts.append(rect_el(bar_x, bar_y, width, 18, fill).replace("<rect ", f'<rect id="rank-bar-{index}-{state_index}" ', 1))
+            parts.append(text_el(bar_x + width + 12, bar_y + 17, f"{fmt(value, '')} · #{rank}", size=T_LABEL, fill=fill, weight="600"))
+    parts.append(line_el(bar_x, 558, bar_x + bar_w, 558, GREY_BORDER))
+    for index in range(5):
+        value = domain_min + (domain_max - domain_min) * index / 4
+        parts.append(text_el(bar_x + bar_w * index / 4, 582, fmt(value, ""), size=T_TICK, fill=GREY_MED, anchor="middle"))
+    return parts
+
+
+def render_rank_bridge(spec: dict) -> list[str]:
+    """Compare categorical ranks without using line slopes as metric changes."""
+    comparison = spec["model_context"]
+    compared = {item["item_id"]: item for item in comparison["values"]}
+    bullets = spec["bullets"]
+    gains = [(item["rank"] - compared[item["item_id"]]["rank"], index)
+             for index, item in enumerate(bullets)]
+    gain, focus = max(gains, key=lambda entry: (entry[0], -entry[1]))
+    focus = focus if gain > 0 else None
+    row_gap = min(110, 330 / max(1, len(bullets) - 1))
+    row_y = lambda rank: 300 + (rank - 1) * row_gap
+    ja = spec.get("lang") == "ja"
+    domain_min, domain_max = spec["value_domain"]
+    caption = ("優先順位・スコア " if ja else "Priority rank · score ") + f"{fmt(domain_min, '')}–{fmt(domain_max, '')}"
+    parts = [text_el(100, 202, "通常" if ja else "Base", size=T_BODY, fill=GREY_DARK, weight="600"),
+             text_el(900, 202, comparison["label"], size=T_LABEL, fill=GREY_DARK, weight="600"),
+             text_el(100, 238, caption, size=20, fill=GREY_MED)]
+    # Draw the highlighted bridge last, with white clearance at crossings.
+    order = [index for index in range(len(bullets)) if index != focus]
+    if focus is not None:
+        order.append(focus)
+    for index in order:
+        item = bullets[index]
+        alternate = compared[item["item_id"]]
+        y1, y2 = row_y(item["rank"]), row_y(alternate["rank"])
+        active = index == focus
+        if active:
+            parts.append(line_el(420, y1, 860, y2, WHITE).replace("<line ", '<line stroke-width="12" ', 1))
+        parts.append(line_el(420, y1, 860, y2, BLUE if active else GREY_BORDER)
+                     .replace("<line ", f'<line id="rank-bridge-{index}" stroke-width="{5 if active else 2}" ', 1))
+    for index, item in enumerate(bullets):
+        active = index == focus
+        color = BLUE if active else GREY_DARK
+        for side, x, rank_x, score_x, value, rank in (
+            ("base", 148, 100, 392, item["metric"], item["rank"]),
+            ("current", 948, 900, 1192, compared[item["item_id"]]["value"], compared[item["item_id"]]["rank"]),
+        ):
+            y = row_y(rank)
+            if active:
+                parts.append(rect_el(x - 12, y - 38, 284, 76, "#EDF2FA"))
+            parts.append(text_el(rank_x, y + 9, str(rank), size=T_LABEL, fill=GREY_MED, anchor="end"))
+            label = item["text"].removesuffix(" route") if not ja else item["text"]
+            parts.append(text_el(x, y + 10, label, size=30, fill=color, weight="600" if active else "normal", title=item["text"])
+                         .replace("<text ", f'<text id="rank-{side}-label-{index}" ', 1))
+            parts.append(text_el(score_x, y + 13, fmt(value, ""), size=40, fill=color, weight="600", anchor="end")
+                         .replace("<text ", f'<text id="rank-{side}-score-{index}" ', 1))
+    if focus is not None:
+        item = bullets[focus]
+        alternate = compared[item["item_id"]]
+        delta = alternate["value"] - item["metric"]
+        change = ("+" if delta > 0 else "") + fmt(delta, "")
+        unit = spec.get("unit", "points")
+        statement = (f'{item["text"]}: {item["rank"]}位 → {alternate["rank"]}位（{change} {unit}）' if ja else
+                     f'{item["text"].removesuffix(" route")}: #{item["rank"]} → #{alternate["rank"]} · {change} {unit}')
+        parts.append(text_el(100, 620, statement, size=T_BODY, fill=BLUE, weight="600"))
+    return parts
+
+
 def render_closing(spec: dict) -> list[str]:
     """Key-takeaways / next-steps closing slide. call_to_action rides the
     existing footer "annotation" slot mechanics (blue 600) instead of a new
@@ -1557,6 +1883,9 @@ def render_closing(spec: dict) -> list[str]:
     call_to_action = spec.get("call_to_action", "")
     if call_to_action:
         spec.setdefault("annotation", call_to_action)
+
+    if spec.get("presentation") == "editorial":
+        return render_editorial_closing(spec)
 
     takeaways = (spec.get("takeaways") or [])[:4]
     next_steps = spec["next_steps"][:5]
@@ -1617,10 +1946,10 @@ def render_closing(spec: dict) -> list[str]:
     else:
         row_h = min(64.0, (CHART_BOTTOM - CHART_TOP) / len(next_steps))
         # 260 reserved the right-aligned "Owner · Timing" meta's column at
-        # the old T_LABEL size (13px); scaled to 360 by 18/13 so a full-width
+        # the old T_LABEL size (13px); scaled to 440 by 22/13 so a full-width
         # action line no longer runs into the bigger meta text at the row's
         # right edge.
-        action_width_units = max(int((W - ML - MR - 360) / (T_BODY * 0.62)), 10)
+        action_width_units = max(int((W - ML - MR - 440) / (T_BODY * 0.62)), 10)
         for r in range(len(next_steps) + 1):
             ry = CHART_TOP + row_h * r
             parts.append(line_el(ML, ry, W - MR, ry, GREY_BORDER))
@@ -1637,6 +1966,25 @@ def render_closing(spec: dict) -> list[str]:
             meta = " · ".join(str(step[k]) for k in ("owner", "timing") if step.get(k))
             if meta:
                 parts.append(text_el(W - MR, row_y + row_h / 2 + NUDGE_LABEL, meta, size=T_LABEL, fill=GREY_MED, anchor="end"))
+    return parts
+
+
+def render_editorial_closing(spec: dict) -> list[str]:
+    takeaways, steps = spec["takeaways"], spec["next_steps"]
+    gap = 48
+    width = (W - ML - MR - gap * (len(steps) - 1)) / len(steps)
+    parts: list[str] = []
+    for index, (takeaway, step) in enumerate(zip(takeaways, steps)):
+        x = ML + index * (width + gap)
+        if step.get("timing"):
+            _text_lines(parts, x, 218, _complete_lines(step["timing"], width, T_LABEL, 1, f"next_steps[{index}].timing"), fill=GREY_MED, weight="600")
+        _text_lines(parts, x, 266, _complete_lines(takeaway, width, T_STATEMENT, 2, f"takeaways[{index}]"),
+                    size=T_STATEMENT, fill=BLUE, weight="600", leading=42)
+        parts.append(line_el(x, 343, x + width, 343, GREY_BORDER))
+        _text_lines(parts, x, 390, _complete_lines(step["action"], width, T_BODY, 3, f"next_steps[{index}].action"),
+                    size=T_BODY, fill=BLACK, weight="600", leading=LINE_H_BODY)
+        if step.get("owner"):
+            _text_lines(parts, x, 523, _complete_lines(step["owner"], width, T_LABEL, 1, f"next_steps[{index}].owner"))
     return parts
 
 
@@ -1658,9 +2006,9 @@ def render_quote(spec: dict) -> list[str]:
         y += 46  # 40 * 32/28
     attribution = spec.get("attribution", "")
     if attribution:
-        y += 24  # 20 * 18/15, scaled with T_LABEL
+        y += 29  # 20 * 22/15, scaled with T_LABEL
         parts.append(text_el(x, y, f"— {attribution}", size=T_LABEL, fill=GREY_DARK, weight="600"))
-        y += 26  # 22 * 18/15
+        y += 32
     context = spec.get("context", "")
     if context:
         parts.append(text_el(x, y, context, size=T_LABEL, fill=GREY_MED))
@@ -1772,6 +2120,97 @@ def _validate_scatter(spec: dict) -> None:
             raise RenderSpecError(f"{axis} must be an object with a label")
 
 
+def _explicit_domain(domain: object, field_path: str) -> tuple[float, float]:
+    if not isinstance(domain, list) or len(domain) != 2:
+        raise RenderSpecError(f"{field_path} must be a two-number domain")
+    for index, value in enumerate(domain):
+        try:
+            finite = math.isfinite(value) if isinstance(value, (int, float)) and not isinstance(value, bool) else False
+        except OverflowError:
+            finite = False
+        if not finite:
+            raise RenderSpecError(f"{field_path}[{index}] must be finite")
+    if domain[0] >= domain[1]:
+        raise RenderSpecError(f"{field_path} must be strictly increasing")
+    return domain[0], domain[1]
+
+
+def _inside_domain(value: object, field_path: str, domain: tuple[float, float]) -> None:
+    try:
+        finite = math.isfinite(value) if isinstance(value, (int, float)) and not isinstance(value, bool) else False
+    except OverflowError:
+        finite = False
+    if not finite:
+        raise RenderSpecError(f"{field_path} must be finite")
+    if not domain[0] <= value <= domain[1]:
+        raise RenderSpecError(f"{field_path} must be inside its declared domain")
+
+
+def _domain_fraction(value: float, domain_min: float, domain_max: float, field_path: str) -> float:
+    """Return a stable [0, 1] ratio without collapsing distinct endpoints."""
+    try:
+        span = domain_max - domain_min
+        offset = value - domain_min
+        try:
+            finite_span = math.isfinite(span)
+        except OverflowError:
+            finite_span = False
+        if span != 0 and finite_span:
+            fraction = offset / span
+            if math.isfinite(fraction):
+                return fraction
+
+        # Subtracting opposite-sign finite floats can overflow. Normalize only
+        # for that case; ordinary subtraction preserves adjacent large ints.
+        scale = max(abs(domain_min), abs(domain_max))
+        normalized_min = domain_min / scale
+        normalized_max = domain_max / scale
+        normalized_value = value / scale
+        normalized_span = normalized_max - normalized_min
+        if normalized_span == 0:
+            raise RenderSpecError(f"{field_path} has a numerically unrepresentable span")
+        fraction = (normalized_value - normalized_min) / normalized_span
+        if not math.isfinite(fraction):
+            raise RenderSpecError(f"{field_path} cannot be mapped to finite coordinates")
+        return fraction
+    except RenderSpecError:
+        raise
+    except (OverflowError, ZeroDivisionError, TypeError) as exc:
+        raise RenderSpecError(f"{field_path} cannot be mapped to finite coordinates") from exc
+
+
+def _validate_explicit_domain(spec: dict) -> None:
+    pattern = spec.get("pattern")
+    if pattern in ("gap", "before_after") and "value_domain" in spec:
+        domain = _explicit_domain(spec["value_domain"], "value_domain")
+        if "baseline" not in spec:
+            raise RenderSpecError("baseline is required with value_domain")
+        _inside_domain(spec["baseline"], "baseline", domain)
+        if pattern == "gap":
+            for index, item in enumerate(spec.get("items", [])):
+                value = item.get("value") if isinstance(item, dict) else None
+                _inside_domain(value, f"items[{index}].value", domain)
+        else:
+            for index, pair in enumerate(spec.get("pairs", [])):
+                before = pair.get("before") if isinstance(pair, dict) else None
+                after = pair.get("after") if isinstance(pair, dict) else None
+                _inside_domain(before, f"pairs[{index}].before", domain)
+                _inside_domain(after, f"pairs[{index}].after", domain)
+    elif pattern == "scatter":
+        domains: dict[str, tuple[float, float]] = {}
+        for axis_key, coordinate in (("x_axis", "x"), ("y_axis", "y")):
+            axis = spec.get(axis_key, {})
+            if "domain" not in axis:
+                continue
+            domains[coordinate] = _explicit_domain(axis["domain"], f"{axis_key}.domain")
+            zero_flag = f"{coordinate}_zero"
+            if spec.get(zero_flag) is True and not domains[coordinate][0] <= 0 <= domains[coordinate][1]:
+                raise RenderSpecError(f"{zero_flag} conflicts with {axis_key}.domain")
+        for index, point in enumerate(spec.get("points", [])):
+            for coordinate, domain in domains.items():
+                _inside_domain(point.get(coordinate), f"points[{index}].{coordinate}", domain)
+
+
 def _validate_distribution(spec: dict) -> None:
     bins = _as_sequence(spec, "bins")
     for index, bucket in enumerate(bins):
@@ -1830,11 +2269,14 @@ def _validate_agenda(spec: dict) -> None:
 
 def _validate_bullet_list(spec: dict) -> None:
     bullets = _as_sequence(spec, "bullets")
-    if len(bullets) > 6:
-        raise RenderSpecError(f"bullet_list supports at most 6 bullets; found {len(bullets)}")
     columns = spec.get("columns", 1)
     if columns not in (1, 2):
         raise RenderSpecError(f"bullet_list columns must be 1 or 2; found {columns!r}")
+    maximum = 12 if columns == 2 else 6
+    if len(bullets) > maximum:
+        raise RenderSpecError(
+            f"bullet_list supports at most {maximum} bullets; found {len(bullets)}"
+        )
     emphasized_count = 0
     for index, bullet in enumerate(bullets):
         if not isinstance(bullet, dict) or not bullet.get("text"):
@@ -1848,6 +2290,55 @@ def _validate_bullet_list(spec: dict) -> None:
             raise RenderSpecError(f"bullets[{index}].sub supports at most 3 items; found {len(sub)}")
     if emphasized_count > 1:
         raise RenderSpecError(f"bullet_list allows at most one emphasized bullet; found {emphasized_count}")
+    if _ranked_bullets(spec):
+        if columns != 1 or len(bullets) > 4:
+            raise RenderSpecError("ranked bullet evidence requires one column and at most four items")
+        domain = _explicit_domain(spec["value_domain"], "value_domain")
+        if domain[0] != 0:
+            raise RenderSpecError("ranked bars require a zero baseline")
+        ranks = []
+        for index, bullet in enumerate(bullets):
+            _inside_domain(bullet["metric"], f"bullets[{index}].metric", domain)
+            if type(bullet["rank"]) is not int or not 1 <= bullet["rank"] <= len(bullets):
+                raise RenderSpecError("rank must be an integer within the displayed items")
+            ranks.append(bullet["rank"])
+            if len(bullet.get("sub", [])) > 1:
+                raise RenderSpecError("ranked bars support one supporting line per item")
+        if len(set(ranks)) != len(ranks):
+            raise RenderSpecError("ranked bars require distinct ranks")
+        return
+
+    # Count wrapped lines against the same per-row geometry used by the
+    # renderer. Larger reading type must never be "solved" by letting a
+    # legal-looking spec paint into the next row; the author must split or
+    # simplify the slide instead.
+    if columns == 2:
+        half = -(-len(bullets) // 2)
+        column_bullets = [bullets[:half], bullets[half:]]
+    else:
+        column_bullets = [bullets]
+    gap = 60.0
+    col_w = (W - ML - MR - gap) / 2 if columns == 2 else float(W - ML - MR)
+    text_indent = 22.0
+    sub_indent = text_indent + 24.0
+    text_width_units = max(int((col_w - text_indent) / (T_BODY * 0.62)), 10)
+    sub_width_units = max(int((col_w - sub_indent) / (T_LABEL * 0.62)), 10)
+    band_start = float(CHART_TOP) + 20
+    source_index = 0
+    for group in column_bullets:
+        row_h = (CHART_BOTTOM - band_start) / len(group)
+        for bullet in group:
+            body_lines = wrap(bullet["text"], text_width_units)
+            sub_lines = [wrap(str(sub), sub_width_units) for sub in bullet.get("sub", [])]
+            content_h = len(body_lines) * LINE_H_BODY
+            if sub_lines:
+                content_h += 6 + sum(len(lines) for lines in sub_lines) * LINE_H_LABEL
+            if content_h > row_h:
+                raise RenderSpecError(
+                    f"bullets[{source_index}] needs {content_h}px but its row allows "
+                    f"{row_h:.1f}px; shorten the content or split the slide"
+                )
+            source_index += 1
 
 
 def _validate_closing(spec: dict) -> None:
@@ -1858,6 +2349,46 @@ def _validate_closing(spec: dict) -> None:
     takeaways = spec.get("takeaways")
     if takeaways is not None and not isinstance(takeaways, list):
         raise RenderSpecError("takeaways must be a list")
+    if spec.get("presentation") == "editorial":
+        if not takeaways or len(takeaways) != len(next_steps) or not 2 <= len(next_steps) <= 3:
+            raise RenderSpecError("editorial closing requires two or three matched takeaways and next steps")
+        return
+    if not takeaways:
+        return
+
+    # The two-column closing layout uses equal row budgets in each column.
+    # Validate the rendered line counts before drawing so 26px actions and
+    # 22px metadata cannot collide when the input is too dense.
+    visible_takeaways = takeaways[:4]
+    visible_steps = next_steps[:5]
+    left_w = (W - ML - MR) * 0.45
+    col_gap = 40.0
+    right_w = (W - ML - MR) - left_w - col_gap
+    text_indent = 42.0
+    takeaway_width_units = max(int((left_w - text_indent) / (T_BODY * 0.62)), 10)
+    step_width_units = max(int(right_w / (T_BODY * 0.62)), 10)
+    band_start = float(CHART_TOP) + 34
+
+    takeaway_row_h = (CHART_BOTTOM - band_start) / len(visible_takeaways)
+    for index, takeaway in enumerate(visible_takeaways):
+        lines = wrap(str(takeaway), takeaway_width_units, max_lines=3)
+        content_h = len(lines) * LINE_H_BODY
+        if content_h > takeaway_row_h:
+            raise RenderSpecError(
+                f"takeaways[{index}] needs {content_h}px but its row allows "
+                f"{takeaway_row_h:.1f}px; shorten the content or split the slide"
+            )
+
+    step_row_h = (CHART_BOTTOM - band_start) / len(visible_steps)
+    for index, step in enumerate(visible_steps):
+        lines = wrap(step["action"], step_width_units, max_lines=2)
+        meta = " · ".join(str(step[key]) for key in ("owner", "timing") if step.get(key))
+        content_h = len(lines) * LINE_H_BODY + (4 + LINE_H_LABEL if meta else 0)
+        if content_h > step_row_h:
+            raise RenderSpecError(
+                f"next_steps[{index}] needs {content_h}px but its row allows "
+                f"{step_row_h:.1f}px; shorten the content or split the slide"
+            )
 
 
 def _validate_quote(spec: dict) -> None:
@@ -1894,6 +2425,13 @@ def validate_spec(spec: dict) -> None:
         raise RenderSpecError("layout must be standard or analytical")
     if spec.get("palette", "navy") not in PALETTES:
         raise RenderSpecError("palette must be navy, red, green, or mono")
+    if "presentation" in spec:
+        if spec["presentation"] != "editorial" or pattern not in ("cover", "summary_strip", "closing"):
+            raise RenderSpecError("editorial presentation is supported on cover, summary_strip, and closing only")
+        if pattern == "summary_strip":
+            blocks = _as_sequence(spec, "blocks")
+            if not 2 <= len(blocks) <= 3 or any(not isinstance(block, dict) or any(key not in block for key in ("metric", "claim", "proof", "implication")) for block in blocks):
+                raise RenderSpecError("editorial summary requires two or three complete metric blocks")
     if spec.get("layout") == "analytical":
         if pattern in CHROMELESS:
             raise RenderSpecError("analytical layout requires a content slide")
@@ -1931,6 +2469,123 @@ def validate_spec(spec: dict) -> None:
     validator = VALIDATORS.get(pattern)
     if validator:
         validator(spec)
+    _validate_explicit_domain(spec)
+    _validate_interactive_exact_text(spec)
+    _validate_model_context(spec)
+
+
+def _finite_number(value: object, path: str) -> float:
+    try:
+        valid = isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
+    except OverflowError:
+        valid = False
+    if not valid:
+        raise RenderSpecError(f"{path} must be a finite number")
+    return value
+
+
+def _strict_fields(value: object, required: set[str], path: str) -> dict:
+    if not isinstance(value, dict) or set(value) != required:
+        raise RenderSpecError(f"{path} requires exactly {', '.join(sorted(required))}")
+    return value
+
+
+def _validate_model_context(spec: dict) -> None:
+    if "model_context" not in spec:
+        return
+    context = spec["model_context"]
+    if not isinstance(context, dict):
+        raise RenderSpecError("model_context must be an object")
+    kind, pattern = context.get("kind"), spec["pattern"]
+    if kind == "linear_model" and pattern == "scatter":
+        _strict_fields(context, {"kind", "intercept", "coefficient"}, "model_context")
+        intercept = _finite_number(context["intercept"], "model_context.intercept")
+        coefficient = _finite_number(context["coefficient"], "model_context.coefficient")
+        for axis in ("x_axis", "y_axis"):
+            _explicit_domain(spec[axis].get("domain"), f"{axis}.domain")
+        for x in spec["x_axis"]["domain"]:
+            _finite_number(intercept + coefficient * x, "model endpoint")
+        for index, point in enumerate(spec["points"]):
+            predicted = intercept + coefficient * point["x"]
+            if not math.isclose(predicted, point["y"], rel_tol=1e-9, abs_tol=1e-9):
+                raise RenderSpecError(f"points[{index}] does not agree with its model_context")
+        result = spec.get("interactive_result", {})
+        if result.get("quantity") == spec["y_axis"].get("quantity") and "threshold" in result:
+            _finite_number(result["threshold"], "interactive_result.threshold")
+    elif kind == "score_breakdown" and pattern == "summary_strip":
+        _strict_fields(context, {"kind", "components", "comparison"}, "model_context")
+        components = context["components"]
+        if not isinstance(components, list) or not 1 <= len(components) <= 4:
+            raise RenderSpecError("model_context.components requires one to four components")
+        for index, component in enumerate(components):
+            _strict_fields(component, {"label", "value"}, f"components[{index}]")
+            if not isinstance(component["label"], str) or not component["label"].strip():
+                raise RenderSpecError("component label must be nonempty text")
+            if _finite_number(component["value"], f"components[{index}].value") < 0:
+                raise RenderSpecError("score contribution cannot be negative")
+        comparison = _strict_fields(context["comparison"], {"label", "remove_index"}, "model_context.comparison")
+        if not isinstance(comparison["label"], str) or not comparison["label"].strip():
+            raise RenderSpecError("comparison label must be nonempty text")
+        if type(comparison["remove_index"]) is not int or not 0 <= comparison["remove_index"] < len(components):
+            raise RenderSpecError("comparison.remove_index must identify a component")
+        blocks = _as_sequence(spec, "blocks")
+        if len(blocks) != 1 or any(key not in blocks[0] for key in ("metric", "claim", "proof", "implication")):
+            raise RenderSpecError("score_breakdown requires one complete score block")
+        result = spec.get("interactive_result", {})
+        total = _finite_number(sum(item["value"] for item in components), "score total")
+        if total <= 0 or not math.isclose(total, _finite_number(result.get("value"), "interactive_result.value"), rel_tol=1e-9, abs_tol=1e-9):
+            raise RenderSpecError("score contributions must sum to interactive_result.value")
+        if _finite_number(result.get("threshold"), "interactive_result.threshold") < 0:
+            raise RenderSpecError("score threshold cannot be negative")
+    elif kind == "scenario_compare" and pattern == "bullet_list" and _ranked_bullets(spec):
+        _strict_fields(context, {"kind", "label", "values"}, "model_context")
+        if not isinstance(context["label"], str) or not context["label"].strip():
+            raise RenderSpecError("scenario comparison label must be nonempty text")
+        values = context["values"]
+        if not isinstance(values, list) or len(values) != len(spec["bullets"]):
+            raise RenderSpecError("scenario values must cover every ranked item")
+        identifiers, ranks = [], []
+        for index, value in enumerate(values):
+            _strict_fields(value, {"item_id", "value", "rank"}, f"model_context.values[{index}]")
+            if not isinstance(value["item_id"], str) or not value["item_id"]:
+                raise RenderSpecError("scenario item_id must be nonempty text")
+            identifiers.append(value["item_id"])
+            _inside_domain(value["value"], f"model_context.values[{index}].value", tuple(spec["value_domain"]))
+            if type(value["rank"]) is not int or not 1 <= value["rank"] <= len(values):
+                raise RenderSpecError("scenario rank must be within the displayed items")
+            ranks.append(value["rank"])
+        base_ids = [item.get("item_id") for item in spec["bullets"]]
+        if len(set(identifiers)) != len(identifiers) or set(identifiers) != set(base_ids) or len(set(base_ids)) != len(base_ids):
+            raise RenderSpecError("scenario values must match each unique base item_id exactly once")
+        if len(set(ranks)) != len(ranks):
+            raise RenderSpecError("scenario ranks must be distinct")
+    else:
+        raise RenderSpecError("model_context kind does not match a supported evidence pattern")
+
+
+def _validate_interactive_exact_text(spec: dict) -> None:
+    """Opt-in display hooks. Absent metadata leaves legacy output unchanged."""
+    def text(value: object, path: str) -> None:
+        if not isinstance(value, str) or not value.strip() or len(value) > 500 or any(0xD800 <= ord(c) <= 0xDFFF for c in value):
+            raise RenderSpecError(f"{path} must be nonempty Unicode text (at most 500 scalars)")
+
+    pattern = spec.get("pattern")
+    if pattern in ("gap", "before_after"):
+        collection = "items" if pattern == "gap" else "pairs"
+        keys = ("value_text",) if pattern == "gap" else ("before_text", "after_text", "delta_text")
+        for i, row in enumerate(spec.get(collection, [])):
+            for key in keys:
+                if key in row:
+                    text(row[key], f"{collection}[{i}].{key}")
+    if pattern == "scatter":
+        for name in ("x_axis", "y_axis"):
+            axis = spec[name]
+            if "tick_labels" in axis:
+                labels = axis["tick_labels"]
+                if "domain" not in axis or not isinstance(labels, list) or len(labels) != 2:
+                    raise RenderSpecError(f"{name}.tick_labels requires two labels and an explicit domain")
+                for i, label in enumerate(labels):
+                    text(label, f"{name}.tick_labels[{i}]")
 
 
 def render(spec: dict) -> str:

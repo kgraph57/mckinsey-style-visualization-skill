@@ -14,6 +14,20 @@ This repository is maintained as a marketplace-ready skill package. Contribution
 - renderer tests with `python3 -m unittest discover -s tests`
 - validation with `python3 scripts/validate_skill.py`
 
+Interactive contributions must also preserve the clean-room boundary: do not
+copy private/purchased wording, assets, shapes, coordinates, example values,
+or page order. Add provenance/lineage for every value, write a failing test
+before behavior changes, and run the separate browser lane:
+
+```bash
+python3 -m unittest discover -s tests/e2e -p 'test_*.py'
+```
+
+Visual baselines are reviewer-owned. Normal tests write ignored candidates;
+they must never update reference PNGs automatically. A baseline update requires
+the pinned Linux/Chromium environment and explicit human review. Keep classic
+output compatibility and do not add Playwright to the core validator.
+
 ## How to Contribute
 
 ### Reporting Issues

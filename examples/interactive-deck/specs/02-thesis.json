@@ -1,0 +1,29 @@
+{
+  "pattern": "summary_strip",
+  "theme": "executive",
+  "presentation": "editorial",
+  "headline": "Approve a $0.6m cap; start with North",
+  "source": "Illustrative pilot design assumptions",
+  "classification": "Illustrative",
+  "page_number": 2,
+  "blocks": [
+    {
+      "metric": "$0.6m",
+      "claim": "Approve the cap",
+      "proof": "Total cap, including conditional East",
+      "implication": "North starts in Week 1"
+    },
+    {
+      "metric": "W6",
+      "claim": "Decide on East",
+      "proof": "Adoption ≥55% and readiness ≥70",
+      "implication": "Activate only under technician constraint"
+    },
+    {
+      "metric": "W12",
+      "claim": "Review the results",
+      "proof": "Return to the steering committee",
+      "implication": "Network scale needs a separate decision"
+    }
+  ]
+}

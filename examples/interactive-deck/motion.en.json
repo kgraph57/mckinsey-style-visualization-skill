@@ -1,0 +1,75 @@
+{
+  "title": "Project Relay | An interactive pilot decision",
+  "lang": "en",
+  "design": "decision",
+  "disclosure": "Illustrative data | Not actual results",
+  "pages": [
+    {
+      "id": "overview", "kind": "overview", "section": "THE DECISION AT A GLANCE",
+      "title": "Start the $0.6m pilot in North; add East only after review",
+      "scope": "Project Relay | A 12-week dispatch improvement pilot",
+      "source": "Source: Illustrative Project Relay assumptions and pilot plan",
+      "kpis": [{"value":"12", "unit":"weeks", "label":"Test the operating model"}, {"value":"$0.6", "unit":"m", "label":"Total pilot cap, including East"}, {"value":"6", "unit":"weeks", "label":"Review whether to add East"}],
+      "flow": [{"page":"causes", "label":"Where to improve", "value":"Dispatch", "detail":"61% of delay causes"}, {"page":"routes", "label":"Where to start", "value":"North first", "detail":"Add East conditionally"}, {"page":"value", "label":"Value gate", "value":"55% adoption", "detail":"$1.8m annual value"}, {"page":"readiness", "label":"Execution gate", "value":"70 points", "detail":"Secure manager capacity"}, {"page":"plan", "label":"When to decide", "value":"Week 6", "detail":"East starts at Week 7+"}],
+      "takeaway": "Select any decision to explore its evidence and assumptions.",
+      "evidence": {"head":"The $0.6m cap covers the entire pilot, including East", "headers":["Decision","Condition"], "rows":[["At launch","Approve the $0.6m total cap and start in North"],["Week 6","Check adoption ≥55%, readiness ≥70, and the staffing-constrained scenario"],["Week 7 onward","Add East only if all three conditions pass"],["Week 12","Review network-wide scale as a separate decision"]], "assumptions":["This is a fictional example demonstrating interactions, not a real company plan or actual results.","All amounts are in US dollars. The $0.6m cap is not a North-only budget."]}
+    },
+    {
+      "id":"causes", "kind":"evidence", "section":"01 | WHERE TO IMPROVE",
+      "title":"Dispatch drives 61% of delays; address it first",
+      "scope":"Share of delays by primary cause | Illustrative 12-week review | %",
+      "source":"Source: Illustrative review of 1,200 jobs over 12 weeks; one primary cause per job",
+      "domain":[0,100],
+      "items":[{"id":"dispatch","label":"Dispatch","value":61,"focus":true},{"id":"technician","label":"Technician supply","value":24},{"id":"handoff","label":"Access / handoff","value":15}],
+      "panel":{"value":"61","unit":"%","label":"Dispatch leads delay causes", "text":"Select a bar for evidence.", "comparison":[["Next cause","Technicians: 24%"],["Share difference","61 − 24 = 37 pp"]]},
+      "takeaway":"Dispatch exceeds the next cause by 37 percentage points: start the improvement review here.",
+      "evidence":{"head":"Dispatch exceeds the next cause by 37 percentage points", "headers":["Primary cause","Share"], "rows":[["Dispatch coordination","61%"],["Technician availability","24%"],["Access and handoff","15%"],["Total","100%"]], "assumptions":["The 1,200-job, 12-week review is fictional. These are not measured results.","Each job is assigned exactly one primary cause.","The shares alone do not establish causality or the size of any improvement benefit."]}
+    },
+    {
+      "id":"routes", "kind":"ranking", "section":"02 | WHERE TO START",
+      "title":"Staffing constraints move East into second place",
+      "scope":"Regional priority | Base vs. staffing-constrained scenario | 0–100 points",
+      "source":"Source: Illustrative priority scores combining demand, travel and staffing; fixed scale",
+      "domain":[0,100], "initial":"constrained",
+      "scenarios":[{"id":"base","label":"Base case"},{"id":"constrained","label":"Staffing constrained"}],
+      "items":[{"id":"north","label":"North","base":86,"constrained":82},{"id":"central","label":"Central","base":78,"constrained":64},{"id":"east","label":"East","base":73,"constrained":76,"focus":true}],
+      "panel":{"value":"2","unit":"","label":"East’s rank with staffing constraints", "text":"North stays first; East replaces Central as the second choice.", "comparison":[["East priority","73 → 76 pts"],["Change from base","76 − 73 = +3 pts"]]},
+      "takeaway":"Switch scenarios to reorder the bars while retaining each region’s base-case reference.",
+      "evidence":{"head":"East overtakes Central when staffing is constrained", "headers":["Region","Base case","Staffing constrained"], "rows":[["North","86 pts / rank 1","82 pts / rank 1"],["Central","78 pts / rank 2","64 pts / rank 3"],["East","73 pts / rank 3","76 pts / rank 2"]], "assumptions":["Two fictional scenarios use the same fixed 0–100 scale.","Scores combine assumed demand, travel and staffing. They are not measured results.","Dashed outlines show each region’s base-case score. Each row also displays the change."]}
+    },
+    {
+      "id":"value", "kind":"model", "section":"03 | THE VALUE GATE",
+      "title":"55% adoption reaches the $1.8m annual-value gate",
+      "scope":"Adoption and annual value | Illustrative linear model | $m/year",
+      "source":"Source: Illustrative model; annual value ($m) = −1.5 + 0.06 × adoption (%)",
+      "input":{"label":"Operating-model adoption","min":30,"max":80,"step":5,"initial":55,"unit":"%"},
+      "model":{"intercept":-150,"coefficient":6,"threshold":180,"domain":[0,400]},
+      "panel":{"value":"1.8","unit":"$m/year","label":"Annual value at 55% adoption", "text":"Move adoption to find where the investment decision changes.", "comparison":[["Investment gate","$1.8m/year"],["Gap to gate","1.8 − 1.8 = $0.0m"]]},
+      "takeaway":"Below 55% adoption, the model no longer clears the investment gate.",
+      "evidence":{"head":"55% adoption is the investment decision boundary", "headers":["Adoption","Formula ($m/year)","Annual value"], "rows":[["30%","−1.5 + 0.06 × 30","$0.3m"],["55%","−1.5 + 0.06 × 55","$1.8m"],["80%","−1.5 + 0.06 × 80","$3.3m"]], "assumptions":["Displayed amounts are in millions of US dollars per year. Enter adoption as a percentage value, such as 55. The calculation retains exact integer units of $10,000 internally.","This is an illustrative linear relationship, not evidence of a causal effect from greater adoption.","The gate is at least $1.8m/year. Exactly $1.8m also passes."]}
+    },
+    {
+      "id":"readiness", "kind":"gap", "section":"04 | THE EXECUTION GATE",
+      "title":"Manager capacity and integration lift readiness to 72",
+      "scope":"Execution readiness | Illustrative additive model | Points",
+      "source":"Source: Illustrative readiness model; 24 + 20 + 18 + 10 = 72 points",
+      "threshold":70,"domain":[0,100],
+      "components":[{"id":"frequency","label":"Dispatch frequency","value":24},{"id":"data","label":"Data quality","value":20},{"id":"manager","label":"Manager capacity","value":18,"toggle":true,"initial":true},{"id":"integration","label":"System integration","value":10,"toggle":true,"initial":true}],
+      "panel":{"value":"72","unit":"pts","label":"Readiness clears the execution gate", "text":"Toggle manager capacity to test the gap.", "comparison":[["Execution gate","At least 70 pts"],["Gap to gate","72 − 70 = +2 pts"]]},
+      "takeaway":"Switch manager capacity off to see the 16-point shortfall.",
+      "evidence":{"head":"Without manager capacity, readiness falls 16 points short", "headers":["Component","Contribution"], "rows":[["Dispatch frequency","24 pts"],["Data quality","20 pts"],["Manager capacity","18 pts (0 if unavailable)"],["System integration","10 pts (0 if unavailable)"],["All available","72 pts"],["Without manager capacity","72 − 18 = 54 pts"],["Shortfall","70 − 54 = 16 pts"]], "assumptions":["This fictional model adds fixed contributions. All components enabled give 72 points.","Only manager capacity and system integration can be toggled in this example.","Adding East requires readiness ≥70, adoption ≥55%, and confirmation of the staffing-constrained scenario."]}
+    },
+    {
+      "id":"plan", "kind":"sequence", "section":"05 | WHEN TO DECIDE",
+      "title":"Review at Week 6; add East before deciding on scale",
+      "scope":"Pilot milestones | Weeks 1–12 | East remains conditional on all gates",
+      "source":"Source: Illustrative 12-week plan; adding East and network-wide scale are separate decisions",
+      "steps":[{"week":1,"label":"Start in North","detail":"Launch North operations and establish measurement."},{"week":6,"label":"Review the gates","detail":"Check adoption, readiness and the staffing scenario."},{"week":7,"label":"Add East","detail":"Add East only if all three conditions pass.","conditional":true,"holdLabel":"Hold East expansion","holdDetail":"Current conditions do not permit adding East. Continue the North pilot."},{"week":12,"label":"Decide on scale","detail":"Review pilot results. Approve network-wide scale separately."}],
+      "tasks":[{"label":"Set up tracking","start":1,"end":4},{"label":"North operations","start":1,"end":12,"focus":true},{"label":"East operations","start":7,"end":12,"conditional":true},{"label":"Scale decision","start":12,"end":12}],
+      "conditions":[{"page":"value","threshold":180,"label":"Value ≥$1.8m/year"},{"page":"readiness","threshold":70,"label":"Readiness ≥70 pts"},{"page":"routes","scenario":"constrained","label":"Staffing constrained"}],
+      "panel":{"value":"6","unit":"week","label":"Review whether to add East", "text":"Advance through the milestones to see the next action and decision.", "comparison":[["Adoption gate","At least 55%"],["Readiness gate","At least 70 pts"]]},
+      "takeaway":"Select “Next milestone” to follow launch, review, conditional expansion and the scale decision.",
+      "evidence":{"head":"East can start at Week 7 only after all three gates pass", "headers":["Timing","Check and decision"], "rows":[["Week 1","Start North. The total pilot budget cap is $0.6m."],["Week 6","Check adoption ≥55%, readiness ≥70, and the staffing-constrained scenario."],["Week 7 onward","Start East only if every condition passes."],["Week 12","Network-wide scale needs separate approval. Expansion is not automatic."]], "assumptions":["This is an illustrative, conditional pilot plan, not actual results or an approved schedule.","Adoption and readiness use the latest values selected in this deck.","The staffing condition uses the selected scenario on the regional priority page."]}
+    }
+  ]
+}

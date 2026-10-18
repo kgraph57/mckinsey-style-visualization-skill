@@ -61,6 +61,11 @@ import re
 import sys
 from pathlib import Path
 
+try:
+    from deck_core import load_manifest, normalize_manifest
+except ModuleNotFoundError:  # importlib/package callers from the repository root
+    from scripts.deck_core import load_manifest, normalize_manifest
+
 ROOT = Path(__file__).resolve().parent
 
 
@@ -305,8 +310,8 @@ def main() -> None:
 
     manifest_path = Path(args.manifest)
     try:
-        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
+        manifest = load_manifest(manifest_path)
+    except (OSError, ValueError) as exc:
         print(f"ERROR: cannot read manifest: {exc}", file=sys.stderr)
         raise SystemExit(1)
 
@@ -315,8 +320,11 @@ def main() -> None:
         print("ERROR: manifest must include a non-empty 'slides' list", file=sys.stderr)
         raise SystemExit(1)
 
-    base = manifest_path.parent
-    spec_paths = [base / p for p in slides]
+    try:
+        spec_paths = [entry.spec_path for entry in normalize_manifest(manifest, manifest_path)]
+    except ValueError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        raise SystemExit(1)
     for path in spec_paths:
         if not path.exists():
             print(f"ERROR: spec not found: {path}", file=sys.stderr)

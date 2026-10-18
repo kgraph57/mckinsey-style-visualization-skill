@@ -32,8 +32,45 @@ jobs:
       - name: Check site artifacts are fresh
         run: python3 scripts/build_site.py --check
 
+      - name: Check landing renders are fresh
+        run: python3 scripts/render_landing_decks.py --check
+
       - name: Compile Python scripts
         run: python3 -m py_compile scripts/render_slide_spec.py scripts/validate_skill.py scripts/review_slide_spec.py scripts/build_site.py tests/test_render_slide_spec.py tests/test_review_slide_spec.py tests/test_validate_skill.py tests/test_build_site.py tests/test_site.py
 
       - name: Check whitespace
         run: git diff --check
+
+  interactive-e2e:
+    name: Interactive browser, visual, PDF, and audit acceptance
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install pinned browser test dependencies
+        run: |
+          python3 -m pip install -r requirements-e2e.txt
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+          python3 -m playwright install --with-deps chromium firefox
+
+      - name: Run interactive acceptance
+        run: python3 -m unittest discover -s tests/e2e -p 'test_*.py'
+
+      - name: Upload interactive failure evidence
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: interactive-e2e-failure
+          path: |
+            test-results/interactive/**
+            test-results/**/*.zip
+          if-no-files-found: ignore
+          retention-days: 7

@@ -1,0 +1,442 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'"><title>Project Relay｜押して確かめる実証計画</title><style>:root{--ink:#142033;--navy:#15296b;--muted:#526174;--line:#cbd4df;--pale:#edf2f8;--tone:#9eafc9;--light:#d1dce9;--paper:#fff;--ease-out:cubic-bezier(.23,1,.32,1);--ease-in-out:cubic-bezier(.77,0,.175,1);--ease-drawer:cubic-bezier(.32,.72,0,1)}
+*{box-sizing:border-box}body{margin:0;background:#e4e9ef;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;overflow:auto}button,input{font:inherit}button{cursor:pointer;color:inherit}button:focus-visible,input:focus-visible,a:focus-visible{outline:4px solid #2575c4;outline-offset:5px}button:disabled{cursor:default;opacity:.55}button:active{transform:scale(.985)}.sr-only,.skip:not(:focus){position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.skip:focus{position:fixed;z-index:50;background:white;padding:12px}.js body{overflow:hidden}#stage{width:1920px;position:relative;transform-origin:0 0}.js #stage{position:fixed;height:1080px;box-shadow:0 18px 70px #13234012}.motion-page{position:relative;width:1920px;height:1080px;background:var(--paper);overflow:hidden}.js .motion-page{position:absolute;inset:0;display:none}.js .motion-page.active{display:block}header{position:absolute;left:86px;right:86px;top:58px}.section-label{font-size:26px;font-weight:700;color:var(--navy);letter-spacing:.05em}h1{margin:30px 0 0;font-size:52px;line-height:1.3;letter-spacing:-.025em;font-weight:750;white-space:nowrap}.scope{margin-top:26px;color:var(--muted);font-size:28px;line-height:1.4}.page-body{position:absolute;left:86px;right:86px;top:286px;height:640px;display:grid;grid-template-columns:1060px 624px;gap:64px}.exhibit{min-width:0;height:640px}.insight{background:var(--pale);padding:44px 46px;position:relative;height:640px}.hero-number{font-variant-numeric:tabular-nums;line-height:1.1;color:var(--navy);white-space:nowrap}.hero-number>[data-hero]{font-size:152px;letter-spacing:-.04em;font-weight:750}.hero-unit{font-size:34px;font-weight:600;margin-left:12px}.insight h2{font-size:36px;line-height:1.45;margin:22px 0 0;font-weight:700}.panel-copy{font-size:32px;line-height:1.65;margin:20px 0 0}.comparison{margin-top:28px;border-top:1px solid var(--line)}.comparison>div{display:flex;justify-content:space-between;gap:20px;padding:16px 0;border-bottom:1px solid var(--line);font-size:26px;line-height:1.4}.comparison strong{text-align:right;font-variant-numeric:tabular-nums}.evidence-button{position:absolute;left:46px;bottom:38px;font-size:30px;font-weight:650;padding:12px 22px;background:white;border:2px solid var(--navy);color:var(--navy);min-height:64px}.text-button{border:0;background:transparent}.takeaway{position:absolute;left:86px;right:86px;top:949px;margin:0;color:var(--navy);font-size:32px;font-weight:650;line-height:1.5}footer{position:absolute;left:86px;right:86px;bottom:27px;display:flex;align-items:center;gap:30px;font-size:21px;color:var(--muted);line-height:1.4}footer>span:first-child{flex:1}footer>span:last-child{font-variant-numeric:tabular-nums}
+.bar-chart{height:555px;position:relative;padding-top:12px}.bar-row{position:absolute;top:0;left:0;width:100%;height:150px;display:grid;grid-template-columns:310px 1fr 90px;align-items:center;border:2px solid transparent;background:transparent;text-align:left;padding:0 8px;transition:transform 850ms var(--ease-in-out),border-color 160ms ease}.bar-name{font-size:38px;font-weight:550;white-space:nowrap}.bar-name small{display:inline-block;min-width:38px;font-size:28px;color:var(--muted)}.bar-name small:empty{display:none}.bar-number{font-size:48px;text-align:right;font-variant-numeric:tabular-nums;line-height:1}.bar-track{height:64px;position:relative;margin-right:20px}.bar-fill,.bar-ghost{position:absolute;inset:0;background:var(--light);transform-origin:left center}.bar-fill{transition:transform 850ms var(--ease-in-out);background:var(--tone)}.bar-ghost{background:none;border:2px dashed var(--muted)}.focus .bar-fill{background:var(--navy)}.focus .bar-name,.focus .bar-number{color:var(--navy);font-weight:750}.bar-delta{position:absolute;left:320px;bottom:12px;color:var(--muted);font-size:25px}.bar-axis{position:absolute;bottom:0;left:320px;right:98px;display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:12px;font-size:25px;color:var(--muted)}.chart-note{font-size:26px;color:var(--muted);margin:28px 0 0}.segmented{display:flex;gap:0;margin-bottom:12px}.segment{min-width:250px;min-height:62px;background:#fff;border:1px solid var(--line);padding:10px 24px;font-size:30px;font-weight:650}.segment[aria-pressed=true]{background:var(--navy);color:white;border-color:var(--navy)}.ranking-chart{height:500px}.ranking-chart .bar-row{height:135px}.ranking-chart .bar-delta{bottom:2px}.ranking-chart+.chart-note{margin-top:15px}
+.model-chart{display:block;width:1060px;height:475px;overflow:visible}.model-chart text{font-size:29px;fill:var(--muted)}.model-chart .axis{fill:none;stroke:var(--muted);stroke-width:2}.grid{stroke:#e3e8ee;stroke-width:1}.model-line{stroke:var(--navy);stroke-width:7;fill:none}.threshold{stroke:#77889f;stroke-dasharray:10 8;stroke-width:2}.model-chart .threshold-label{font-size:29px;fill:var(--ink)}[data-model-point]{fill:var(--navy);stroke:white;stroke-width:5}.point-guide{stroke:var(--navy);stroke-width:2;fill:none;stroke-dasharray:5 6;opacity:.5}.model-chart .point-label{fill:var(--navy);font-weight:750;font-size:35px}.slider-box{margin:12px 10px 0 96px}.slider-box label{display:flex;align-items:center;justify-content:space-between;font-size:32px;font-weight:650}.slider-box label strong{font-size:42px;color:var(--navy)}input[type=range]{accent-color:var(--navy);width:100%;height:40px;cursor:ew-resize;margin:10px 0 0}.slider-ends{display:flex;justify-content:space-between;font-size:24px;color:var(--muted)}.formula{font-size:29px;font-variant-numeric:tabular-nums;line-height:1.5;color:var(--navy);margin:18px 0 0;font-weight:600}.model-chart~.formula{margin-left:96px}
+.score-chart{margin:100px 0 0;position:relative;height:180px}.score-track{position:relative;height:86px;background:#f1f4f7;overflow:visible}.score-part{position:absolute;inset:0;transform-origin:left center;transition:transform 600ms var(--ease-in-out);border-right:4px solid white}.tone-0{background:#8a9dbb}.tone-1{background:#b4c2d5}.tone-2{background:var(--navy)}.tone-3{background:#516b95}.score-reference{position:absolute;inset:0;width:72%;border:2px dashed var(--muted);z-index:2;pointer-events:none}.score-missing{position:absolute;inset:0;transform-origin:left center;border:3px dashed var(--navy);background:repeating-linear-gradient(135deg,transparent 0 9px,#15296b13 9px 12px);pointer-events:none}.score-threshold{position:absolute;top:-45px;bottom:55px;border-left:3px solid var(--ink);z-index:3}.score-threshold span{position:absolute;top:-5px;left:12px;white-space:nowrap;font-size:28px}.score-axis{display:flex;justify-content:space-between;font-size:26px;color:var(--muted);margin-top:13px}.gap-message{font-size:34px;font-weight:700;color:var(--navy);margin:30px 0 0}.contributions{display:grid;grid-template-columns:1fr 1fr;gap:22px 32px;margin-top:95px}.contribution{border-bottom:1px solid var(--line);padding:18px 0;display:flex;align-items:center;gap:16px;font-size:31px;min-height:94px}.contribution strong{margin-left:auto;font-size:40px;white-space:nowrap;color:var(--navy)}.contribution strong small{font-size:24px;margin-left:5px}.toggle{cursor:pointer}.toggle input{width:34px;height:34px;accent-color:var(--navy);margin:0;flex:none}.contributions+.formula{margin-top:24px}
+.timeline{width:1060px;height:490px;display:block;overflow:visible}.timeline text{font-size:30px;fill:var(--muted)}.timeline .planned{fill:#f4f6f9;stroke:var(--line);stroke-dasharray:7 5;stroke-width:2}.timeline .task-fill{fill:var(--tone);transform-box:fill-box;transform-origin:left center;transition:transform 750ms var(--ease-in-out)}.timeline .main-task{fill:var(--navy)}[data-now-line]{fill:var(--navy);transition:transform 750ms var(--ease-in-out)}.timeline .now-line{stroke:var(--navy);stroke-width:3;stroke-dasharray:6 7}.timeline [data-now-label]{fill:var(--navy);font-weight:700;font-size:29px}.sequence-controls{display:flex;align-items:center;justify-content:space-between;margin-top:28px}.primary-button{background:var(--navy);border:0;color:white;padding:16px 30px;font-size:32px;font-weight:650;min-height:68px}.reset-step{background:transparent;border:0;color:var(--muted);font-size:27px;padding:16px}.gate-status{font-size:26px;line-height:1.5;margin:22px 0 0;color:var(--muted)}
+.overview-body{position:absolute;inset:286px 86px 110px}.kpi-band{display:grid;grid-template-columns:repeat(3,1fr);background:var(--pale);padding:28px 42px 34px}.kpi{padding:0 34px;border-right:1px solid #bfcbdc}.kpi:first-child{padding-left:0}.kpi:last-child{border:0}.kpi strong{font-size:128px;line-height:1.1;letter-spacing:-.04em;color:var(--navy);font-variant-numeric:tabular-nums}.kpi-unit{font-size:38px;font-weight:600;margin-left:18px}.kpi p{font-size:31px;margin:18px 0 0;line-height:1.4}.overview-path{margin-top:58px}.overview-path>p{font-size:30px;font-weight:700;margin:0 0 26px}.flow-stops{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;position:relative}.flow-stops:before{content:"";position:absolute;left:0;right:0;top:42px;border-top:2px dashed var(--tone)}.flow-stop{position:relative;background:white;border:2px solid var(--line);padding:30px 22px 22px;text-align:left;min-height:252px;transition:border-color 160ms ease,box-shadow 160ms ease}.flow-stop:after{content:"›";position:absolute;right:-23px;top:50px;background:white;color:var(--navy);font-size:38px;z-index:1}.flow-stop:last-child:after{display:none}.flow-label{display:block;font-size:25px;color:var(--muted);margin-bottom:22px}.flow-stop strong{display:block;font-size:34px;line-height:1.45;color:var(--navy);font-weight:750;min-height:96px}.flow-detail{display:block;font-size:25px;line-height:1.5;margin-top:12px}.flow-link{display:block;color:var(--navy);font-size:25px;font-weight:650;margin-top:26px}.overview-takeaway{font-size:29px;font-weight:600;color:var(--navy);margin:30px 0 0}.overview-evidence{border:0;background:transparent;color:var(--muted);font-size:24px;padding:10px 0;margin-top:5px}
+.deck-nav{position:fixed;bottom:9px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:7px;z-index:10;background:#f8fafc;border:1px solid #cad3df;padding:4px 10px;border-radius:5px;box-shadow:0 3px 14px #12213a0b;white-space:nowrap;font-size:14px}.deck-nav button{background:transparent;border:0;padding:8px 12px;min-width:44px;min-height:44px}.deck-nav button:hover{background:#e4ebf5}.deck-nav [data-page-count]{padding:0 12px;font-variant-numeric:tabular-nums;min-width:75px;text-align:center}.nav-rule{height:22px;border-left:1px solid var(--line);margin:0 6px}kbd{font:inherit;font-size:11px;opacity:.65;margin-left:5px}.deck-nav [aria-pressed=true]{color:var(--navy);font-weight:750}.reveal{opacity:1}.js .active:not(.built) .reveal{opacity:0;transform:translateY(12px)}.js .active.built .reveal{opacity:1;transform:none;transition:opacity 650ms var(--ease-out),transform 850ms var(--ease-out);transition-delay:var(--delay,0ms)}.js .active:not(.built) .bar-fill{transform:scaleX(.001)!important}.hint-ring{outline:4px solid #4775ba;outline-offset:8px}.no-motion *{transition-duration:0ms!important;transition-delay:0ms!important;animation:none!important}.no-motion .reveal{opacity:1!important;transform:none!important}
+dialog{border:0;color:var(--ink);background:white;padding:0;max-height:100dvh}dialog::backdrop{background:#11213c66}.evidence-drawer{position:fixed;inset:0 0 0 auto;margin:0;width:min(720px,48vw);height:100dvh;padding:52px 48px 35px;overflow-y:auto;transform:translateX(0)}.evidence-drawer[open]{animation:drawer-enter 280ms var(--ease-drawer)}@keyframes drawer-enter{from{opacity:.7;transform:translateX(15%)}to{opacity:1;transform:none}}.close-dialog{position:absolute;right:20px;top:16px;min-width:48px;min-height:48px;font-size:32px;background:none;border:0}.drawer-crumb{font-size:17px;font-weight:650;color:var(--navy);line-height:1.5;padding-right:28px}#evidence-head{font-size:32px;line-height:1.5;margin:24px 0 28px;font-weight:750}.drawer-tabs{display:flex;gap:28px;border-bottom:1px solid var(--line)}.drawer-tabs button{padding:12px 0 14px;background:none;border:0;border-bottom:3px solid transparent;font-size:21px;font-weight:600;min-height:50px;color:var(--muted)}.drawer-tabs button[aria-selected=true]{color:var(--navy);border-bottom-color:var(--navy)}#drawer-content{margin-top:25px;font-size:21px;line-height:1.8}#drawer-content table{border-collapse:collapse;width:100%;font-size:20px;line-height:1.65}#drawer-content th,#drawer-content td{border-bottom:1px solid var(--line);padding:15px 9px;text-align:left;vertical-align:top}#drawer-content th{background:var(--pale);font-weight:650}#drawer-content p{margin:0 0 22px}.drawer-source{font-size:16px;line-height:1.7;color:var(--muted);margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}.drawer-selected{padding:14px 18px;background:var(--pale);font-weight:650;margin-bottom:20px}.drawer-link{display:block;background:none;border:0;padding:10px 0;color:var(--navy);font-size:20px;text-align:left;min-height:44px}.overview-dialog{width:min(1500px,94vw);max-width:none;max-height:94dvh;padding:26px 32px;overflow:auto}.overview-header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px}.overview-header h2{font-size:25px;margin:0}.overview-header button{background:none;border:0;font-size:30px;min-width:44px;min-height:44px}.overview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.overview-card{background:#edf2f8;border:2px solid var(--line);padding:0;text-align:left;overflow:hidden}.overview-card[aria-current=true]{border-color:var(--navy)}.preview-box{width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;background:white;pointer-events:none}.preview-box .motion-page{display:block!important;position:absolute;top:0;left:0;transform-origin:0 0;pointer-events:none}.overview-card-caption{padding:12px 15px;font-size:16px;line-height:1.6}.overview-card-caption strong{color:var(--navy);margin-right:12px}.motion-tip{position:fixed;z-index:30;background:#142033;color:white;max-width:360px;padding:12px 17px;box-shadow:0 8px 30px #13234022;font-size:16px;line-height:1.65;pointer-events:none}.motion-tip strong{font-size:22px;display:block}.motion-tip small{display:block;font-size:13px;color:#d1dce9}#demo-cursor{position:fixed;left:0;top:0;z-index:80;pointer-events:none;display:none;width:30px;height:38px;filter:drop-shadow(0 2px 3px #12213a55)}#demo-cursor svg{width:100%;height:100%;fill:var(--navy);stroke:white;stroke-width:2}#demo-cursor span{position:absolute;top:-10px;left:-10px;width:38px;height:38px;border:3px solid #5789ce;border-radius:50%;opacity:0}#demo-cursor.pressed span{opacity:1}#demo-status{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:90;background:var(--navy);color:white;padding:9px 20px;border-radius:4px;font-size:14px}
+@media(hover:hover) and (pointer:fine){.bar-row:hover{border-color:var(--line)}.flow-stop:hover{border-color:var(--navy);box-shadow:0 8px 24px #15296b12}.evidence-button:hover{background:var(--navy);color:white}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0ms!important;transition-delay:0ms!important;animation:none!important}.reveal{opacity:1!important;transform:none!important}}
+@media(max-width:760px){.js body{overflow:auto;padding-bottom:74px}.js #stage,#stage{position:relative;transform:none!important;left:0!important;top:0!important;width:100%;height:auto;box-shadow:none}.motion-page,.js .motion-page{width:100%;height:auto;min-height:calc(100dvh - 74px);position:relative;padding:28px 22px 24px;overflow:hidden}.js .motion-page{display:none}.js .motion-page.active{display:block}header{position:static}.section-label{font-size:15px}h1{white-space:normal;font-size:27px;line-height:1.5;margin-top:15px;letter-spacing:-.03em}.scope{font-size:15px;margin-top:15px;line-height:1.6}.page-body{position:static;display:flex;flex-direction:column;gap:24px;height:auto;margin-top:25px}.exhibit{height:auto;width:100%}.insight{height:auto;padding:25px 24px 98px}.hero-number>[data-hero]{font-size:86px}.hero-unit{font-size:24px}.insight h2{font-size:23px;margin-top:16px}.panel-copy{font-size:19px;line-height:1.8;margin-top:14px}.comparison{margin-top:18px}.comparison>div{font-size:16px;gap:12px;padding:14px 0}.evidence-button{left:24px;bottom:24px;font-size:19px;min-height:48px;padding:10px 16px}.takeaway{position:static;font-size:19px;margin-top:22px;line-height:1.7}footer{position:static;font-size:12px;flex-wrap:wrap;gap:10px;margin-top:28px;line-height:1.7}footer>span:first-child{flex-basis:100%}.bar-chart{height:330px}.bar-row{height:86px;grid-template-columns:112px 1fr 42px;padding:0 3px}.bar-name{font-size:18px;white-space:normal}.bar-name small{font-size:14px;min-width:18px}.bar-number{font-size:28px}.bar-track{height:37px;margin-right:10px}.bar-delta{left:118px;font-size:13px;bottom:0}.bar-axis{left:118px;right:47px;font-size:14px;padding-top:8px}.chart-note{font-size:15px;line-height:1.7;margin-top:15px}.segment{font-size:18px;min-width:0;flex:1;min-height:48px;padding:10px}.segmented{margin-bottom:18px}.ranking-chart{height:330px}.ranking-chart .bar-row{height:86px}.model-chart{width:100%;height:auto}.model-chart text{font-size:43px}.model-chart .point-label{font-size:50px}.model-chart .threshold-label{font-size:42px}.slider-box{margin:18px 3px 0}.slider-box label{font-size:18px}.slider-box label strong{font-size:28px}input[type=range]{height:44px}.slider-ends{font-size:14px}.formula,.model-chart~.formula{font-size:17px;line-height:1.7;margin:14px 0 0}.score-chart{margin-top:54px;height:150px}.score-track{height:54px}.score-threshold{top:-32px;bottom:70px}.score-threshold span{font-size:15px;left:-75px;top:0}.score-axis{font-size:14px;margin-top:9px}.gap-message{font-size:21px;margin-top:22px}.contributions{margin-top:23px;grid-template-columns:1fr;gap:8px}.contribution{min-height:64px;padding:13px 0;font-size:20px}.contribution strong{font-size:28px}.contribution strong small{font-size:17px}.toggle input{width:28px;height:28px}.timeline{width:760px;height:410px;max-width:none}.motion-page[data-kind=sequence] .exhibit{overflow-x:auto}.sequence-controls{margin-top:15px;gap:8px}.primary-button{font-size:19px;padding:13px 16px;min-height:48px;white-space:nowrap}.reset-step{font-size:16px;padding:10px 0}.gate-status{font-size:16px;line-height:1.7}.overview-body{position:static;margin-top:27px}.kpi-band{padding:20px 18px;gap:18px;grid-template-columns:1fr}.kpi,.kpi:first-child{padding:0 0 15px;border:0;border-bottom:1px solid var(--line)}.kpi:last-child{padding-bottom:0}.kpi strong{font-size:64px}.kpi-unit{font-size:25px;margin-left:12px}.kpi p{font-size:17px;margin-top:7px}.overview-path{margin-top:26px}.overview-path>p{font-size:20px;line-height:1.6;margin-bottom:14px}.flow-stops{display:flex;flex-direction:column;gap:14px}.flow-stops:before{display:none}.flow-stop{min-height:0;padding:20px}.flow-label{font-size:15px;margin:0 0 8px}.flow-stop strong{font-size:23px;min-height:0}.flow-detail{font-size:16px;margin-top:8px}.flow-link{font-size:16px;margin-top:13px}.flow-stop:after{display:none}.overview-takeaway{font-size:18px;line-height:1.7;margin-top:22px}.overview-evidence{font-size:16px;min-height:44px}.deck-nav{left:8px;right:8px;bottom:8px;transform:none;padding:3px;gap:0;justify-content:space-between;font-size:12px}.deck-nav button{padding:6px 8px;min-width:38px}.deck-nav [data-page-count]{padding:0 3px;min-width:44px}.deck-nav kbd,.deck-nav .nav-rule,.deck-nav [data-help],.deck-nav [data-fullscreen]{display:none}.evidence-drawer{width:100vw;max-width:100vw;padding:45px 25px 28px}#evidence-head{font-size:27px}.drawer-tabs button{font-size:19px}#drawer-content{font-size:19px}#drawer-content table{font-size:17px}#drawer-content th,#drawer-content td{padding:13px 7px}.drawer-source{font-size:14px}.overview-dialog{padding:20px;width:96vw}.overview-header h2{font-size:19px}.overview-grid{grid-template-columns:1fr 1fr;gap:12px}.overview-card-caption{font-size:13px;padding:9px}.overview-card-caption strong{display:block}.motion-tip{max-width:270px;font-size:14px}}
+body[data-static]{overflow:auto!important;padding:24px 0}body[data-static] #stage{position:relative;transform:none!important;left:auto!important;top:auto!important;width:1920px;height:auto;margin:0 auto}body[data-static] .motion-page{display:block!important;position:relative;margin-bottom:24px}body[data-static] .reveal{opacity:1!important;transform:none!important}body[data-static] .deck-nav{display:none}
+.hero-number{display:block;width:100%;border:0;background:transparent;padding:0;text-align:left}
+@media(max-width:760px){.score-threshold span{left:auto;right:12px}}
+@media(max-width:760px){body[data-static] #stage{width:100%!important}body[data-static]{padding-top:0}}
+.mobile-timeline{display:none}.preview-box .reveal{opacity:1!important;transform:none!important;transition:none!important}p,h1,h2,.flow-detail{text-wrap:pretty;word-break:auto-phrase}
+@media(max-width:760px){.overview-dialog .preview-box{display:none}.overview-dialog .overview-grid{grid-template-columns:1fr}.overview-card-caption{font-size:16px;padding:13px}.overview-card-caption strong{display:inline;margin-right:12px}}
+@media(max-width:760px){.motion-page[data-kind=sequence] .timeline{display:none}.motion-page[data-kind=sequence] .exhibit{overflow:visible}.mobile-timeline{display:block;list-style:none;padding:0 0 0 17px;margin:4px 0 24px}.mobile-timeline li{position:relative;padding:0 0 26px 26px;border-left:2px solid var(--line);color:var(--muted)}.mobile-timeline li:before{content:"";position:absolute;left:-8px;top:5px;width:14px;height:14px;border:2px solid var(--line);border-radius:50%;background:white}.mobile-timeline li.completed:before{background:var(--navy);border-color:var(--navy)}.mobile-timeline li.current{color:var(--navy)}.mobile-week{font-size:15px;font-weight:700;display:block;margin-bottom:6px}.mobile-timeline strong{font-size:21px}.mobile-timeline p{font-size:17px;line-height:1.7;margin:8px 0 0}.mobile-timeline li:last-child{border:0;padding-bottom:0}.preview-box .mobile-timeline{display:none}}
+.hint-ring{outline:0}.hint-ring::before{content:"";position:absolute;right:12px;top:12px;width:22px;height:22px;border:3px solid #4775ba;border-radius:50%;pointer-events:none;animation:hint-pulse 1600ms var(--ease-out) both}@keyframes hint-pulse{0%{opacity:0;transform:scale(.95)}35%{opacity:1}100%{opacity:0;transform:scale(1.45)}}
+@media(min-width:761px){.model-chart{height:445px}.slider-box{margin-top:0}.slider-box input{height:34px;margin-top:6px}.slider-ends{font-size:22px}.model-chart~.formula{font-size:27px;margin-top:10px}}
+@media(min-width:761px){.kpi-band{padding:24px 42px}.kpi strong{font-size:112px}.kpi p{margin-top:14px}.overview-path{margin-top:32px}.overview-path>p{margin-bottom:20px}.flow-stop{height:280px;min-height:0;padding:22px;display:flex;flex-direction:column}.flow-label{margin-bottom:14px}.flow-stop strong{font-size:32px;min-height:50px}.flow-detail{font-size:24px;margin-top:10px}.flow-link{margin-top:auto;font-size:24px}.overview-takeaway{display:none}.overview-evidence{position:absolute;left:0;bottom:0}}
+@media(min-width:761px){.hero-number>[data-hero]{font-size:136px}.insight h2{font-size:34px;margin-top:14px}.panel-copy{margin-top:14px}.comparison{margin-top:18px}.comparison>div{padding:12px 0}}
+@page{size:20in 11.25in;margin:0}@media print{html,body{margin:0!important;padding:0!important;background:white!important;overflow:visible!important}#stage,body[data-static] #stage{position:static!important;transform:none!important;width:1920px!important;height:auto!important;margin:0!important}.motion-page,.js .motion-page,body[data-static] .motion-page{position:relative!important;display:block!important;width:1920px!important;height:1080px!important;margin:0!important;padding:0!important;break-after:page;page-break-after:always}.motion-page:last-child{break-after:auto}header{position:absolute}.page-body{position:absolute;display:grid}.takeaway,footer{position:absolute}.reveal{opacity:1!important;transform:none!important}.deck-nav,dialog,#demo-cursor,#demo-status,.skip,.motion-tip{display:none!important}*{transition:none!important;animation:none!important}}
+</style></head><body ><a class="skip" href="#stage">資料へ進む</a><main id="stage"><section class="motion-page" id="p-overview" data-page="overview" data-kind="overview" aria-labelledby="h-overview"><header><div class="section-label reveal">意思決定の全体像</div><h1 class="reveal" style="--delay:80ms" id="h-overview">60万ドルの実証は北部から始め、東部は条件付きで加える</h1><div class="scope reveal" style="--delay:180ms">Project Relay｜12週間の配車改善パイロット</div></header><div class="overview-body"><div class="kpi-band"><div class="kpi reveal" style="--delay:250ms"><strong>12</strong><span class="kpi-unit">週間</span><p>運用モデルを確かめる期間</p></div><div class="kpi reveal" style="--delay:330ms"><strong>60</strong><span class="kpi-unit">万ドル</span><p>東部を含む実証全体の予算上限</p></div><div class="kpi reveal" style="--delay:410ms"><strong>6</strong><span class="kpi-unit">週目</span><p>東部を加えるかを判断する時点</p></div></div><div class="overview-path"><p>改善の起点から、実行の判断まで</p><div class="flow-stops"><button class="flow-stop reveal" style="--delay:550ms" type="button" data-go="causes" data-demo="overview-causes"><span class="flow-label">改善する場所</span><strong>配車調整</strong><span class="flow-detail">遅延要因の61%</span><span class="flow-link">詳しく見る p.2 ›</span></button><button class="flow-stop reveal" style="--delay:620ms" type="button" data-go="routes" data-demo="overview-routes"><span class="flow-label">試す地域</span><strong>北部で開始</strong><span class="flow-detail">東部は条件付きで追加</span><span class="flow-link">詳しく見る p.3 ›</span></button><button class="flow-stop reveal" style="--delay:690ms" type="button" data-go="value" data-demo="overview-value"><span class="flow-label">便益の条件</span><strong>採用率55%</strong><span class="flow-detail">年間便益180万ドルが基準</span><span class="flow-link">詳しく見る p.4 ›</span></button><button class="flow-stop reveal" style="--delay:760ms" type="button" data-go="readiness" data-demo="overview-readiness"><span class="flow-label">実行の条件</span><strong>準備度70点</strong><span class="flow-detail">管理者の枠を確保</span><span class="flow-link">詳しく見る p.5 ›</span></button><button class="flow-stop reveal" style="--delay:830ms" type="button" data-go="plan" data-demo="overview-plan"><span class="flow-label">進める順番</span><strong>6週で判断</strong><span class="flow-detail">東部の開始は7週目以降</span><span class="flow-link">詳しく見る p.6 ›</span></button></div></div><p class="overview-takeaway">気になる場所を押すと、その判断を確かめるページへ入れます。</p><button type="button" class="overview-evidence" data-evidence>計画全体の前提を見る ›</button></div><footer><span>出所：Project Relay 数字台帳・実証計画（架空の設定）</span><span>架空データによる作例</span><span>1 / 6</span></footer></section>
+<section class="motion-page" id="p-causes" data-page="causes" data-kind="evidence" aria-labelledby="h-causes"><header><div class="section-label reveal">01｜改善する場所</div><h1 class="reveal" style="--delay:80ms" id="h-causes">遅延の61%は配車調整に集中し、最初の改善対象になる</h1><div class="scope reveal" style="--delay:180ms">主因別の遅延構成比｜12週間の架空レビュー｜%</div></header><div class="page-body"><div class="exhibit reveal" style="--delay:300ms"><div class="bar-chart " aria-label="主因別の遅延構成比｜12週間の架空レビュー｜%"><button type="button" class="bar-row focus" data-item="dispatch" data-demo="causes-dispatch" style="transform:translateY(0px)" aria-label="配車調整 61。押すと根拠を表示"><span class="bar-name"><small data-rank></small>配車調整</span><span class="bar-track"><span class="bar-ghost" style="transform:scaleX(0.61)"></span><span class="bar-fill" style="transform:scaleX(0.61)"></span></span><strong class="bar-number" data-bar-value>61</strong><span class="bar-delta" data-bar-delta></span></button><button type="button" class="bar-row " data-item="technician" data-demo="causes-technician" style="transform:translateY(165px)" aria-label="技術者の確保 24。押すと根拠を表示"><span class="bar-name"><small data-rank></small>技術者の確保</span><span class="bar-track"><span class="bar-ghost" style="transform:scaleX(0.24)"></span><span class="bar-fill" style="transform:scaleX(0.24)"></span></span><strong class="bar-number" data-bar-value>24</strong><span class="bar-delta" data-bar-delta></span></button><button type="button" class="bar-row " data-item="handoff" data-demo="causes-handoff" style="transform:translateY(330px)" aria-label="入場・引き継ぎ 15。押すと根拠を表示"><span class="bar-name"><small data-rank></small>入場・引き継ぎ</span><span class="bar-track"><span class="bar-ghost" style="transform:scaleX(0.15)"></span><span class="bar-fill" style="transform:scaleX(0.15)"></span></span><strong class="bar-number" data-bar-value>15</strong><span class="bar-delta" data-bar-delta></span></button><div class="bar-axis"><span>0</span><span>100%</span></div></div><p class="chart-note">棒を押すと、その項目の内訳と前提を表示します ›</p></div><aside class="insight reveal" style="--delay:800ms"><button type="button" class="hero-number" data-evidence aria-label="大きな数字を押して内訳と出所を表示"><span data-hero>61</span><span class="hero-unit">%</span></button><h2 data-panel-label>遅延の主因は配車調整</h2><p class="panel-copy">棒を押すと、項目ごとの内訳と出所を開けます。</p><div class="comparison" data-comparison><div><span>次に大きい要因</span><strong>技術者の確保 24%</strong></div><div><span>構成比の差</span><strong>61 − 24 = 37ポイント</strong></div></div><button type="button" class="evidence-button" data-evidence data-demo="causes-evidence">内訳と出所を見る ›</button></aside></div><p class="takeaway reveal" style="--delay:950ms" data-takeaway>配車調整は次の要因より37ポイント大きく、改善の検討をここから始める。</p><footer><span>出所：1,200件・12週間の架空レビュー／各案件の主因を1つに分類</span><span>架空データによる作例</span><span>2 / 6</span></footer></section>
+<section class="motion-page" id="p-routes" data-page="routes" data-kind="ranking" aria-labelledby="h-routes"><header><div class="section-label reveal">02｜試す地域</div><h1 class="reveal" style="--delay:80ms" id="h-routes">人員制約下では東部が2位に上がり、北部との組合せが残る</h1><div class="scope reveal" style="--delay:180ms">地域の優先順位｜通常時と人員制約時の試算｜0〜100点</div></header><div class="page-body"><div class="exhibit reveal" style="--delay:300ms"><div class="segmented" role="group" aria-label="地域を比較する条件"><button type="button" class="segment" data-scenario="base" data-demo="routes-base" aria-pressed="false">通常時</button><button type="button" class="segment" data-scenario="constrained" data-demo="routes-constrained" aria-pressed="true">人員制約あり</button></div><div class="bar-chart ranking-chart" aria-label="地域の優先順位｜通常時と人員制約時の試算｜0〜100点"><button type="button" class="bar-row " data-item="north" data-demo="routes-north" style="transform:translateY(0px)" aria-label="北部 82。押すと根拠を表示"><span class="bar-name"><small data-rank>1</small>北部</span><span class="bar-track"><span class="bar-ghost" style="transform:scaleX(0.86)"></span><span class="bar-fill" style="transform:scaleX(0.82)"></span></span><strong class="bar-number" data-bar-value>82</strong><span class="bar-delta" data-bar-delta></span></button><button type="button" class="bar-row " data-item="central" data-demo="routes-central" style="transform:translateY(330px)" aria-label="中央部 64。押すと根拠を表示"><span class="bar-name"><small data-rank>3</small>中央部</span><span class="bar-track"><span class="bar-ghost" style="transform:scaleX(0.78)"></span><span class="bar-fill" style="transform:scaleX(0.64)"></span></span><strong class="bar-number" data-bar-value>64</strong><span class="bar-delta" data-bar-delta></span></button><button type="button" class="bar-row focus" data-item="east" data-demo="routes-east" style="transform:translateY(165px)" aria-label="東部 76。押すと根拠を表示"><span class="bar-name"><small data-rank>2</small>東部</span><span class="bar-track"><span class="bar-ghost" style="transform:scaleX(0.73)"></span><span class="bar-fill" style="transform:scaleX(0.76)"></span></span><strong class="bar-number" data-bar-value>76</strong><span class="bar-delta" data-bar-delta></span></button><div class="bar-axis"><span>0</span><span>100点</span></div></div><p class="chart-note">破線：同じ地域の通常時の点数</p></div><aside class="insight reveal" style="--delay:800ms"><button type="button" class="hero-number" data-evidence aria-label="大きな数字を押して内訳と出所を表示"><span data-hero>2</span><span class="hero-unit">位</span></button><h2 data-panel-label>人員制約下での東部の順位</h2><p class="panel-copy">北部は1位のまま、第2候補が中央部から東部へ変わる。</p><div class="comparison" data-comparison><div><span>東部の優先度</span><strong>73 → 76点</strong></div><div><span>通常時との差</span><strong>76 − 73 = ＋3点</strong></div></div><button type="button" class="evidence-button" data-evidence data-demo="routes-evidence">内訳と出所を見る ›</button></aside></div><p class="takeaway reveal" style="--delay:950ms" data-takeaway>条件を切り替えると、棒が並び替わり、通常時との差が残ります。</p><footer><span>出所：需要・移動・人員を組み合わせた架空の優先度設定（同一尺度）</span><span>架空データによる作例</span><span>3 / 6</span></footer></section>
+<section class="motion-page" id="p-value" data-page="value" data-kind="model" aria-labelledby="h-value"><header><div class="section-label reveal">03｜便益の条件</div><h1 class="reveal" style="--delay:80ms" id="h-value">採用率55%で年間便益180万ドルに達し、投資基準を満たす</h1><div class="scope reveal" style="--delay:180ms">採用率と年間便益｜線形モデルによる試算｜万米ドル／年</div></header><div class="page-body"><div class="exhibit reveal" style="--delay:300ms"><svg class="model-chart" viewBox="0 0 1060 560" role="img" aria-label="採用率と年間便益の固定尺度グラフ"><path class="axis" d="M100 60V490H980"/><text x="100" y="38">万ドル／年</text><path class="grid" d="M100 490.0H980"/><text x="76" y="500.0" text-anchor="end">0</text><path class="grid" d="M100 385.0H980"/><text x="76" y="395.0" text-anchor="end">100</text><path class="grid" d="M100 280.0H980"/><text x="76" y="290.0" text-anchor="end">200</text><path class="grid" d="M100 175.0H980"/><text x="76" y="185.0" text-anchor="end">300</text><path class="grid" d="M100 70.0H980"/><text x="76" y="80.0" text-anchor="end">400</text><text x="100.0" y="540" text-anchor="middle">30%</text><text x="525.0" y="540" text-anchor="middle">55%</text><text x="950.0" y="540" text-anchor="middle">80%</text><path class="threshold" d="M100 301.0H980"/><text class="threshold-label" x="970" y="283.0" text-anchor="end">基準 180</text><polyline class="model-line" points="100.0,458.5 950.0,143.5"/><circle data-model-point r="15" cx="525" cy="301.0"/><path data-point-guide class="point-guide"/><text data-point-label class="point-label"></text></svg><div class="slider-box"><label for="input-value">運用の採用率<strong data-input-value>55%</strong></label><input id="input-value" data-slider data-demo="value-slider" type="range" min="30" max="80" step="5" value="55"/><div class="slider-ends"><span>30%</span><span>80%</span></div></div><p class="formula" data-formula></p></div><aside class="insight reveal" style="--delay:800ms"><button type="button" class="hero-number" data-evidence aria-label="大きな数字を押して内訳と出所を表示"><span data-hero>180</span><span class="hero-unit">万ドル／年</span></button><h2 data-panel-label>採用率55%での年間便益</h2><p class="panel-copy">採用率を動かし、便益と判断が変わる境界を確かめる。</p><div class="comparison" data-comparison><div><span>投資判断の基準</span><strong>180万ドル／年</strong></div><div><span>基準との差</span><strong>180 − 180 = 0万ドル</strong></div></div><button type="button" class="evidence-button" data-evidence data-demo="value-evidence">内訳と出所を見る ›</button></aside></div><p class="takeaway reveal" style="--delay:950ms" data-takeaway>採用率を55%より下げると、投資基準を満たさなくなります。</p><footer><span>出所：架空の便益モデル／年間便益 = −150 ＋ 6 × 採用率（%）</span><span>架空データによる作例</span><span>4 / 6</span></footer></section>
+<section class="motion-page" id="p-readiness" data-page="readiness" data-kind="gap" aria-labelledby="h-readiness"><header><div class="section-label reveal">04｜実行の条件</div><h1 class="reveal" style="--delay:80ms" id="h-readiness">管理者枠とシステム連携の確保で72点となり、実行基準を超える</h1><div class="scope reveal" style="--delay:180ms">実行準備度の内訳｜加算モデルによる試算｜点</div></header><div class="page-body"><div class="exhibit reveal" style="--delay:300ms"><div class="score-chart"><div class="score-threshold" style="left:70%"><span>実行基準 70</span></div><div class="score-track"><div class="score-reference"></div><span class="score-part tone-0" data-score-part="frequency"></span><span class="score-part tone-1" data-score-part="data"></span><span class="score-part tone-2" data-score-part="manager"></span><span class="score-part tone-3" data-score-part="integration"></span><span class="score-missing" data-missing></span></div><div class="score-axis"><span>0</span><span>100点</span></div><p class="gap-message" data-gap-message></p></div><div class="contributions"><div class="contribution"><span>配車頻度</span><strong>24<small>点</small></strong></div><div class="contribution"><span>データ品質</span><strong>20<small>点</small></strong></div><label class="contribution toggle"><input data-toggle="manager" data-demo="readiness-manager" type="checkbox" checked/><span>管理者の対応枠</span><strong data-part-value="manager">18<small>点</small></strong></label><label class="contribution toggle"><input data-toggle="integration" data-demo="readiness-integration" type="checkbox" checked/><span>システム連携</span><strong data-part-value="integration">10<small>点</small></strong></label></div><p class="formula" data-formula></p></div><aside class="insight reveal" style="--delay:800ms"><button type="button" class="hero-number" data-evidence aria-label="大きな数字を押して内訳と出所を表示"><span data-hero>72</span><span class="hero-unit">点</span></button><h2 data-panel-label>実行準備度は基準を上回る</h2><p class="panel-copy">管理者の枠を外し、戻す。足りない点数がその場で変わる。</p><div class="comparison" data-comparison><div><span>実行判断の基準</span><strong>70点以上</strong></div><div><span>基準との差</span><strong>72 − 70 = ＋2点</strong></div></div><button type="button" class="evidence-button" data-evidence data-demo="readiness-evidence">内訳と出所を見る ›</button></aside></div><p class="takeaway reveal" style="--delay:950ms" data-takeaway>管理者の対応枠をオフにして、16点の不足を確認する。</p><footer><span>出所：架空の実行準備度モデル／24 ＋ 20 ＋ 18 ＋ 10 = 72点</span><span>架空データによる作例</span><span>5 / 6</span></footer></section>
+<section class="motion-page" id="p-plan" data-page="plan" data-kind="sequence" aria-labelledby="h-plan"><header><div class="section-label reveal">05｜進める順番</div><h1 class="reveal" style="--delay:80ms" id="h-plan">6週目の条件判定後に東部を加え、12週で次を決める</h1><div class="scope reveal" style="--delay:180ms">実証の工程と判断時点｜1〜12週｜条件通過時の計画</div></header><div class="page-body"><div class="exhibit reveal" style="--delay:300ms"><svg class="timeline" viewBox="0 0 1080 580" role="img" aria-label="12週間の実証工程"><text x="260.0" y="65" text-anchor="middle">W1</text><path class="grid" d="M260.0 90V500"/><text x="328.1818181818182" y="65" text-anchor="middle">W2</text><path class="grid" d="M328.1818181818182 90V500"/><text x="464.5454545454545" y="65" text-anchor="middle">W4</text><path class="grid" d="M464.5454545454545 90V500"/><text x="600.9090909090909" y="65" text-anchor="middle">W6</text><path class="grid" d="M600.9090909090909 90V500"/><text x="737.2727272727273" y="65" text-anchor="middle">W8</text><path class="grid" d="M737.2727272727273 90V500"/><text x="873.6363636363636" y="65" text-anchor="middle">W10</text><path class="grid" d="M873.6363636363636 90V500"/><text x="1010.0" y="65" text-anchor="middle">W12</text><path class="grid" d="M1010.0 90V500"/><text x="0" y="159">計測の準備</text><rect class="planned" x="260.0" y="125" width="204.54545454545453" height="48"/><rect class="task-fill " data-task="0" x="260.0" y="125" width="204.54545454545453" height="48"/><text x="0" y="259">北部の運用</text><rect class="planned" x="260.0" y="225" width="750.0" height="48"/><rect class="task-fill main-task" data-task="1" x="260.0" y="225" width="750.0" height="48"/><text x="0" y="359">東部の運用</text><rect class="planned" x="669.090909090909" y="325" width="340.9090909090909" height="48"/><rect class="task-fill " data-task="2" x="669.090909090909" y="325" width="340.9090909090909" height="48"/><text x="0" y="459">全体展開の判断</text><rect class="planned" x="1010.0" y="425" width="20" height="48"/><rect class="task-fill " data-task="3" x="1010.0" y="425" width="20" height="48"/><g data-now-line><path class="now-line" d="M0 90V510"/><circle r="8" cy="90"/><text x="12" y="554" data-now-label>いま W1</text></g></svg><ol class="mobile-timeline"><li data-mobile-step="0"><span class="mobile-week">W1</span><strong data-mobile-step-label>北部で開始</strong><p data-mobile-step-detail>北部の運用を開始し、計測方法を整える。</p></li><li data-mobile-step="1"><span class="mobile-week">W6</span><strong data-mobile-step-label>条件を判定</strong><p data-mobile-step-detail>採用率・準備度・人員制約の3条件を確認する。</p></li><li data-mobile-step="2"><span class="mobile-week">W7</span><strong data-mobile-step-label>東部を追加</strong><p data-mobile-step-detail>条件を通過した場合だけ、東部を追加する。</p></li><li data-mobile-step="3"><span class="mobile-week">W12</span><strong data-mobile-step-label>次を決める</strong><p data-mobile-step-detail>実証の結果を審査し、全体展開は別に決める。</p></li></ol><div class="sequence-controls"><button type="button" class="reset-step" data-step-reset>はじめに戻す</button><button type="button" class="primary-button" data-next-step data-demo="plan-next">次の工程へ ›</button></div><p class="gate-status" data-gate-status></p></div><aside class="insight reveal" style="--delay:800ms"><button type="button" class="hero-number" data-evidence aria-label="大きな数字を押して内訳と出所を表示"><span data-hero>6</span><span class="hero-unit">週目</span></button><h2 data-panel-label>東部を加えるかを判断する</h2><p class="panel-copy">工程を進めると、いまの位置と、その時点で決めることが順に変わります。</p><div class="comparison" data-comparison><div><span>採用率の条件</span><strong>55%以上</strong></div><div><span>準備度の条件</span><strong>70点以上</strong></div></div><button type="button" class="evidence-button" data-evidence data-demo="plan-evidence">内訳と出所を見る ›</button></aside></div><p class="takeaway reveal" style="--delay:950ms" data-takeaway>「次の工程へ」を押して、開始・判定・追加・最終判断をたどる。</p><footer><span>出所：架空の12週間実証計画／東部の追加と全体展開は別の判断</span><span>架空データによる作例</span><span>6 / 6</span></footer></section></main><nav class="deck-nav" aria-label="資料の操作"><button data-prev aria-label="前のページ">←</button><span data-page-count></span><button data-next aria-label="次のページ">→</button><span class="nav-rule"></span><button data-overview>一覧 <kbd>O</kbd></button><button data-demo-start>自動デモ <kbd>D</kbd></button><button data-static-toggle>静止表示</button><button data-fullscreen aria-label="全画面">全画面</button><button data-help aria-label="操作方法">?</button></nav><dialog id="evidence-dialog" class="evidence-drawer" aria-labelledby="evidence-head"><button class="close-dialog" data-close aria-label="閉じる">×</button><div class="drawer-crumb"></div><h2 id="evidence-head"></h2><div class="drawer-tabs" role="tablist" aria-label="根拠の種類"><button role="tab" id="evidence-detail" aria-controls="drawer-content" aria-selected="true" data-tab="detail" data-demo="evidence-detail">内訳</button><button role="tab" id="evidence-source" aria-controls="drawer-content" aria-selected="false" tabindex="-1" data-tab="source" data-demo="evidence-source">出所と前提</button></div><div id="drawer-content" role="tabpanel" aria-labelledby="evidence-detail"></div><p class="drawer-source"></p></dialog><dialog id="overview-dialog" class="overview-dialog" aria-labelledby="overview-head"><div class="overview-header"><h2 id="overview-head">全体像 → 根拠 → 実行の判断</h2><button data-close aria-label="一覧を閉じる">×</button></div><div class="overview-grid"></div></dialog><div id="motion-tip" class="motion-tip" role="tooltip" hidden></div><div id="demo-cursor" aria-hidden="true"><svg viewBox="0 0 30 38"><path d="M3 2L4 30L11 23L17 35L23 32L17 20L28 19Z"/></svg><span></span></div><div id="demo-status" role="status" hidden></div><p id="live-status" class="sr-only" aria-live="polite"></p><noscript><style>#stage,.deck-nav{display:none!important}</style><p>この資料は、JavaScriptを有効にしたブラウザで開いてください。</p></noscript><script type="application/json" id="motion-data">{"title":"Project Relay｜押して確かめる実証計画","lang":"ja","disclosure":"架空データによる作例","pages":[{"id":"overview","kind":"overview","section":"意思決定の全体像","title":"60万ドルの実証は北部から始め、東部は条件付きで加える","scope":"Project Relay｜12週間の配車改善パイロット","source":"出所：Project Relay 数字台帳・実証計画（架空の設定）","kpis":[{"value":"12","unit":"週間","label":"運用モデルを確かめる期間"},{"value":"60","unit":"万ドル","label":"東部を含む実証全体の予算上限"},{"value":"6","unit":"週目","label":"東部を加えるかを判断する時点"}],"flow":[{"page":"causes","label":"改善する場所","value":"配車調整","detail":"遅延要因の61%"},{"page":"routes","label":"試す地域","value":"北部で開始","detail":"東部は条件付きで追加"},{"page":"value","label":"便益の条件","value":"採用率55%","detail":"年間便益180万ドルが基準"},{"page":"readiness","label":"実行の条件","value":"準備度70点","detail":"管理者の枠を確保"},{"page":"plan","label":"進める順番","value":"6週で判断","detail":"東部の開始は7週目以降"}],"takeaway":"気になる場所を押すと、その判断を確かめるページへ入れます。","evidence":{"head":"予算は実証全体の上限で、東部の追加費用も含む","headers":["判断","条件"],"rows":[["開始時","60万ドルの上限を承認し、北部で開始"],["6週目","採用率55%以上・準備度70点以上・人員制約ケースを確認"],["7週目以降","条件を通過した場合に限り東部を追加"],["12週目","ネットワーク展開は別の判断として審査"]],"assumptions":["実在企業の計画や実績ではなく、操作を示すための架空例です。","金額は米ドルです。60万ドルは北部だけの予算ではありません。"]}},{"id":"causes","kind":"evidence","section":"01｜改善する場所","title":"遅延の61%は配車調整に集中し、最初の改善対象になる","scope":"主因別の遅延構成比｜12週間の架空レビュー｜%","source":"出所：1,200件・12週間の架空レビュー／各案件の主因を1つに分類","domain":[0,100],"items":[{"id":"dispatch","label":"配車調整","value":61,"focus":true},{"id":"technician","label":"技術者の確保","value":24},{"id":"handoff","label":"入場・引き継ぎ","value":15}],"panel":{"value":"61","unit":"%","label":"遅延の主因は配車調整","text":"棒を押すと、項目ごとの内訳と出所を開けます。","comparison":[["次に大きい要因","技術者の確保 24%"],["構成比の差","61 − 24 = 37ポイント"]]},"takeaway":"配車調整は次の要因より37ポイント大きく、改善の検討をここから始める。","evidence":{"head":"配車調整は次の要因より37ポイント大きい","headers":["主因","構成比"],"rows":[["配車調整","61%"],["技術者の確保","24%"],["入場・引き継ぎ","15%"],["合計","100%"]],"assumptions":["1,200件・12週間という設定の架空レビューです。実測値ではありません。","1案件につき主因を1つだけ分類しています。","構成比から改善効果の大きさや因果関係までは断定していません。"]}},{"id":"routes","kind":"ranking","section":"02｜試す地域","title":"人員制約下では東部が2位に上がり、北部との組合せが残る","scope":"地域の優先順位｜通常時と人員制約時の試算｜0〜100点","source":"出所：需要・移動・人員を組み合わせた架空の優先度設定（同一尺度）","domain":[0,100],"initial":"constrained","scenarios":[{"id":"base","label":"通常時"},{"id":"constrained","label":"人員制約あり"}],"items":[{"id":"north","label":"北部","base":86,"constrained":82},{"id":"central","label":"中央部","base":78,"constrained":64},{"id":"east","label":"東部","base":73,"constrained":76,"focus":true}],"panel":{"value":"2","unit":"位","label":"人員制約下での東部の順位","text":"北部は1位のまま、第2候補が中央部から東部へ変わる。","comparison":[["東部の優先度","73 → 76点"],["通常時との差","76 − 73 = ＋3点"]]},"takeaway":"条件を切り替えると、棒が並び替わり、通常時との差が残ります。","evidence":{"head":"人員制約時には東部が中央部を上回る","headers":["地域","通常時","人員制約あり"],"rows":[["北部","86点／1位","82点／1位"],["中央部","78点／2位","64点／3位"],["東部","73点／3位","76点／2位"]],"assumptions":["固定の0〜100点で比較した、2つの架空シナリオです。","点数は需要・移動・人員を合わせた設定値で、実測結果ではありません。","破線は同じ地域の通常時の点数です。点差は各行に表示しています。"]}},{"id":"value","kind":"model","section":"03｜便益の条件","title":"採用率55%で年間便益180万ドルに達し、投資基準を満たす","scope":"採用率と年間便益｜線形モデルによる試算｜万米ドル／年","source":"出所：架空の便益モデル／年間便益 = −150 ＋ 6 × 採用率（%）","input":{"label":"運用の採用率","min":30,"max":80,"step":5,"initial":55,"unit":"%"},"model":{"intercept":-150,"coefficient":6,"threshold":180,"domain":[0,400]},"panel":{"value":"180","unit":"万ドル／年","label":"採用率55%での年間便益","text":"採用率を動かし、便益と判断が変わる境界を確かめる。","comparison":[["投資判断の基準","180万ドル／年"],["基準との差","180 − 180 = 0万ドル"]]},"takeaway":"採用率を55%より下げると、投資基準を満たさなくなります。","evidence":{"head":"55%が投資判断の境界になる","headers":["採用率","式","年間便益"],"rows":[["30%","−150 ＋ 6 × 30","30万ドル"],["55%","−150 ＋ 6 × 55","180万ドル"],["80%","−150 ＋ 6 × 80","330万ドル"]],"assumptions":["式の単位は万米ドル／年です。採用率には55のようなパーセント値を入れます。","モデルは架空の線形関係です。採用率が上がる因果効果を実証したものではありません。","基準は180万ドル以上。ちょうど180万ドルでも基準を満たします。"]}},{"id":"readiness","kind":"gap","section":"04｜実行の条件","title":"管理者枠とシステム連携の確保で72点となり、実行基準を超える","scope":"実行準備度の内訳｜加算モデルによる試算｜点","source":"出所：架空の実行準備度モデル／24 ＋ 20 ＋ 18 ＋ 10 = 72点","threshold":70,"domain":[0,100],"components":[{"id":"frequency","label":"配車頻度","value":24},{"id":"data","label":"データ品質","value":20},{"id":"manager","label":"管理者の対応枠","value":18,"toggle":true,"initial":true},{"id":"integration","label":"システム連携","value":10,"toggle":true,"initial":true}],"panel":{"value":"72","unit":"点","label":"実行準備度は基準を上回る","text":"管理者の枠を外し、戻す。足りない点数がその場で変わる。","comparison":[["実行判断の基準","70点以上"],["基準との差","72 − 70 = ＋2点"]]},"takeaway":"管理者の対応枠をオフにして、16点の不足を確認する。","evidence":{"head":"管理者の対応枠がないと、基準まで16点足りない","headers":["要素","寄与"],"rows":[["配車頻度","24点"],["データ品質","20点"],["管理者の対応枠","18点（確保なしは0点）"],["システム連携","10点（なしは0点）"],["全て確保した場合","72点"],["管理者枠なし","72 − 18 = 54点"],["不足","70 − 54 = 16点"]],"assumptions":["固定の配点を足す架空のモデルです。全てオンで72点です。","この画面では管理者の対応枠とシステム連携だけをオン・オフできます。","東部の追加には、70点以上に加え、採用率55%以上と人員制約ケースの確認が必要です。"]}},{"id":"plan","kind":"sequence","section":"05｜進める順番","title":"6週目の条件判定後に東部を加え、12週で次を決める","scope":"実証の工程と判断時点｜1〜12週｜条件通過時の計画","source":"出所：架空の12週間実証計画／東部の追加と全体展開は別の判断","steps":[{"week":1,"label":"北部で開始","detail":"北部の運用を開始し、計測方法を整える。"},{"week":6,"label":"条件を判定","detail":"採用率・準備度・人員制約の3条件を確認する。"},{"week":7,"label":"東部を追加","detail":"条件を通過した場合だけ、東部を追加する。","conditional":true,"holdLabel":"東部の追加を保留","holdDetail":"現在の条件では東部を追加せず、北部の実証を続ける。"},{"week":12,"label":"次を決める","detail":"実証の結果を審査し、全体展開は別に決める。"}],"tasks":[{"label":"計測の準備","start":1,"end":4},{"label":"北部の運用","start":1,"end":12,"focus":true},{"label":"東部の運用","start":7,"end":12,"conditional":true},{"label":"全体展開の判断","start":12,"end":12}],"conditions":[{"page":"value","threshold":180,"label":"便益180万ドル以上"},{"page":"readiness","threshold":70,"label":"準備度70点以上"},{"page":"routes","scenario":"constrained","label":"人員制約ケース"}],"panel":{"value":"6","unit":"週目","label":"東部を加えるかを判断する","text":"工程を進めると、いまの位置と、その時点で決めることが順に変わります。","comparison":[["採用率の条件","55%以上"],["準備度の条件","70点以上"]]},"takeaway":"「次の工程へ」を押して、開始・判定・追加・最終判断をたどる。","evidence":{"head":"東部の追加は7週目以降で、3条件を全て確認する","headers":["時点","確認と判断"],"rows":[["1週目","北部を開始。実証全体の予算上限は60万ドル。"],["6週目","採用率55%以上、準備度70点以上、人員制約ケースを確認。"],["7週目以降","条件を全て通過した場合のみ東部を開始。"],["12週目","全体展開には別の承認が必要。自動的に拡大しない。"]],"assumptions":["条件通過時の架空の実証計画です。実績や承認済みの予定ではありません。","採用率と準備度は、この資料で操作した最新値を使って判定します。","人員制約ケースは地域ページの選択状態で確認します。"]}}]}</script><script>/* Original story-deck runtime. Data, drawing and evidence use one state. */
+(() => {
+  'use strict';
+  const data = JSON.parse(document.getElementById('motion-data').textContent);
+  const stage = document.getElementById('stage');
+  const pages = [...stage.querySelectorAll('.motion-page')];
+  const evidence = document.getElementById('evidence-dialog');
+  const overview = document.getElementById('overview-dialog');
+  const tip = document.getElementById('motion-tip');
+  const cursor = document.getElementById('demo-cursor');
+  const media = matchMedia('(prefers-reduced-motion: reduce)');
+  const state = Object.create(null);
+  let current = 0, staticMode = false, demo = null, entryTimer = null, hintTimer = null, generation = 0;
+  let evidencePage = null, evidenceItem = null, beforePrint = null;
+  const $ = (selector, node = document) => node.querySelector(selector);
+  const $$ = (selector, node = document) => [...node.querySelectorAll(selector)];
+  const escape = text => String(text).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+  const fmt = number => Number.isInteger(number) ? String(number) : number.toFixed(1);
+  const element = page => pages[data.pages.indexOf(page)];
+  const pageTitle = index => $('h1', pages[index]).textContent;
+  const reduced = () => media.matches || staticMode;
+  const mobile = () => innerWidth <= 760;
+  const status = text => { $('#live-status').textContent = text; };
+  data.pages.forEach(p => {
+    state[p.id] = p.kind === 'ranking' ? {scenario:p.initial} : p.kind === 'model' ? {input:p.input.initial} :
+      p.kind === 'gap' ? Object.fromEntries(p.components.filter(c => c.toggle).map(c => [c.id, Boolean(c.initial)])) :
+      p.kind === 'sequence' ? {step:0} : {};
+  });
+  function score(p) { return p.components.reduce((total, c) => total + (c.toggle && !state[p.id][c.id] ? 0 : c.value), 0); }
+  function value(p) { return p.model.intercept + p.model.coefficient * state[p.id].input; }
+  function setText(page, selector, text) { const target = $(selector, element(page)); if (target) target.textContent = text; }
+  function comparison(p, rows) { $('[data-comparison]', element(p)).innerHTML = rows.map(r => `<div><span>${escape(r[0])}</span><strong>${escape(r[1])}</strong></div>`).join(''); }
+  function gateChecks(p) {
+    return (p.conditions || []).map(c => {
+      const parent = data.pages.find(item => item.id === c.page);
+      const actual = parent.kind === 'model' ? value(parent) : parent.kind === 'gap' ? score(parent) : state[parent.id].scenario;
+      return {label:c.label, pass:c.scenario ? actual === c.scenario : actual >= c.threshold};
+    });
+  }
+  function updateRanking(p) {
+    const selected = state[p.id].scenario;
+    const order = [...p.items].sort((a,b) => b[selected] - a[selected]);
+    const node = element(p), focus = p.items.find(r => r.focus) || order[0];
+    const baseOrder = [...p.items].sort((a,b) => b.base - a.base);
+    p.items.forEach(item => {
+      const row = $(`[data-item="${item.id}"]`, node), index = order.indexOf(item);
+      row.style.transform = `translateY(${index * (mobile() ? 100 : 150)}px)`;
+      $('.bar-fill', row).style.transform = `scaleX(${item[selected]/p.domain[1]})`;
+      $('[data-bar-value]', row).textContent = fmt(item[selected]);
+      $('[data-rank]', row).textContent = index + 1;
+      const delta = item[selected] - item.base;
+      $('[data-bar-delta]', row).textContent = selected === 'base' ? '' : `${fmt(item.base)} → ${fmt(item[selected])}点（${delta >= 0 ? '＋' : '−'}${fmt(Math.abs(delta))}）`;
+      row.setAttribute('aria-label', `${item.label} ${index+1}位 ${item[selected]}点。押すと根拠を表示`);
+    });
+    $$('[data-scenario]', node).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.scenario === selected)));
+    const rank = order.indexOf(focus) + 1, before = baseOrder.indexOf(focus) + 1;
+    setText(p, '[data-hero]', rank);
+    setText(p, '[data-panel-label]', `${selected === 'base' ? '通常時' : '人員制約下'}での${focus.label}の順位`);
+    $('.panel-copy',node).textContent = selected === 'base' ? `通常時の第2候補は${order[1].label}。人員制約を加え、地域の順位を確かめる。` : `${order[0].label}は1位のまま、第2候補が${baseOrder[1].label}から${order[1].label}へ変わる。`;
+    comparison(p, [['東部の優先度', `${focus.base} → ${focus[selected]}点`], ['通常時との差', `${focus[selected]} − ${focus.base} = ${focus[selected]-focus.base >= 0 ? '＋' : '−'}${Math.abs(focus[selected]-focus.base)}点`]]);
+    setText(p, '[data-takeaway]', selected === 'base' ? `通常時の第2候補は${order[1].label}。人員制約の影響を確認してから、地域の組合せを決める。` : `${focus.label}は${before}位から${rank}位へ。北部を先行し、東部の追加は6週目の条件判定で決める。`);
+  }
+  function updateModel(p) {
+    const adoption = state[p.id].input, annual = value(p), m = p.model, v = p.input;
+    const x = 100+(adoption-v.min)/(v.max-v.min)*850;
+    const y = 490-(annual-m.domain[0])/(m.domain[1]-m.domain[0])*420;
+    const node = element(p);
+    $('[data-slider]', node).value = adoption;
+    setText(p, '[data-input-value]', `${adoption}%`);
+    const point = $('[data-model-point]', node);
+    point.setAttribute('cx', x); point.setAttribute('cy', y);
+    $('[data-point-guide]', node).setAttribute('d', `M100 ${y}H${x}V490`);
+    const label = $('[data-point-label]', node);
+    label.setAttribute('x', x < 300 ? x+30 : x-26);
+    label.setAttribute('y', x < 300 ? y-120 : y-26);
+    label.setAttribute('text-anchor', x < 300 ? 'start' : 'end');
+    label.textContent = `${fmt(annual)}万ドル`;
+    setText(p, '[data-hero]', fmt(annual));
+    setText(p, '[data-panel-label]', `採用率${adoption}%での年間便益`);
+    const difference = annual-m.threshold;
+    comparison(p, [['投資判断の基準', `${m.threshold}万ドル／年`], ['基準との差', `${fmt(annual)} − ${m.threshold} = ${difference > 0 ? '＋' : ''}${fmt(difference)}万ドル`]]);
+    setText(p, '[data-formula]', `試算：${m.intercept} ＋ ${m.coefficient} × ${adoption} = ${fmt(annual)}（万ドル／年）`);
+    setText(p, '[data-takeaway]', difference >= 0 ? `基準を満たす：年間便益${fmt(annual)}万ドル。東部の追加には、準備度と人員制約の確認も必要。` : `基準まで${fmt(-difference)}万ドル不足。採用率を上げるか、実証の条件を見直す。`);
+  }
+  function updateGap(p) {
+    const node = element(p), total = score(p), maximum = p.domain[1];
+    let offset = 0;
+    const values = [];
+    p.components.forEach(c => {
+      const contribution = c.toggle && !state[p.id][c.id] ? 0 : c.value;
+      const segment = $(`[data-score-part="${c.id}"]`, node);
+      segment.style.transform = `translateX(${offset/maximum*100}%) scaleX(${contribution/maximum})`;
+      offset += contribution; values.push(contribution);
+      if (c.toggle) {
+        $(`[data-toggle="${c.id}"]`, node).checked = state[p.id][c.id];
+        $(`[data-part-value="${c.id}"]`, node).innerHTML = `${contribution}<small>点</small>`;
+      }
+    });
+    $('.score-reference', node).style.width = `${p.components.reduce((s,c)=>s+c.value,0)/maximum*100}%`;
+    const missing = $('[data-missing]', node);
+    missing.hidden = total >= p.threshold;
+    missing.style.transform = `translateX(${total/maximum*100}%) scaleX(${Math.max(0,p.threshold-total)/maximum})`;
+    setText(p, '[data-hero]', total);
+    setText(p, '[data-panel-label]', total >= p.threshold ? '実行準備度は基準を上回る' : '実行準備度は基準に届かない');
+    setText(p, '[data-gap-message]', total >= p.threshold ? `基準を${total-p.threshold}点上回る` : `基準まで${p.threshold-total}点不足`);
+    comparison(p, [['実行判断の基準', `${p.threshold}点以上`], ['基準との差', `${total} − ${p.threshold} = ${total-p.threshold > 0 ? '＋' : ''}${total-p.threshold}点`]]);
+    setText(p, '[data-formula]', `試算：${values.join(' ＋ ')} = ${total}点`);
+    setText(p, '[data-takeaway]', total >= p.threshold ? `準備度は${total}点。管理者の対応枠を確保してから、東部の追加を判断する。` : `${p.threshold-total}点が不足。管理者枠や連携の条件を見直し、実行できる水準まで整える。`);
+  }
+  function updateSequence(p) {
+    const node = element(p), step = p.steps[state[p.id].step], checks = gateChecks(p);
+    const ready = checks.every(c => c.pass);
+    const lastWeek = p.steps[p.steps.length-1].week;
+    const x = 260+(step.week-1)/(lastWeek-1)*750;
+    $('[data-now-line]', node).setAttribute('transform', `translate(${x} 0)`);
+    setText(p, '[data-now-label]', `いま W${step.week}`);
+    $$('[data-task]', node).forEach(rect => {
+      const task = p.tasks[Number(rect.dataset.task)];
+      const fraction = task.conditional && !ready ? 0 : step.week < task.start ? 0 : task.end === task.start ? 1 : Math.min(1, (step.week-task.start+1)/(task.end-task.start+1));
+      rect.style.transform = `scaleX(${fraction})`;
+    });
+    setText(p, '[data-hero]', step.week);
+    const held=step.conditional&&!ready;
+    setText(p, '[data-panel-label]', held ? step.holdLabel : step.label);
+    $('.panel-copy', node).textContent = held ? step.holdDetail : step.detail;
+    $$('[data-mobile-step]',node).forEach(li=>{
+      const i=Number(li.dataset.mobileStep),s=p.steps[i],blocked=s.conditional&&!ready;
+      li.classList.toggle('completed',i<=state[p.id].step&&!blocked);
+      li.classList.toggle('current',i===state[p.id].step);
+      $('[data-mobile-step-label]',li).textContent=blocked?s.holdLabel:s.label;
+      $('[data-mobile-step-detail]',li).textContent=blocked?s.holdDetail:s.detail;
+    });
+    comparison(p, checks.slice(0,2).map(c => [c.label, c.pass ? '条件を満たす' : '条件に届かない']));
+    const next = $('[data-next-step]', node);
+    next.disabled = state[p.id].step >= p.steps.length-1;
+    next.textContent = next.disabled ? '12週目まで確認済み' : '次の工程へ ›';
+    setText(p, '[data-gate-status]', checks.map(c => `${c.label}：${c.pass ? '可' : '未達'}`).join('　／　'));
+    setText(p, '[data-takeaway]', p.tasks.some(t=>t.conditional&&step.week>=t.start) && !ready ? '現在の条件では東部を追加できません。北部の実証を続け、全体展開は別に判断します。' : step.detail);
+  }
+  function update(p) {
+    if (p.kind === 'evidence') {
+      p.items.forEach((r,i) => { $(`[data-item="${r.id}"]`, element(p)).style.transform = `translateY(${i*(mobile()?100:165)}px)`; });
+    }
+    if (p.kind === 'ranking') updateRanking(p);
+    if (p.kind === 'model') updateModel(p);
+    if (p.kind === 'gap') updateGap(p);
+    if (p.kind === 'sequence') updateSequence(p);
+    if (data.design === 'decision') updateDecisionPage(p);
+  }
+  function updateAll() { data.pages.forEach(update); }
+  function fit() {
+    if (!mobile() && !document.body.hasAttribute('data-static')) {
+      const scale = Math.min((innerWidth-32)/1920, (innerHeight-88)/1080);
+      stage.style.transform = `scale(${scale})`;
+      stage.style.left = `${(innerWidth-1920*scale)/2}px`;
+      stage.style.top = `${Math.max(8,(innerHeight-76-1080*scale)/2)}px`;
+    }
+    updateAll();
+    if (overview.open) fitPreviews();
+  }
+  function writeHash() { history.replaceState(null,'',`#p${current+1}${staticMode?'.static':''}`); }
+  function closeDialog(dialog) { if (dialog.open) dialog.close(); }
+  function go(index, from=null, write=true) {
+    if (typeof index === 'string') index = data.pages.findIndex(p => p.id === index);
+    if (index < 0 || index >= pages.length) return;
+    const origin = from ? from.getBoundingClientRect() : null;
+    closeDialog(evidence); closeDialog(overview); tip.hidden = true;
+    generation++; clearTimeout(entryTimer); clearTimeout(hintTimer);
+    $$('.hint-ring',stage).forEach(el=>el.classList.remove('hint-ring'));
+    pages.forEach((page,i) => {
+      page.getAnimations().forEach(a => a.cancel());
+      page.classList.toggle('active', i === index); page.inert = i !== index;
+      if (i !== index) page.classList.remove('built');
+    });
+    current = index;
+    updateAll();
+    const page = pages[current], token = generation;
+    page.classList.remove('built');
+    const reveal = () => { if (generation === token) page.classList.add('built'); };
+    if (reduced()) reveal();
+    else {
+      entryTimer = setTimeout(reveal, 50);
+      const hint = $('[data-go], [data-scenario], [data-item].focus, [data-slider], [data-toggle], [data-next-step]',page);
+      if(hint){hint.classList.add('hint-ring');hintTimer=setTimeout(()=>hint.classList.remove('hint-ring'),2000);}
+      if (origin && !mobile()) {
+        const frame = stage.getBoundingClientRect(), scale = frame.width/1920;
+        page.style.transformOrigin = `${(origin.x+origin.width/2-frame.x)/scale}px ${(origin.y+origin.height/2-frame.y)/scale}px`;
+        page.animate([{opacity:.4,transform:'scale(.965)'},{opacity:1,transform:'scale(1)'}], {duration:420,easing:'cubic-bezier(.23,1,.32,1)'});
+      }
+    }
+    $('[data-page-count]').textContent = `${String(current+1).padStart(2,'0')} / ${String(pages.length).padStart(2,'0')}`;
+    $('[data-prev]').disabled = current === 0; $('[data-next]').disabled = current === pages.length-1;
+    if (mobile()) scrollTo({top:0,behavior:'instant'});
+    if (write) writeHash();
+    status(`${current+1}ページ。${pageTitle(current)}`);
+  }
+  function openEvidence(p, item=null) {
+    evidencePage = p; evidenceItem = item;
+    $('.drawer-crumb', evidence).textContent = `${p.section} › ${item ? item.label : '判断の根拠'}`;
+    $('#evidence-head').textContent = p.evidence.head;
+    $('.drawer-source', evidence).textContent = `${p.source}。${data.disclosure}。`;
+    setTab('detail');
+    if (!evidence.open) evidence.showModal();
+    evidence.scrollTop = 0;
+  }
+  function setTab(tab) {
+    $$('[data-tab]', evidence).forEach(b => { const on = b.dataset.tab === tab; b.setAttribute('aria-selected',String(on)); b.tabIndex = on ? 0 : -1; });
+    const content = $('#drawer-content');
+    content.setAttribute('aria-labelledby', tab === 'detail' ? 'evidence-detail' : 'evidence-source');
+    const p = evidencePage;
+    if (tab === 'source') content.innerHTML = p.evidence.assumptions.map(text => `<p>${escape(text)}</p>`).join('');
+    else {
+      let currentValue = '';
+      if (evidenceItem) currentValue = `<p class="drawer-selected">選択した項目：${escape(evidenceItem.label)}</p>`;
+      if (p.kind === 'model') currentValue = `<p class="drawer-selected">現在：採用率${state[p.id].input}% → ${fmt(value(p))}万ドル／年</p>`;
+      if (p.kind === 'gap') currentValue = `<p class="drawer-selected">現在の準備度：${score(p)}点／基準${p.threshold}点</p>`;
+      content.innerHTML = currentValue + '<table><thead><tr>' + p.evidence.headers.map(h=>`<th scope="col">${escape(h)}</th>`).join('') + '</tr></thead><tbody>' + p.evidence.rows.map(row=>'<tr>'+row.map((v,i)=>`<${i?'td':'th scope="row"'}>${escape(v)}</${i?'td':'th'}>`).join('')+'</tr>').join('') + '</tbody></table>';
+    }
+    if (p.kind === 'sequence' && tab === 'detail') {
+      (p.conditions || []).forEach(c => {
+        const b = document.createElement('button'); b.type = 'button'; b.className = 'drawer-link';
+        b.textContent = `${c.label}のページへ ›`; b.onclick = () => go(c.page); content.append(b);
+      });
+    }
+  }
+  function fitPreviews() {
+    $$('.preview-box', overview).forEach(box => { $('.motion-page', box).style.transform = `scale(${box.clientWidth/1920})`; });
+  }
+  function openOverview() {
+    closeDialog(evidence);
+    const grid = $('.overview-grid'); grid.replaceChildren();
+    pages.forEach((page,index) => {
+      const card = document.createElement('button'); card.type = 'button'; card.className = 'overview-card';
+      card.setAttribute('aria-current', String(index === current)); card.setAttribute('aria-label',`${index+1}ページ ${pageTitle(index)}`);
+      const preview = document.createElement('div'); preview.className = 'preview-box'; preview.setAttribute('aria-hidden','true');
+      const copy = page.cloneNode(true); copy.removeAttribute('id'); copy.inert = true; copy.classList.add('built'); copy.style.transformOrigin='0 0';
+      $$('[id]', copy).forEach(el => el.removeAttribute('id'));
+      $$('button,input', copy).forEach(el => { const span = document.createElement('span'); span.className = el.className; span.style.cssText = el.style.cssText; span.innerHTML = el.innerHTML; el.replaceWith(span); });
+      preview.append(copy); card.append(preview);
+      const caption = document.createElement('div'); caption.className = 'overview-card-caption';
+      caption.innerHTML = `<strong>${String(index+1).padStart(2,'0')}</strong>${escape(pageTitle(index))}`;
+      card.append(caption); card.onclick = () => go(index); grid.append(card);
+    });
+    overview.showModal(); fitPreviews();
+  }
+  function showTip(row,p,event) {
+    if (!matchMedia('(hover:hover) and (pointer:fine)').matches || evidence.open) return;
+    const item = p.items.find(r=>r.id===row.dataset.item), n = p.kind==='ranking' ? item[state[p.id].scenario] : item.value;
+    tip.innerHTML = `<strong>${fmt(n)}${p.kind==='ranking'?'点':'%'}</strong>${escape(item.label)}<small>${escape(p.source)}</small>`;
+    tip.hidden = false;
+    const box = row.getBoundingClientRect();
+    tip.style.left = `${Math.max(8,Math.min(innerWidth-tip.offsetWidth-12,event.clientX+18 || box.x+80))}px`;
+    tip.style.top = `${Math.max(8,Math.min(innerHeight-tip.offsetHeight-12,event.clientY+18 || box.y+20))}px`;
+  }
+  function finalStates() {
+    data.pages.forEach(p => {
+      if (p.kind==='ranking') state[p.id].scenario = p.initial;
+      if (p.kind==='model') state[p.id].input = p.input.initial;
+      if (p.kind==='gap') p.components.filter(c=>c.toggle).forEach(c=>{state[p.id][c.id]=true;});
+      if (p.kind==='sequence') state[p.id].step = p.steps.length-1;
+    }); updateAll();
+  }
+  function applyStatic(on, write=true) {
+    staticMode = on; document.documentElement.classList.toggle('no-motion',on || media.matches);
+    $('[data-static-toggle]').setAttribute('aria-pressed',String(on));
+    if (on) finalStates();
+    pages.forEach(p=>p.classList.add('built')); if(write)writeHash();
+  }
+  data.pages.forEach(p => {
+    const node = element(p);
+    $$('[data-go]',node).forEach(b=>b.onclick=()=>go(b.dataset.go,b));
+    $$('[data-evidence]',node).forEach(b=>b.onclick=()=>openEvidence(p));
+    $$('[data-item]',node).forEach(row=>{
+      row.onclick=()=>openEvidence(p,p.items.find(r=>r.id===row.dataset.item));
+      row.addEventListener('pointerenter', e=>showTip(row,p,e));
+      row.addEventListener('pointermove',e=>showTip(row,p,e));
+      row.addEventListener('pointerleave',()=>{tip.hidden=true;});
+    });
+    $$('[data-scenario]',node).forEach(b=>b.onclick=()=>{
+      state[p.id].scenario=b.dataset.scenario; updateAll(); status($('[data-takeaway]',node).textContent);
+    });
+    if (p.kind==='model') $('[data-slider]',node).oninput=e=>{
+      state[p.id].input=Math.max(p.input.min,Math.min(p.input.max,Number(e.target.value))); updateAll();
+      status(`採用率${state[p.id].input}%。年間便益${fmt(value(p))}万ドル。`);
+    };
+    if (p.kind==='gap') $$('[data-toggle]',node).forEach(input=>input.onchange=()=>{
+      state[p.id][input.dataset.toggle]=input.checked; updateAll(); status(`準備度${score(p)}点。`);
+    });
+    if (p.kind==='sequence') {
+      $('[data-next-step]',node).onclick=()=>{state[p.id].step=Math.min(p.steps.length-1,state[p.id].step+1);update(p);status(p.steps[state[p.id].step].detail);};
+      $('[data-step-reset]',node).onclick=()=>{state[p.id].step=0;update(p);};
+    }
+  });
+  $$('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());
+  [evidence,overview].forEach(dialog=>dialog.addEventListener('click',event=>{
+    if (event.target!==dialog) return;
+    const r=dialog.getBoundingClientRect();
+    if(event.clientX<r.left || event.clientX>r.right || event.clientY<r.top || event.clientY>r.bottom) dialog.close();
+  }));
+  $$('[data-tab]',evidence).forEach(b=>{
+    b.onclick=()=>setTab(b.dataset.tab);
+    b.onkeydown=event=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const target=$(`[data-tab="${b.dataset.tab==='detail'?'source':'detail'}"]`,evidence);setTab(target.dataset.tab);target.focus();};
+  });
+  $('[data-prev]').onclick=()=>go(current-1);
+  $('[data-next]').onclick=()=>go(current+1);
+  $('[data-overview]').onclick=openOverview;
+  $('[data-static-toggle]').onclick=()=>applyStatic(!staticMode);
+  $('[data-fullscreen]').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{status('この表示環境では全画面を利用できません。');}};
+  $('[data-help]').onclick=()=>openEvidence({section:'操作方法',source:'この資料の操作',kind:'help',evidence:{head:'図や数字を押して、判断の根拠を確かめる',headers:['操作','動作'],rows:[['←・→・Space','ページを送る'],['1〜6','指定のページへ移動'],['O','全ページの一覧'],['D','自動デモを開始／停止'],['Esc','根拠や一覧を閉じる'],['静止表示','動きを止め、判断が見える状態にする']],assumptions:['入力の操作中はページ送りのキーを取りません。','根拠パネルは×、Esc、背景のクリックで閉じます。']}});
+  function stopDemo() {
+    if (!demo) return;
+    demo.abort();demo=null;cursor.style.display='none';$('#demo-status').hidden=true;
+    $('[data-demo-start]').textContent='自動デモ D';cursor.getAnimations().forEach(a=>a.cancel());
+  }
+  async function startDemo(options={}) {
+    stopDemo();closeDialog(evidence);closeDialog(overview);
+    const controller=new AbortController();demo=controller;
+    const pace=Math.max(.01,Math.min(2,Number(options.pace)||1));
+    $('#demo-status').hidden=false;$('#demo-status').textContent='自動デモ中 · D またはクリックで停止';
+    $('[data-demo-start]').textContent='デモを停止';
+    const sleep=ms=>new Promise((resolve,reject)=>{
+      if(controller.signal.aborted){reject(new DOMException('Stopped','AbortError'));return;}
+      const abort=()=>{clearTimeout(timer);reject(new DOMException('Stopped','AbortError'));};
+      const timer=setTimeout(()=>{controller.signal.removeEventListener('abort',abort);resolve();},ms*pace);
+      controller.signal.addEventListener('abort',abort,{once:true});
+    });
+    const touch=async(el,click=true)=>{
+      if(!el)throw new Error('A demo target is missing');
+      const r=el.getBoundingClientRect();
+      if(!reduced()){
+        cursor.style.display='block';const end=`translate(${r.x+r.width/2}px,${r.y+r.height/2}px)`;
+        const a=cursor.animate([{transform:cursor.style.transform||end},{transform:end}],{duration:450*pace,easing:'cubic-bezier(.23,1,.32,1)',fill:'forwards'});
+        await sleep(460);a.cancel();cursor.style.transform=end;
+      }
+      await sleep(200);
+      if(controller.signal.aborted)throw new DOMException('Stopped','AbortError');
+      if(click){cursor.classList.add('pressed');el.click();await sleep(160);cursor.classList.remove('pressed');}
+      await sleep(500);
+    };
+    try {
+      finalStates();data.pages.filter(p=>p.kind==='sequence').forEach(p=>{state[p.id].step=0;});
+      go(0);await sleep(1300);
+      for(let i=1;i<data.pages.length;i++){
+        const p=data.pages[i], first=data.pages[0];
+        const jump=$(`[data-go="${p.id}"]`,element(first));
+        if(current===0 && jump)await touch(jump);else{await touch($('[data-next]'));}
+        await sleep(1000);
+        if(p.kind==='evidence'){
+          await touch($('.bar-row.focus',element(p))||$('.bar-row',element(p)));
+          await sleep(1100);await touch($('[data-tab=source]',evidence));await sleep(1000);await touch($('[data-close]',evidence));
+        }else if(p.kind==='ranking'){
+          await touch($('[data-scenario=base]',element(p)));await sleep(900);
+          await touch($(`[data-scenario="${p.initial}"]`,element(p)));await sleep(1200);
+          await touch($('[data-evidence]',element(p)));await sleep(900);await touch($('[data-close]',evidence));
+        }else if(p.kind==='model'){
+          const input=$('[data-slider]',element(p));await touch(input,false);
+          for(const target of [p.input.min,p.input.initial]){
+            const from=Number(input.value),direction=target>=from?1:-1;
+            for(let n=from;n!==target;){
+              n=direction>0?Math.min(target,n+p.input.step):Math.max(target,n-p.input.step);
+              input.value=n;input.dispatchEvent(new Event('input',{bubbles:true}));
+              if(!reduced()){
+                const r=input.getBoundingClientRect();
+                cursor.style.transform=`translate(${r.x+8+(n-p.input.min)/(p.input.max-p.input.min)*(r.width-16)}px,${r.y+r.height/2}px)`;
+              }
+              await sleep(140);
+            }
+            await sleep(1000);
+          }
+        }else if(p.kind==='gap'){
+          const input=$('[data-toggle=manager]',element(p))||$('[data-toggle]',element(p));
+          await touch(input);await sleep(1300);await touch(input);await sleep(1000);
+        }else if(p.kind==='sequence'){
+          for(let step=1;step<p.steps.length;step++){await touch($('[data-next-step]',element(p)));await sleep(1000);}
+        }
+      }
+      cursor.style.display='none';openOverview();status('自動デモが完了しました。全ページの一覧です。');
+    }catch(error){if(error.name!=='AbortError'){console.error('Motion demo:',error.message);status('デモを停止しました。');}}
+    finally{if(demo===controller){demo=null;cursor.style.display='none';$('#demo-status').hidden=true;$('[data-demo-start]').textContent='自動デモ D';}}
+  }
+  $('[data-demo-start]').onclick=()=>demo?stopDemo():startDemo();
+  document.addEventListener('pointerdown',e=>{if(e.isTrusted && demo)stopDemo();},true);
+  document.addEventListener('keydown',event=>{
+    const edit=event.target.closest('input,textarea,select,[contenteditable=true]');
+    if(event.key==='Escape'){stopDemo();if(!evidence.open&&!overview.open&&current!==0)go(0);return;}
+    if(event.key.toLowerCase()==='d' && demo && !event.altKey && !event.ctrlKey && !event.metaKey){event.preventDefault();stopDemo();return;}
+    if(edit || evidence.open || overview.open || event.altKey || event.ctrlKey || event.metaKey)return;
+    if(/^[1-9]$/.test(event.key)){go(Number(event.key)-1);return;}
+    if(event.key.toLowerCase()==='o'){event.preventDefault();openOverview();return;}
+    if(event.key.toLowerCase()==='d'){event.preventDefault();demo?stopDemo():startDemo();return;}
+    if(event.target.closest('button,a'))return;
+    if(['ArrowRight','ArrowLeft',' '].includes(event.key)){
+      event.preventDefault();document.documentElement.classList.add('no-motion');
+      go(current+(event.key==='ArrowLeft'?-1:1));
+      requestAnimationFrame(()=>{if(!reduced())document.documentElement.classList.remove('no-motion');});
+    }
+  });
+  function readHash(){const raw=location.hash;const found=raw.match(/(?:p|slide=)(\d+)/);applyStatic(raw.includes('static') || document.body.hasAttribute('data-static'),false);go(found?Math.min(pages.length-1,Math.max(0,Number(found[1])-1)):0,null,false);}
+  addEventListener('hashchange',readHash);
+  addEventListener('resize',fit);
+  media.addEventListener('change',()=>document.documentElement.classList.toggle('no-motion',reduced()));
+  addEventListener('beforeprint',()=>{beforePrint=JSON.stringify(state);finalStates();});
+  addEventListener('afterprint',()=>{if(beforePrint){Object.assign(state,JSON.parse(beforePrint));updateAll();beforePrint=null;}});
+  document.documentElement.classList.add('js');
+  fit();readHash();
+  const staticAll=document.body.hasAttribute('data-static');
+  if(staticAll){finalStates();pages.forEach(p=>{p.inert=false;p.classList.add('built');});}
+  window.MotionDeck=Object.freeze({
+    go:target=>go(target),startDemo,stopDemo,
+    snapshot:()=>({page:current+1,state:JSON.parse(JSON.stringify(state)),demo:Boolean(demo),overview:overview.open,evidence:evidence.open,static:staticMode})
+  });
+})();
+</script></body></html>

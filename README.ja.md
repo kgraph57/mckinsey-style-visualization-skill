@@ -9,15 +9,69 @@ AIエージェントに載せるひとつのスキルで、メモ・数値・文
 既存のJSONスペックからSVG・HTMLを描画する処理は、Python 3標準ライブラリのみで動作し、APIキーや通信は不要です。**ブラウザでメモから新しい資料を生成する場合は、ご自身のAnthropic APIキーが必要です。** サンプル体験はキー不要。PDFの自動出力には追加のブラウザ依存があります。
 
 [![CI](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/badge/Release-v2.4.0-15296B.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.4.0)
+[![Preview Release](https://img.shields.io/badge/Preview-v3.0.0--rc.1-005eb8.svg)](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v3.0.0-rc.1)
 
 [English](README.md) | 日本語
 
-![このスキルで生成した6枚の役員会デッキ](assets/readme/demo.gif)
+![このスキルで生成した英語版の動く意思決定資料](assets/readme/decision-story.png)
 
-_このリポジトリだけで作った実物のデッキ: `スペック(JSON) → SVGスライド → アニメ付きHTMLデッキ`。手描きは一切なし。_
+_実際のv3出力: `原稿(JSON) → 動く意思決定資料 ＋ 静止版`。_
 
 </div>
+
+## v3.0.0-rc.1 — 意思決定につながる動く資料
+
+[**英語版デモを開く →**](https://kgraph57.github.io/mckinsey-style-visualization-skill/site/artifacts/project-relay.motion.en.html) · [英語の静止版](https://kgraph57.github.io/mckinsey-style-visualization-skill/site/artifacts/project-relay.motion.en.static.html) · [日本語版デモ](https://kgraph57.github.io/mckinsey-style-visualization-skill/site/artifacts/project-relay.motion.html)
+
+**条件を変えると、判断も変わる。** 優先課題、比較、収益試算、準備度、
+条件付きの展開計画を6ページでつなぎました。英語版は本文を大きくし、
+結論を見出しに置き、装飾的な罫線を余白に置き換えています。
+**Dキー**で自動デモを開始できます。数値はすべて説明用の架空データです。
+
+今回は**先行公開版**です。安定版は引き続き[v2.4.0](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.4.0)です。
+[リリースページ](https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v3.0.0-rc.1)から、単体で開けるHTMLもダウンロードできます。
+
+**クリックで深掘りする、日本語の動く資料を追加しました。**
+[6ページの動く資料](examples/interactive-deck/deck.motion.html)では、全体像のカードから各ページへ入り、
+図や大きな数字を押して根拠を開けます。条件の切替、式が見える試算、
+打ち手による不足解消、工程送りを、カーソル付き自動デモで通せます。
+[静止版](examples/interactive-deck/deck.motion.static.html)も同じ原稿から作ります。
+
+```bash
+python3 scripts/build_motion_deck.py --manifest examples/interactive-deck/motion.json -o deck.motion.html
+python3 scripts/build_motion_deck.py --manifest examples/interactive-deck/motion.json --static -o deck.motion.static.html
+```
+
+作り方と対応する6部品は[動く資料のガイド](references/motion-story.md)を参照してください。
+以下は、別の厳密なscene契約を使う8ページ版の説明です。
+
+意思決定に使う、**状態を持つ動的スライド**を追加しました。根拠の確認、
+シナリオ切り替え、厳密な試算スライダー、準備度スコア、深掘り、
+アコーディオン、決められた順序の自動デモに対応します。静かな
+コンサル型の見た目と、操作なしで読める静的・印刷用の結論は維持します。
+
+「アニメーション付きスライド」だけなら従来の静かなリビールです。
+`動くスライド`、`動的スライド`、`インタラクティブ`、`クリックで根拠`、
+`条件を変えて再計算`、`試算`、`スライダー`、`深掘り`、`自動デモ`を
+明示した場合だけ、2つの成果物を作ります。
+
+```bash
+python3 scripts/build_html_deck.py --manifest examples/interactive-deck/deck.json -o deck.html
+python3 scripts/build_interactive_deck.py --manifest examples/interactive-deck/deck.json -o deck.interactive.html
+```
+
+独自作成・全数値例示の8枚デッキは、[Project Relayの通常HTML](examples/interactive-deck/deck.html)、
+[動的HTML](examples/interactive-deck/deck.interactive.html)、[静的PDF](examples/interactive-deck/deck.pdf)
+で確認できます。公開 `/try/` は従来どおり通常デッキだけを生成します。
+詳しくは[使い分け](references/interaction-selection.md)、[scene作成](references/interactive-scene-schema.md)、
+[アクセシビリティ](references/interactive-accessibility.md)、[発表操作](references/presenter-operation.md)を参照してください。
+
+Safari、実機iPhone・タッチ、ブラウザUIの200%ズーム、AirPlay・HDMI・
+プロジェクター、VoiceOver・NVDA、実OSのハイコントラスト、公開環境の
+HTTPヘッダーは未確認です。[検証記録](tests/manual/interactive-release.md)に残しています。
+英語版の意思決定レイヤーはProject Relay向けであり、任意の事業モデルを自動生成するものではありません。
+公開参考資料と独自の設計判断は[設計記録](references/decision-design.md)に明記しています。
+本パッケージはMcKinseyなどのコンサルティング会社と提携していません。
 
 ## 更新内容 — 2026年9月9日
 

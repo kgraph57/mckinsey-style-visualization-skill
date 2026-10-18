@@ -1,5 +1,8 @@
 import importlib.util
 import json
+import shutil
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -77,6 +80,52 @@ class BuildSiteTests(unittest.TestCase):
             self.assertTrue((Path(td) / "py" / "render_slide_spec.py").exists())
             self.assertTrue((Path(td) / "py" / "build_html_deck.py").exists())
             self.assertTrue((Path(td) / "prompt" / "visualization-patterns.md").exists())
+
+    def test_try_runtime_builder_imports_from_its_bundled_dependencies(self):
+        with tempfile.TemporaryDirectory() as td:
+            self.mod.build(ROOT, Path(td))
+            runtime = Path(td) / "py"
+            self.assertTrue((runtime / "deck_core.py").is_file())
+            result = subprocess.run([sys.executable, "-I", "-c", "import sys; sys.path.insert(0, sys.argv[1]); from build_html_deck import build_deck; print(build_deck([], 'Portable'))", str(runtime)], cwd=td, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn("<title>Portable</title>", result.stdout)
+
+    @unittest.skipUnless(shutil.which("node"), "Node is optional; required for the Try harness behavior check")
+    def test_try_harness_installs_shared_normalizer_before_python_import(self):
+        with tempfile.TemporaryDirectory() as td:
+            harness = Path(td) / "py-render.mjs"
+            harness.write_text((ROOT / "docs/site/js/try/py-render.js").read_text(encoding="utf-8"), encoding="utf-8")
+            program = """
+import {readFileSync, writeFileSync} from 'node:fs';
+import {basename, join} from 'node:path';
+globalThis.document = {createElement: () => ({}), head: {appendChild: script => script.onload()}};
+globalThis.fetch = async url => ({ok: true, text: async () => readFileSync(join(process.argv[2], basename(new URL(url).pathname)), 'utf8')});
+globalThis.loadPyodide = async () => ({FS: {mkdirTree() {}, writeFile(path, data) {writeFileSync(join(process.argv[3], basename(path)), data);}}, runPython() {}});
+const {ensurePyodide} = await import(process.argv[1]);
+await ensurePyodide();
+"""
+            runtime = Path(td) / "runtime"
+            runtime.mkdir()
+            result = subprocess.run([shutil.which("node"), "--input-type=module", "-e", program, harness.as_uri(), str(ROOT / "scripts"), str(runtime)], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            imported = subprocess.run([sys.executable, "-I", "-c", "import sys; sys.path.insert(0, sys.argv[1]); from build_html_deck import build_deck; print(build_deck([], 'Installed by Try'))", str(runtime)], cwd=td, capture_output=True, text=True)
+            self.assertEqual(imported.returncode, 0, imported.stderr)
+            self.assertIn("<title>Installed by Try</title>", imported.stdout)
+
+    def test_ja_site_deck_reads_mixed_manifest_and_ignores_missing_scene(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            (root / "scripts").symlink_to(ROOT / "scripts", target_is_directory=True)
+            manifest_path = root / self.mod.JA_MANIFEST
+            manifest_path.parent.mkdir(parents=True)
+            original_path = ROOT / self.mod.JA_MANIFEST
+            manifest = json.loads(original_path.read_text(encoding="utf-8"))
+            manifest["slides"] = [str(original_path.parent / p) if i % 2 == 0 else {"spec": str(original_path.parent / p), "scene": "../absent.json"} for i, p in enumerate(manifest["slides"])]
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            dest = root / "output"
+            dest.mkdir()
+            self.mod._build_ja_deck(root, dest)
+            self.assertEqual((dest / "ja-deck.html").read_bytes(), (ROOT / "docs/site/artifacts/ja-deck.html").read_bytes())
 
     def test_check_passes_on_fresh_build(self):
         with tempfile.TemporaryDirectory() as td:

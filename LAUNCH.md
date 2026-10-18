@@ -8,6 +8,27 @@ Get the skill in front of agent users who create business, strategy, board, inve
 
 Primary outcome: marketplace listings, GitHub stars, forks, saves, replies, and inbound requests for rendered slide examples or paid templates.
 
+## Prerelease v3.0.0-rc.1
+
+The GitHub preview release is described in [RELEASE.md](RELEASE.md). It includes
+the six-page English/Japanese motion editions and static companions. It is not
+a stable release or a marketplace submission. No social announcement is sent
+by publishing the GitHub release.
+
+## Draft stable release copy — v3.0.0, do not publish
+
+Project Relay demonstrates a restrained interactive decision deck: eight
+pages, four purposeful interactions, a deterministic presenter demo, and a
+static conclusion that prints to an eight-page PDF. Explicit dynamic requests
+build both classic and companion HTML; ordinary and “animated” requests remain
+classic. All example values are illustrative.
+
+Automated evidence currently covers Python contracts, Chromium/Firefox
+behavior, Chromium visual/PDF checks, deterministic audit output, package
+validation, and site drift. Do not change this heading to “released” or send
+the copy until the manual/physical/hosted checklist is signed and a v3 tag is
+created for the stable release.
+
 ## Release Copy (v2.4.0)
 
 Lead with the complete loop: scaffold a template → animated HTML deck → print-to-PDF, then point to the live landing page and the public case study. Attach `assets/readme/demo.gif` (the primary social asset) to every post.

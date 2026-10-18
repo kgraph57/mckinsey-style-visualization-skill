@@ -1,0 +1,36 @@
+{
+  "pattern": "scatter",
+  "theme": "executive",
+  "headline": "55% adoption clears the $1.8m hurdle",
+  "model_context": {"kind": "linear_model", "intercept": -1.5, "coefficient": 0.06},
+  "source": "Illustrative adoption and annual-value assumptions",
+  "classification": "Illustrative",
+  "page_number": 5,
+  "domain_reason": "The fixed 30–80% adoption range and 0–$4m value range expose the decision crossing without rescaling.",
+  "x_axis": {
+    "label": "Adoption",
+    "quantity": "adoption_rate",
+    "unit": "%",
+    "domain": [30, 80],
+    "tick_labels": ["30%", "80%"]
+  },
+  "y_axis": {
+    "label": "Annual value",
+    "quantity": "annual_value",
+    "unit": "$m",
+    "domain": [0, 4],
+    "tick_labels": ["$0m", "$4m"]
+  },
+  "points": [
+    {"item_id": "annual-value-point", "label": "Annual value", "x": 55, "y": 1.8, "emphasis": true}
+  ],
+  "interactive_result": {
+    "quantity": "annual_value",
+    "value": 1.8,
+    "decision_status": "Proceed",
+    "recommendation": "The adoption gate is clear",
+    "operator": "gte",
+    "threshold": 1.8
+  },
+  "annotation": "Annual value $1.8m; Proceed; threshold ≥ $1.8m; The adoption gate is clear"
+}

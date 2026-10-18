@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "type": "accordion",
+  "purpose": "Answer three bounded illustrative route questions one at a time",
+  "decisionJob": "insight",
+  "interactionRationale": "Inspect one concise answer while preserving the parent conclusion",
+  "initialState": {"panel": null},
+  "printState": {"panel": null},
+  "fallbackSummary": {"field": "headline", "text": "Three concise answers keep an illustrative route exception bounded"},
+  "sources": [{"id": "fixture-questions", "label": "Illustrative route questions", "detail": "Original synthetic fixture; no external source or measured value."}],
+  "items": [
+    {"id": "handoff", "label": "Handoff", "heading": "When does the handoff occur?", "body": "The handoff occurs after one route accepts the synthetic job.", "sourceRefs": ["fixture-questions"]},
+    {"id": "exception", "label": "Exception", "heading": "Where does an exception return?", "body": "The exception returns to the same illustrative queue.", "sourceRefs": ["fixture-questions"]},
+    {"id": "owner", "label": "Owner", "heading": "Who closes the exception?", "body": "The illustrative route lead closes the exception after confirmation.", "sourceRefs": ["fixture-questions"]}
+  ],
+  "allowNone": true
+}

@@ -1,6 +1,44 @@
 # Changelog
 
-## Unreleased
+## 3.0.0-rc.1 - 2026-10-18 - Interactive Decision Stories (prerelease)
+
+### Story-led motion presentation
+
+- Added an English decision-story edition with state-aware assertion headlines,
+  evidence panels, scenario comparisons, a resettable adoption model, readiness
+  gates and a conditional timeline. Japanese and static editions remain available.
+- Enlarged body text and removed decorative rules, duplicate evidence bars and
+  unnecessary dividers; meaningful axes, thresholds and focus indicators remain.
+- Published live-demo links and a real rendered preview in both READMEs.
+
+- Added an independently authored motion presentation builder and six-page
+  Japanese example: overview entry, direct exhibit/number evidence drawers,
+  sorting with retained baseline differences, live formula, gap-filling actions
+  and a timeline whose conditional work follows the reader's upstream inputs.
+- Added whole-deck overview, visible cursor demo, cancellation, native dialog
+  focus, static conclusion states and a reflowed phone view. Presentation
+  generation guidance now selects this route for click-through reference-led
+  motion requests. The prior contract-backed runtime remains available.
+
+### Interactive decision decks
+
+- Added an opt-in companion builder for six closed interactive scene types:
+  evidence, state toggles, exact what-if sliders, score models, drill-downs,
+  and accordions. Ordinary and “animated” requests keep the classic builder.
+- Explicit interactive intent builds both `deck.html` and
+  `deck.interactive.html`; the static artifact and declared print state remain
+  the distributable baseline.
+- Added Project Relay, an original eight-page, fully illustrative strategy
+  example with four story-relevant interactive pages, a static PDF, focused
+  fixtures, deterministic presenter demo, and author-only audit workflow.
+- Added closed schemas, typed quantities, exact decimal evaluation, fixed
+  domains, lineage/provenance, safe source links, bounded state traversal,
+  fail-closed runtime behavior, and separate core/browser CI lanes.
+- Migration is additive: existing manifests and classic output remain
+  compatible. Interactive slides add stable slide IDs and scene sidecars.
+- This is a prerelease. Physical/manual/hosted gates remain pending in
+  `tests/manual/interactive-release.md`; v2.4.0 remains the stable release.
+  No marketplace submission is included.
 
 ## 2.4.0 - 2026-08-03 - Article Mode, Serialized-Column Format
 

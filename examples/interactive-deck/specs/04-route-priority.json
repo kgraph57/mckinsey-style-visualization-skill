@@ -1,0 +1,26 @@
+{
+  "pattern": "bullet_list",
+  "theme": "executive",
+  "headline": "North leads; staffing sets the second route",
+  "source": "Illustrative route-priority assumptions",
+  "classification": "Illustrative",
+  "page_number": 4,
+  "quantity": "priority_score",
+  "unit": "priority pts",
+  "value_domain": [0, 100],
+  "baseline": 0,
+  "model_context": {
+    "kind": "scenario_compare",
+    "label": "Technician constrained",
+    "values": [
+      {"item_id": "north", "value": 82, "rank": 1},
+      {"item_id": "central", "value": 64, "rank": 3},
+      {"item_id": "east", "value": 76, "rank": 2}
+    ]
+  },
+  "bullets": [
+    {"item_id": "north", "text": "North route", "rank": 1, "metric": 86, "sub": ["86 priority pts"], "removed": false, "emphasis": true},
+    {"item_id": "central", "text": "Central route", "rank": 2, "metric": 78, "sub": ["78 priority pts"], "removed": false, "emphasis": false},
+    {"item_id": "east", "text": "East route", "rank": 3, "metric": 73, "sub": ["73 priority pts"], "removed": false, "emphasis": false}
+  ]
+}

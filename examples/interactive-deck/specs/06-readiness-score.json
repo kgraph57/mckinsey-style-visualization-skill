@@ -1,0 +1,36 @@
+{
+  "pattern": "summary_strip",
+  "theme": "executive",
+  "headline": "Manager capacity keeps readiness above 70",
+  "model_context": {
+    "kind": "score_breakdown",
+    "components": [
+      {"label": "Dispatch frequency", "value": 24},
+      {"label": "Data quality", "value": 20},
+      {"label": "Manager capacity", "value": 18},
+      {"label": "Integration depth", "value": 10}
+    ],
+    "comparison": {"label": "Without manager capacity", "remove_index": 2}
+  },
+  "source": "Illustrative operating-readiness assumptions",
+  "classification": "Illustrative",
+  "page_number": 6,
+  "annotation": "",
+  "interactive_result": {
+    "quantity": "readiness_points",
+    "value": 72,
+    "classification": "Pilot-ready",
+    "decision_status": "Proceed",
+    "recommendation": "The readiness gate is clear",
+    "operator": "gte",
+    "threshold": 70
+  },
+  "blocks": [
+    {
+      "metric": "72 points",
+      "claim": "Pilot-ready",
+      "proof": "Proceed; threshold ≥ 70 points",
+      "implication": "The readiness gate is clear"
+    }
+  ]
+}

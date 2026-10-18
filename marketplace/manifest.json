@@ -2,7 +2,7 @@
   "schema_version": "0.1.0",
   "name": "strategy-consulting-visualization",
   "display_name": "Strategy Consulting Visualization Skill",
-  "version": "2.4.0",
+  "version": "3.0.0-rc.1",
   "category": "visualization",
   "tags": [
     "strategy",
@@ -16,7 +16,9 @@
     "infographics",
     "process-diagrams",
     "technical-diagrams",
-    "training-materials"
+    "training-materials",
+    "interactive-presentations",
+    "scenario-modeling"
   ],
   "license": "MIT",
   "entrypoint": "SKILL.md",
@@ -29,16 +31,24 @@
   ],
   "permissions": {
     "network": false,
-    "filesystem_write": false,
+    "filesystem_write": true,
     "external_tools": false
   },
   "proof": {
+    "motion_deck": "examples/interactive-deck/deck.motion.en.html",
+    "motion_static": "examples/interactive-deck/deck.motion.en.static.html",
+    "motion_source": "examples/interactive-deck/motion.en.json",
     "sample_input": "examples/board-update-input.md",
     "sample_output": "examples/board-update-slide-spec.md",
     "rendered_output": "assets/rendered/arr-waterfall.svg",
     "renderer": "scripts/render_slide_spec.py",
     "evaluation": "examples/evaluation-report.md",
-    "validation": "scripts/validate_skill.py"
+    "validation": "scripts/validate_skill.py",
+    "standard_deck": "examples/interactive-deck/deck.html",
+    "interactive_deck": "examples/interactive-deck/deck.interactive.html",
+    "interactive_pdf": "examples/interactive-deck/deck.pdf",
+    "interactive_schema": "schemas/interactive-scene-v1.schema.json",
+    "interactive_validation": "tests/test_interactive_reference.py"
   },
   "launch": {
     "marketplace_targets": "MARKETPLACE_TARGETS.md",

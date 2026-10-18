@@ -25,6 +25,11 @@ import sys
 import tempfile
 from pathlib import Path
 
+try:
+    from deck_core import load_manifest, normalize_manifest
+except ModuleNotFoundError:  # importlib/package callers from the repository root
+    from scripts.deck_core import load_manifest, normalize_manifest
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -106,8 +111,9 @@ DECKS = {
 
 
 def _slide_paths(cfg: dict) -> list[Path]:
-    manifest = json.loads(cfg["manifest"].read_text(encoding="utf-8"))
-    return [cfg["base"] / p for p in manifest["slides"]]
+    manifest_path = cfg["manifest"]
+    manifest = load_manifest(manifest_path)
+    return [entry.spec_path for entry in normalize_manifest(manifest, manifest_path)]
 
 
 def _short_label(spec: dict, fallback: str) -> str:
@@ -158,8 +164,9 @@ def write_manifest(by_lang: dict[str, list[dict]]) -> Path:
 
 def rebuild_en_deck_html() -> Path:
     builder = _load("build_html_deck")
-    manifest = json.loads((ROOT / "examples" / "demo-deck.json").read_text(encoding="utf-8"))
-    specs = [ROOT / "examples" / p for p in manifest["slides"]]
+    manifest_path = ROOT / "examples" / "demo-deck.json"
+    manifest = load_manifest(manifest_path)
+    specs = [entry.spec_path for entry in normalize_manifest(manifest, manifest_path)]
     html = builder.build_deck(specs, manifest["title"])
     out = ROOT / "examples" / "demo-deck.html"
     out.write_text(html, encoding="utf-8")
@@ -225,8 +232,9 @@ def check() -> list[str]:
                 diffs.append("stale: assets/rendered/decks-manifest.json")
 
         builder = _load("build_html_deck")
-        manifest = json.loads((ROOT / "examples" / "demo-deck.json").read_text(encoding="utf-8"))
-        specs = [ROOT / "examples" / p for p in manifest["slides"]]
+        manifest_path = ROOT / "examples" / "demo-deck.json"
+        manifest = load_manifest(manifest_path)
+        specs = [entry.spec_path for entry in normalize_manifest(manifest, manifest_path)]
         html = builder.build_deck(specs, manifest["title"])
         committed_html = (ROOT / "examples" / "demo-deck.html").read_text(encoding="utf-8")
         if committed_html != html:

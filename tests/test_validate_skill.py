@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import io
+import json
 import tempfile
 import textwrap
 import unittest
@@ -25,6 +26,31 @@ validator = load_validator()
 
 
 class ValidateSkillTests(unittest.TestCase):
+    def test_all_classic_artifact_validators_accept_mixed_manifests(self):
+        cases = [
+            ("examples/demo-deck.json", "demo-deck.html", validator.validate_demo_deck),
+            ("templates/decks/board-update-ja/deck.json", "demo-script.html", validator.validate_demo_script),
+            ("templates/decks/board-update/deck.json", "demo-article.html", validator.validate_demo_article),
+        ]
+        for relative, artifact, validate in cases:
+            with self.subTest(artifact=artifact), tempfile.TemporaryDirectory() as td:
+                root = Path(td)
+                (root / "scripts").symlink_to(ROOT / "scripts", target_is_directory=True)
+                (root / "examples").mkdir()
+                (root / "examples" / artifact).write_bytes((ROOT / "examples" / artifact).read_bytes())
+                original_path = ROOT / relative
+                manifest = json.loads(original_path.read_text(encoding="utf-8"))
+                manifest["slides"] = [str(original_path.parent / p) if i % 2 == 0 else {"spec": str(original_path.parent / p), "scene": "../absent.json"} for i, p in enumerate(manifest["slides"])]
+                path = root / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(json.dumps(manifest), encoding="utf-8")
+                original_root = validator.ROOT
+                try:
+                    validator.ROOT = root
+                    validate()
+                finally:
+                    validator.ROOT = original_root
+
     def test_validate_skill_frontmatter_rejects_unknown_fields(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
+import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -26,6 +29,48 @@ class BuildHtmlDeckTests(unittest.TestCase):
         manifest = json.loads((ROOT / "examples" / "demo-deck.json").read_text(encoding="utf-8"))
         spec_paths = [ROOT / "examples" / p for p in manifest["slides"]]
         return builder.build_deck(spec_paths, manifest["title"])
+
+    def test_demo_deck_is_byte_identical_to_committed_classic_artifact(self) -> None:
+        self.assertEqual(self.build_demo().encode("utf-8"), (ROOT / "examples/demo-deck.html").read_bytes())
+
+    def test_absolute_importlib_builder_loads_from_unrelated_cwd_without_path_changes(self) -> None:
+        program = """
+import importlib.util
+import sys
+
+spec = importlib.util.spec_from_file_location("portable_deck", sys.argv[1])
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+print(module.build_deck([], "Portable"))
+"""
+        for relative in ("scripts/build_html_deck.py", "docs/site/artifacts/py/build_html_deck.py"):
+            with self.subTest(builder=relative), tempfile.TemporaryDirectory() as td:
+                result = subprocess.run(
+                    [sys.executable, "-I", "-B", "-c", program, str(ROOT / relative)],
+                    cwd=td, capture_output=True, text=True,
+                )
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertIn("<title>Portable</title>", result.stdout)
+
+    def test_cli_mixed_manifest_preserves_classic_output_and_ignores_missing_scene(self) -> None:
+        manifest = json.loads((ROOT / "examples/demo-deck.json").read_text(encoding="utf-8"))
+        manifest["slides"] = [
+            str(ROOT / "examples" / entry) if i % 2 == 0 else {
+                "spec": str(ROOT / "examples" / entry),
+                "scene": "../missing-scenes/never-read.json",
+                "id": f"page-{i}",
+            }
+            for i, entry in enumerate(manifest["slides"])
+        ]
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            (root / "deck.json").write_text(json.dumps(manifest), encoding="utf-8")
+            result = subprocess.run(
+                [sys.executable, str(ROOT / "scripts/build_html_deck.py"), "--manifest", str(root / "deck.json"), "-o", str(root / "deck.html")],
+                cwd=root, capture_output=True, text=True,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual((root / "deck.html").read_bytes(), (ROOT / "examples/demo-deck.html").read_bytes())
 
     def test_deck_contains_one_section_per_slide(self) -> None:
         html = self.build_demo()

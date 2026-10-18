@@ -120,6 +120,25 @@ class ScaffoldCopyTests(unittest.TestCase):
 
 
 class ScaffoldTitleRewriteTests(unittest.TestCase):
+    def test_mixed_manifest_scaffold_rewrites_cover_and_ignores_scene(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            template = root / "templates" / "mixed"
+            (template / "specs").mkdir(parents=True)
+            (template / "specs/intro.json").write_text('{"pattern":"section_divider", "title":"Start"}', encoding="utf-8")
+            (template / "specs/cover.json").write_text('{"pattern":"cover", "title":"Old"}', encoding="utf-8")
+            entries = ["specs/intro.json", {"spec": "specs/cover.json", "scene": "../absent.json", "id": "cover"}]
+            (template / "deck.json").write_text(json.dumps({"title": "Old", "slides": entries}), encoding="utf-8")
+            original = scaffolder.TEMPLATES_ROOT
+            try:
+                scaffolder.TEMPLATES_ROOT = root / "templates"
+                with redirect_stdout(io.StringIO()):
+                    scaffolder.scaffold("mixed", root / "output", "New", False)
+            finally:
+                scaffolder.TEMPLATES_ROOT = original
+            self.assertEqual(json.loads((root / "output/specs/cover.json").read_text(encoding="utf-8"))["title"], "New")
+            self.assertEqual(json.loads((root / "output/deck.json").read_text(encoding="utf-8")), {"title": "New", "slides": entries})
+
     def test_title_rewrites_manifest_and_cover_spec(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             output = Path(tmp) / "out"
