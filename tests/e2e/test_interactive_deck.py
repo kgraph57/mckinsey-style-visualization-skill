@@ -29,6 +29,9 @@ DECISION_STATUS = SCENE + ' [data-decision-status]'
 DECISION_RECOMMENDATION = SCENE + ' [data-decision-recommendation]'
 STATUS = SCENE + ' .scene-status'
 POINT = SCENE + ' .live-layer #idsvg-2-live-shell-service-capacity'
+# Static scatter uses the full-width [130, 1150] plot, unlike the narrower
+# interactive plot with its decision rail: 130 + (20 / 80) * 1020 = 385.
+STATIC_BASELINE_X = "385.0"
 
 EXPECTED_STATES = (
     ("0", "18 cases/wk", "Below demand", "Increase automation before the pilot", 130.0, 441.2),
@@ -2433,7 +2436,7 @@ class InteractiveDeckE2ETests(InteractiveDeckBrowserTestCase):
                     self.assertTrue(print_state["overlayHidden"])
                     self.assertTrue(print_state["noJsNavHidden"])
                     self.assertEqual(print_state["bodyOverflow"], "visible")
-                    self.assertEqual(print_state["fallbackX"], "302.5")
+                    self.assertEqual(print_state["fallbackX"], STATIC_BASELINE_X)
                     self.assertEqual(self._snapshot(page), snapshot_before)
                     page.emulate_media(media="screen")
                     page.keyboard.press("Escape")
@@ -2454,7 +2457,7 @@ class InteractiveDeckE2ETests(InteractiveDeckBrowserTestCase):
                               ).getAttribute('cx')
                             })"""
                         ),
-                        {"fallback": "block", "live": "none", "x": "302.5"},
+                        {"fallback": "block", "live": "none", "x": STATIC_BASELINE_X},
                     )
                     self.assertEqual(self._snapshot(page), static_snapshot)
                     self.assert_no_automatic_activity(session)
@@ -2540,6 +2543,16 @@ class InteractiveDeckE2ETests(InteractiveDeckBrowserTestCase):
                                 node.scrollIntoView({block: 'nearest', inline: 'nearest'});
                                 return intersects(node, deck);
                               });
+                              // Content can already fit while a bottom spacer still
+                              // overflows. Test scroll capability independently of
+                              // whether scrollIntoView needed to move anything.
+                              const savedTop = deck.scrollTop;
+                              const savedBehavior = deck.style.scrollBehavior;
+                              deck.style.scrollBehavior = 'auto';
+                              deck.scrollTop = deck.scrollHeight;
+                              const scrollProbeEnd = deck.scrollTop;
+                              deck.scrollTop = savedTop;
+                              deck.style.scrollBehavior = savedBehavior;
                               const chromeBox = chrome.getBoundingClientRect();
                               const visibleControls = [...scene.querySelectorAll('button,input')]
                                 .filter(node => node.getClientRects().length)
@@ -2557,6 +2570,7 @@ class InteractiveDeckE2ETests(InteractiveDeckBrowserTestCase):
                                 documentOverflow: document.documentElement.scrollWidth - innerWidth,
                                 deckOverflow: deck.scrollWidth - deck.clientWidth,
                                 deckMaxScroll: deck.scrollHeight - deck.clientHeight,
+                                scrollProbeEnd,
                                 deckScrollTop: deck.scrollTop,
                                 deckOverflowY: css(deck).overflowY,
                                 reachable,
@@ -2614,7 +2628,11 @@ class InteractiveDeckE2ETests(InteractiveDeckBrowserTestCase):
                             self.assertIn(
                                 metrics["deckOverflowY"], ("auto", "scroll"), metrics
                             )
-                            self.assertGreater(metrics["deckScrollTop"], 0, metrics)
+                            self.assertGreater(metrics["scrollProbeEnd"], 0, metrics)
+                            self.assertAlmostEqual(
+                                metrics["scrollProbeEnd"], metrics["deckMaxScroll"],
+                                delta=1, msg=metrics,
+                            )
                             self.assertGreaterEqual(metrics["h1"], 24)
                             self.assertGreaterEqual(metrics["value"], 32)
                             self.assertGreaterEqual(metrics["evidence"], 16)
@@ -2632,7 +2650,7 @@ class InteractiveDeckE2ETests(InteractiveDeckBrowserTestCase):
                             page.locator(
                                 SCENE + " .fallback-layer circle"
                             ).get_attribute("cx"),
-                            "302.5",
+                            STATIC_BASELINE_X,
                         )
                         self.assertEqual(page.locator(PRIMARY_VALUE).inner_text(), "26 cases/wk")
                         self.assert_no_automatic_activity(session)
@@ -3536,8 +3554,13 @@ class InteractiveDeckE2ETests(InteractiveDeckBrowserTestCase):
                                 "Interactive view unavailable. Static baseline restored.",
                             )
                         if phase == "overlay":
+                            # Fail-closed presentation hides the evidence opener.
+                            # Inspect its DOM state, not the visible accessibility tree.
+                            failed_opener = page.locator("#idrt-evidence-open-2")
+                            self.assertTrue(failed_opener.is_hidden())
+                            self.assertTrue(failed_opener.is_disabled())
                             self.assertEqual(
-                                self._button(page, "evidence").get_attribute("aria-expanded"),
+                                failed_opener.get_attribute("aria-expanded"),
                                 "false",
                             )
                             self.assertEqual(

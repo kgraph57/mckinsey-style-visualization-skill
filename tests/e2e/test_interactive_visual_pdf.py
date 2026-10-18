@@ -473,6 +473,14 @@ class ProjectRelayVisualPdfTests(unittest.TestCase):
         def set_adoption_60(page: Page) -> None:
             self._set_control(page, "relay-adoption-value", "adoption", "60")
 
+        def wait_for_idle_chrome(page: Page) -> None:
+            # This portrait reference is the idle reading state. A slow capture
+            # used to hide the HUD while a fast CI capture retained it.
+            page.wait_for_function(
+                "() => getComputedStyle(document.querySelector('#idrt-presenter-chrome')).opacity === '0'",
+                timeout=8_000,
+            )
+
         def show_static(page: Page) -> None:
             page.locator('[data-slide-id="relay-adoption-value"] [data-action="static"]').click()
 
@@ -536,7 +544,8 @@ class ProjectRelayVisualPdfTests(unittest.TestCase):
                 "overview-1280x720", ordinal=5, mutate=open_overview
             ),
             "05-adoption-55-390x844": self._capture(
-                "05-adoption-55-390x844", ordinal=5, viewport=VIEW_PORTRAIT
+                "05-adoption-55-390x844", ordinal=5, viewport=VIEW_PORTRAIT,
+                mutate=wait_for_idle_chrome,
             ),
             "06-no-manager-390x844": self._capture(
                 "06-no-manager-390x844",
