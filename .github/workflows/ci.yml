@@ -42,9 +42,23 @@ jobs:
         run: git diff --check
 
   interactive-e2e:
-    name: Interactive browser, visual, PDF, and audit acceptance
+    name: Browser acceptance — ${{ matrix.test }}
     runs-on: ubuntu-24.04
     timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        test:
+          - test_interactive_components
+          - test_interactive_deck
+          - test_interactive_demo_audit
+          - test_interactive_reference
+          - test_interactive_visual_pdf
+          - test_motion_english
+          - test_motion_story
+          - test_presentation_surface
+          - test_rank_bridge
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -62,13 +76,13 @@ jobs:
           python3 -m playwright install --with-deps chromium firefox
 
       - name: Run interactive acceptance
-        run: python3 -m unittest discover -s tests/e2e -p 'test_*.py'
+        run: python3 -m unittest discover -s tests/e2e -p '${{ matrix.test }}.py' -v
 
       - name: Upload interactive failure evidence
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: interactive-e2e-failure
+          name: interactive-e2e-failure-${{ matrix.test }}
           path: |
             test-results/interactive/**
             test-results/**/*.zip

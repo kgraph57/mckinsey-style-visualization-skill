@@ -1288,7 +1288,9 @@ class InteractiveDeckE2ETests(InteractiveDeckBrowserTestCase):
                     self.assertEqual(self._scene_value(page), "40")
                     self.assertEqual(
                         page.locator("#idrt-control-value-2-1").inner_text(),
-                        "40.0%",
+                        # Control precision follows min/step (0/5), not the
+                        # model coefficient's scale. Narration still keeps pp precision.
+                        "40%",
                     )
                     self.assertTrue(page.locator(SCENE + " .live-layer").is_visible())
                     self.assertEqual(page.locator(PRIMARY_VALUE).inner_text(), "34 cases/wk")
