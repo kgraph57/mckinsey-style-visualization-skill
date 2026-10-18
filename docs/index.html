@@ -4,11 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
-      Consulting Visualization Skill — Turn notes into consulting slides.
+      Consulting Visualization Skill — Slides you can explore.
     </title>
     <meta
       name="description"
-      content="One skill for your AI agent: turn notes, metrics, and prose into consulting-grade visuals: real SVG slides, an animated HTML deck, or a spec any designer can execute. Python standard library only."
+      content="Turn notes into consulting slides and interactive decision stories. Click for evidence, change assumptions and explore the decision. Watch the v3 demo or try it yourself."
     />
     <meta
       property="og:title"
@@ -16,7 +16,7 @@
     />
     <meta
       property="og:description"
-      content="Turn business notes into clear slides and PDF briefs with your AI agent. Explore real examples, then try your own notes."
+      content="Consulting slides you can explore. Watch the interactive demo, inspect the evidence and see how changed assumptions affect the decision."
     />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://kgraph57.github.io/mckinsey-style-visualization-skill/site/og.png" />
@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="./site/css/tokens.css?v=20260909-ios2" />
     <link rel="stylesheet" href="./site/css/base.css?v=20260909-visual" />
     <link rel="stylesheet" href="./site/css/sections.css?v=20260909-visual" />
-    <link rel="stylesheet" href="./site/css/catalog.css?v=20260909-visual" />
+    <link rel="stylesheet" href="./site/css/catalog.css?v=20261018-motion" />
     <script type="module" src="./site/js/main.js"></script>
     <script type="module" src="./site/js/theater.js"></script>
     <script type="module" src="./site/js/showcase.js?v=20260909-visual"></script>
@@ -59,22 +59,38 @@
         <div class="wrap">
           <div class="hero-top">
             <div class="hd-intro">
-              <span class="hero-badge"><span class="status-dot" aria-hidden="true"></span> A FREE SKILL FOR CLAUDE CODE, CODEX &amp; CURSOR</span>
-              <h1>Turn rough notes into<br /><em>consulting slides.</em></h1>
+              <span class="hero-badge">NEW · v3.0.0-rc.1 PREVIEW</span>
+              <h1>Consulting slides.<br /><em>Built to explore.</em></h1>
             <div class="hero-pitch">
-              <p class="lede">Add this skill to your AI agent. Turn business notes into clear charts, presentation decks and one-page PDF briefs.</p>
-              <p class="hd-actions"><a class="btn btn-primary" href="#preview">See it in action <span aria-hidden="true">↓</span></a><a class="btn btn-ghost" href="#start">Get the free skill</a></p>
-              <p class="agent-strip">Works with Claude Code, Codex &amp; Cursor.</p><p class="try-requirement">Explore the examples. No sign-up needed.</p>
+              <p class="lede">Turn notes into a clear argument. Let readers open the evidence, change an assumption and see what it means for the decision.</p>
+              <p class="hd-actions"><a class="btn btn-primary" href="./site/artifacts/project-relay.motion.en.html">Try the interactive story <span aria-hidden="true">↗</span></a><a class="btn btn-ghost" href="#start">Get the free skill</a></p>
+              <p class="agent-strip">For Claude Code, Codex &amp; Cursor.</p><p class="try-requirement">The demo needs no account or API key.</p>
             </div>
           </div>
-          <figure class="hero-visual">
-            <img src="./site/hero-deliverables.webp" width="1672" height="941" fetchpriority="high" alt="Business notes beside a landscape slide, strategy matrix and PDF brief" />
-            <figcaption><span class="hero-visual-caption">A clearer story. A sharper decision.</span><span class="hero-concept-label">AI-generated concept · See real outputs below</span></figcaption>
+          <figure class="hero-visual motion-visual">
+            <video controls playsinline preload="metadata" poster="./demo/poster.png" width="1440" height="810" aria-label="Recorded English interactive decision story demo">
+              <source src="./demo/decision-story-demo.mp4" type="video/mp4" />
+              <a href="./demo/">Watch the recorded demo</a>
+            </video>
+            <figcaption><span class="hero-visual-caption">Change an assumption. See the decision change.</span><span class="hero-concept-label">54-second browser recording · No audio · Illustrative data</span><a class="motion-transcript" href="./demo/">Video details &amp; text walkthrough →</a></figcaption>
           </figure>
           </div>
           <div class="proof-strip" aria-label="Included in the skill"><p><strong>22</strong><span class="proof-patterns">chart &amp; slide patterns</span></p><p><strong>6</strong><span class="proof-decks">complete deck templates</span></p><p><strong>4</strong><span class="proof-formats">ways to present your work</span></p><p><strong>MIT</strong><span class="proof-license">free to use &amp; adapt</span></p></div>
         </div>
       </section>
+      <section id="interactive" aria-labelledby="interactive-title"><div class="wrap">
+        <div class="motion-story-intro">
+          <div><span class="kicker">INTERACTIVE DECISION STORIES</span><h2 id="interactive-title">From the evidence<br />to the next decision.</h2><p>Six connected pages turn a sample pilot proposal into something readers can investigate. Every interaction answers a business question.</p></div>
+          <a class="motion-release" href="https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v3.0.0-rc.1">Explore v3.0.0-rc.1 →</a>
+        </div>
+        <div class="motion-actions">
+          <article><h3>Inspect the evidence.</h3><p>Select a delay cause to open its breakdown, sources and assumptions.</p></article>
+          <article><h3>Test an assumption.</h3><p>Compare staffing scenarios. Move the adoption slider and see the value estimate change.</p></article>
+          <article><h3>Review the decision.</h3><p>Change readiness conditions and step through the gates before expanding the pilot.</p></article>
+        </div>
+        <div class="motion-editions"><a href="./site/artifacts/project-relay.motion.en.html">Explore in English ↗</a><a href="./site/artifacts/project-relay.motion.html">日本語で操作する ↗</a><a href="./site/artifacts/project-relay.motion.en.static.html">Read the static edition ↗</a></div>
+        <p class="motion-scope">The Project Relay example uses illustrative data. v3 is a preview release; <a href="https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.4.0">v2.4.0 remains the stable release</a>. Existing SVG, classic decks and PDF workflows are included.</p>
+      </div></section>
       <section id="preview" aria-labelledby="preview-title"><div class="wrap">
         <div class="section-intro"><span class="kicker preview-kicker">FROM INPUT TO OUTPUT</span><h2 id="preview-title">See what your notes can become.</h2><p class="preview-intro">Choose a business question. Compare the rough notes with the actual slide output.</p></div>
           <div class="showcase" id="showcase">
@@ -121,7 +137,7 @@ where should product focus?</pre><span class="note-foot">Illustrative input · P
         <div class="preview-next"><div><h3 class="preview-next-title">Now bring your own business question.</h3><p class="preview-next-note">Try in your browser with an Anthropic API key, or install the free skill in your AI agent.</p></div><div class="preview-next-actions"><a class="btn btn-primary preview-try" href="./try/">Try your own notes ↗</a><a class="preview-install" href="#start">Install the free skill →</a></div></div>
       </div></section>
       <section id="demo" aria-labelledby="demo-title"><div class="wrap">
-        <div class="section-intro"><span class="kicker">BEYOND A SINGLE SLIDE</span><h2 id="demo-title">A story, from opening to decision.</h2><p>Explore a complete nine-slide board deck. Every slide below is generated by the skill.</p></div>
+        <div class="section-intro"><span class="kicker">CLASSIC PRESENTATION DECKS</span><h2 id="demo-title">A story, from opening to decision.</h2><p>Explore the classic nine-slide board deck. Every slide below is generated by the skill.</p></div>
           <div class="hd-theater" id="hd-theater" data-theater>
             <div class="hd-tabs" role="tablist" aria-label="Product demos">
               <button
@@ -370,7 +386,7 @@ where should product focus?</pre><span class="note-foot">Illustrative input · P
               </li>
               <li class="pl-step">
                 <span class="pl-num">04</span>
-                <span class="pl-label">Animated HTML deck / PDF</span>
+                <span class="pl-label">Interactive story / static edition / PDF</span>
               </li>
             </ol>
             <div class="pl-track" aria-hidden="true">
@@ -407,16 +423,15 @@ where should product focus?</pre><span class="note-foot">Illustrative input · P
 <span class="st-line">git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization</span>
 <span class="st-line">cd ~/.claude/skills/strategy-consulting-visualization</span>
 <span class="st-line">python3 scripts/render_slide_spec.py examples/render-specs/arr-waterfall.json -o slide.svg</span>
-<span class="st-line">python3 scripts/build_html_deck.py --manifest examples/demo-deck.json -o deck.html</span></code></pre>
+<span class="st-line">python3 scripts/build_html_deck.py --manifest examples/demo-deck.json -o deck.html</span>
+<span class="st-line">python3 scripts/build_motion_deck.py --manifest examples/interactive-deck/motion.en.json -o deck.motion.html</span></code></pre>
             <button class="st-copy" type="button" data-copy="#st-commands">
               Copy
             </button>
           </div>
           <p class="st-ask">Or skip the terminal and just ask your agent.</p>
-          <p class="st-prompt">
-            Use the strategy consulting visualization skill to turn these notes
-            into a board slide…
-          </p>
+          <p class="st-prompt">Use the strategy consulting visualization skill to make an interactive decision story from these notes. Include clickable evidence, bounded what-if controls and a static reading edition.</p>
+          <p class="st-motion-guide"><a href="https://github.com/kgraph57/mckinsey-style-visualization-skill/blob/main/references/motion-story.md">Read the interactive story guide →</a></p>
         </div>
       </section>
     </main>

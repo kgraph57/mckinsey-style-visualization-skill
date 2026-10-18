@@ -57,7 +57,7 @@ class BuildSiteTests(unittest.TestCase):
     def test_ja_page_generation(self):
         html = self.mod.build_ja_html(ROOT)
         self.assertIn('lang="ja"', html)
-        self.assertIn("メモがそのまま", html)
+        self.assertIn("触って、判断を深めるスライド", html)
         self.assertNotIn('"./site/', html)
         self.assertIn('"../site/artifacts/ja-deck.html?embed=1"', html)
         self.assertIn("考える時間を、", html)

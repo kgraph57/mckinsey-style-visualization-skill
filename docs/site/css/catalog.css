@@ -246,6 +246,39 @@
 .hero-top { grid-template-columns:minmax(0,.85fr) minmax(0,1.3fr); gap:24px; }
 .hero-visual { margin:0; min-width:0; }
 .hero-visual img { display:block; width:100%; height:auto; }
+.motion-visual video { display:block; width:100%; height:auto; aspect-ratio:16/9; background:var(--surface-soft); }
+.motion-visual figcaption { padding-inline:0; }
+.motion-visual .hero-concept-label, .motion-transcript { font-size:12px; line-height:1.6; }
+.motion-transcript { width:fit-content; padding-block:4px; }
+.catalog-home #hero .hero-badge { font-size:12px; letter-spacing:.08em; color:var(--accent); }
+.catalog-home #hero .agent-strip, .catalog-home #hero .try-requirement { font-size:12px; }
+.catalog-home #interactive { padding:72px 0; }
+.motion-story-intro { display:flex; justify-content:space-between; align-items:end; gap:40px; }
+.motion-story-intro h2 { font-size:clamp(30px,3.5vw,46px); line-height:1.12; }
+.motion-story-intro p { max-width:660px; color:var(--muted); font-size:17px; }
+.motion-release { flex-shrink:0; padding-block:8px; margin-bottom:16px; font-size:14px; }
+.motion-actions { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:48px; margin:38px 0 28px; }
+.motion-actions h3 { font-size:23px; letter-spacing:-.025em; margin:0 0 14px; }
+.motion-actions p { color:var(--muted); font-size:16px; margin:0; }
+.motion-editions { display:flex; flex-wrap:wrap; gap:12px 32px; margin-bottom:16px; }
+.motion-editions a { display:inline-block; padding-block:8px; font-size:16px; }
+.motion-scope { max-width:900px; font-size:13px; color:var(--muted); }
+.st-motion-guide { margin-top:20px; }
+@media(max-width:950px) {
+ .motion-story-intro { flex-wrap:wrap; gap:8px; }
+ .motion-actions { gap:28px; }
+}
+@media(max-width:700px) {
+ .catalog-home #hero h1 { font-size:clamp(32px,8.4vw,46px); }
+ .catalog-home #hero .lede { font-size:17px; }
+ .hero-top .motion-visual { margin:24px 0 0; }
+ .motion-visual figcaption { padding-inline:0; }
+ .motion-visual .hero-visual-caption { font-size:14px; }
+ .catalog-home #interactive { padding:48px 0; }
+ .motion-actions { grid-template-columns:1fr; gap:28px; margin-top:24px; }
+ .motion-actions h3 { font-size:22px; margin-bottom:10px; }
+ .motion-editions { flex-direction:column; gap:2px; align-items:flex-start; }
+}
 .hero-visual figcaption { display:flex; flex-direction:column; gap:8px; padding:16px 20px 0; }
 .hero-visual-caption { color:var(--accent); font-size:14px; }
 .hero-concept-label { color:var(--muted); font-size:10px; line-height:1.5; }
@@ -278,4 +311,30 @@
  #preview .result-slide { padding:12px; }
  .preview-next { gap:20px; }
  .preview-next-actions { align-items:flex-start; }
+}
+
+/* Keep supporting labels readable in both language editions. */
+.catalog-home .proof-strip span,
+.catalog-home .showcase-label,
+.catalog-home .case-kicker,
+.catalog-home .note-label,
+.catalog-home .note-foot,
+.catalog-home .result-open,
+.catalog-home .result-slide figcaption,
+.catalog-home .showcase-bottom,
+.catalog-home .showcase-switches button,
+.catalog-home .showcase-play,
+.catalog-home .raw-note pre,
+.catalog-home .hd-tab,
+.catalog-home .hd-tab .hd-num,
+.catalog-home .hd-stage-caption,
+.catalog-home .sample-description,
+.catalog-home .diagram-command code,
+.catalog-home .diagram-command button,
+.catalog-home .deliverable-caption > span,
+.catalog-home .site-header .star-link { font-size:12px; }
+@media(max-width:700px) {
+ .catalog-home #hero h1 { font-size:clamp(32px,8.4vw,46px); }
+ .catalog-home #hero .lede { font-size:17px; line-height:1.65; }
+ .catalog-home .motion-visual .hero-concept-label { font-size:12px; }
 }

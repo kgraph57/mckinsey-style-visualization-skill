@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Strategy Consulting Visualization Skill — メモがそのまま、役員会のスライドになる。</title>
-    <meta name="description" content="AIエージェントのための1つのスキル。メモ・数値・文章を、コンサルティング品質のビジュアルに変換します。本物のSVGスライド、アニメーションするHTMLデッキ、あるいはデザイナーがそのまま実行できるspecとして。Python標準ライブラリのみ。" />
+    <title>Strategy Consulting Visualization Skill — 触って、判断を深めるスライド。</title>
+    <meta name="description" content="メモをコンサル型スライドと動く意思決定資料に。根拠を開く、条件を変える、判断を確かめる。v3のデモ動画と実際に操作できる資料を公開しています。" />
     <meta property="og:title" content="Strategy Consulting Visualization Skill" />
-    <meta property="og:description" content="AIエージェントで、ビジネスのメモをスライドとPDF資料に。実例を確認して、自分のメモで試せます。" />
+    <meta property="og:description" content="触って、判断を深めるスライド。動画で動きを確認し、根拠表示や条件変更を実際に試せます。" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://kgraph57.github.io/mckinsey-style-visualization-skill/site/og.png" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../site/css/tokens.css?v=20260909-ios2" />
     <link rel="stylesheet" href="../site/css/base.css?v=20260909-visual" />
     <link rel="stylesheet" href="../site/css/sections.css?v=20260909-visual" />
-    <link rel="stylesheet" href="../site/css/catalog.css?v=20260909-visual" />
+    <link rel="stylesheet" href="../site/css/catalog.css?v=20261018-motion" />
     <script type="module" src="../site/js/main.js"></script>
     <script type="module" src="../site/js/theater.js"></script>
     <script type="module" src="../site/js/showcase.js?v=20260909-visual"></script>
@@ -41,22 +41,38 @@
         <div class="wrap">
           <div class="hero-top">
             <div class="hd-intro">
-              <span class="hero-badge"><span class="status-dot" aria-hidden="true"></span> CLAUDE CODE・CODEX・CURSOR用の無料スキル</span>
-              <h1>メモを、<br /><em>コンサル型スライドに。</em></h1>
+              <span class="hero-badge">NEW · v3.0.0-rc.1 先行公開</span>
+              <h1>伝わるスライドから、<br /><em>触って考える資料へ。</em></h1>
             <div class="hero-pitch">
-              <p class="lede">AIエージェントに追加する無料スキル。ビジネスのメモから、図表・プレゼンスライド・A4のPDF資料を作れます。</p>
-              <p class="hd-actions"><a class="btn btn-primary" href="#preview">実例を見る <span aria-hidden="true">↓</span></a><a class="btn btn-ghost" href="#start">無料で導入する</a></p>
-              <p class="agent-strip">Claude Code・Codex・Cursorで使えます。</p><p class="try-requirement">実例の閲覧は、登録不要。</p>
+              <p class="lede">メモを、筋の通った提案に。根拠を開き、条件を変え、次の判断を確かめられる資料を作ります。</p>
+              <p class="hd-actions"><a class="btn btn-primary" href="../site/artifacts/project-relay.motion.html">動く資料を試す <span aria-hidden="true">↗</span></a><a class="btn btn-ghost" href="#start">無料で導入する</a></p>
+              <p class="agent-strip">Claude Code・Codex・Cursorで使えます。</p><p class="try-requirement">デモの閲覧は、登録・APIキー不要。</p>
             </div>
           </div>
-          <figure class="hero-visual">
-            <img src="../site/hero-deliverables.webp" width="1672" height="941" fetchpriority="high" alt="メモから生まれるスライド、戦略マトリクス、PDF資料のイメージ" />
-            <figcaption><span class="hero-visual-caption">伝わる資料から、次の意思決定へ。</span><span class="hero-concept-label">AI生成のコンセプト画像・実際の出力は下に掲載</span></figcaption>
+          <figure class="hero-visual motion-visual">
+            <video controls playsinline preload="metadata" poster="../demo/poster.png" width="1440" height="810" aria-label="英語版の動く意思決定資料を操作するデモ動画">
+              <source src="../demo/decision-story-demo.mp4" type="video/mp4" />
+              <a href="../demo/">デモ動画を再生する</a>
+            </video>
+            <figcaption><span class="hero-visual-caption">条件を変えると、判断も変わる。</span><span class="hero-concept-label">英語版の実操作を54秒で紹介 · 音声なし · 数値は説明用</span><a class="motion-transcript" href="../demo/">動画の説明・操作の流れを見る →</a></figcaption>
           </figure>
           </div>
           <div class="proof-strip" aria-label="スキルに含まれるもの"><p><strong>22</strong><span class="proof-patterns">種類の図表・スライド</span></p><p><strong>6</strong><span class="proof-decks">種類のデッキ雛形</span></p><p><strong>4</strong><span class="proof-formats">つの出力形式</span></p><p><strong>MIT</strong><span class="proof-license">利用・改変が可能</span></p></div>
         </div>
       </section>
+      <section id="interactive" aria-labelledby="interactive-title"><div class="wrap">
+        <div class="motion-story-intro">
+          <div><span class="kicker">意思決定につながる動く資料</span><h2 id="interactive-title">根拠を確かめて、<br />次の判断へ。</h2><p>6ページでつながる、試験導入の提案資料です。何を優先し、どんな条件なら進めるのかを、操作しながら確かめられます。</p></div>
+          <a class="motion-release" href="https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v3.0.0-rc.1">v3.0.0-rc.1の更新内容 →</a>
+        </div>
+        <div class="motion-actions">
+          <article><h3>根拠を開く。</h3><p>グラフを押すと、原因の内訳・出典・前提条件を確認できます。</p></article>
+          <article><h3>条件を変える。</h3><p>人員配置を切り替え、導入率を動かすと、順位や試算が変わります。</p></article>
+          <article><h3>判断を確かめる。</h3><p>準備度を変え、展開の条件がそろっているか、工程を進めながら確認できます。</p></article>
+        </div>
+        <div class="motion-editions"><a href="../site/artifacts/project-relay.motion.html">日本語で操作する ↗</a><a href="../site/artifacts/project-relay.motion.en.html">Explore in English ↗</a><a href="../site/artifacts/project-relay.motion.static.html">静止版で読む ↗</a></div>
+        <p class="motion-scope">Project Relayの数値はすべて説明用の架空データです。v3は先行公開版で、安定版は引き続き<a href="https://github.com/kgraph57/mckinsey-style-visualization-skill/releases/tag/v2.4.0">v2.4.0</a>です。SVG・通常デッキ・PDF資料も作れます。</p>
+      </div></section>
       <section id="preview" aria-labelledby="preview-title"><div class="wrap">
         <div class="section-intro"><span class="kicker preview-kicker">メモから、スライドへ</span><h2 id="preview-title">そのメモが、どんな資料になるか。</h2><p class="preview-intro">ビジネスの問いを選び、元のメモと実際の出力を見比べてください。</p></div>
           <div class="showcase" id="showcase">
@@ -103,7 +119,7 @@ ARRは$10Mから$15Mへ
         <div class="preview-next"><div><h3 class="preview-next-title">次は、あなたのビジネスの問いで。</h3><p class="preview-next-note">AnthropicのAPIキーを使ってブラウザで試すか、AIエージェントに無料スキルを導入できます。</p></div><div class="preview-next-actions"><a class="btn btn-primary preview-try" href="./try/">自分のメモで試す ↗</a><a class="preview-install" href="#start">無料スキルを導入する →</a></div></div>
       </div></section>
       <section id="demo" aria-labelledby="demo-title"><div class="wrap">
-        <div class="section-intro"><span class="kicker">一枚の図表から、資料全体へ</span><h2 id="demo-title">導入から意思決定まで、ひとつの流れに。</h2><p>全9枚の役員会デッキをご覧ください。すべてこのスキルから生成しています。</p></div>
+        <div class="section-intro"><span class="kicker">通常のプレゼンテーション資料</span><h2 id="demo-title">導入から意思決定まで、ひとつの流れに。</h2><p>従来の全9枚の役員会デッキもご覧ください。すべてこのスキルから生成しています。</p></div>
           <div class="hd-theater" id="hd-theater" data-theater>
             <div class="hd-tabs" role="tablist" aria-label="製品デモ">
               <button type="button" class="hd-tab is-active" role="tab" id="hd-tab-deck" aria-selected="true" aria-controls="hd-panel-deck" data-panel="deck"><span class="hd-num">01</span> ライブデッキ</button>
@@ -241,7 +257,7 @@ ARRは$10Mから$15Mへ
               </li>
               <li class="pl-step">
                 <span class="pl-num">04</span>
-                <span class="pl-label">アニメーションHTMLデッキ／PDF</span>
+                <span class="pl-label">動く資料・静止版・PDF</span>
               </li>
             </ol>
             <div class="pl-track" aria-hidden="true">
@@ -268,11 +284,13 @@ ARRは$10Mから$15Mへ
 <span class="st-line">git clone https://github.com/kgraph57/mckinsey-style-visualization-skill.git ~/.claude/skills/strategy-consulting-visualization</span>
 <span class="st-line">cd ~/.claude/skills/strategy-consulting-visualization</span>
 <span class="st-line">python3 scripts/render_slide_spec.py examples/render-specs/arr-waterfall.json -o slide.svg</span>
-<span class="st-line">python3 scripts/build_html_deck.py --manifest examples/demo-deck.json -o deck.html</span></code></pre>
+<span class="st-line">python3 scripts/build_html_deck.py --manifest examples/demo-deck.json -o deck.html</span>
+<span class="st-line">python3 scripts/build_motion_deck.py --manifest examples/interactive-deck/motion.en.json -o deck.motion.html</span></code></pre>
             <button class="st-copy" type="button" data-copy="#st-commands">コピー</button>
           </div>
           <p class="st-ask">ターミナルを使わず、エージェントに頼むだけでも。</p>
-          <p class="st-prompt">strategy consulting visualizationスキルで、このメモを役員会スライドにして…</p>
+          <p class="st-prompt">strategy consulting visualizationスキルで、このメモを動く意思決定資料にしてください。クリックで根拠を開き、条件を変えて試算できるようにし、静止版も作ってください。</p>
+          <p class="st-motion-guide"><a href="https://github.com/kgraph57/mckinsey-style-visualization-skill/blob/main/references/motion-story.md">動く資料の作り方を読む →</a></p>
         </div>
       </section>
     </main>
