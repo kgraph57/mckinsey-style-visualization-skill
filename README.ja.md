@@ -13,7 +13,7 @@ AIエージェントに載せるひとつのスキルで、メモ・数値・文
 
 [English](README.md) | 日本語
 
-[![英語版の動く意思決定資料のデモ動画](assets/readme/decision-story-demo-clean.gif)](https://kgraph57.github.io/mckinsey-style-visualization-skill/demo/)
+[![英語版の動く意思決定資料のデモ動画](assets/readme/decision-story-demo-frameless.gif)](https://kgraph57.github.io/mckinsey-style-visualization-skill/demo/)
 
 **[デモ動画を再生する →](https://kgraph57.github.io/mckinsey-style-visualization-skill/demo/)**
 
