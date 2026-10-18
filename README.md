@@ -15,7 +15,7 @@ Rendering existing JSON specs into SVG/HTML uses the Python 3 standard library o
 
 English | [日本語](README.ja.md)
 
-[![Watch the English interactive decision story demo](assets/readme/decision-story-demo.gif)](https://kgraph57.github.io/mckinsey-style-visualization-skill/demo/)
+[![Watch the English interactive decision story demo](assets/readme/decision-story-demo-clean.gif)](https://kgraph57.github.io/mckinsey-style-visualization-skill/demo/)
 
 **[Watch the full demo with playback controls →](https://kgraph57.github.io/mckinsey-style-visualization-skill/demo/)**
 
