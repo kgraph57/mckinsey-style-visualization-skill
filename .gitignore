@@ -47,6 +47,7 @@ outputs/
 !examples/interactive-deck/deck.pdf
 !docs/site/artifacts/reference-layouts/decision-brief.pdf
 !docs/site/artifacts/demo-deck.pdf
+!docs/site/artifacts/project-relay.pdf
 
 !docs/site/decision-brief-preview.png
 !tests/e2e/baselines/chromium-linux/
